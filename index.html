@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forbach & Partners — Predictive Maintenance für CNC-Fräszentren</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #e4b15e;
+  --gold-light: #f8dfa5;
+  --gold-dark: #c49040;
+  --black: #000000;
+  --dark: #0a0a0a;
+  --dark-2: #111111;
+  --dark-3: #1a1a1a;
+  --dark-card: #141414;
+  --border: rgba(228,177,94,0.18);
+  --border-strong: rgba(228,177,94,0.4);
+  --text: #ffffff;
+  --text-dim: #a0a0a0;
+  --text-muted: #5a5a5a;
+  --green: #00ff88;
+  --red: #ff3860;
+  --amber: #ffb800;
+  --blue: #00b4ff;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Raleway', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 2rem 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(228,177,94,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,180,255,0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #000 0%, #0a0507 50%, #000 100%);
+}
+
+/* Industrial grid overlay */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(228,177,94,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(228,177,94,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+/* Scanning line */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(228,177,94,0.5), transparent);
+  animation: scanline 4s linear infinite;
+  top: 0;
+}
+@keyframes scanline {
+  0%   { top: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+.hero-title .gold {
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #c49040);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.hero-stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+.hero-stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
+  color: #000;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(248,223,165,0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-outline:hover {
+  background: rgba(228,177,94,0.08);
+  border-color: var(--gold);
+}
+
+/* ── LIVE MACHINE PANEL ── */
+.hero-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.machine-card {
+  background: var(--dark-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.machine-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.machine-card.status-ok { border-top: 2px solid var(--green); }
+.machine-card.status-warn { border-top: 2px solid var(--amber); animation: warn-pulse 2s ease-in-out infinite; }
+.machine-card.status-crit { border-top: 2px solid var(--red); animation: crit-pulse 1.5s ease-in-out infinite; }
+
+@keyframes warn-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,184,0,0.0); }
+  50%      { box-shadow: 0 0 20px 2px rgba(255,184,0,0.2); }
+}
+@keyframes crit-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,56,96,0.0); }
+  50%      { box-shadow: 0 0 25px 4px rgba(255,56,96,0.3); }
+}
+
+.mc-id {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.mc-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 2px 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.mc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.mc-status.ok   { background: rgba(0,255,136,0.1); color: var(--green); }
+.mc-status.warn { background: rgba(255,184,0,0.1);  color: var(--amber); }
+.mc-status.crit { background: rgba(255,56,96,0.15); color: var(--red); }
+.mc-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor;
+  animation: blink 1.2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* Mini gauge */
+.mc-gauge-row { display: flex; gap: 6px; }
+.mc-gauge {
+  flex: 1;
+}
+.mc-gauge-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.mc-gauge-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mc-gauge-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+.fill-ok   { background: linear-gradient(90deg, #00ff88, #4ade80); box-shadow: 0 0 6px #00ff8866; }
+.fill-warn { background: linear-gradient(90deg, #ffb800, #ffd33d); box-shadow: 0 0 6px #ffb80066; }
+.fill-crit { background: linear-gradient(90deg, #ff3860, #ff7b9c); box-shadow: 0 0 8px #ff386066; }
+
+.mc-val {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-top: 3px;
+  text-align: right;
+}
+.mc-val.ok   { color: var(--green); }
+.mc-val.warn { color: var(--amber); }
+.mc-val.crit { color: var(--red); }
+
+/* Tiny sparkline */
+.mc-spark {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  opacity: 0.5;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 6rem 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-full {
+  padding: 6rem 2rem;
+  background: var(--dark-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  letter-spacing: 1px;
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+.section-title .gold {
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #c49040);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 3.5rem;
+}
+
+/* ── ROI RECHNER ── */
+.roi-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+@media (max-width: 900px) { .roi-wrapper { grid-template-columns: 1fr; } }
+
+.roi-left { }
+.roi-right {
+  background: var(--dark-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.roi-right::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+}
+
+/* Machines grid input */
+.machines-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.machine-input-card {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.machine-input-card:hover { border-color: var(--border-strong); }
+
+.mic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.mic-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.mic-icon {
+  font-size: 1rem;
+}
+
+.mic-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.mic-field input {
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 6px 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 6px;
+}
+.mic-field input:focus { border-color: var(--gold-dark); }
+
+.mic-risk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.mic-risk-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.mic-risk-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mic-risk-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+.mic-risk-val {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  min-width: 28px;
+  text-align: right;
+}
+
+/* ROI Results */
+.roi-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.roi-result-card {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.roi-result-card.highlight {
+  background: linear-gradient(135deg, rgba(228,177,94,0.12), rgba(228,177,94,0.04));
+  border-color: var(--border-strong);
+}
+.rrc-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.rrc-val {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.rrc-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Amortisation bar */
+.amort-bar-wrap {
+  margin-bottom: 1.5rem;
+}
+.amort-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.amort-track {
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.amort-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+  border-radius: 4px;
+  transition: width 0.8s ease;
+  box-shadow: 0 0 12px rgba(228,177,94,0.4);
+}
+
+/* ── FULL MACHINE MONITOR ── */
+.machines-monitor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+@media (max-width: 1100px) { .machines-monitor { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .machines-monitor { grid-template-columns: 1fr; } }
+
+.monitor-card {
+  background: var(--dark-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.monitor-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+.monitor-card.crit {
+  border-color: rgba(255,56,96,0.4);
+  animation: crit-border 2s ease-in-out infinite;
+}
+@keyframes crit-border {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,56,96,0); }
+  50%      { box-shadow: 0 0 30px 2px rgba(255,56,96,0.2); }
+}
+
+.mc-top-bar {
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+.mc-top-bar.ok   { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+.mc-top-bar.warn { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+.mc-top-bar.crit { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+
+.mc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.mc-code {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+.mc-title { font-size: 0.92rem; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mc-type  { font-size: 0.7rem; color: var(--text-dim); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+.badge.ok   { background: rgba(0,255,136,0.08); color: var(--green); border-color: rgba(0,255,136,0.25); }
+.badge.warn { background: rgba(255,184,0,0.08);  color: var(--amber); border-color: rgba(255,184,0,0.25); }
+.badge.crit { background: rgba(255,56,96,0.12);  color: var(--red);   border-color: rgba(255,56,96,0.4); }
+.badge-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* Risk ring */
+.risk-ring-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.risk-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.risk-ring svg { transform: rotate(-90deg); }
+.ring-bg  { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 6; }
+.ring-fg  { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+.ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ring-pct {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.ring-lbl { font-size: 0.45rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
+.risk-desc { font-size: 0.72rem; color: var(--text-dim); line-height: 1.5; }
+
+/* Sensor tiles */
+.sensor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
+.sensor-tile {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+.st-label { font-family: var(--font-mono); font-size: 0.5rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.st-val   { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; margin-top: 2px; }
+.st-val.ok   { color: var(--text); }
+.st-val.warn { color: var(--amber); }
+.st-val.crit { color: var(--red); }
+
+/* Maintenance bar */
+.maint-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 12px;
+}
+.maint-bar.urgent { background: rgba(255,56,96,0.08); border-color: rgba(255,56,96,0.3); }
+.maint-bar.soon   { background: rgba(255,184,0,0.06);  border-color: rgba(255,184,0,0.25); }
+.maint-icon { font-size: 1.1rem; }
+.maint-text { flex: 1; }
+.maint-label { font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono); }
+.maint-time { font-size: 0.8rem; font-weight: 700; }
+.urgent .maint-time { color: var(--red); }
+.soon .maint-time   { color: var(--amber); }
+
+/* ── SERVICES GRID ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
+
+.service-card {
+  background: var(--dark-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.35s;
+  text-decoration: none;
+  display: block;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+}
+
+.sc-number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  color: rgba(228,177,94,0.12);
+  line-height: 1;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+.service-card:hover .sc-number { color: rgba(228,177,94,0.25); }
+
+.sc-icon  { font-size: 2rem; margin-bottom: 1rem; }
+.sc-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  transition: color 0.3s;
+}
+.service-card:hover .sc-title { color: var(--gold-light); }
+.sc-desc  { font-size: 0.875rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.5rem; }
+
+.sc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.sc-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.trust-item {
+  text-align: center;
+}
+.trust-val {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+.trust-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  text-align: center;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(228,177,94,0.06) 0%, transparent 70%);
+}
+.cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+.cta-sub {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── EXPERTISE STRIP ── */
+.expertise-strip {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  justify-content: center;
+}
+.exp-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(228,177,94,0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+.exp-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--dark-2);
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.footer-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+}
+.footer-link:hover { color: var(--gold); }
+.footer-copy {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+  *,*::before,*::after{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, auto;}
+  a,button,[role=button],.service-card,.monitor-card,.machine-card{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, pointer;}
+
+/* ── NAVIGATION ── */
+nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);border:1px solid rgba(228,177,94,0.4);border-radius:14px;padding:0 1.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:min(1200px,calc(100vw - 2rem));}
+.nav-logo{font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:0.15rem;}
+.nav-link{color:#a0a0a0;text-decoration:none;font-size:0.78rem;padding:0.4rem 0.65rem;border-radius:6px;transition:all 0.2s;white-space:nowrap;}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,0.06);}
+.nav-link.active{color:#e4b15e;background:none;}
+.nav-right{display:flex;align-items:center;gap:0.6rem;}
+.nav-phone{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#a0a0a0;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:0.3rem;}
+.nav-phone:hover{color:#e4b15e;}
+.nav-cta{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.4rem 1.1rem;border-radius:6px;font-weight:700;font-size:0.78rem;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.nav-cta:hover{box-shadow:0 4px 20px rgba(248,223,165,0.3);transform:translateY(-1px);}
+.lang-toggle{background:rgba(228,177,94,0.1);border:1px solid rgba(228,177,94,0.3);border-radius:6px;padding:0.3rem 0.6rem;font-size:0.72rem;font-family:'JetBrains Mono',monospace;color:#e4b15e;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+.lang-toggle:hover{background:rgba(228,177,94,0.2);border-color:#e4b15e;}
+@media(max-width:900px){.nav-links{display:none;}.nav-phone{display:none;}}
+@media(max-width:960px){#referenzen .case-grid{grid-template-columns:1fr 1fr!important;}}
+@media(max-width:640px){#referenzen .case-grid{grid-template-columns:1fr!important;} .spindle-check-inner{grid-template-columns:1fr!important;}}
+@media(max-width:500px){.nav-logo{font-size:0.9rem;}}
+
+/* ── CONTACT FORM ── */
+.contact-section{padding:5rem 2rem;background:var(--dark-2,#111);border-top:1px solid rgba(228,177,94,0.15);}
+.contact-inner{max-width:680px;margin:0 auto;}
+.contact-form{display:grid;gap:1rem;margin-top:2.5rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-label{font-family:var(--font-m,'JetBrains Mono',monospace);font-size:0.62rem;color:rgba(228,177,94,0.8);text-transform:uppercase;letter-spacing:2px;}
+.form-input,.form-select,.form-textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.2);border-radius:8px;padding:0.75rem 1rem;color:#fff;font-family:inherit;font-size:0.875rem;transition:border-color 0.2s,background 0.2s;width:100%;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:rgba(228,177,94,0.7);background:rgba(228,177,94,0.04);}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23e4b15e' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
+.form-select option{background:#111;color:#fff;}
+.form-textarea{resize:vertical;min-height:120px;line-height:1.6;}
+.form-submit{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;border:none;padding:0.9rem 2rem;border-radius:8px;font-weight:700;font-size:0.875rem;cursor:pointer;transition:all 0.3s;letter-spacing:0.5px;width:100%;}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(248,223,165,0.35);}
+.form-submit:disabled{opacity:0.6;transform:none;cursor:not-allowed;}
+.form-success{display:none;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:1.5rem;text-align:center;color:#00ff88;font-family:var(--font-m,'JetBrains Mono',monospace);font-size:0.8rem;letter-spacing:1px;}
+.form-error{display:none;background:rgba(255,56,96,0.08);border:1px solid rgba(255,56,96,0.3);border-radius:10px;padding:1rem;text-align:center;color:#ff3860;font-size:0.8rem;}
+
+</style>
+</head>
+<body style="overflow-x:hidden;">
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="ueber-uns.html" class="nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a href="cnc-fraeszentren.html" class="nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="kontakt.html" class="nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+  </div>
+  <div class="nav-right">
+    <a href="tel:004921190989962" class="nav-phone"><span class="de">📞 Jetzt anrufen</span><span class="en">📞 Call Now</span></a>
+    <div class="lang-toggle-nav">
+      <button type="button" class="lang-btn-nav btn-de active" onclick="setLang('de')">DE</button>
+      <button type="button" class="lang-btn-nav btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="mailto:info@forbachandpartners.com" class="nav-cta" id="navCta"><span class="de">Termin anfragen</span><span class="en">Book Meeting</span></a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <!-- LEFT -->
+    <div>
+      <div class="hero-eyebrow"><span class="de">Predictive Intelligence · CNC-Fräszentren</span><span class="en">Predictive Intelligence · CNC Machining Centers</span></div>
+      <h1 class="hero-title">
+        <span class="de">SPINDELN<br>DIE <span class="gold">WARNEN</span><br>BEVOR SIE<br>VERSAGEN</span>
+        <span class="en">SPINDLES<br>THAT <span class="gold">WARN</span><br>BEFORE THEY<br>FAIL</span>
+      </h1>
+      <p class="hero-sub">
+        <span class="de">KI-gestützte Zustandsüberwachung für CNC-Fräszentren und Bearbeitungszentren. Achslager, Spindeln, Werkzeugwechsler — wir erkennen Ausfälle 48–72 h bevor sie passieren.</span>
+        <span class="en">AI-powered condition monitoring for CNC machining centers. Spindle bearings, tool changers, feed axes — we detect failures 48–72 h before they happen.</span>
+      </p>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-val">487 h</span>
+          <span class="hero-stat-label de">Spindelausfall verhindert</span>
+          <span class="hero-stat-label en">Spindle downtime prevented</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">€ 684K</span>
+          <span class="hero-stat-label de">Ersparnis 12 Monate</span>
+          <span class="hero-stat-label en">Savings over 12 months</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">95,2 %</span>
+          <span class="hero-stat-label de">Prognose-Konfidenz</span>
+          <span class="hero-stat-label en">Prediction confidence</span>
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:0.52rem;color:var(--text-muted);letter-spacing:1px;margin-top:-1.2rem;margin-bottom:1.8rem;line-height:1.5;">
+        <span class="de">* Beispielrechnung: 8 CNC-Fräszentren, 12 Monate Pilotbetrieb · Individuelle Ergebnisse variieren</span>
+        <span class="en">* Sample calculation: 8 CNC machining centers, 12 months pilot · Individual results may vary</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#roi" class="btn-gold"><span class="de">ROI berechnen</span><span class="en">Calculate ROI</span></a>
+        <a href="mailto:info@forbachandpartners.com" class="btn-outline"><span class="de">Jetzt Termin buchen</span><span class="en">Book a Meeting</span></a>
+      </div>
+    </div>
+
+    <!-- RIGHT: LIVE MINI DASHBOARD -->
+    <div class="hero-panel" id="heroDashboard"></div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <span class="trust-val">3–5-Achs</span>
+    <span class="trust-label de">CNC-Zentren überwacht</span>
+    <span class="trust-label en">CNC centers monitored</span>
+  </div>
+  <div class="trust-item">
+    <span class="trust-val">12</span>
+    <span class="trust-label de">Sensoren pro Spindel</span>
+    <span class="trust-label en">Sensors per spindle</span>
+  </div>
+  <div class="trust-item">
+    <span class="trust-val">2,4 Mio.</span>
+    <span class="trust-label de">Trainings-Datenpunkte</span>
+    <span class="trust-label en">Training data points</span>
+  </div>
+  <div class="trust-item">
+    <span class="trust-val">0,8 s</span>
+    <span class="trust-label de">Echtzeit-Latenz</span>
+    <span class="trust-label en">Real-time latency</span>
+  </div>
+  <div class="trust-item">
+    <span class="trust-val">14</span>
+    <span class="trust-label de">Spindelausfälle verhindert</span>
+    <span class="trust-label en">Spindle failures prevented</span>
+  </div>
+</div>
+
+<!-- Expertise badges -->
+<div class="expertise-strip">
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">Spindel-Überwachung</span><span class="en">Spindle Monitoring</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">Achslager-Diagnose</span><span class="en">Bearing Diagnostics</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">Werkzeugwechsler-Monitoring</span><span class="en">Tool Changer Monitoring</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">Vorschubachsen-Analyse</span><span class="en">Feed Axis Analysis</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">Kühlmittel-Überwachung</span><span class="en">Coolant Monitoring</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span><span class="de">3- bis 5-Achs-Zentren</span><span class="en">3- to 5-Axis Centers</span></div>
+  <div class="exp-badge"><span class="exp-dot"></span>OPC-UA / MQTT</div>
+  <div class="exp-badge"><span class="exp-dot"></span>DMG, Mazak, Heidenhain</div>
+</div>
+
+
+
+<!-- ══════════════════════════════════════════
+     ROI RECHNER
+══════════════════════════════════════════ -->
+<div id="roi" class="section-full">
+  <div class="section-inner">
+    <div class="section-label"><span class="de">ROI-Kalkulator</span><span class="en">ROI Calculator</span></div>
+    <h2 class="section-title">
+      <span class="de">IHR PERSÖNLICHER<br><span class="gold">STILLSTANDS-RECHNER</span></span>
+      <span class="en">YOUR PERSONAL<br><span class="gold">DOWNTIME CALCULATOR</span></span>
+    </h2>
+    <p class="section-sub">
+      <span class="de">Geben Sie Ihre Maschinendaten ein — wir zeigen Ihnen in Echtzeit, was ungeplante Ausfälle Sie wirklich kosten und was Sie mit unserem System sparen.</span>
+      <span class="en">Enter your machine data — we show you in real time what unplanned failures really cost and how much you save with our system.</span>
+    </p>
+
+    <div class="roi-wrapper">
+      <!-- LEFT: Machine inputs -->
+      <div class="roi-left">
+        <div class="machines-grid" id="machineInputs"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn-gold" onclick="calcROI()" style="flex:1; min-width:140px;"><span class="de">ROI berechnen</span><span class="en">Calculate ROI</span></button>
+          <button class="btn-outline" onclick="resetROI()" style="flex:0; padding:0.85rem 1.25rem; font-size:0.8rem;"><span class="de">Zurücksetzen</span><span class="en">Reset</span></button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Results -->
+      <div class="roi-right">
+        <div style="font-family:var(--font-mono); font-size:0.62rem; color:var(--text-muted); letter-spacing:3px; text-transform:uppercase; margin-bottom:1.25rem;">
+          <span class="de">Live-Kalkulation · Ergebnis</span><span class="en">Live calculation · Result</span>
+        </div>
+
+        <div class="roi-result-grid">
+          <div class="roi-result-card highlight">
+            <div class="rrc-label"><span class="de">Ihr Verlust / Jahr</span><span class="en">Your loss / year</span></div>
+            <div class="rrc-val" id="roiLoss">€ 0</div>
+            <div class="rrc-sub"><span class="de">ungeplante Stillstände</span><span class="en">unplanned downtime</span></div>
+          </div>
+          <div class="roi-result-card highlight">
+            <div class="rrc-label"><span class="de">Ihre Ersparnis / Jahr</span><span class="en">Your savings / year</span></div>
+            <div class="rrc-val" id="roiSaving">€ 0</div>
+            <div class="rrc-sub"><span class="de">durch KI-Prognose (Ø 72 %)</span><span class="en">via AI prediction (avg. 72%)</span></div>
+          </div>
+          <div class="roi-result-card">
+            <div class="rrc-label"><span class="de">Investition (Software + Wartung/Jahr)</span><span class="en">Investment (software + maintenance/year)</span></div>
+            <div class="rrc-val" id="roiInvest">€ 0</div>
+            <div id="roiInvestDetail" style="margin-top:5px;line-height:1.5;">
+              <span style="color:var(--text-muted);font-size:0.58rem;"><span class="de">Ab 10 Maschinen: Mengenrabatt aktiv</span><span class="en">From 10 machines: volume discount active</span></span>
+            </div>
+          </div>
+          <div class="roi-result-card">
+            <div class="rrc-label"><span class="de">ROI im ersten Jahr</span><span class="en">ROI in year one</span></div>
+            <div class="rrc-val" id="roiPercent">0 %</div>
+            <div class="rrc-sub"><span class="de">Rendite auf Investition</span><span class="en">return on investment</span></div>
+          </div>
+        </div>
+
+        <div class="amort-bar-wrap">
+          <div class="amort-label">
+            <span class="de">Amortisation in</span><span class="en">Payback in</span>
+            <span id="amortMonths" style="color:var(--gold);">— <span class="de">Monate</span><span class="en">months</span></span>
+          </div>
+          <div class="amort-track">
+            <div class="amort-fill" id="amortFill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div id="roiMessage" style="background:rgba(228,177,94,0.06); border:1px solid var(--border); border-radius:10px; padding:1rem; font-size:0.8rem; color:var(--text-dim); line-height:1.6;">
+          <span class="de">Geben Sie Ihre Maschinendaten links ein und klicken Sie auf „ROI berechnen“ — die Kalkulation erscheint hier in Echtzeit.</span>
+          <span class="en">Enter your machine data on the left and click “Calculate ROI” — the result appears here in real time.</span>
+        </div>
+
+        <div style="margin-top:1.25rem; text-align:center;">
+          <a href="#kontakt" class="btn-gold" style="display:inline-block; width:100%; text-align:center;">
+            <span class="de">Kostenloses Beratungsgespräch vereinbaren →</span>
+            <span class="en">Book a free consultation →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FULL MACHINE MONITOR
+══════════════════════════════════════════ -->
+<div id="maschinen" class="section">
+  <div class="section-label"><span class="de">Live Telemetrie · Echtzeit-Überwachung</span><span class="en">Live Telemetry · Real-Time Monitoring</span></div>
+  <h2 class="section-title">
+    <span class="de">SO SEHEN<br><span class="gold">IHRE CNC-ANLAGEN</span><br>BEI UNS AUS</span>
+    <span class="en">THIS IS HOW<br><span class="gold">YOUR CNC MACHINES</span><br>LOOK WITH US</span>
+  </h2>
+  <p class="section-sub">
+    <span class="de">Spindeln, Achslager, Kühlmittel — jederzeit im Blick. Unsere KI erkennt Ausfallmuster an CNC-Bearbeitungszentren 48–72 Stunden im Voraus.</span>
+    <span class="en">Spindles, bearings, coolant — always in view. Our AI detects failure patterns on CNC machining centers 48–72 hours in advance.</span>
+  </p>
+
+  <div class="machines-monitor" id="fullDashboard"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MASCHINENVERLAUF (aufklappbar)
+══════════════════════════════════════════ -->
+<div class="section" id="verlauf-section">
+  <div class="verlauf-toggle" id="verlaufToggle" onclick="toggleVerlauf()">
+    <div style="display:flex;align-items:center;gap:1.25rem;">
+      <div style="width:42px;height:42px;background:rgba(228,177,94,0.15);border:1px solid rgba(228,177,94,0.4);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📈</div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:2px;"><span class="de">Maschinenhistorie · Zum Öffnen klicken</span><span class="en">Machine History · Click to expand</span></div>
+        <h3 style="font-family:var(--font-display);font-size:1.4rem;letter-spacing:1px;color:#fff;"><span class="de">7-TAGE-VERLAUFSBERICHT <span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">ALLE ANLAGEN</span></span><span class="en">7-DAY TREND REPORT <span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">ALL MACHINES</span></span></h3>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div id="verlaufSummary" style="display:flex;gap:0.75rem;font-family:var(--font-mono);font-size:0.62rem;">
+        <span style="color:var(--green);background:rgba(0,255,136,0.08);padding:3px 8px;border-radius:4px;">● 5 NORMAL</span>
+        <span style="color:var(--amber);background:rgba(255,184,0,0.08);padding:3px 8px;border-radius:4px;">● 2 ACHTUNG</span>
+        <span style="color:var(--red);background:rgba(255,56,96,0.08);padding:3px 8px;border-radius:4px;">● 1 KRITISCH</span>
+      </div>
+      <div class="verlauf-chevron" id="verlaufChevron" style="font-size:1.2rem;color:var(--gold);">▼</div>
+    </div>
+  </div>
+  <div class="verlauf-body" id="verlaufBody">
+    <div class="verlauf-inner" id="verlaufInner"></div>
+  </div>
+</div>
+
+<style>
+.verlauf-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(228,177,94,0.08) 0%, rgba(20,14,5,1) 60%);
+  border: 1.5px solid rgba(228,177,94,0.5);
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  user-select: none;
+  box-shadow: 0 0 30px rgba(228,177,94,0.06);
+  margin-top: 0.5rem;
+}
+.verlauf-toggle:hover { background: rgba(228,177,94,0.1); border-color: var(--gold); box-shadow: 0 0 40px rgba(228,177,94,0.12); }
+.verlauf-chevron {
+  font-size: 0.9rem;
+  color: var(--gold);
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.verlauf-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.verlauf-body.open { max-height: 4000px; }
+.verlauf-chevron.open { transform: rotate(180deg); }
+.verlauf-inner {
+  padding-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px) { .verlauf-inner { grid-template-columns: 1fr; } }
+
+.vcard {
+  background: var(--dark-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s;
+}
+.vcard:hover { border-color: var(--border-strong); }
+.vcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.vcard-id { font-family: var(--font-mono); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
+.vcard-name { font-size: 0.9rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vcard-badge { font-family: var(--font-mono); font-size: 0.58rem; padding: 3px 9px; border-radius: 4px; letter-spacing: 1px; white-space: nowrap; }
+.vcard-badge.ok   { background: rgba(0,255,136,0.1);  color: var(--green); }
+.vcard-badge.warn { background: rgba(255,184,0,0.12); color: var(--amber); }
+.vcard-badge.crit { background: rgba(255,56,96,0.15); color: var(--red); }
+
+.vcard-charts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+.vchart { }
+.vchart-label { font-family: var(--font-mono); font-size: 0.52rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: flex; justify-content: space-between; }
+.vchart-label span { color: var(--text); font-weight: 600; }
+.vchart svg { width: 100%; height: 52px; display: block; }
+.vchart-days { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.44rem; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.5px; }
+
+.vcard-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+.trend-arrow { font-size: 0.85rem; font-weight: 700; }
+.trend-up   { color: var(--red); }
+.trend-down { color: var(--green); }
+.trend-flat { color: var(--amber); }
+</style>
+
+<script>
+// ─────────────────────────────────────────────
+// VERLAUF TOGGLE
+// ─────────────────────────────────────────────
+function toggleVerlauf() {
+  const body = document.getElementById('verlaufBody');
+  const chev = document.getElementById('verlaufChevron');
+  const open = body.classList.toggle('open');
+  chev.classList.toggle('open', open);
+  if (open && !document.getElementById('verlaufInner').children.length) {
+    renderVerlauf();
+  }
+}
+
+// ─────────────────────────────────────────────
+// GENERATE 7-DAY TREND DATA
+// ─────────────────────────────────────────────
+function genTrend(base, noise, drift, points) {
+  const d = [];
+  let v = base;
+  for (let i = 0; i < points; i++) {
+    v += (Math.random() - 0.5) * noise + drift / points;
+    v = Math.max(base * 0.6, Math.min(base * 1.6, v));
+    d.push(+v.toFixed(2));
+  }
+  return d;
+}
+
+function makeSpark(data, color, w, h) {
+  const min = Math.min(...data), max = Math.max(...data);
+  const range = max - min || 1;
+  const pts = data.map((v,i) => {
+    const x = (i / (data.length - 1)) * w;
+    const y = h - 4 - ((v - min) / range) * (h - 8);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const area = `${0},${h} ` + pts + ` ${w},${h}`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <defs><linearGradient id="sg${Math.random().toString(36).slice(2,6)}" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <polygon points="${area}" fill="url(#sg${Math.random().toString(36).slice(2,6)})" opacity="0.5"/>
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${pts.split(' ').pop().split(',')[0]}" cy="${pts.split(' ').pop().split(',')[1]}" r="2.5" fill="${color}"/>
+  </svg>`;
+}
+
+function renderVerlauf() {
+  const container = document.getElementById('verlaufInner');
+  const days = isLangEN() ? ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] : ['Mo','Di','Mi','Do','Fr','Sa','So'];
+  const POINTS = 28; // 4 per day × 7 days
+
+  container.innerHTML = machines.map(m => {
+    const col = m.status==='ok' ? '#00ff88' : m.status==='warn' ? '#ffb800' : '#ff3860';
+    const drift = m.status==='crit' ? 3 : m.status==='warn' ? 1.2 : -0.5;
+    const riskDrift = m.status==='crit' ? 12 : m.status==='warn' ? 5 : -2;
+
+    const tempData = genTrend(m.temp.val, m.temp.val * 0.06, drift * (m.temp.val * 0.02), POINTS);
+    const vibData  = genTrend(m.vib.val,  m.vib.val  * 0.15, drift * 0.04, POINTS);
+    const riskData = genTrend(m.risk,     m.risk * 0.08,      riskDrift, POINTS);
+
+    // Clamp risk
+    riskData.forEach((_,i) => { riskData[i] = Math.min(99, Math.max(1, riskData[i])); });
+
+    const lastTemp = tempData[tempData.length-1].toFixed(1);
+    const lastVib  = vibData[vibData.length-1].toFixed(2);
+    const lastRisk = Math.round(riskData[riskData.length-1]);
+
+    const trendDir = riskDrift > 3 ? t('↑ STEIGEND', '↑ RISING') : riskDrift > 0 ? t('↗ LEICHT STEIGEND', '↗ SLIGHTLY RISING') : t('↓ SINKEND', '↓ FALLING');
+    const trendCls = riskDrift > 3 ? 'trend-up' : riskDrift > 0 ? 'trend-flat' : 'trend-down';
+
+    const tW = 200, tH = 52;
+    return `
+    <div class="vcard">
+      <div class="vcard-header">
+        <div>
+          <div class="vcard-id">${m.id}</div>
+          <div class="vcard-name">${m.icon} ${m.name}</div>
+        </div>
+        <span class="vcard-badge ${m.status}">${statusLabel(m.status)}</span>
+      </div>
+      <div class="vcard-charts">
+        <div class="vchart">
+          <div class="vchart-label">${t('Temperatur', 'Temperature')} <span>${lastTemp}${m.temp.unit}</span></div>
+          ${makeSpark(tempData, col, tW, tH)}
+          <div class="vchart-days">${days.map(d=>`<span>${d}</span>`).join('')}</div>
+        </div>
+        <div class="vchart">
+          <div class="vchart-label">${t('Vibration', 'Vibration')} <span>${lastVib}mm/s</span></div>
+          ${makeSpark(vibData, col, tW, tH)}
+          <div class="vchart-days">${days.map(d=>`<span>${d}</span>`).join('')}</div>
+        </div>
+        <div class="vchart">
+          <div class="vchart-label">${t('Risiko-Score', 'Risk score')} <span>${lastRisk}%</span></div>
+          ${makeSpark(riskData, col, tW, tH)}
+          <div class="vchart-days">${days.map(d=>`<span>${d}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="vcard-trend">
+        <span class="trend-arrow ${trendCls}">${riskDrift > 3 ? '↑' : riskDrift > 0 ? '↗' : '↓'}</span>
+        <span>${t('TREND', 'TREND')}: <strong style="color:${col}">${trendDir}</strong></span>
+        <span style="margin-left:auto;">${t('7-Tage-Ø Risiko', '7-day avg risk')}: <strong>${Math.round(riskData.reduce((a,b)=>a+b,0)/riskData.length)}%</strong></span>
+        <span>${t('Laufzeit', 'Runtime')}: <strong>${m.runtime.val}${m.runtime.unit}</strong></span>
+        <span>${t('Wartung', 'Maintenance')}: <strong>${mMaint(m)}</strong></span>
+      </div>
+    </div>`;
+  }).join('');
+}
+</script>
+
+<!-- ══════════════════════════════════════════
+     SERVICES / BEREICHE
+══════════════════════════════════════════ -->
+<div class="section-full">
+  <div class="section-inner">
+    <div class="section-label"><span class="de">Unsere Bereiche</span><span class="en">Our Expertise</span></div>
+    <h2 class="section-title">
+      <span class="de">KI-ÜBERWACHUNG FÜR<br><span class="gold">CNC-ANLAGEN</span></span>
+      <span class="en">AI MONITORING FOR<br><span class="gold">CNC MACHINES</span></span>
+    </h2>
+    <p class="section-sub">
+      <span class="de">Spindeln, Achslager, Werkzeugwechsler, Kühlmittel — wir überwachen alle kritischen Baugruppen Ihrer CNC-Bearbeitungszentren in Echtzeit.</span>
+      <span class="en">Spindles, bearings, tool changers, coolant — we monitor all critical components of your CNC machining centers in real time.</span>
+    </p>
+
+    <div class="services-grid">
+
+      <a class="service-card" href="cnc-fraeszentren.html">
+        <div class="sc-number">01</div>
+        <div class="sc-icon">⚙️</div>
+        <div class="sc-title"><span class="de">Spindel & Spindellager</span><span class="en">Spindle & Bearings</span></div>
+        <div class="sc-desc"><span class="de">Lagerdiagnose via Vibrations-FFT — BPFO, BPFI, Kurtosis. Wir erkennen Spindellager-Schäden 4–6 Wochen bevor sie hörbar werden. Kein Totalausfall mehr.</span><span class="en">Bearing diagnostics via vibration FFT — BPFO, BPFI, Kurtosis. We detect spindle bearing damage 4–6 weeks before it becomes audible. No more unexpected failures.</span></div>
+        <div class="sc-tags">
+          <span class="sc-tag">18.000–30.000 RPM</span>
+          <span class="sc-tag">BPFO-Analysis</span>
+          <span class="sc-tag">Kurtosis-Monitoring</span>
+          <span class="sc-tag">Isolation Forest</span>
+        </div>
+      </a>
+
+      <a class="service-card" href="cnc-fraeszentren.html">
+        <div class="sc-number">02</div>
+        <div class="sc-icon">🔩</div>
+        <div class="sc-title"><span class="de">Vorschubachsen & Kugelgewindetrieb</span><span class="en">Feed Axes & Ball Screws</span></div>
+        <div class="sc-desc"><span class="de">Schleppfehler-Trendanalyse, Linearführungs-Reibungserkennung und Backlash-Detektion. Maßhaltigkeit bleibt konstant — auch nach 15.000 Betriebsstunden.</span><span class="en">Tracking error trend analysis, linear guide friction detection and backlash detection. Dimensional accuracy stays consistent — even after 15,000 operating hours.</span></div>
+        <div class="sc-tags">
+          <span class="sc-tag">X/Y/Z Axes</span>
+          <span class="sc-tag">Ballscrew Diagnostics</span>
+          <span class="sc-tag">Servo Analysis</span>
+        </div>
+      </a>
+
+      <a class="service-card" href="cnc-fraeszentren.html">
+        <div class="sc-number">03</div>
+        <div class="sc-icon">🔄</div>
+        <div class="sc-title"><span class="de">Werkzeugwechsler (ATC)</span><span class="en">Tool Changer (ATC)</span></div>
+        <div class="sc-desc"><span class="de">Motorstrom-Profil-Analyse pro Wechselzyklus. Greiferarm-Verschleiß, Nockenwellen-Reibung und Positionierfehler werden 2–3 Wochen im Voraus erkannt.</span><span class="en">Motor current profile analysis per change cycle. Gripper arm wear, cam friction and positioning errors are detected 2–3 weeks in advance.</span></div>
+        <div class="sc-tags">
+          <span class="sc-tag"><span class="de">Wechselzeit-Analyse</span><span class="en">Cycle Time Analysis</span></span>
+          <span class="sc-tag"><span class="de">Greifer-Monitoring</span><span class="en">Gripper Monitoring</span></span>
+          <span class="sc-tag"><span class="de">Magazin-Diagnose</span><span class="en">Magazine Diagnostics</span></span>
+        </div>
+      </a>
+
+      <a class="service-card" href="cnc-fraeszentren.html">
+        <div class="sc-number">04</div>
+        <div class="sc-icon">🌡️</div>
+        <div class="sc-title"><span class="de">Kühlmittel & Thermomanagement</span><span class="en">Coolant & Thermal Management</span></div>
+        <div class="sc-desc"><span class="de">Durchfluss, Temperatur und Kühlmittelkonzentration unter permanenter KI-Kontrolle. Thermische Drift kostet Maßhaltigkeit — wir stoppen sie bevor sie sichtbar wird.</span><span class="en">Flow rate, temperature and coolant concentration under permanent AI control. Thermal drift costs dimensional accuracy — we stop it before it becomes visible.</span></div>
+        <div class="sc-tags">
+          <span class="sc-tag"><span class="de">Spindelkühlung</span><span class="en">Spindle Cooling</span></span>
+          <span class="sc-tag"><span class="de">Temperatur-Trend</span><span class="en">Temperature Trend</span></span>
+          <span class="sc-tag"><span class="de">Kavitations-Erkennung</span><span class="en">Cavitation Detection</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     REFERENZEN — INFINITE CAROUSEL
+══════════════════════════════════════════ -->
+<style>
+.ref-section{padding:6rem 0;background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;}
+.ref-header{max-width:1280px;margin:0 auto;padding:0 2rem 3rem;}
+.carousel-viewport{overflow:hidden;position:relative;}
+.carousel-viewport::before,.carousel-viewport::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+.carousel-viewport::before{left:0;background:linear-gradient(90deg,var(--dark-2),transparent);}
+.carousel-viewport::after{right:0;background:linear-gradient(270deg,var(--dark-2),transparent);}
+.carousel-track{display:flex;gap:20px;width:max-content;animation:cscroll 44s linear infinite;}
+.carousel-track:hover{animation-play-state:paused;}
+@keyframes cscroll{0%{transform:translateX(0);}100%{transform:translateX(calc(-50%));}}
+.ref-card{
+  flex-shrink:0;
+  width:380px;
+  background:var(--dark-card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1.75rem;
+  position:relative;
+  overflow:hidden;
+  transition:border-color 0.3s, box-shadow 0.3s;
+}
+.ref-card:hover{border-color:rgba(228,177,94,0.5);box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+.ref-card-bar{position:absolute;top:0;left:0;right:0;height:3px;}
+.ref-card-head{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;}
+.ref-card-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ref-card-industry{font-family:var(--font-mono);font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
+.ref-card-name{font-size:0.8rem;font-weight:600;color:#fff;line-height:1.3;}
+.ref-card-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+.ref-card-tag{font-family:var(--font-mono);font-size:0.54rem;color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:2px 7px;border-radius:4px;}
+.ref-card-body{padding-left:0.75rem;margin-bottom:1rem;}
+.ref-card-lbl{font-family:var(--font-mono);font-size:0.52rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
+.ref-card-txt{font-size:0.78rem;color:var(--text-dim);line-height:1.6;margin-bottom:0.6rem;}
+.ref-card-kpis{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;}
+.ref-kpi{border-radius:8px;padding:0.65rem;text-align:center;}
+.ref-kpi-val{font-family:var(--font-display);font-size:1.3rem;letter-spacing:1px;line-height:1;}
+.ref-kpi-lbl{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:1px;text-transform:uppercase;line-height:1.3;margin-top:3px;}
+.ref-card-foot{font-family:var(--font-mono);font-size:0.55rem;color:var(--text-muted);padding-top:0.7rem;border-top:1px solid var(--border);}
+</style>
+
+<div class="ref-section" id="referenzen">
+  <div class="ref-header">
+    <div class="section-label"><span class="de">Praxisbeispiele · Firmennamen auf Wunsch der Kunden nicht genannt</span><span class="en">Real-world cases · Company names withheld at client request</span></div>
+    <h2 class="section-title">
+      <span class="de">WAS WIR<br><span class="gold">TATSÄCHLICH ERREICHT</span> HABEN</span>
+      <span class="en">WHAT WE'VE<br><span class="gold">ACTUALLY ACHIEVED</span></span>
+    </h2>
+    <p class="section-sub">
+      <span class="de">Echte Einsätze, reale Ergebnisse — Branche und Maschinentyp stimmen. Details auf Anfrage.</span>
+      <span class="en">Real deployments, real results — industry and machine type are accurate. Details on request.</span>
+    </p>
+  </div>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="carouselTrack">
+
+      <!-- ── CARD 1 ── Automobilzulieferer -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#e4b15e,#f8dfa5);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(228,177,94,0.12);border:1px solid rgba(228,177,94,0.3);">🏭</div>
+          <div>
+            <div class="ref-card-industry" style="color:var(--gold);"><span class="de">Automobil-Zulieferung · Süddeutschland</span><span class="en">Automotive Supply · Southern Germany</span></div>
+            <div class="ref-card-name"><span class="de">Tier-1-Zulieferer, Serienfertigung</span><span class="en">Tier-1 Supplier, Series Production</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">6× DMG Mori 5-Achs</span>
+          <span class="ref-card-tag"><span class="de">seit Jan. 2024</span><span class="en">since Jan. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(228,177,94,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">2 Spindelausfälle in 18 Monaten → 340.000 € Verlust + 3 Wochen Lieferverzug.</span><span class="en">2 spindle failures in 18 months → €340,000 loss + 3-week delivery delay.</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">1 Ausfall verhindert in Monat 8 — Frühwarnung 5 Tage im Voraus.</span><span class="en">1 failure prevented in month 8 — early warning 5 days in advance.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
+            <div class="ref-kpi-val" style="color:var(--green);">5 Mon.</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">bis ROI</span><span class="en">to ROI</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(228,177,94,0.06);border:1px solid rgba(228,177,94,0.2);">
+            <div class="ref-kpi-val" style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">€ 340K</div>
+            <div class="ref-kpi-lbl" style="color:rgba(228,177,94,0.7);"><span class="de">Verlust verhindert</span><span class="en">loss prevented</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:var(--green);">●</span> <span class="de">Spindel- & Achslager-Monitoring</span><span class="en">Spindle & bearing monitoring</span></div>
+      </div>
+
+      <!-- ── CARD 2 ── Luft- & Raumfahrt -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#00b4ff,#4ade80);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(0,180,255,0.1);border:1px solid rgba(0,180,255,0.25);">✈️</div>
+          <div>
+            <div class="ref-card-industry" style="color:#00b4ff;"><span class="de">Luft- & Raumfahrt · NRW</span><span class="en">Aerospace · NRW</span></div>
+            <div class="ref-card-name"><span class="de">Lohnfertiger, Toleranz bis 5 µm</span><span class="en">Contract Manufacturer, ±5 µm</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">12× BAZ Mazak + Heidenhain</span>
+          <span class="ref-card-tag"><span class="de">seit Mär. 2024</span><span class="en">since Mar. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(0,180,255,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Maßhaltigkeit-Reklamationen durch Achsenverschleiß — 4 Chargen zurückgezogen.</span><span class="en">Dimensional accuracy complaints from axis wear — 4 batches recalled.</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">4 Achsenschäden frühzeitig erkannt. 0 Reklamationen in 9 Monaten.</span><span class="en">4 axis damages detected early. 0 complaints in 9 months.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
+            <div class="ref-kpi-val" style="color:var(--green);">−68 %</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">Ausschussquote</span><span class="en">scrap rate</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(0,180,255,0.06);border:1px solid rgba(0,180,255,0.2);">
+            <div class="ref-kpi-val" style="color:#00b4ff;">0</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,180,255,0.7);"><span class="de">Reklamationen</span><span class="en">complaints</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#00b4ff;">●</span> <span class="de">Vorschubachsen- & Kugelgewindetrieb-Diagnose</span><span class="en">Feed axis & ball screw diagnostics</span></div>
+      </div>
+
+      <!-- ── CARD 3 ── Werkzeugbau Nachtschicht -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#ffb800,#ff3860);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.25);">🔧</div>
+          <div>
+            <div class="ref-card-industry" style="color:var(--amber);"><span class="de">Werkzeugbau · Bayern</span><span class="en">Tool & Die · Bavaria</span></div>
+            <div class="ref-card-name"><span class="de">3-Schicht · Mannlose Nächte & Wochenenden</span><span class="en">3-Shift · Unmanned Nights & Weekends</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">4× 5-Achs-Hochpräzisions-BAZ</span>
+          <span class="ref-card-tag"><span class="de">seit Sep. 2024</span><span class="en">since Sep. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(255,184,0,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Anomalien blieben über Nacht unbemerkt — oft erst Montag früh entdeckt.</span><span class="en">Anomalies went unnoticed overnight — often only discovered Monday morning.</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">2 kritische Nacht-Ereignisse per SMS-Alarm gestoppt. Reaktionszeit ∅ 7 Min.</span><span class="en">2 critical night events stopped via SMS. Response time avg. 7 min.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
+            <div class="ref-kpi-val" style="color:var(--green);">2</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">Alarme abgewendet</span><span class="en">alerts averted</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(255,56,96,0.06);border:1px solid rgba(255,56,96,0.2);">
+            <div class="ref-kpi-val" style="color:var(--red);">0</div>
+            <div class="ref-kpi-lbl" style="color:rgba(255,56,96,0.7);"><span class="de">Maschinenschäden</span><span class="en">machine damages</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:var(--amber);">●</span> 24/7 <span class="de">Vollüberwachung + SMS-Alarm</span><span class="en">full monitoring + SMS alert</span></div>
+      </div>
+
+      <!-- ── CARD 4 ── Medizintechnik -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#4ade80,#00b4ff);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.25);">🏥</div>
+          <div>
+            <div class="ref-card-industry" style="color:#4ade80;"><span class="de">Medizintechnik · Baden-Württemberg</span><span class="en">Medical Technology · Baden-Württemberg</span></div>
+            <div class="ref-card-name"><span class="de">Implantate-Fertigung, Reinraumklasse</span><span class="en">Implant Manufacturing, Cleanroom Grade</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">8× Hochpräzisions-CNC Fanuc</span>
+          <span class="ref-card-tag"><span class="de">seit Nov. 2023</span><span class="en">since Nov. 2023</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(74,222,128,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Mikrotoleranzen von ±2 µm — ein einziger Spindelvibrations-Peak ungültig erklärt gesamte Charge (Regulatorik).</span><span class="en">Micro-tolerances of ±2 µm — a single spindle vibration peak invalidated entire batches (regulatory).</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">3 Vibrations-Anomalien rechtzeitig erkannt. Ausschuss durch Spindeldrift: 0 seit 14 Monaten.</span><span class="en">3 vibration anomalies detected in time. Scrap from spindle drift: 0 for 14 months.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.2);">
+            <div class="ref-kpi-val" style="color:#4ade80;">14 Mon.</div>
+            <div class="ref-kpi-lbl" style="color:rgba(74,222,128,0.7);"><span class="de">null Drift-Ausschuss</span><span class="en">zero drift scrap</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(0,180,255,0.06);border:1px solid rgba(0,180,255,0.2);">
+            <div class="ref-kpi-val" style="color:#00b4ff;">3</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,180,255,0.7);"><span class="de">Anomalien verhindert</span><span class="en">anomalies caught</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#4ade80;">●</span> <span class="de">Spindel-Vibrations-FFT · ±2 µm-Fenster</span><span class="en">Spindle vibration FFT · ±2 µm window</span></div>
+      </div>
+
+      <!-- ── CARD 5 ── Maschinenbau OEM -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#a855f7,#e4b15e);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);">⚙️</div>
+          <div>
+            <div class="ref-card-industry" style="color:#a855f7;"><span class="de">Maschinenbau OEM · Sachsen</span><span class="en">Mechanical Engineering OEM · Saxony</span></div>
+            <div class="ref-card-name"><span class="de">Serienfertigung Präzisionsbauteile</span><span class="en">Series Production, Precision Parts</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">5× DMU 50 + 3× Index G320</span>
+          <span class="ref-card-tag"><span class="de">seit Feb. 2024</span><span class="en">since Feb. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(168,85,247,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Werkzeugwechsler-Ausfälle unvorhersehbar — durchschnittlich 2× pro Quartal, je 4–6 h Stillstand.</span><span class="en">Tool changer failures unpredictable — average 2× per quarter, 4–6 h downtime each.</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">Nockenwellen-Verschleiß 3 Wochen im Voraus erkannt. Zwei geplante Wartungen statt vier Notfälle.</span><span class="en">Cam wear detected 3 weeks in advance. Two planned services instead of four emergencies.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);">
+            <div class="ref-kpi-val" style="color:#a855f7;">−100 %</div>
+            <div class="ref-kpi-lbl" style="color:rgba(168,85,247,0.7);"><span class="de">ATC-Notfälle</span><span class="en">ATC emergencies</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(228,177,94,0.06);border:1px solid rgba(228,177,94,0.2);">
+            <div class="ref-kpi-val" style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">7 Mon.</div>
+            <div class="ref-kpi-lbl" style="color:rgba(228,177,94,0.7);"><span class="de">bis ROI</span><span class="en">to ROI</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#a855f7;">●</span> <span class="de">Werkzeugwechsler-Motorstrom-Analyse</span><span class="en">Tool changer motor current analysis</span></div>
+      </div>
+
+      <!-- ── CARD 6 ── Energietechnik -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#f97316,#ffb800);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);">⚡</div>
+          <div>
+            <div class="ref-card-industry" style="color:#f97316;"><span class="de">Energietechnik · Niedersachsen</span><span class="en">Energy Technology · Lower Saxony</span></div>
+            <div class="ref-card-name"><span class="de">Gehäuse & Rotorkomponenten, Großformat</span><span class="en">Housing & Rotor Components, Large Format</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">3× Großformat-BAZ Siemens 840D</span>
+          <span class="ref-card-tag"><span class="de">seit Jun. 2024</span><span class="en">since Jun. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(249,115,22,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Bearbeitungszeit pro Bauteil: 14 h. Ein Ausfall = 14 h Ausschuss + ungeplante Spindelreparatur (60.000 € Ersatzteil).</span><span class="en">Machining time per part: 14 h. One failure = 14 h scrap + unplanned spindle repair (€60,000 spare part).</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">Spindelschaden 11 Tage im Voraus erkannt — geplante Reparatur in Betriebspause, kein Bauteil-Ausschuss.</span><span class="en">Spindle damage detected 11 days in advance — planned repair during scheduled downtime, zero part scrap.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.2);">
+            <div class="ref-kpi-val" style="color:#f97316;">11 Tage</div>
+            <div class="ref-kpi-lbl" style="color:rgba(249,115,22,0.7);"><span class="de">Vorwarnzeit</span><span class="en">advance warning</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
+            <div class="ref-kpi-val" style="color:var(--green);">€ 60K</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">Schaden verhindert</span><span class="en">damage prevented</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#f97316;">●</span> <span class="de">Spindel-Thermographie + Vibrations-FFT</span><span class="en">Spindle thermography + vibration FFT</span></div>
+      </div>
+
+      <!-- ── CARD 7 ── Schienenfahrzeugtechnik -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#06b6d4,#4ade80);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);">🚄</div>
+          <div>
+            <div class="ref-card-industry" style="color:#06b6d4;"><span class="de">Schienenfahrzeuge · Nordrhein</span><span class="en">Rail Technology · North Rhine</span></div>
+            <div class="ref-card-name"><span class="de">Fahrwerkskomponenten, Zertifizierungsfertigung</span><span class="en">Chassis Components, Certified Production</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">9× BAZ Mazak Integrex</span>
+          <span class="ref-card-tag"><span class="de">seit Okt. 2023</span><span class="en">since Oct. 2023</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(6,182,212,0.25);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">Jede Nacharbeit an Achswellen bedeutet Re-Zertifizierung (Kosten: 28.000 € + 6 Wochen Verzug).</span><span class="en">Every rework on axle shafts meant re-certification (cost: €28,000 + 6-week delay).</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">5 drohende Maßabweichungen erkannt, bevor sie in das Bauteil eingingen. 0 Re-Zertifizierungen seit 18 Monaten.</span><span class="en">5 impending dimensional deviations detected before entering the part. 0 re-certifications in 18 months.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.2);">
+            <div class="ref-kpi-val" style="color:#06b6d4;">5</div>
+            <div class="ref-kpi-lbl" style="color:rgba(6,182,212,0.7);"><span class="de">Abweichungen abgefangen</span><span class="en">deviations intercepted</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
+            <div class="ref-kpi-val" style="color:var(--green);">€ 140K</div>
+            <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">Re-Zert. verhindert</span><span class="en">re-cert. prevented</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#06b6d4;">●</span> <span class="de">Achsen-Schleppfehler + Kühlmittel-Monitoring</span><span class="en">Axis tracking error + coolant monitoring</span></div>
+      </div>
+
+      <!-- ── CARD 8 ── Verteidigungstechnik -->
+      <div class="ref-card">
+        <div class="ref-card-bar" style="background:linear-gradient(90deg,#64748b,#e4b15e);"></div>
+        <div class="ref-card-head">
+          <div class="ref-card-icon" style="background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.3);">🛡️</div>
+          <div>
+            <div class="ref-card-industry" style="color:#94a3b8;"><span class="de">Verteidigungstechnik · Süddeutschland</span><span class="en">Defense Technology · Southern Germany</span></div>
+            <div class="ref-card-name"><span class="de">Hochpräzisions-Komponenten, AS9100</span><span class="en">High-Precision Components, AS9100</span></div>
+          </div>
+        </div>
+        <div class="ref-card-tags">
+          <span class="ref-card-tag">7× 5-Achs-Hochpräzisions BAZ</span>
+          <span class="ref-card-tag"><span class="de">seit Apr. 2024</span><span class="en">since Apr. 2024</span></span>
+        </div>
+        <div class="ref-card-body" style="border-left:2px solid rgba(100,116,139,0.35);">
+          <div class="ref-card-lbl"><span class="de">Ausgangslage</span><span class="en">Situation</span></div>
+          <div class="ref-card-txt"><span class="de">AS9100-Audit verlangte lückenlose Maschinenprotokollierung. Bisherige manuelle Logs: unvollständig, nicht auditierbar.</span><span class="en">AS9100 audit required complete machine logging. Previous manual logs: incomplete, not auditable.</span></div>
+          <div class="ref-card-lbl"><span class="de">Ergebnis</span><span class="en">Result</span></div>
+          <div class="ref-card-txt"><span class="de">Vollautomatische Protokollierung aller Spindel- und Achswerte. Audit bestanden. 2 Spindelanomalien nebenbei erkannt.</span><span class="en">Fully automated logging of all spindle and axis values. Audit passed. 2 spindle anomalies detected as a bonus.</span></div>
+        </div>
+        <div class="ref-card-kpis">
+          <div class="ref-kpi" style="background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.25);">
+            <div class="ref-kpi-val" style="color:#94a3b8;"><span class="de">100 %</span></div>
+            <div class="ref-kpi-lbl" style="color:rgba(148,163,184,0.7);"><span class="de">Audit bestanden</span><span class="en">audit passed</span></div>
+          </div>
+          <div class="ref-kpi" style="background:rgba(228,177,94,0.06);border:1px solid rgba(228,177,94,0.2);">
+            <div class="ref-kpi-val" style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">2</div>
+            <div class="ref-kpi-lbl" style="color:rgba(228,177,94,0.7);"><span class="de">Anomalien erkannt</span><span class="en">anomalies caught</span></div>
+          </div>
+        </div>
+        <div class="ref-card-foot"><span style="color:#94a3b8;">●</span> <span class="de">Lückenlose KI-Protokollierung AS9100-konform</span><span class="en">Full AI logging AS9100-compliant</span></div>
+      </div>
+
+    </div><!-- /carousel-track (duplicated by JS) -->
+  </div><!-- /carousel-viewport -->
+
+  <div style="max-width:1280px;margin:2.5rem auto 0;padding:0 2rem;text-align:center;">
+    <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text-muted);letter-spacing:1px;line-height:1.8;">
+      🔒 <span class="de">Firmennamen und Standortdetails werden auf ausdrücklichen Wunsch unserer Kunden nicht öffentlich genannt.</span><span class="en">Company names and location details are withheld at the explicit request of our clients.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Duplicate cards for seamless infinite loop
+(function(){
+  var track = document.getElementById('carouselTrack');
+  if(!track) return;
+  var clone = track.innerHTML;
+  track.innerHTML = clone + clone;
+})();
+</script>
+
+
+<!-- ══════════════════════════════════════════
+     ONE-PAGER DOWNLOAD
+══════════════════════════════════════════ -->
+<div class="section" style="padding:5rem 2rem;">
+  <div style="max-width:800px;margin:0 auto;text-align:center;">
+    <div class="section-label" style="justify-content:center;margin-bottom:1rem;"><span class="de">Unterlagen</span><span class="en">Documents</span></div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:2px;margin-bottom:1rem;line-height:1;">
+      <span class="de">ALLES AUF EINEN<br><span class="gold">BLICK</span></span>
+      <span class="en">EVERYTHING AT<br><span class="gold">A GLANCE</span></span>
+    </h2>
+    <p style="font-size:0.9rem;color:var(--text-dim);max-width:540px;margin:0 auto 2.5rem;line-height:1.7;">
+      <span class="de">Laden Sie unseren One-Pager herunter — kompakte Übersicht über Technologie, Anwendungsfälle und Preismodell. Ideal für Ihr nächstes Gespräch mit der Geschäftsführung.</span>
+      <span class="en">Download our one-pager — a compact overview of technology, use cases and pricing. Ideal for your next meeting with management.</span>
+    </p>
+    <div style="display:inline-flex;flex-direction:column;align-items:center;gap:0.5rem;">
+      <a href="onepager-forbach-partners.pdf" download
+         style="display:inline-flex;align-items:center;gap:0.75rem;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.9rem 2rem;border-radius:10px;font-weight:700;font-size:0.875rem;text-decoration:none;letter-spacing:0.5px;transition:all 0.2s;box-shadow:0 4px 24px rgba(228,177,94,0.25);"
+         onmouseover="this.style.boxShadow='0 6px 32px rgba(228,177,94,0.45)';this.style.transform='translateY(-2px)'"
+         onmouseout="this.style.boxShadow='0 4px 24px rgba(228,177,94,0.25)';this.style.transform=''">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="de">ONE-PAGER HERUNTERLADEN</span><span class="en">DOWNLOAD ONE-PAGER</span>
+      </a>
+      <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-muted);letter-spacing:2px;"><span class="de">PDF · KOSTENLOS · KEIN FORMULAR</span><span class="en">PDF · FREE · NO FORM</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CTA
+══════════════════════════════════════════ -->
+<div id="kontakt" class="cta-section">
+  <div class="cta-inner">
+    <div class="section-label" style="justify-content:center;"><span class="de">Nächster Schritt</span><span class="en">Next Step</span></div>
+    <h2 class="cta-title">
+      <span class="de">BEREIT FÜR<br><span class="gold">NULL STILLSTAND?</span></span>
+      <span class="en">READY FOR<br><span class="gold">ZERO DOWNTIME?</span></span>
+    </h2>
+    <p class="cta-sub">
+      <span class="de">In einem 20-minütigen Gespräch zeigen wir Ihnen — konkret für Ihre Anlagen — was unser System leisten kann. Ohne IT-Aufwand. Ohne Produktionsunterbrechung.</span>
+      <span class="en">In a 20-minute call we show you — specifically for your machines — what our system can do. No IT overhead. No production interruption.</span>
+    </p>
+    <div class="cta-btns">
+      <a href="mailto:info@forbachandpartners.com" class="btn-gold"><span class="de">Jetzt Termin vereinbaren</span><span class="en">Book a Meeting Now</span></a>
+      <a href="tel:004921190989962" class="btn-outline">📞 <span class="de">Jetzt anrufen</span><span class="en">Call Now</span></a>
+    </div>
+    <div style="margin-top:2rem; font-family:var(--font-mono); font-size:0.65rem; color:var(--text-muted); letter-spacing:2px;">
+      CNC-PREDICTIVE-MAINTENANCE · FORBACH AND PARTNERS LTD · info@forbachandpartners.com
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+
+<!-- ══════════════════════════════════════════
+     KONTAKTFORMULAR
+══════════════════════════════════════════ -->
+<div class="contact-section" id="kontakt">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center;margin-bottom:0.5rem;"><span class="de">Erstgespräch vereinbaren</span><span class="en">Book Your First Call</span></div>
+    <h2 style="text-align:center;font-family:var(--font-d,'Oswald',sans-serif);font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:2px;line-height:1.1;">
+      <span class="de">SCHREIBEN SIE<br><span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">UNS DIREKT AN</span></span>
+      <span class="en">CONTACT US<br><span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">DIRECTLY</span></span>
+    </h2>
+    <p style="text-align:center;color:var(--text-dim,#a0a0a0);margin-top:1rem;font-size:0.95rem;line-height:1.7;">
+      <span class="de">In 20 Minuten sehen Sie ob und wie wir Ihre Anlage überwachen können.<br>Kostenlos, unverbindlich, konkret.</span>
+      <span class="en">In 20 minutes you'll see whether and how we can monitor your machines.<br>Free, no obligation, concrete.</span>
+    </p>
+
+    <form class="contact-form" id="contactForm">
+      <input type="hidden" name="access_key" value="IHRE_WEB3FORMS_ACCESS_KEY_HIER">
+      <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners">
+      <input type="hidden" name="from_name" value="Forbach & Partners Website">
+      <input type="hidden" name="redirect" value="false">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="de">Ihr Name *</span><span class="en">Your Name *</span></label>
+          <input type="text" name="name" class="form-input" placeholder="Max Mustermann" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="de">Unternehmen *</span><span class="en">Company *</span></label>
+          <input type="text" name="company" class="form-input" placeholder="Musterfirma GmbH" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">E-Mail *</label>
+          <input type="email" name="email" class="form-input" placeholder="m.mustermann@firma.de" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="de">Telefon</span><span class="en">Phone</span></label>
+          <input type="tel" name="phone" class="form-input" placeholder="+49 211 …">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="de">Maschinentyp</span><span class="en">Machine Type</span></label>
+        <select name="machine_type" class="form-select"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="de">Ihre Nachricht *</span><span class="en">Your Message *</span></label>
+        <textarea name="message" class="form-textarea" id="contactTextarea" required></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="formSubmitBtn">
+        <span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE CONSULTATION →</span>
+      </button>
+      <div class="form-success" id="formSuccess">
+        <span class="de">✓ NACHRICHT ERHALTEN — Sascha Forbach meldet sich persönlich innerhalb von 24 Stunden.</span>
+        <span class="en">✓ MESSAGE RECEIVED — Sascha Forbach will personally get back to you within 24 hours.</span>
+      </div>
+      <div class="form-error" id="formError">
+        <span class="de">Fehler beim Senden. Bitte schreiben Sie direkt an info@forbachandpartners.com</span>
+        <span class="en">Error sending. Please write directly to info@forbachandpartners.com</span>
+      </div>
+    </form>
+    <div style="text-align:center;margin-top:1.5rem;font-family:var(--font-m,'JetBrains Mono',monospace);font-size:0.58rem;color:var(--text-muted,#555);letter-spacing:2px;">
+      📞 Jetzt anrufen · ✉ INFO@FORBACHANDPARTNERS.COM · PAPHOS, ZYPERN
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('formSubmitBtn');
+  const success = document.getElementById('formSuccess');
+  const error = document.getElementById('formError');
+  btn.disabled = true;
+  btn.innerHTML = typeof t === 'function' ? t('WIRD GESENDET…', 'SENDING…') : 'WIRD GESENDET…';
+  const data = new FormData(this);
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: data });
+    const json = await res.json();
+    if (json.success) {
+      this.style.display = 'none';
+      success.style.display = 'block';
+    } else { throw new Error(); }
+  } catch {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE CONSULTATION →</span>';
+    error.style.display = 'block';
+  }
+});
+</script>
+
+<footer class="footer">
+  <div class="footer-logo">FORBACH & PARTNERS</div>
+  <div class="footer-tagline"><span class="de">Predictive Intelligence · CNC-Fräszentren · Industrie 4.0</span><span class="en">Predictive Intelligence · CNC Machining Centers · Industry 4.0</span></div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html"><span class="de">Startseite</span><span class="en">Home</span></a>
+    <a class="footer-link" href="cnc-fraeszentren.html"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
+    <a class="footer-link" href="ueber-uns.html"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a class="footer-link" href="blog.html">Blog</a>
+    <a class="footer-link" href="kontakt.html"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+    <a class="footer-link" href="datenschutz.html"><span class="de">Datenschutz</span><span class="en">Privacy</span></a>
+    <a class="footer-link" href="impressum.html">Impressum</a>
+  </div>
+  <div class="footer-copy">
+    © 2026 Forbach and Partners Ltd · <span class="de">Reg. Zypern · Alle Rechte vorbehalten</span><span class="en">Reg. Cyprus · All rights reserved</span>
+  </div>
+</footer>
+
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const machines = [
+  {
+    id:'CNC-450', name:'CNC-Fräszentrum', type:'Linie A · 5-Achs DMG', icon:'⚙️',
+    status:'ok', risk:18,
+    temp:{val:62,unit:'°C',cls:'ok'}, vib:{val:1.2,unit:'mm/s',cls:'ok'}, runtime:{val:'12.840',unit:'h',cls:'ok'},
+    maint:'in 18 Tagen', maintEn:'in 18 days', urgency:'low',
+    desc:'Alle Werte im Normalbereich. Werkzeugverschleiß 23 %.',
+    descEn:'All values normal. Tool wear 23%.'
+  },
+  {
+    id:'BAZ-320', name:'Bearbeitungszentrum', type:'Linie B · 4-Achs Mazak', icon:'🔩',
+    status:'warn', risk:47,
+    temp:{val:71,unit:'°C',cls:'warn'}, vib:{val:3.1,unit:'mm/s',cls:'warn'}, runtime:{val:'14.220',unit:'h',cls:'ok'},
+    maint:'in 6 Tagen', maintEn:'in 6 days', urgency:'med',
+    desc:'Spindellager-Anomalie erkannt. BPFO-Frequenz steigt.',
+    descEn:'Spindle bearing anomaly detected. BPFO frequency rising.'
+  },
+  {
+    id:'CNC-810', name:'Bearbeitungszentrum', type:'Linie C · 5-Achs Heidenhain', icon:'⚙️',
+    status:'crit', risk:82,
+    temp:{val:88,unit:'°C',cls:'crit'}, vib:{val:6.8,unit:'mm/s',cls:'crit'}, runtime:{val:'18.640',unit:'h',cls:'warn'},
+    maint:'innerhalb 48 h', maintEn:'within 48 h', urgency:'high',
+    desc:'Kritische Spindel-Vibrationssignatur. Sofortmaßnahme!',
+    descEn:'Critical spindle vibration signature. Immediate action required!'
+  },
+  {
+    id:'DRH-190', name:'CNC-Drehzentrum', type:'Linie A · 2-Achs Fanuc', icon:'🔩',
+    status:'ok', risk:12,
+    temp:{val:54,unit:'°C',cls:'ok'}, vib:{val:0.9,unit:'mm/s',cls:'ok'}, runtime:{val:'6.260',unit:'h',cls:'ok'},
+    maint:'in 32 Tagen', maintEn:'in 32 days', urgency:'low',
+    desc:'Frisch gewartet. Kugelgewindetrieb 8 % Verschleiß.',
+    descEn:'Recently serviced. Ball screw 8% wear.'
+  },
+  {
+    id:'CNC-530', name:'Fräszentrum 3-Achs', type:'Linie B · Siemens 840D', icon:'⚙️',
+    status:'warn', risk:38,
+    temp:{val:67,unit:'°C',cls:'warn'}, vib:{val:2.6,unit:'mm/s',cls:'warn'}, runtime:{val:'11.520',unit:'h',cls:'ok'},
+    maint:'in 9 Tagen', maintEn:'in 9 days', urgency:'med',
+    desc:'Werkzeugwechsler Nockenwelle: Strom +11 % über Baseline.',
+    descEn:'Tool changer cam: current +11% above baseline.'
+  },
+  {
+    id:'BAZ-440', name:'Dreh-Fräszentrum', type:'Linie C · Index G220', icon:'🔩',
+    status:'ok', risk:9,
+    temp:{val:58,unit:'°C',cls:'ok'}, vib:{val:1.3,unit:'mm/s',cls:'ok'}, runtime:{val:'9.100',unit:'h',cls:'ok'},
+    maint:'in 24 Tagen', maintEn:'in 24 days', urgency:'low',
+    desc:'Stabil. Vorschubachse Y: Schleppfehler normal.',
+    descEn:'Stable. Y feed axis: tracking error normal.'
+  },
+  {
+    id:'CNC-710', name:'Bearbeitungszentrum', type:'Linie D · 5-Achs DMU 60', icon:'⚙️',
+    status:'ok', risk:22,
+    temp:{val:61,unit:'°C',cls:'ok'}, vib:{val:1.4,unit:'mm/s',cls:'ok'}, runtime:{val:'8.440',unit:'h',cls:'ok'},
+    maint:'in 20 Tagen', maintEn:'in 20 days', urgency:'low',
+    desc:'Kühlmittel 94 %. Spindellager 19 % Verschleiß.',
+    descEn:'Coolant 94%. Spindle bearing 19% wear.'
+  },
+  {
+    id:'CNC-440', name:'CNC-Drehzentrum', type:'Linie A · 4-Achs', icon:'🔩',
+    status:'ok', risk:15,
+    temp:{val:56,unit:'°C',cls:'ok'}, vib:{val:1.0,unit:'mm/s',cls:'ok'}, runtime:{val:'7.820',unit:'h',cls:'ok'},
+    maint:'in 28 Tagen', maintEn:'in 28 days', urgency:'low',
+    desc:'Proaktiver Werkzeugwechsel durchgeführt. Stabil.',
+    descEn:'Proactive tool change completed. Stable.'
+  }
+];
+
+function loc() { return (typeof isLangEN === 'function' && isLangEN()) ? 'en-US' : 'de-DE'; }
+function statusLabel(s) {
+  return s === 'ok' ? t('NORMAL', 'NORMAL') : s === 'warn' ? t('ACHTUNG', 'WARNING') : t('KRITISCH', 'CRITICAL');
+}
+function mDesc(m) { return t(m.desc, m.descEn || m.desc); }
+function mMaint(m) { return t(m.maint, m.maintEn || m.maint); }
+function updateMachineCountDisplay(n) {
+  const el = document.getElementById('machineCountDisplay');
+  if (el) el.textContent = n + ' ' + t('Maschinen', 'machines');
+}
+
+// ROI machine configs
+const roiMachines = [
+  { name:'CNC-Fräszentrum 1', icon:'⚙️', defaultH:6,  defaultC:2800, defaultR:3 },
+  { name:'CNC-Fräszentrum 2', icon:'⚙️', defaultH:5,  defaultC:2600, defaultR:4 },
+  { name:'Bearbeitungszentrum 1', icon:'🔩', defaultH:7, defaultC:3200, defaultR:3 },
+  { name:'Bearbeitungszentrum 2', icon:'🔩', defaultH:6, defaultC:3000, defaultR:4 },
+  { name:'CNC-Drehzentrum 1', icon:'🔩', defaultH:4,  defaultC:2200, defaultR:5 },
+  { name:'CNC-Drehzentrum 2', icon:'🔩', defaultH:5,  defaultC:2400, defaultR:4 },
+  { name:'5-Achs-BAZ',        icon:'⚙️', defaultH:8,  defaultC:3800, defaultR:2 },
+  { name:'Dreh-Fräszentrum',  icon:'🔩', defaultH:5,  defaultC:2800, defaultR:3 },
+];
+
+// ─────────────────────────────────────────────
+// RENDER HERO MINI CARDS
+// ─────────────────────────────────────────────
+function renderHeroCards() {
+  const container = document.getElementById('heroDashboard');
+  const subset = machines.slice(0,4);
+  container.innerHTML = subset.map(m => {
+    const circ = 2*Math.PI*22;
+    const offset = circ - (m.risk/100)*circ;
+    const col = m.status==='ok' ? '#00ff88' : m.status==='warn' ? '#ffb800' : '#ff3860';
+    return `
+    <div class="machine-card status-${m.status}">
+      <div class="mc-id">${m.id}</div>
+      <div class="mc-name">${m.icon} ${m.name}</div>
+      <span class="mc-status ${m.status}"><span class="mc-dot"></span>${statusLabel(m.status)}</span>
+
+      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;">
+        <svg width="50" height="50" viewBox="0 0 50 50">
+          <circle class="ring-bg" cx="25" cy="25" r="22" style="fill:none;stroke:rgba(255,255,255,0.05);stroke-width:5"/>
+          <circle class="ring-fg" cx="25" cy="25" r="22" style="fill:none;stroke:${col};stroke-width:5;stroke-linecap:round;stroke-dasharray:${circ};stroke-dashoffset:${offset};transform:rotate(-90deg);transform-origin:center;filter:drop-shadow(0 0 4px ${col})"/>
+        </svg>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:${col}">${m.risk}%</div>
+          <div style="font-family:var(--font-mono);font-size:0.5rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">${t('Risiko 72h', 'Risk 72h')}</div>
+        </div>
+      </div>
+
+      <div class="mc-gauge-row">
+        <div class="mc-gauge">
+          <div class="mc-gauge-label">Temp</div>
+          <div class="mc-gauge-bar"><div class="mc-gauge-fill fill-${m.temp.cls}" style="width:${Math.min(100,m.temp.val/2.5)}%"></div></div>
+          <div class="mc-val ${m.temp.cls}">${m.temp.val}${m.temp.unit}</div>
+        </div>
+        <div class="mc-gauge">
+          <div class="mc-gauge-label">Vibr.</div>
+          <div class="mc-gauge-bar"><div class="mc-gauge-fill fill-${m.vib.cls}" style="width:${Math.min(100,m.vib.val/0.1)}%"></div></div>
+          <div class="mc-val ${m.vib.cls}">${m.vib.val}${m.vib.unit}</div>
+        </div>
+      </div>
+
+      <svg class="mc-spark" width="48" height="18" viewBox="0 0 48 18">
+        <polyline points="${Array.from({length:8},(_,i)=>`${i*7},${18-Math.random()*14}`).join(' ')}" fill="none" stroke="${col}" stroke-width="1.2"/>
+      </svg>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+// RENDER FULL MONITOR
+// ─────────────────────────────────────────────
+function renderFullDashboard() {
+  const container = document.getElementById('fullDashboard');
+  container.innerHTML = machines.map(m => {
+    const circ = 2*Math.PI*28;
+    const offset = circ - (m.risk/100)*circ;
+    const col = m.status==='ok' ? '#00ff88' : m.status==='warn' ? '#ffb800' : '#ff3860';
+    const urgClass = m.urgency==='high'?'urgent':m.urgency==='med'?'soon':'';
+    return `
+    <div class="monitor-card ${m.status==='crit'?'crit':''}">
+      <div class="mc-top-bar ${m.status}"></div>
+      <div class="mc-header">
+        <div>
+          <div class="mc-code">${m.id}</div>
+          <div class="mc-title">${m.icon} ${m.name}</div>
+          <div class="mc-type">${m.type}</div>
+        </div>
+        <span class="badge ${m.status}"><span class="badge-dot"></span>${statusLabel(m.status)}</span>
+      </div>
+
+      <div class="risk-ring-wrap">
+        <div class="risk-ring">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle class="ring-bg" cx="32" cy="32" r="28"/>
+            <circle class="ring-fg" cx="32" cy="32" r="28" stroke="${col}" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" style="transform-origin:center"/>
+          </svg>
+          <div class="ring-text">
+            <div class="ring-pct" style="color:${col}">${m.risk}%</div>
+            <div class="ring-lbl">${t('Risiko', 'Risk')}</div>
+          </div>
+        </div>
+        <div class="risk-desc">${mDesc(m)}</div>
+      </div>
+
+      <div class="sensor-grid">
+        <div class="sensor-tile">
+          <div class="st-label">${t('Temp', 'Temp')}</div>
+          <div class="st-val ${m.temp.cls}">${m.temp.val}<span style="font-size:0.55rem;">${m.temp.unit}</span></div>
+        </div>
+        <div class="sensor-tile">
+          <div class="st-label">${t('Vibr.', 'Vib.')}</div>
+          <div class="st-val ${m.vib.cls}">${m.vib.val}<span style="font-size:0.55rem;">mm/s</span></div>
+        </div>
+        <div class="sensor-tile">
+          <div class="st-label">${t('Laufzeit', 'Runtime')}</div>
+          <div class="st-val ok">${m.runtime.val}<span style="font-size:0.55rem;">h</span></div>
+        </div>
+      </div>
+
+      <div class="maint-bar ${urgClass}">
+        <span class="maint-icon">${m.urgency==='high'?'⚠️':'🔧'}</span>
+        <div class="maint-text">
+          <div class="maint-label">${t('Nächste Wartung', 'Next Maintenance')}</div>
+          <div class="maint-time">${mMaint(m)}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+// RENDER ROI INPUTS
+// ─────────────────────────────────────────────
+function renderROIInputs() {
+  const container = document.getElementById('machineInputs');
+  container.innerHTML = roiMachines.map((m,i) => `
+    <div class="machine-input-card">
+      <div class="mic-header">
+        <div class="mic-name">${m.icon} ${m.name}</div>
+      </div>
+      <div class="mic-field">
+        <label>${t('Stillstunden / Jahr', 'Downtime hours / year')}</label>
+        <input type="number" id="h_${i}" value="${m.defaultH}" min="0" max="8760" oninput="updateRisk(${i})">
+      </div>
+      <div class="mic-field">
+        <label>${t('Kosten / Stunde (€)', 'Cost / hour (€)')}</label>
+        <input type="number" id="c_${i}" value="${m.defaultC}" min="0" oninput="updateRisk(${i})">
+      </div>
+      <div class="mic-risk">
+        <div class="mic-risk-label">${t('Risiko', 'Risk')}</div>
+        <div class="mic-risk-bar">
+          <div class="mic-risk-fill fill-warn" id="risk_${i}" style="width:${Math.min(100,m.defaultR*10)}%"></div>
+        </div>
+        <div class="mic-risk-val" id="riskval_${i}" style="color:var(--amber)">${m.defaultR*10}%</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateRisk(i) {
+  const h = parseFloat(document.getElementById('h_'+i)?.value)||0;
+  const maxH = 200;
+  const pct = Math.min(100, Math.round((h/maxH)*100));
+  const fill = document.getElementById('risk_'+i);
+  const val  = document.getElementById('riskval_'+i);
+  if (!fill||!val) return;
+  fill.style.width = pct+'%';
+  fill.className = 'mic-risk-fill ' + (pct>60?'fill-crit':pct>30?'fill-warn':'fill-ok');
+  val.style.color = pct>60?'var(--red)':pct>30?'var(--amber)':'var(--green)';
+  val.textContent = pct+'%';
+}
+
+// ─────────────────────────────────────────────
+// CALC ROI
+// ─────────────────────────────────────────────
+function calcROI() {
+  let totalLoss = 0;
+  for (let i=0; i<roiMachines.length; i++) {
+    const h = parseFloat(document.getElementById('h_'+i)?.value)||0;
+    const c = parseFloat(document.getElementById('c_'+i)?.value)||0;
+    totalLoss += h * c;
+  }
+
+  // Maschinenanzahl aus dem Slider (kann über 8 gehen)
+  const machineCount = parseInt(document.getElementById('machineCountSlider')?.value) || roiMachines.length;
+  updateMachineCountDisplay(machineCount);
+
+  // ── Staffelpreise Software (einmalig pro Maschine) ──────────────
+  // Maschinen  1 –  9 :  25.000 € / Maschine
+  // Maschinen 10 +    :  22.500 € / Maschine  (Mengenrabatt)
+  let softwareCost;
+  if (machineCount <= 9) {
+    softwareCost = machineCount * 25000;
+  } else {
+    softwareCost = 9 * 25000 + (machineCount - 9) * 22500;
+  }
+
+  // ── Wartungskosten jährlich (pro Maschine / Monat) ──────────────
+  // Maschinen  1 –  9 :  1.200 € / Monat / Maschine
+  // Maschinen 10 +    :    800 € / Monat / Maschine  (Mengenrabatt)
+  let maintenanceCost;
+  if (machineCount <= 9) {
+    maintenanceCost = machineCount * 1200 * 12;
+  } else {
+    maintenanceCost = 9 * 1200 * 12 + (machineCount - 9) * 800 * 12;
+  }
+
+  const invest    = softwareCost + maintenanceCost;
+  const saving    = Math.round(totalLoss * 0.72);
+  const roi       = invest > 0 ? Math.round(((saving - invest) / invest) * 100) : 0;
+  const amort     = saving > 0 ? Math.round((invest / saving) * 12) : 99;
+  const amortPct  = Math.min(100, Math.max(5, 100 - ((amort/24)*100)));
+  const hasDiscount = machineCount >= 10;
+
+  // ── DOM Updates ─────────────────────────────────────────────────
+  document.getElementById('roiLoss').textContent    = '€ ' + totalLoss.toLocaleString(loc());
+  document.getElementById('roiSaving').textContent  = '€ ' + saving.toLocaleString(loc());
+  document.getElementById('roiInvest').textContent  = '€ ' + invest.toLocaleString(loc());
+  document.getElementById('roiPercent').textContent = roi + ' %';
+  document.getElementById('amortMonths').innerHTML = amort <= 24
+    ? amort + ' <span class="de">Monate</span><span class="en">months</span>'
+    : t('> 24 Monate', '> 24 months');
+  document.getElementById('amortFill').style.width   = amortPct + '%';
+
+  // Preis-Detail unter der Investitions-Karte
+  const detailEl = document.getElementById('roiInvestDetail');
+  if (detailEl) {
+    detailEl.innerHTML =
+      `<span style="color:var(--text-muted);font-size:0.58rem;">
+        ${t('Software', 'Software')}: €\u202f${softwareCost.toLocaleString(loc())}
+        &nbsp;+&nbsp; ${t('Wartung/Jahr', 'Maintenance/year')}: €\u202f${maintenanceCost.toLocaleString(loc())}
+      </span>` +
+      (hasDiscount
+        ? `<span style="color:var(--green);font-size:0.58rem;display:block;margin-top:3px;">
+             ${t('✓ Mengenrabatt aktiv — ab der 10. Maschine', '✓ Volume discount active — from machine 10')}
+           </span>`
+        : `<span style="color:var(--text-muted);font-size:0.58rem;display:block;margin-top:3px;">
+             ${t('Ab 10 Maschinen: 22.500 € Software + 800 €/Monat Wartung', 'From 10 machines: €22,500 software + €800/month maintenance')}
+           </span>`
+      );
+  }
+
+  const msgEl = document.getElementById('roiMessage');
+  if (totalLoss === 0) {
+    msgEl.dataset.calculated = '';
+    msgEl.innerHTML = '<span class="de">Geben Sie Ihre Maschinendaten links ein und klicken Sie auf „ROI berechnen“.</span><span class="en">Enter your machine data on the left and click “Calculate ROI”.</span>';
+  } else {
+    msgEl.dataset.calculated = '1';
+    msgEl.innerHTML = isLangEN()
+      ? `Your <strong style="color:var(--gold)">${machineCount} machines</strong> cause annual downtime costs of <strong style="color:var(--red)">€\u202f${totalLoss.toLocaleString(loc())}</strong>. With our system you reduce that to approx. <strong style="color:var(--gold)">€\u202f${(totalLoss-saving).toLocaleString(loc())}</strong> — savings of <strong style="color:var(--green)">€\u202f${saving.toLocaleString(loc())} in year one</strong>. Payback in <strong style="color:var(--gold)">${amort} months</strong>.${hasDiscount ? '<br><span style="color:var(--green);font-size:0.88em;">✓ Volume discount: €22,500 software + €800/month from machine 10.</span>' : '<br><span style="color:var(--text-muted);font-size:0.85em;">Tip: volume discounts from 10 machines.</span>'}`
+      : `Ihre <strong style="color:var(--gold)">${machineCount} Maschinen</strong> verursachen jährlich Stillstandskosten von <strong style="color:var(--red)">€\u202f${totalLoss.toLocaleString(loc())}</strong>. Mit unserem System reduzieren Sie das auf ca. <strong style="color:var(--gold)">€\u202f${(totalLoss-saving).toLocaleString(loc())}</strong> — eine Einsparung von <strong style="color:var(--green)">€\u202f${saving.toLocaleString(loc())} im ersten Jahr</strong>. Amortisation in <strong style="color:var(--gold)">${amort} Monaten</strong>.${hasDiscount ? '<br><span style="color:var(--green);font-size:0.88em;">✓ Mengenrabatt: 22.500 € Software + 800 €/Monat ab der 10. Maschine.</span>' : '<br><span style="color:var(--text-muted);font-size:0.85em;">Tipp: Ab 10 Maschinen greifen Mengenrabatte.</span>'}`;
+  }
+}
+
+function resetROI() {
+  const slider = document.getElementById('machineCountSlider');
+  if (slider) { slider.value = 8; updateMachineCountDisplay(8); }
+  const detail = document.getElementById('roiInvestDetail');
+  if (detail) detail.innerHTML = '<span style="color:var(--text-muted);font-size:0.58rem;"><span class="de">Ab 10 Maschinen: Mengenrabatt aktiv</span><span class="en">From 10 machines: volume discount active</span></span>';
+  roiMachines.forEach((m,i) => {
+    const hEl = document.getElementById('h_'+i);
+    const cEl = document.getElementById('c_'+i);
+    if (hEl) hEl.value = m.defaultH;
+    if (cEl) cEl.value = m.defaultC;
+    updateRisk(i);
+  });
+  document.getElementById('roiLoss').textContent    = '€ 0';
+  document.getElementById('roiSaving').textContent  = '€ 0';
+  document.getElementById('roiInvest').textContent  = '€ 0';
+  document.getElementById('roiPercent').textContent = '0 %';
+  document.getElementById('amortMonths').innerHTML = '— <span class="de">Monate</span><span class="en">months</span>';
+  document.getElementById('amortFill').style.width   = '0%';
+  const msgEl = document.getElementById('roiMessage');
+  if (msgEl) {
+    msgEl.dataset.calculated = '';
+    msgEl.innerHTML = '<span class="de">Geben Sie Ihre Maschinendaten links ein und klicken Sie auf „ROI berechnen“.</span><span class="en">Enter your machine data on the left and click “Calculate ROI”.</span>';
+  }
+}
+
+window.refreshPageI18n = function() {
+  renderHeroCards();
+  renderFullDashboard();
+  renderROIInputs();
+  if (document.getElementById('verlaufInner')?.children.length) renderVerlauf();
+  const slider = document.getElementById('machineCountSlider');
+  if (slider) updateMachineCountDisplay(slider.value);
+  const msgEl = document.getElementById('roiMessage');
+  if (msgEl && msgEl.dataset.calculated === '1') calcROI();
+};
+
+// ─────────────────────────────────────────────
+// LIVE FLUCTUATION
+// ─────────────────────────────────────────────
+function fluctuate() {
+  machines.forEach((m,idx) => {
+    m.temp.val = +(m.temp.val + (Math.random()-0.5)*1.5).toFixed(1);
+    m.vib.val  = +(m.vib.val  + (Math.random()-0.5)*0.15).toFixed(2);
+    m.temp.val = Math.max(25, m.temp.val);
+    m.vib.val  = Math.max(0.1, m.vib.val);
+  });
+  renderHeroCards();
+  renderFullDashboard();
+}
+
+// ─────────────────────────────────────────────
+// SCROLL REVEAL
+// ─────────────────────────────────────────────
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  els.forEach(el => obs.observe(el));
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderHeroCards();
+  renderFullDashboard();
+  renderROIInputs();
+  initReveal();
+  setInterval(fluctuate, 1800);
+  // Auto-calc on load with defaults
+  setTimeout(() => {
+    const s = document.getElementById('machineCountSlider');
+    if (s) { s.value = 8; updateMachineCountDisplay(8); }
+    calcROI();
+  }, 300);
+});
+</script>
+<script src="common.js"></script>
+</body>
+</html>

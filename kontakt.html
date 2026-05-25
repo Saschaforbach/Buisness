@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt — Forbach & Partners | Predictive Maintenance</title>
+<meta name="description" content="Kontaktieren Sie Forbach & Partners für Predictive Maintenance. Kostenlose Erstberatung für produzierende Betriebe. Tel: +49 211 90989962">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#e4b15e;--gold-light:#f8dfa5;--gold-dark:#c49040;--black:#000;--dark-2:#111;--dark-card:#141414;--border:rgba(228,177,94,0.15);--border-strong:rgba(228,177,94,0.38);--text:#fff;--text-dim:#a0a0a0;--text-muted:#555;--font-d:'Oswald',sans-serif;--font-b:'Raleway',sans-serif;--font-m:'JetBrains Mono',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw;}
+body{background:var(--black);color:var(--text);font-family:var(--font-b);line-height:1.6;}
+
+/* ── LANG TOGGLE ── */
+.en{display:none;}
+body.lang-en .de{display:none!important;}
+body.lang-en .en{display:block!important;}
+body.lang-en span.en{display:inline!important;}
+body.lang-en span.de{display:none!important;}
+
+*,*::before,*::after{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, auto;}
+a,button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, pointer;}
+
+nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);border:1px solid var(--border-strong);border-radius:14px;padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:2rem;width:min(1200px,calc(100vw - 2rem));}
+.nav-logo{font-family:var(--font-d);font-size:1.2rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:0.25rem;}
+.nav-link{color:var(--text-dim);text-decoration:none;font-size:0.8rem;padding:0.4rem 0.75rem;border-radius:6px;transition:all 0.2s;white-space:nowrap;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.nav-link.active{color:var(--gold);}
+.nav-cta{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.4rem 1.1rem;border-radius:6px;font-weight:700;font-size:0.78rem;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.nav-cta:hover{box-shadow:0 4px 20px rgba(248,223,165,0.3);transform:translateY(-1px);}
+@media(max-width:900px){.nav-links{display:none;}}
+
+.hero{min-height:50vh;display:flex;align-items:center;padding:140px 2rem 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(228,177,94,0.05) 0%,transparent 60%),linear-gradient(180deg,#000 0%,#080600 100%);}
+.hero-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;}
+.eyebrow{display:inline-flex;align-items:center;gap:0.75rem;font-family:var(--font-m);font-size:0.65rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;}
+.eyebrow::before,.eyebrow::after{content:'';width:24px;height:1px;background:var(--gold);}
+h1{font-family:var(--font-d);font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.92;letter-spacing:2px;margin-bottom:1rem;}
+.gold{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:1rem;color:var(--text-dim);line-height:1.75;max-width:560px;margin:0 auto;}
+
+.main{max-width:1100px;margin:0 auto;padding:5rem 2rem;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;align-items:start;}
+@media(max-width:800px){.contact-grid{grid-template-columns:1fr;}}
+
+.contact-info-card{background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.contact-info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.ci-label{font-family:var(--font-m);font-size:0.58rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:0.5rem;}
+.ci-title{font-family:var(--font-d);font-size:2rem;letter-spacing:1px;margin-bottom:2rem;line-height:0.95;}
+.ci-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.ci-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ci-icon{width:40px;height:40px;background:rgba(228,177,94,0.1);border:1px solid rgba(228,177,94,0.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ci-text-label{font-family:var(--font-m);font-size:0.55rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.ci-text-val{font-size:0.88rem;color:var(--text);line-height:1.5;}
+.ci-text-val a{color:var(--gold);text-decoration:none;}
+.ci-text-val a:hover{text-decoration:underline;}
+.avail-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:6px;padding:4px 10px;font-family:var(--font-m);font-size:0.55rem;color:#00ff88;letter-spacing:1px;text-transform:uppercase;margin-top:1.5rem;}
+.avail-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#00ff88;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+.form-card{background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.form-label-top{font-family:var(--font-m);font-size:0.58rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:0.5rem;}
+.form-title{font-family:var(--font-d);font-size:1.8rem;letter-spacing:1px;margin-bottom:0.5rem;}
+.form-sub{font-size:0.82rem;color:var(--text-dim);margin-bottom:2rem;line-height:1.6;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fl{font-family:var(--font-m);font-size:0.58rem;color:rgba(228,177,94,0.8);text-transform:uppercase;letter-spacing:2px;}
+.fi,.fs,.ft{background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.2);border-radius:8px;padding:0.7rem 0.9rem;color:#fff;font-family:inherit;font-size:0.875rem;transition:border-color 0.2s;width:100%;}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:rgba(228,177,94,0.7);background:rgba(228,177,94,0.04);}
+.fs{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23e4b15e' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.5rem;}
+.fs option{background:#111;}
+.ft{resize:vertical;min-height:110px;line-height:1.6;}
+.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem;}
+.plat-opt{display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.2);border-radius:8px;padding:0.55rem 0.75rem;font-size:0.78rem;color:#a0a0a0;cursor:pointer;transition:all 0.2s;text-align:center;}
+.plat-opt:hover,.plat-opt.sel{background:rgba(228,177,94,0.1);border-color:rgba(228,177,94,0.6);color:var(--gold);}
+.btn-submit{width:100%;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;border:none;padding:0.9rem;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.3s;margin-top:0.5rem;letter-spacing:0.5px;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(248,223,165,0.35);}
+.btn-submit:disabled{opacity:0.6;transform:none;}
+.msg-success{display:none;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:1.25rem;text-align:center;color:#00ff88;font-family:var(--font-m);font-size:0.75rem;letter-spacing:1px;margin-top:1rem;}
+.msg-error{display:none;background:rgba(255,56,96,0.08);border:1px solid rgba(255,56,96,0.3);border-radius:10px;padding:1rem;text-align:center;color:#ff3860;font-size:0.78rem;margin-top:0.75rem;}
+
+footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;text-align:center;}
+.f-logo{font-family:var(--font-d);font-size:1.6rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.35rem;}
+.f-tag{font-family:var(--font-m);font-size:0.6rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;}
+.f-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.f-link{color:var(--text-muted);text-decoration:none;font-size:0.75rem;font-family:var(--font-m);letter-spacing:1px;transition:color 0.2s;}
+.f-link:hover{color:var(--gold);}
+.f-copy{font-size:0.65rem;color:var(--text-muted);font-family:var(--font-m);border-top:1px solid var(--border);padding-top:1.25rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FORBACH & PARTNERS</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="ueber-uns.html" class="nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a href="cnc-fraeszentren.html" class="nav-link">CNC-Anlagen</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="kontakt.html" class="nav-link active"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+  </div>
+  <div class="lang-toggle-nav">
+    <button class="lang-btn-nav btn-de active" onclick="setLang('de')">DE</button>
+    <button class="lang-btn-nav btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <a href="tel:004921190989962" style="font-family:monospace;font-size:0.7rem;color:#a0a0a0;text-decoration:none;white-space:nowrap;margin-right:0.5rem;">
+    <span class="de">📞 Jetzt anrufen</span><span class="en">📞 Call Now</span>
+  </a>
+  <a href="kontakt.html" class="nav-cta">
+    <span class="de">Termin vereinbaren</span><span class="en">Schedule a Call</span>
+  </a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="de">Kontakt</span><span class="en">Contact</span>
+    </div>
+    <h1>
+      <span class="de">SPRECHEN WIR<br><span class="gold">ÜBER IHR WERK</span></span>
+      <span class="en">LET'S TALK<br><span class="gold">ABOUT YOUR PLANT</span></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="de">Kein Verkaufsgespräch, kein Skript. In 20 Minuten sehen Sie ob und wie wir Ihre Anlage überwachen können.</span>
+      <span class="en">No sales pitch, no script. In 20 minutes you'll see whether and how we can monitor your machines.</span>
+    </p>
+  </div>
+</section>
+
+<div class="main">
+  <div class="contact-grid">
+
+    <!-- LEFT: Contact Info -->
+    <div>
+      <div class="contact-info-card">
+        <div class="ci-label">
+          <span class="de">Direktkontakt</span><span class="en">Direct Contact</span>
+        </div>
+        <div class="ci-title">SASCHA<br><span class="gold">FORBACH</span></div>
+
+        <div class="ci-item">
+          <div class="ci-icon">📞</div>
+          <div>
+            <div class="ci-text-label"><span class="de">Telefon</span><span class="en">Phone</span></div>
+            <div class="ci-text-val"><a href="tel:004921190989962">+49 211 90989962</a></div>
+          </div>
+        </div>
+
+        <div class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-text-label">E-Mail</div>
+            <div class="ci-text-val"><a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a></div>
+          </div>
+        </div>
+
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-text-label">Deutschland</div>
+            <div class="ci-text-val">Graf-Adolf-Straße 41<br>40210 Düsseldorf</div>
+          </div>
+        </div>
+
+        <div class="ci-item">
+          <div class="ci-icon">🌍</div>
+          <div>
+            <div class="ci-text-label"><span class="de">Hauptsitz</span><span class="en">Headquarters</span></div>
+            <div class="ci-text-val">Agias Irinis 46<br>8504 Paphos, <span class="de">Zypern</span><span class="en">Cyprus</span></div>
+          </div>
+        </div>
+
+        <div class="ci-item" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+          <div class="ci-icon">💼</div>
+          <div>
+            <div class="ci-text-label">LinkedIn</div>
+            <div class="ci-text-val"><a href="https://www.linkedin.com/in/sascha-p-forbach-6aa52b396/" target="_blank">Sascha P. Forbach</a></div>
+          </div>
+        </div>
+
+        <div class="avail-badge">
+          ● <span class="de">Antwort innerhalb 24h</span><span class="en">Reply within 24h</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="form-card">
+      <div class="form-label-top">
+        <span class="de">Erstgespräch vereinbaren</span><span class="en">Schedule a Discovery Call</span>
+      </div>
+      <div class="form-title">
+        <span class="de">TERMIN<br><span class="gold">ANFRAGEN</span></span>
+        <span class="en">REQUEST<br><span class="gold">A MEETING</span></span>
+      </div>
+      <p class="form-sub">
+        <span class="de">Kostenlos · Unverbindlich · 20 Minuten</span>
+        <span class="en">Free · No Obligation · 20 Minutes</span>
+      </p>
+
+      <form id="kontaktForm" onsubmit="submitKontakt(event)">
+        <input type="hidden" name="access_key" value="IHRE_WEB3FORMS_ACCESS_KEY_HIER">
+        <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners">
+        <input type="hidden" name="from_name" value="Forbach & Partners Website">
+        <input type="hidden" name="redirect" value="false">
+
+        <div style="margin-bottom:1rem;">
+          <div class="fl" style="margin-bottom:0.6rem;">
+            <span class="de">Meeting-Plattform</span><span class="en">Meeting Platform</span>
+          </div>
+          <div class="plat-grid">
+            <div class="plat-opt" onclick="selectPlat(this,'Microsoft Teams')">🟦 MS Teams</div>
+            <div class="plat-opt" onclick="selectPlat(this,'Google Meet')">🟩 Google Meet</div>
+            <div class="plat-opt" onclick="selectPlat(this,'Zoom')">🟦 Zoom</div>
+            <div class="plat-opt" onclick="selectPlat(this,'FaceTime')">🍏 FaceTime</div>
+            <div class="plat-opt" onclick="selectPlat(this,'Telefon')" style="grid-column:1/-1;">
+              📞 <span class="de">Lieber per Telefon</span><span class="en">Prefer by Phone</span>
+            </div>
+          </div>
+          <input type="hidden" id="platVal" name="platform" value="">
+        </div>
+
+        <div class="form-grid">
+          <div class="fg">
+            <label class="fl"><span class="de">Ihr Name *</span><span class="en">Your Name *</span></label>
+            <input type="text" name="name" class="fi" placeholder="Max Mustermann" required>
+          </div>
+          <div class="fg">
+            <label class="fl"><span class="de">Unternehmen *</span><span class="en">Company *</span></label>
+            <input type="text" name="company" class="fi" placeholder="Musterfirma GmbH" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="fg">
+            <label class="fl">E-Mail *</label>
+            <input type="email" name="email" class="fi" placeholder="m.mustermann@firma.de" required>
+          </div>
+          <div class="fg">
+            <label class="fl"><span class="de">Telefon</span><span class="en">Phone</span></label>
+            <input type="tel" name="phone" class="fi" placeholder="+49 …">
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:1rem;">
+          <label class="fl"><span class="de">Maschinentyp</span><span class="en">Machine Type</span></label>
+          <select name="machine_type" class="fs">
+            <option value=""><span class="de">Bitte wählen…</span><span class="en">Please select…</span></option>
+            <option>CNC-Fräszentrum (3-Achs)</option>
+            <option>CNC-Fräszentrum (5-Achs)</option>
+            <option>Bearbeitungszentrum (BAZ)</option>
+            <option>CNC-Drehzentrum</option>
+            <option>Dreh-Fräszentrum</option>
+            <option>Mehrere CNC-Anlagen</option>
+            <option>Sonstiges / Other</option>
+          </select>
+        </div>
+        <div class="fg" style="margin-bottom:1rem;">
+          <label class="fl"><span class="de">Ihre Nachricht *</span><span class="en">Your Message *</span></label>
+          <textarea name="message" class="ft" id="kontaktTextarea" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="kontaktSubmitBtn">
+          <span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span>
+          <span class="en">REQUEST FREE DISCOVERY CALL →</span>
+        </button>
+        <div class="msg-success" id="kontaktSuccess">
+          <span class="de">✓ NACHRICHT ERHALTEN — Sascha Forbach meldet sich persönlich innerhalb von 24 Stunden.</span>
+          <span class="en">✓ MESSAGE RECEIVED — Sascha Forbach will get back to you personally within 24 hours.</span>
+        </div>
+        <div class="msg-error" id="kontaktError">
+          <span class="de">Fehler beim Senden. Bitte direkt an info@forbachandpartners.com schreiben.</span>
+          <span class="en">Error sending. Please write directly to info@forbachandpartners.com</span>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">FORBACH & PARTNERS</div>
+  <div class="f-tag">
+    <span class="de">Predictive Intelligence · CNC-Fräszentren · Industry 4.0</span>
+    <span class="en">Predictive Intelligence · CNC Machining Centers · Industry 4.0</span>
+  </div>
+  <div class="f-links">
+    <a class="f-link" href="index.html">Home</a>
+    <a class="f-link" href="ueber-uns.html"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
+    <a class="f-link" href="blog.html">Blog</a>
+    <a class="f-link" href="kontakt.html"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+    <a class="f-link" href="impressum.html">Impressum</a>
+    <a class="f-link" href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · <span class="de">Alle Rechte vorbehalten</span><span class="en">All Rights Reserved</span></div>
+</footer>
+
+<script>
+// Textarea placeholder based on language
+function updateKontaktPlaceholder(){
+  var ta = document.getElementById('kontaktTextarea');
+  if(!ta) return;
+  ta.placeholder = document.body.classList.contains('lang-en')
+    ? 'Number of machines, current problem, what you need…'
+    : 'Anzahl Maschinen, aktuelles Problem, was Sie sich wünschen…';
+}
+document.addEventListener('langChanged', updateKontaktPlaceholder);
+updateKontaktPlaceholder();
+
+function selectPlat(el, val){
+  document.querySelectorAll('.plat-opt').forEach(function(o){ o.classList.remove('sel'); });
+  el.classList.add('sel');
+  document.getElementById('platVal').value = val;
+}
+
+async function submitKontakt(e){
+  e.preventDefault();
+  var btn = document.getElementById('kontaktSubmitBtn');
+  var isEn = document.body.classList.contains('lang-en');
+  btn.disabled = true;
+  btn.innerHTML = isEn ? 'SENDING…' : 'WIRD GESENDET…';
+  try {
+    var res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: new FormData(e.target) });
+    var json = await res.json();
+    if(json.success){
+      document.getElementById('kontaktSuccess').style.display = 'block';
+      btn.style.display = 'none';
+    } else { throw new Error(); }
+  } catch(err){
+    btn.disabled = false;
+    btn.innerHTML = isEn
+      ? '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE DISCOVERY CALL →</span>'
+      : '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE DISCOVERY CALL →</span>';
+    document.getElementById('kontaktError').style.display = 'block';
+  }
+}
+</script>
+<script src="common.js"></script>
+</body>
+</html>

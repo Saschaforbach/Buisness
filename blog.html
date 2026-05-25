@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Predictive Maintenance Insights | Forbach & Partners</title>
+<meta name="description" content="Expertenwissen zu Predictive Maintenance, CNC-Diagnose und Industrie 4.0. Aktuelle Einblicke von Forbach & Partners.">
+<meta name="keywords" content="Predictive Maintenance, CNC Überwachung, Spindel-Diagnose, Anomalieerkennung, Industrie 4.0, Vibrationssensoren, Werkzeugwechsler, Isolation Forest, OPC UA, MQTT">
+<meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://www.forbachandpartners.com/blog">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Forbach & Partners">
+<meta property="og:title" content="Blog — Predictive Maintenance Insights | Forbach & Partners">
+<meta property="og:description" content="Expertenwissen zu Predictive Maintenance, CNC-Diagnose und Industrie 4.0 von Sascha Forbach.">
+<meta property="og:url" content="https://www.forbachandpartners.com/blog">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Predictive Maintenance Blog — Forbach & Partners">
+<meta name="twitter:description" content="KI-gestützte Maschinenüberwachung — Praxis-Einblicke und Technologie-Updates.">
+
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Forbach & Partners — Predictive Maintenance Blog",
+  "description": "Expertenwissen zu KI-gestützter Zustandsüberwachung für produzierende Unternehmen",
+  "url": "https://www.forbachandpartners.com/blog",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Forbach and Partners Ltd",
+    "url": "https://www.forbachandpartners.com"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Sascha Forbach",
+    "jobTitle": "Gründer & Geschäftsführer",
+    "url": "https://www.forbachandpartners.com/ueber-uns"
+  }
+}
+</script>
+
+<style>
+:root {
+  --gold: #e4b15e; --gold-light: #f8dfa5; --gold-dark: #c49040;
+  --black: #000; --dark-2: #0e0e0e; --dark-3: #141414; --dark-card: #111;
+  --border: rgba(228,177,94,0.15); --border-strong: rgba(228,177,94,0.38);
+  --text: #fff; --text-dim: #a0a0a0; --text-muted: #555;
+  --font-d: 'Oswald', sans-serif; --font-b: 'Raleway', sans-serif; --font-m: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--text); font-family: var(--font-b); line-height: 1.6; overflow-x: hidden; }
+
+/* ── LANG TOGGLE ── */
+.en { display: none; }
+body.lang-en .de { display: none !important; }
+body.lang-en .en { display: block !important; }
+body.lang-en span.en { display: inline !important; }
+body.lang-en span.de { display: none !important; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+  z-index: 1000; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+  border: 1px solid var(--border-strong); border-radius: 14px;
+  padding: 0 2rem; height: 58px; display: flex; align-items: center;
+  justify-content: space-between; gap: 2rem;
+  width: min(1200px, calc(100vw - 2rem));
+}
+.nav-logo { font-family: var(--font-d); font-size: 1.2rem; letter-spacing: 2px;
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  text-decoration: none; white-space: nowrap; }
+.nav-links { display: flex; gap: 0.25rem; }
+.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.8rem;
+  padding: 0.4rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
+.nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-link.active { color: var(--gold); }
+.nav-cta { background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e); color: #000;
+  padding: 0.4rem 1.1rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem;
+  text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.nav-cta:hover { box-shadow: 0 4px 20px rgba(248,223,165,0.3); transform: translateY(-1px); }
+@media(max-width:900px){ .nav-links { display: none; } }
+
+/* ── HERO ── */
+.blog-hero {
+  min-height: 42vh; display: flex; align-items: center;
+  padding: 140px 2rem 60px; position: relative; overflow: hidden;
+}
+.blog-hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 40% 50%, rgba(228,177,94,0.06) 0%, transparent 60%),
+    linear-gradient(180deg, #000 0%, #080600 100%);
+}
+.blog-hero-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(228,177,94,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(228,177,94,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 75%);
+}
+.blog-hero-inner { position: relative; max-width: 1200px; margin: 0 auto; width: 100%; }
+.eyebrow { display: inline-flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-m); font-size: 0.65rem; color: var(--gold);
+  letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.25rem; }
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.blog-hero h1 { font-family: var(--font-d); font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 0.95; letter-spacing: 2px; margin-bottom: 1.2rem; }
+.blog-hero h1 .gold { background: linear-gradient(135deg, #e4b15e, #f8dfa5, #c49040);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.blog-hero-sub { font-size: 1rem; color: var(--text-dim); max-width: 560px; line-height: 1.7; }
+
+/* ── BLOG CONTROLS ── */
+.blog-controls {
+  max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 0;
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;
+}
+.search-wrap { position: relative; flex: 1; min-width: 220px; max-width: 380px; }
+.search-wrap input {
+  width: 100%; background: var(--dark-3); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-family: var(--font-m);
+  font-size: 0.8rem; padding: 0.65rem 0.75rem 0.65rem 2.5rem; outline: none;
+  transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: var(--border-strong); }
+.search-wrap input::placeholder { color: var(--text-muted); }
+.search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%);
+  font-size: 0.75rem; color: var(--text-muted); }
+
+.category-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.cat-tab {
+  background: transparent; border: 1px solid var(--border); border-radius: 20px;
+  color: var(--text-muted); font-family: var(--font-m); font-size: 0.6rem;
+  padding: 5px 14px; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s;
+}
+.cat-tab:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.cat-tab.active { background: rgba(228,177,94,0.12); color: var(--gold); border-color: var(--border-strong); }
+
+.posts-meta { font-family: var(--font-m); font-size: 0.6rem; color: var(--text-muted);
+  letter-spacing: 2px; text-transform: uppercase; padding: 0 2rem;
+  max-width: 1200px; margin: 1.25rem auto 0; }
+
+/* ── POST GRID ── */
+.post-grid {
+  max-width: 1200px; margin: 1.5rem auto 0; padding: 0 2rem 6rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+@media (max-width: 1100px) { .post-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px)  { .post-grid { grid-template-columns: 1fr; } }
+
+.post-card {
+  background: var(--dark-card); border: 1px solid var(--border);
+  border-radius: 18px; overflow: hidden;
+  transition: all 0.35s; cursor: pointer; display: flex; flex-direction: column;
+}
+.post-card::before {
+  content: ''; display: block; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.post-card:hover::before { opacity: 1; }
+.post-card:hover { border-color: var(--border-strong); transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
+.post-card.hidden { display: none; }
+
+.post-card-header { padding: 1.5rem 1.5rem 0; }
+.post-cat-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(228,177,94,0.1); border: 1px solid var(--border-strong);
+  border-radius: 5px; padding: 3px 10px;
+  font-family: var(--font-m); font-size: 0.55rem; color: var(--gold);
+  letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem;
+}
+.post-title { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 1px;
+  line-height: 1.15; margin-bottom: 0.75rem; color: var(--text); transition: color 0.2s; }
+.post-card:hover .post-title { color: var(--gold-light); }
+.post-excerpt { font-size: 0.84rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.25rem; }
+
+.post-card-footer { margin-top: auto; padding: 0 1.5rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; }
+.post-meta { display: flex; flex-direction: column; gap: 2px; }
+.post-date { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted); letter-spacing: 1px; }
+.post-author { font-family: var(--font-m); font-size: 0.58rem; color: var(--text-dim); }
+.post-read-more { font-family: var(--font-m); font-size: 0.6rem; color: var(--gold);
+  letter-spacing: 1.5px; text-transform: uppercase; display: flex; align-items: center; gap: 5px;
+  transition: gap 0.2s; }
+.post-card:hover .post-read-more { gap: 10px; }
+
+.post-tags { padding: 0 1.5rem 1.25rem; display: flex; flex-wrap: wrap; gap: 5px; }
+.post-tag { font-family: var(--font-m); font-size: 0.5rem; color: var(--text-muted);
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 3px; padding: 2px 7px; letter-spacing: 0.8px; text-transform: uppercase; }
+
+.post-card.featured { grid-column: span 2; }
+@media (max-width: 640px) { .post-card.featured { grid-column: span 1; } }
+.post-card.featured .post-title { font-size: 2rem; }
+.post-card.featured .post-excerpt { font-size: 0.92rem; }
+
+/* ── POST DETAIL OVERLAY ── */
+.post-overlay {
+  position: fixed; inset: 0; z-index: 5000;
+  background: rgba(0,0,0,0.95); backdrop-filter: blur(12px);
+  display: none; overflow-y: auto;
+}
+.post-overlay.open { display: block; }
+.post-detail { max-width: 820px; margin: 0 auto; padding: 5rem 2rem 8rem; position: relative; }
+.post-close {
+  position: fixed; top: 1.5rem; right: 2rem;
+  background: rgba(255,255,255,0.07); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-family: var(--font-m);
+  font-size: 0.65rem; padding: 8px 16px; letter-spacing: 2px; transition: all 0.2s; z-index: 5001;
+}
+.post-close:hover { background: rgba(255,56,96,0.1); border-color: rgba(255,56,96,0.4); color: #ff3860; }
+
+.detail-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.detail-cat { display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(228,177,94,0.1); border: 1px solid var(--border-strong);
+  border-radius: 5px; padding: 4px 12px;
+  font-family: var(--font-m); font-size: 0.58rem; color: var(--gold);
+  letter-spacing: 1.5px; text-transform: uppercase; }
+.detail-date { font-family: var(--font-m); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 1px; }
+.detail-read-time { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted); letter-spacing: 1px; }
+
+.detail-title { font-family: var(--font-d); font-size: clamp(2rem, 5vw, 3.8rem);
+  letter-spacing: 1.5px; line-height: 1.0; margin-bottom: 1rem; }
+.detail-title .gold { background: linear-gradient(135deg, #e4b15e, #f8dfa5, #c49040);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.detail-lead { font-size: 1.1rem; color: var(--text-dim); line-height: 1.8;
+  border-left: 3px solid var(--gold); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+
+.detail-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.85; }
+.detail-body h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--text);
+  letter-spacing: 1px; margin: 2.5rem 0 0.85rem; }
+.detail-body h3 { font-family: var(--font-d); font-size: 1.3rem; color: var(--gold-light);
+  letter-spacing: 1px; margin: 1.75rem 0 0.6rem; }
+.detail-body p { margin-bottom: 1.25rem; }
+.detail-body ul, .detail-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+.detail-body li { margin-bottom: 0.4rem; }
+.detail-body strong { color: var(--text); font-weight: 700; }
+.detail-body code {
+  background: rgba(228,177,94,0.1); border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 7px;
+  font-family: var(--font-m); font-size: 0.82em; color: var(--gold-light);
+}
+.detail-body pre {
+  background: var(--dark-3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.25rem; overflow-x: auto;
+  font-family: var(--font-m); font-size: 0.8rem; color: #a8e6cf;
+  margin: 1.25rem 0; line-height: 1.6;
+}
+.detail-body blockquote {
+  background: rgba(228,177,94,0.05); border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0; padding: 1rem 1.5rem;
+  margin: 1.5rem 0; font-style: italic; color: var(--text-dim);
+}
+.detail-body .highlight-box {
+  background: linear-gradient(135deg, rgba(228,177,94,0.08), rgba(228,177,94,0.03));
+  border: 1px solid var(--border-strong); border-radius: 12px;
+  padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+}
+.detail-body .stat-highlight {
+  font-family: var(--font-d); font-size: 2.5rem; color: var(--gold);
+  display: block; margin-bottom: 0.25rem;
+}
+.detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2.5rem 0 1rem; }
+.detail-tag { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted);
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px; padding: 3px 9px; letter-spacing: 0.8px; text-transform: uppercase; }
+.detail-author {
+  background: var(--dark-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+  margin-top: 2.5rem;
+}
+.author-avatar { width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #e4b15e, #c49040);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-d); font-size: 1.2rem; color: #000; flex-shrink: 0; }
+.author-name { font-weight: 700; font-size: 0.95rem; }
+.author-role { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+.no-results { text-align: center; padding: 4rem 2rem; color: var(--text-muted);
+  font-family: var(--font-m); font-size: 0.8rem; letter-spacing: 2px; }
+
+footer { background: var(--dark-2, #111); border-top: 1px solid var(--border);
+  padding: 3rem 2rem 2rem; text-align: center; }
+.f-logo { font-family: var(--font-d); font-size: 1.6rem; letter-spacing: 2px;
+  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.35rem; }
+.f-tag { font-family: var(--font-m); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
+.f-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.f-link { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; font-family: var(--font-m); letter-spacing: 1px; transition: color 0.2s; }
+.f-link:hover { color: var(--gold); }
+.f-copy { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-m); border-top: 1px solid var(--border); padding-top: 1.25rem; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.v { opacity: 1; transform: translateY(0); }
+
+*,*::before,*::after{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, auto;}
+a,button,[role=button],.post-card{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, pointer;}
+</style>
+</head>
+<body style="overflow-x:hidden;">
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="ueber-uns.html" class="nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a href="cnc-fraeszentren.html" class="nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
+    <a href="blog.html" class="nav-link active">Blog</a>
+    <a href="kontakt.html" class="nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+  </div>
+  <div class="lang-toggle-nav">
+    <button class="lang-btn-nav btn-de active" onclick="setLang('de')">DE</button>
+    <button class="lang-btn-nav btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <a href="tel:004921190989962" style="font-family:monospace;font-size:0.7rem;color:#a0a0a0;text-decoration:none;white-space:nowrap;margin-right:0.5rem;">
+    <span class="de">📞 Jetzt anrufen</span><span class="en">📞 Call Now</span>
+  </a>
+  <a href="kontakt.html" class="nav-cta">
+    <span class="de">Termin vereinbaren</span><span class="en">Schedule a Call</span>
+  </a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="blog-hero">
+  <div class="blog-hero-bg"></div>
+  <div class="blog-hero-inner">
+    <div class="eyebrow">
+      <span class="de">Insights &amp; Expertenwissen</span>
+      <span class="en">Insights &amp; Expert Knowledge</span>
+    </div>
+    <h1>PREDICTIVE<br><span class="gold">INTELLIGENCE</span><br>BLOG</h1>
+    <p class="blog-hero-sub">
+      <span class="de">Praxis-Einblicke, Technologie-Updates und Fallstudien rund um KI-gestützte Zustandsüberwachung für CNC-Fräszentren und Bearbeitungszentren. Von Sascha Forbach und dem Team.</span>
+      <span class="en">Practical insights, technology updates and case studies on AI-driven condition monitoring for CNC machining centers. From Sascha Forbach and the team.</span>
+    </p>
+  </div>
+</section>
+
+<div class="en" id="blogLangNotice" style="display:none;max-width:1100px;margin:0 auto 1.5rem;padding:0 2rem;">
+  <p style="background:rgba(228,177,94,0.08);border:1px solid rgba(228,177,94,0.35);border-radius:10px;padding:1rem 1.25rem;font-size:0.85rem;color:#a0a0a0;line-height:1.6;">
+    Blog articles are currently published in <strong style="color:#e4b15e;">German</strong>. An English version can be provided on request.
+  </p>
+</div>
+
+<!-- ══ CONTROLS ══ -->
+<div class="blog-controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" oninput="filterPosts()">
+  </div>
+  <div class="category-tabs" id="catTabs"></div>
+</div>
+
+<div class="posts-meta" id="postsMeta"></div>
+
+<!-- ══ POST GRID ══ -->
+<main>
+  <div class="post-grid" id="postGrid"></div>
+  <div class="no-results" id="noResults" style="display:none">
+    <span class="de">Keine Artikel gefunden. Versuche einen anderen Suchbegriff oder eine andere Kategorie.</span>
+    <span class="en">No articles found. Try a different search term or category.</span>
+  </div>
+</main>
+
+<!-- ══ POST DETAIL OVERLAY ══ -->
+<div class="post-overlay" id="postOverlay">
+  <div class="post-detail" id="postDetail"></div>
+  <button class="post-close" onclick="closePost()">
+    <span class="de">✕ SCHLIESSEN</span><span class="en">✕ CLOSE</span>
+  </button>
+</div>
+
+<footer>
+  <div class="f-logo">FORBACH &amp; PARTNERS</div>
+  <div class="f-tag">
+    <span class="de">Predictive Intelligence · CNC-Fräszentren · Industry 4.0</span>
+    <span class="en">Predictive Intelligence · CNC Machining Centers · Industry 4.0</span>
+  </div>
+  <div class="f-links">
+    <a class="f-link" href="index.html">Home</a>
+    <a class="f-link" href="ueber-uns.html"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
+    <a class="f-link" href="blog.html">Blog</a>
+    <a class="f-link" href="kontakt.html"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+    <a class="f-link" href="impressum.html">Impressum</a>
+    <a class="f-link" href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · <span class="de">Alle Rechte vorbehalten</span><span class="en">All Rights Reserved</span></div>
+</footer>
+
+<script src="blog-posts.js"></script>
+<script>
+// Language helper
+function t(de, en) {
+  return document.body.classList.contains('lang-en') ? en : de;
+}
+
+const ALL_CATEGORIES = ['Alle', ...new Set(POSTS.map(p => p.category))];
+let activeCategory = 'Alle';
+let searchQuery = '';
+
+// Update search placeholder on lang change
+function updateSearchPlaceholder() {
+  document.getElementById('searchInput').placeholder = t('Artikel suchen…', 'Search articles…');
+}
+
+// Render category tabs
+function renderCats() {
+  const container = document.getElementById('catTabs');
+  container.innerHTML = ALL_CATEGORIES.map(cat => {
+    const label = cat === 'Alle' ? t('Alle', 'All') : cat;
+    return `<button class="cat-tab${cat === activeCategory ? ' active' : ''}" onclick="setCategory('${cat}')">${label}</button>`;
+  }).join('');
+}
+
+function setCategory(cat) {
+  activeCategory = cat;
+  renderCats();
+  filterPosts();
+}
+
+// Filter & render posts
+function filterPosts() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  const visible = POSTS.filter(p => {
+    const matchCat = activeCategory === 'Alle' || p.category === activeCategory;
+    const matchSearch = !searchQuery || [p.title, p.excerpt, p.category, ...p.tags]
+      .some(tx => tx.toLowerCase().includes(searchQuery));
+    return matchCat && matchSearch;
+  });
+
+  const totalCats = ALL_CATEGORIES.length - 1;
+  document.getElementById('postsMeta').textContent =
+    visible.length === POSTS.length
+      ? t(`${POSTS.length} Artikel · ${totalCats} Kategorien`, `${POSTS.length} Articles · ${totalCats} Categories`)
+      : t(`${visible.length} von ${POSTS.length} Artikeln`, `${visible.length} of ${POSTS.length} articles`);
+
+  const grid = document.getElementById('postGrid');
+  grid.innerHTML = visible.map((p, i) => `
+    <article class="post-card${p.featured && i === 0 ? ' featured' : ''} reveal"
+             onclick="openPost(${p.id})"
+             itemscope itemtype="https://schema.org/BlogPosting">
+      <div class="post-card-header">
+        <div class="post-cat-badge">${p.category}</div>
+        <h2 class="post-title" itemprop="headline">${p.title}</h2>
+        <p class="post-excerpt" itemprop="description">${p.excerpt}</p>
+      </div>
+      <div class="post-tags">
+        ${p.tags.map(tag => `<span class="post-tag" itemprop="keywords">${tag}</span>`).join('')}
+      </div>
+      <div class="post-card-footer">
+        <div class="post-meta">
+          <span class="post-date" itemprop="datePublished" content="${p.date}">${p.dateFormatted}</span>
+          <span class="post-author" itemprop="author">${p.author} · ${p.readTime}</span>
+        </div>
+        <span class="post-read-more">${t('Lesen →', 'Read →')}</span>
+      </div>
+    </article>
+  `).join('');
+
+  document.getElementById('noResults').style.display = visible.length === 0 ? 'block' : 'none';
+  initReveal();
+}
+
+// Open post detail
+function openPost(id) {
+  const p = POSTS.find(x => x.id === id);
+  if (!p) return;
+
+  const ldScript = document.getElementById('ld-current-post');
+  if (ldScript) ldScript.remove();
+  const ld = document.createElement('script');
+  ld.type = 'application/ld+json';
+  ld.id = 'ld-current-post';
+  ld.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": p.title,
+    "description": p.excerpt,
+    "datePublished": p.date,
+    "dateModified": p.date,
+    "author": { "@type": "Person", "name": p.author },
+    "publisher": { "@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://www.forbachandpartners.com" },
+    "keywords": p.tags.join(', '),
+    "articleSection": p.category,
+    "url": `https://www.forbachandpartners.com/blog/${id}`
+  });
+  document.head.appendChild(ld);
+
+  document.getElementById('postDetail').innerHTML = `
+    <div class="detail-eyebrow">
+      <span class="detail-cat">${p.category}</span>
+      <span class="detail-date">${p.dateFormatted}</span>
+      <span class="detail-read-time">· ${p.readTime} ${t('Lesezeit', 'read time')}</span>
+    </div>
+    <h1 class="detail-title">${p.title}</h1>
+    <article class="detail-body" itemprop="articleBody">
+      ${p.content}
+    </article>
+    <div class="detail-tags">
+      ${p.tags.map(tag => `<span class="detail-tag">${tag}</span>`).join('')}
+    </div>
+    <div class="detail-author">
+      <div class="author-avatar">${p.author.split(' ').map(n => n[0]).join('')}</div>
+      <div>
+        <div class="author-name">${p.author}</div>
+        <div class="author-role">Forbach &amp; Partners · ${t('Gründer & Experte', 'Founder & Expert')}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('postOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('postOverlay').scrollTop = 0;
+}
+
+function closePost() {
+  document.getElementById('postOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePost(); });
+
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.v)').forEach(el => obs.observe(el));
+}
+
+// Re-render on language change
+document.addEventListener('langChanged', () => {
+  updateSearchPlaceholder();
+  renderCats();
+  filterPosts();
+  const notice = document.getElementById('blogLangNotice');
+  if (notice) notice.style.display = document.body.classList.contains('lang-en') ? 'block' : 'none';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateSearchPlaceholder();
+  renderCats();
+  filterPosts();
+});
+</script>
+<script src="common.js"></script>
+</body>
+</html>

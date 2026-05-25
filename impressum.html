@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — Forbach & Partners</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#e4b15e;--gold-light:#f8dfa5;--black:#000;--dark-2:#111;--dark-card:#141414;--border:rgba(228,177,94,0.15);--border-strong:rgba(228,177,94,0.38);--text:#fff;--text-dim:#a0a0a0;--text-muted:#555;--font-d:'Oswald',sans-serif;--font-b:'Raleway',sans-serif;--font-m:'JetBrains Mono',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--black);color:var(--text);font-family:var(--font-b);line-height:1.6;}
+nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);border:1px solid var(--border-strong);border-radius:14px;padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:2rem;width:min(1200px,calc(100vw - 2rem));}
+.nav-logo{font-family:var(--font-d);font-size:1.2rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:0.25rem;}
+.nav-link{color:var(--text-dim);text-decoration:none;font-size:0.8rem;padding:0.4rem 0.75rem;border-radius:6px;transition:all 0.2s;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.nav-cta{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.4rem 1.1rem;border-radius:6px;font-weight:700;font-size:0.78rem;text-decoration:none;}
+@media(max-width:900px){.nav-links{display:none;}}
+
+.page{max-width:800px;margin:0 auto;padding:130px 2rem 6rem;}
+.page-label{font-family:var(--font-m);font-size:0.6rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+.page-label::before{content:'';width:22px;height:1px;background:var(--gold);}
+h1{font-family:var(--font-d);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;margin-bottom:3rem;line-height:0.95;}
+.gold{background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.card{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;}
+.card h2{font-family:var(--font-d);font-size:1.2rem;letter-spacing:1px;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;}
+.card p,.card li{font-size:0.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:0.5rem;}
+.card a{color:var(--gold);text-decoration:none;}
+.card a:hover{text-decoration:underline;}
+.card ul{padding-left:1.2rem;}
+
+footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;text-align:center;}
+.f-logo{font-family:var(--font-d);font-size:1.4rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;}
+.f-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.f-link{color:var(--text-muted);text-decoration:none;font-size:0.75rem;font-family:var(--font-m);letter-spacing:1px;transition:color 0.2s;}
+.f-link:hover{color:var(--gold);}
+.f-copy{font-size:0.65rem;color:var(--text-muted);font-family:var(--font-m);border-top:1px solid var(--border);padding-top:1.25rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FORBACH & PARTNERS</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="ueber-uns.html" class="nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a href="cnc-fraeszentren.html" class="nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="kontakt.html" class="nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+  </div>
+  <div class="lang-toggle-nav">
+      <button class="lang-btn-nav btn-de active" onclick="setLang('de')">DE</button>
+      <button class="lang-btn-nav btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  <a href="tel:004921190989962" style="font-family:monospace;font-size:0.7rem;color:#a0a0a0;text-decoration:none;white-space:nowrap;margin-right:0.5rem;"><span class="de">📞 Jetzt anrufen</span><span class="en">📞 Call Now</span></a>
+  <a href="kontakt.html" class="nav-cta"><span class="de">Termin vereinbaren</span><span class="en">Schedule a Call</span></a>
+</nav>
+
+<div class="page">
+  <div class="page-label">Rechtliches</div>
+  <h1>IMPRES<span class="gold">SUM</span></h1>
+
+  <!-- EN notice -->
+  <div class="en">
+    <div class="card">
+      <h2>Legal Notice</h2>
+      <p>This imprint (Impressum) is a mandatory legal disclosure required under German and European law. It is provided in German as legally required. An English translation is available upon request: <a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a></p>
+    </div>
+  </div>
+
+  <!-- DE Inhalt -->
+  <div class="de">
+    <div class="card">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p><strong style="color:#fff;">Forbach and Partners Ltd</strong></p>
+      <p>Agias Irinis 46<br>8504 Paphos<br>Republik Zypern</p>
+      <br>
+      <p><strong style="color:#fff;">Adresse Deutschland</strong></p>
+      <p>Graf-Adolf-Straße 41<br>40210 Düsseldorf<br>Deutschland</p>
+    </div>
+
+    <div class="card">
+      <h2>Unternehmensregistrierung</h2>
+      <p>Eingetragen im Handelsregister Nikosia (Zypern)</p>
+      <p>Registernummer: <strong style="color:#fff;">HE 483586</strong></p>
+      <p>Direktor: <strong style="color:#fff;">Sascha P. Forbach</strong></p>
+    </div>
+
+    <div class="card">
+      <h2>Steuerliche Angaben</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:</p>
+      <p><strong style="color:#fff;">CY60263366F</strong></p>
+    </div>
+
+    <div class="card">
+      <h2>Kontakt</h2>
+      <p>Telefon: <a href="tel:004921190989962">+49 211 90989962</a></p>
+      <p>E-Mail: <a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a></p>
+      <p>Internet: <a href="https://forbachandpartners.com">www.forbachandpartners.com</a></p>
+    </div>
+
+    <div class="card">
+      <h2>Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV)</h2>
+      <p>Sascha P. Forbach<br>Graf-Adolf-Straße 41<br>40210 Düsseldorf</p>
+    </div>
+
+    <div class="card">
+      <h2>Streitschlichtung</h2>
+      <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank">https://ec.europa.eu/consumers/odr/</a></p>
+      <p>Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    </div>
+
+    <div class="card">
+      <h2>Haftung für Inhalte</h2>
+      <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    </div>
+
+    <div class="card">
+      <h2>Urheberrecht</h2>
+      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">FORBACH & PARTNERS</div>
+  <div class="f-links">
+    <a class="f-link" href="index.html">Home</a>
+    <a class="f-link" href="ueber-uns.html">Über uns</a>
+    <a class="f-link" href="blog.html">Blog</a>
+    <a class="f-link" href="kontakt.html">Kontakt</a>
+    <a class="f-link" href="impressum.html">Impressum</a>
+    <a class="f-link" href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
+</footer>
+<script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Go-Live Checkliste — Forbach & Partners</title>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #e0c878;
+    --dark: #0a0b0f;
+    --dark-2: #12141a;
+    --dark-3: #1a1d26;
+    --text: #e8e8e8;
+    --muted: #6a6d7a;
+    --green: #4caf7d;
+    --red: #e05252;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    padding: 2rem;
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  h1 {
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+    letter-spacing: 1px;
+  }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+
+  .phase {
+    margin-bottom: 2.2rem;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.2rem;
+  }
+  .phase-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .step {
+    background: var(--dark-2);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.75rem;
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 0.9rem;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .step:hover { background: var(--dark-3); }
+  .step.done { opacity: 0.55; }
+  .step.done .step-title { text-decoration: line-through; color: var(--muted); }
+
+  .checkbox {
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--gold);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 13px;
+    color: var(--gold);
+    transition: all 0.2s;
+  }
+  .step.done .checkbox {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+
+  .step-content {}
+  .step-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.3rem; }
+  .step-detail {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+  .step-detail code {
+    background: var(--dark-3);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.76rem;
+    color: var(--gold-light);
+  }
+  .step-detail a { color: var(--gold); text-decoration: none; }
+  .step-detail a:hover { text-decoration: underline; }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+  .badge-must { background: rgba(224,82,82,0.2); color: var(--red); border: 1px solid var(--red); }
+  .badge-opt  { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold-dark, #8a6e28); }
+  .badge-done { background: rgba(76,175,125,0.15); color: var(--green); border: 1px solid var(--green); }
+
+  .progress-bar-wrap {
+    background: var(--dark-3);
+    border-radius: 20px;
+    height: 6px;
+    margin: 1.5rem 0 0.4rem;
+    overflow: hidden;
+  }
+  .progress-bar {
+    background: linear-gradient(90deg, var(--gold-dark, #8a6e28), var(--gold));
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .progress-label span { color: var(--gold); font-weight: 700; }
+
+  .tip {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+  .tip strong { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem; }
+    .step { grid-template-columns: 22px 1fr; }
+    .badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🚀 GO-LIVE CHECKLISTE</h1>
+<p class="subtitle">Forbach &amp; Partners · Heute alles verbinden · Stand Mai 2026</p>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar" id="progressBar" style="width:0%"></div>
+</div>
+<p class="progress-label"><span id="progressText">0 von 12</span> Schritte erledigt — klicke die Schritte zum Abhaken</p>
+
+<!-- PHASE 1 -->
+<div class="phase">
+  <div class="phase-title">Phase 1 — Web3Forms Access Key (5 Min.)</div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Access Key anfordern</div>
+      <div class="step-detail">
+        Gehe auf <a href="https://web3forms.com" target="_blank">web3forms.com</a> → E-Mail <code>info@forbachandpartners.com</code> eingeben → "Get your Access Key" klicken → E-Mail öffnen → Key kopieren.<br>
+        Format: <code>a1b2c3d4-e5f6-7890-abcd-ef1234567890</code>
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Key in 4 Dateien eintragen (GitHub)</div>
+      <div class="step-detail">
+        In diesen 4 Dateien <code>IHRE_WEB3FORMS_ACCESS_KEY_HIER</code> durch deinen Key ersetzen:<br>
+        <strong>index.html</strong> · <strong>ueber-uns.html</strong> · <strong>kontakt.html</strong> · <strong>common.js</strong><br>
+        GitHub → Datei → Stift ✏️ → Strg+F → suchen → ersetzen → "Commit changes"
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase">
+  <div class="phase-title">Phase 2 — GitHub Repository + Pages (10–15 Min.)</div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Neues GitHub Repository erstellen</div>
+      <div class="step-detail">
+        <a href="https://github.com/new" target="_blank">github.com/new</a> → Name: <code>forbachandpartners-website</code> → <strong>Public</strong> → "Create repository"
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Alle Dateien hochladen</div>
+      <div class="step-detail">
+        Im leeren Repo → <strong>"uploading an existing file"</strong> klicken → <strong>Inhalt</strong> des github-site Ordners per Drag &amp; Drop rein (nicht den Ordner selbst!).<br>
+        Alle <code>.html</code>, <code>.js</code>, <code>.pdf</code>, <code>CNAME</code>, <code>images/</code> Ordner → "Commit changes"
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">GitHub Pages aktivieren</div>
+      <div class="step-detail">
+        Repository → <strong>Settings</strong> → links <strong>Pages</strong> → Branch: <code>main</code> · Folder: <code>/ (root)</code> → <strong>Save</strong><br>
+        Nach 1–2 Minuten: <code>https://saschaforbach.github.io/forbachandpartners-website/</code>
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Website im Browser testen</div>
+      <div class="step-detail">
+        Öffne die github.io URL → Startseite prüfen → Kontaktformular absenden (Test-Nachricht) → schauen ob E-Mail ankommt bei <code>info@forbachandpartners.com</code>
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase">
+  <div class="phase-title">Phase 3 — Custom Domain (All-Inkl) · 20 Min. + 2–24h Wartezeit</div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Custom Domain in GitHub Pages eintragen</div>
+      <div class="step-detail">
+        Repository → Settings → Pages → "Custom domain": <code>forbachandpartners.com</code> → Save.<br>
+        Eine <code>CNAME</code> Datei wird automatisch im Repo erstellt (oder ist schon drin).
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">DNS-Einträge bei All-Inkl setzen</div>
+      <div class="step-detail">
+        <a href="https://all-inkl.com" target="_blank">all-inkl.com</a> → KAS → Domain <code>forbachandpartners.com</code> → DNS-Verwaltung<br>
+        Alte A-Einträge für <code>@</code> löschen, dann neu anlegen:<br>
+        <code>A @ 185.199.108.153</code><br>
+        <code>A @ 185.199.109.153</code><br>
+        <code>A @ 185.199.110.153</code><br>
+        <code>A @ 185.199.111.153</code><br>
+        <code>CNAME www saschaforbach.github.io</code>
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Warten (2–24h) + HTTPS aktivieren</div>
+      <div class="step-detail">
+        DNS braucht Zeit. Wenn <code>https://forbachandpartners.com</code> lädt → zurück zu GitHub Settings → Pages → <strong>"Enforce HTTPS"</strong> aktivieren.
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase">
+  <div class="phase-title">Phase 4 — Fotos &amp; letzte Details</div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Gründerfoto hochladen (Über uns)</div>
+      <div class="step-detail">
+        Foto benennen: <code>sascha-forbach.jpg</code> → GitHub → Ordner <code>images/team/</code> → "Add file" → hochladen.<br>
+        Optimal: quadratisch, min. 400×400px, professionell, weißer/heller Hintergrund.
+      </div>
+    </div>
+    <span class="badge badge-opt">EMPFOHLEN</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">Impressum &amp; Datenschutz final prüfen</div>
+      <div class="step-detail">
+        <code>impressum.html</code> → Adresse korrekt? USt-ID falls vorhanden eintragen.<br>
+        <code>datenschutz.html</code> → Domain eintragen falls noch Platzhalter drin.
+      </div>
+    </div>
+    <span class="badge badge-must">PFLICHT</span>
+  </div>
+
+  <div class="step" onclick="toggle(this)">
+    <div class="checkbox"></div>
+    <div class="step-content">
+      <div class="step-title">LinkedIn &amp; Xing Profile aktualisieren</div>
+      <div class="step-detail">
+        Website <code>forbachandpartners.com</code> in den Profilen eintragen (LinkedIn: Kontaktinfo → Website · Xing: Profil bearbeiten).<br>
+        Headline auf LinkedIn: <em>"KI-basiertes Predictive Maintenance für CNC-Fräszentren | Forbach & Partners"</em>
+      </div>
+    </div>
+    <span class="badge badge-opt">EMPFOHLEN</span>
+  </div>
+</div>
+
+<div class="tip">
+  <strong>💡 Reihenfolge:</strong> Phase 1 (Web3Forms) und Phase 2 (GitHub) heute erledigen → Website läuft sofort.<br>
+  Phase 3 (Domain) parallel starten, läuft von selbst. Phase 4 in den nächsten Tagen nachziehen.<br><br>
+  <strong>Test-E-Mail:</strong> Fülle das Kontaktformular auf der fertige Website mit einer Test-Nachricht aus — wenn die E-Mail bei <code>info@forbachandpartners.com</code> ankommt, ist alles korrekt verbunden.
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('done');
+    el.querySelector('.checkbox').textContent = el.classList.contains('done') ? '✓' : '';
+    updateProgress();
+    // Save state
+    const steps = document.querySelectorAll('.step');
+    const state = Array.from(steps).map(s => s.classList.contains('done'));
+    localStorage.setItem('golive-state', JSON.stringify(state));
+  }
+
+  function updateProgress() {
+    const steps = document.querySelectorAll('.step');
+    const done = document.querySelectorAll('.step.done').length;
+    const pct = Math.round((done / steps.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' von ' + steps.length;
+  }
+
+  // Restore saved state
+  (function() {
+    const saved = localStorage.getItem('golive-state');
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    const steps = document.querySelectorAll('.step');
+    state.forEach((done, i) => {
+      if (done && steps[i]) {
+        steps[i].classList.add('done');
+        steps[i].querySelector('.checkbox').textContent = '✓';
+      }
+    });
+    updateProgress();
+  })();
+</script>
+</body>
+</html>
