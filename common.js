@@ -14,7 +14,7 @@
     <p style="font-size:0.82rem;color:#a0a0a0;margin-bottom:1.75rem;line-height:1.6;">In 20 Minuten sehen Sie ob und wie wir Ihre Anlage überwachen können. Wählen Sie Ihr bevorzugtes Meeting-Format:</p>
 
     <form id="terminForm" onsubmit="submitTermin(event)">
-      <input type="hidden" name="access_key" value="IHRE_WEB3FORMS_ACCESS_KEY_HIER">
+      <input type="hidden" name="access_key" value="7f37e43d-150e-4ecd-8b4d-b0a79a4bf330">
       <input type="hidden" name="subject" value="Neuer Terminwunsch — Forbach & Partners">
       <input type="hidden" name="from_name" value="Forbach & Partners Website">
       <input type="hidden" name="redirect" value="false">
@@ -136,6 +136,77 @@ async function submitTermin(e){
     document.getElementById('terminError').style.display = 'block';
   }
 }
+
+/* ── COOKIE BANNER ── */
+(function(){
+  var COOKIE_KEY = 'fp_cookie_consent';
+
+  function getCookie(name){
+    try{ return localStorage.getItem(name); } catch(e){ return null; }
+  }
+  function setCookie(name, val){
+    try{ localStorage.setItem(name, val); } catch(e){}
+  }
+
+  function removeBanner(){
+    var b = document.getElementById('cookieBanner');
+    if(b){ b.style.opacity='0'; b.style.transform='translateY(20px)'; setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); },400); }
+  }
+
+  function accept(){ setCookie(COOKIE_KEY,'accepted'); removeBanner(); }
+  function reject(){ setCookie(COOKIE_KEY,'rejected'); removeBanner(); }
+
+  window.cookieAccept = accept;
+  window.cookieReject = reject;
+
+  document.addEventListener('DOMContentLoaded', function(){
+    if(getCookie(COOKIE_KEY)) return; // schon entschieden
+
+    var banner = document.createElement('div');
+    banner.id = 'cookieBanner';
+    banner.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:220px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#e4b15e;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.4rem;">🍪 Datenschutz</div>
+          <p style="font-size:0.78rem;color:#a0a0a0;line-height:1.65;margin:0;">
+            Diese Website speichert Ihre Spracheinstellung lokal in Ihrem Browser (kein Tracking, keine Weitergabe). Mehr dazu in unserer
+            <a href="datenschutz.html" style="color:#e4b15e;text-decoration:none;border-bottom:1px solid rgba(228,177,94,0.3);">Datenschutzerklärung</a>.
+          </p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;justify-content:center;">
+          <button onclick="cookieAccept()" style="background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;border:none;padding:0.55rem 1.4rem;border-radius:7px;font-weight:700;font-size:0.78rem;cursor:pointer;letter-spacing:0.5px;white-space:nowrap;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Akzeptieren</button>
+          <button onclick="cookieReject()" style="background:transparent;color:#555;border:1px solid rgba(255,255,255,0.1);padding:0.5rem 1.4rem;border-radius:7px;font-size:0.75rem;cursor:pointer;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.color='#a0a0a0';this.style.borderColor='rgba(255,255,255,0.2)'" onmouseout="this.style.color='#555';this.style.borderColor='rgba(255,255,255,0.1)'">Ablehnen</button>
+        </div>
+      </div>`;
+
+    banner.style.cssText = [
+      'position:fixed',
+      'bottom:1.5rem',
+      'left:50%',
+      'transform:translateX(-50%) translateY(30px)',
+      'z-index:10000',
+      'background:#111',
+      'border:1px solid rgba(228,177,94,0.3)',
+      'border-radius:14px',
+      'padding:1.25rem 1.5rem',
+      'max-width:680px',
+      'width:calc(100vw - 2rem)',
+      'box-shadow:0 8px 48px rgba(0,0,0,0.7),0 0 0 1px rgba(228,177,94,0.08)',
+      'opacity:0',
+      'transition:opacity 0.4s ease,transform 0.4s ease'
+    ].join(';');
+
+    document.body.appendChild(banner);
+
+    // Einblend-Animation
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        banner.style.opacity = '1';
+        banner.style.transform = 'translateX(-50%) translateY(0)';
+      });
+    });
+  });
+})();
 
 /* ── FLOATING CONTACT WIDGET ── */
 document.addEventListener('DOMContentLoaded', function(){
