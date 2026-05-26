@@ -2944,5 +2944,180 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script src="common.js"></script>
+
+<!-- ═══════════════════════════════════════════════
+     HIGH-END FEATURES: TICKER · COUNTER · ALERTS
+═══════════════════════════════════════════════ -->
+<style>
+/* ── 1. AUSFALL-TICKER ── */
+#ausfallTicker{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0a0500;border-bottom:1px solid rgba(228,177,94,0.25);padding:6px 0;overflow:hidden;pointer-events:none;}
+.ticker-inner{display:flex;align-items:center;justify-content:center;gap:2rem;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1.5px;}
+.ticker-label{color:rgba(228,177,94,0.6);text-transform:uppercase;}
+.ticker-val{color:#e4b15e;font-weight:700;font-size:13px;min-width:80px;text-align:center;}
+.ticker-sep{color:rgba(228,177,94,0.2);}
+.ticker-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#ff3838;margin-right:6px;animation:tickerBlink 1s ease-in-out infinite;vertical-align:middle;}
+@keyframes tickerBlink{0%,100%{opacity:1;box-shadow:0 0 4px #ff3838;}50%{opacity:0.4;box-shadow:none;}}
+
+/* ── 2. ALERT TOAST ── */
+#alertContainer{position:fixed;bottom:24px;right:24px;z-index:9998;display:flex;flex-direction:column;gap:10px;pointer-events:none;max-width:320px;}
+.alert-toast{background:#070d14;border:1px solid rgba(255,56,96,0.5);border-left:3px solid #ff3838;border-radius:10px;padding:12px 14px;opacity:0;transform:translateX(120%);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);pointer-events:all;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.alert-toast.warn{border-color:rgba(255,184,0,0.5);border-left-color:#ffb800;}
+.alert-toast.visible{opacity:1;transform:translateX(0);}
+.alert-toast.hiding{opacity:0;transform:translateX(120%);}
+.at-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.at-badge{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;padding:2px 7px;border-radius:4px;font-weight:700;}
+.at-badge.crit{background:rgba(255,56,96,0.15);color:#ff3838;border:1px solid rgba(255,56,96,0.3);}
+.at-badge.warn{background:rgba(255,184,0,0.12);color:#ffb800;border:1px solid rgba(255,184,0,0.25);}
+.at-time{font-family:'Courier New',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+.at-machine{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:2px;}
+.at-msg{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;}
+.at-ai{font-family:'Courier New',monospace;font-size:9px;color:rgba(0,255,136,0.7);margin-top:5px;letter-spacing:0.5px;}
+
+/* ── NAV OFFSET für Ticker ── */
+#mainNav{top:31px !important;}
+body{padding-top:31px;}
+</style>
+
+<!-- TICKER HTML -->
+<div id="ausfallTicker">
+  <div class="ticker-inner">
+    <span class="ticker-label"><span class="ticker-dot"></span>Live · Deutschland</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-label">Ungeplante Stillstunden heute</span>
+    <span class="ticker-val" id="tickerHours">2.847</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-label">Produktionsausfall</span>
+    <span class="ticker-val" id="tickerCost">€ 5,1 Mio.</span>
+    <span class="ticker-sep">|</span>
+    <span class="ticker-label">Aktive KI-Warnungen</span>
+    <span class="ticker-val" id="tickerAlerts">14</span>
+  </div>
+</div>
+
+<!-- ALERT CONTAINER -->
+<div id="alertContainer"></div>
+
+<script>
+(function(){
+
+/* ══ 1. AUSFALL-TICKER ══ */
+var tickerHours = 2847;
+var tickerAlerts = 14;
+var tickerCostBase = 5100000;
+
+function updateTicker(){
+  tickerHours += Math.floor(Math.random() * 3) + 1;
+  tickerCostBase += (Math.floor(Math.random() * 3) + 1) * 350;
+  tickerAlerts += Math.random() > 0.7 ? 1 : (Math.random() > 0.8 ? -1 : 0);
+  tickerAlerts = Math.max(8, Math.min(22, tickerAlerts));
+
+  var hEl = document.getElementById('tickerHours');
+  var cEl = document.getElementById('tickerCost');
+  var aEl = document.getElementById('tickerAlerts');
+  if(hEl) hEl.textContent = tickerHours.toLocaleString('de-DE');
+  if(cEl){
+    var mio = (tickerCostBase / 1000000).toFixed(1);
+    cEl.textContent = '€ ' + mio.replace('.',',') + ' Mio.';
+  }
+  if(aEl) aEl.textContent = tickerAlerts;
+}
+setInterval(updateTicker, 2800);
+
+/* ══ 2. SCROLL-COUNTER ANIMATION ══ */
+function animateCount(el, target, suffix, prefix, decimals, duration){
+  var start = 0;
+  var startTime = null;
+  var isFloat = decimals > 0;
+  function step(ts){
+    if(!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var ease = 1 - Math.pow(1 - progress, 4);
+    var current = start + (target - start) * ease;
+    var display = isFloat ? current.toFixed(decimals).replace('.', ',') : Math.floor(current).toLocaleString('de-DE');
+    el.textContent = (prefix||'') + display + (suffix||'');
+    if(progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+var countersTriggered = false;
+function triggerCounters(){
+  if(countersTriggered) return;
+  countersTriggered = true;
+  var vals = document.querySelectorAll('.hero-stat-val');
+  if(vals[0]) animateCount(vals[0], 487, ' h', '', 0, 1800);
+  if(vals[1]) animateCount(vals[1], 684, 'K', '€ ', 0, 2000);
+  if(vals[2]) animateCount(vals[2], 95.2, ' %', '', 1, 2200);
+}
+
+var statsEl = document.querySelector('.hero-stats');
+if(statsEl && 'IntersectionObserver' in window){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ triggerCounters(); obs.disconnect(); }
+    });
+  }, {threshold: 0.3});
+  obs.observe(statsEl);
+} else {
+  setTimeout(triggerCounters, 800);
+}
+
+/* ══ 3. ALERT TOAST SYSTEM ══ */
+var alerts = [
+  {sev:'crit', machine:'CNC #3 · DMG Mori NHX 5000', comp:'Spindellager (HSK-A63)', msg:'Kurtosis-Wert: 4.8 → kritischer Schwellwert überschritten', ai:'KI-Prognose: Lagerausfall in 18–36 h'},
+  {sev:'warn', machine:'CNC #7 · Hermle C 400', comp:'Y-Achse Kugelgewindetrieb', msg:'Schleppfehler +0,04 mm → Trend steigend seit 48 h', ai:'KI-Empfehlung: Nachschmierung in 4–6 Tagen'},
+  {sev:'crit', machine:'CNC #1 · Mazak VARIAXIS', comp:'Werkzeugwechsler (ATC)', msg:'Wechselzeit +1,8 s → Greiferarm-Reibung erhöht', ai:'KI-Prognose: ATC-Störung in 24–48 h'},
+  {sev:'warn', machine:'CNC #5 · DMG DMU 50', comp:'Kühlmittelsystem', msg:'Durchfluss -12 % → Kavitations-Muster erkannt', ai:'KI-Diagnose: Pumpenfilter prüfen'},
+  {sev:'crit', machine:'CNC #2 · Heller MCH 250', comp:'X-Achse Linearführung', msg:'Reibungskoeffizient +22 % → Verschleißerkennung', ai:'KI-Prognose: Führungswagen tauschen in 5–7 Tagen'},
+  {sev:'warn', machine:'CNC #6 · Okuma MU-5000V', comp:'Spindel-Temperatur', msg:'Thermische Drift +4,2 °C → Kühlkreis-Anomalie', ai:'KI-Alarm: Maßhaltigkeit gefährdet ab Schicht 2'},
+];
+
+var alertIndex = 0;
+var container = document.getElementById('alertContainer');
+
+function showAlert(){
+  if(!container) return;
+  var a = alerts[alertIndex % alerts.length];
+  alertIndex++;
+
+  var now = new Date();
+  var timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
+
+  var toast = document.createElement('div');
+  toast.className = 'alert-toast' + (a.sev==='warn' ? ' warn' : '');
+  toast.innerHTML =
+    '<div class="at-header">' +
+      '<span class="at-badge ' + a.sev + '">' + (a.sev==='crit' ? '⚠ KRITISCH' : '▲ WARNSTUFE 2') + '</span>' +
+      '<span class="at-time">' + timeStr + '</span>' +
+    '</div>' +
+    '<div class="at-machine">' + a.machine + '</div>' +
+    '<div class="at-msg"><strong style="color:rgba(255,255,255,0.85);">' + a.comp + '</strong><br>' + a.msg + '</div>' +
+    '<div class="at-ai">▶ ' + a.ai + '</div>';
+
+  container.appendChild(toast);
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ toast.classList.add('visible'); });
+  });
+
+  setTimeout(function(){
+    toast.classList.remove('visible');
+    toast.classList.add('hiding');
+    setTimeout(function(){ if(toast.parentNode) toast.parentNode.removeChild(toast); }, 500);
+  }, 7000);
+
+  if(container.children.length > 2){
+    var oldest = container.children[0];
+    oldest.classList.remove('visible');
+    oldest.classList.add('hiding');
+    setTimeout(function(){ if(oldest.parentNode) oldest.parentNode.removeChild(oldest); }, 500);
+  }
+}
+
+setTimeout(showAlert, 6000);
+setInterval(showAlert, 28000);
+
+})();
+</script>
+<script src="common.js"></script>
 </body>
 </html>
