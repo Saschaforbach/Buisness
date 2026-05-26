@@ -1131,8 +1131,10 @@ html,body{overflow-x:hidden;max-width:100vw;}
 <!-- ══════════════════════════════════════════
      HERO
 ══════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
+<section class="hero" id="home-hero">
+  <div class="hero-bg">
+    <canvas id="heroCNC" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.55;pointer-events:none;"></canvas>
+  </div>
   <div class="hero-inner">
 
     <!-- LEFT -->
@@ -1623,6 +1625,54 @@ loadThree(function(){
   <div class="exp-badge"><span class="exp-dot"></span>OPC-UA / MQTT</div>
   <div class="exp-badge"><span class="exp-dot"></span>DMG, Mazak, Heidenhain</div>
 </div>
+
+<!-- MASCHINENMARKEN INFINITE TICKER -->
+<div class="brand-ticker-wrap">
+  <div class="brand-fade-l"></div>
+  <div class="brand-fade-r"></div>
+  <div class="brand-ticker-track" id="brandTrack">
+    <span>DMG Mori</span><span class="bd">·</span>
+    <span>Hermle</span><span class="bd">·</span>
+    <span>Mazak</span><span class="bd">·</span>
+    <span>Heidenhain</span><span class="bd">·</span>
+    <span>Siemens 840D</span><span class="bd">·</span>
+    <span>Fanuc</span><span class="bd">·</span>
+    <span>Okuma</span><span class="bd">·</span>
+    <span>Chiron</span><span class="bd">·</span>
+    <span>Grob</span><span class="bd">·</span>
+    <span>Heller</span><span class="bd">·</span>
+    <span>Haas</span><span class="bd">·</span>
+    <span>Makino</span><span class="bd">·</span>
+    <span>Bosch Rexroth</span><span class="bd">·</span>
+    <span>THK</span><span class="bd">·</span>
+    <span>SKF</span><span class="bd">·</span>
+    <span>DMG Mori</span><span class="bd">·</span>
+    <span>Hermle</span><span class="bd">·</span>
+    <span>Mazak</span><span class="bd">·</span>
+    <span>Heidenhain</span><span class="bd">·</span>
+    <span>Siemens 840D</span><span class="bd">·</span>
+    <span>Fanuc</span><span class="bd">·</span>
+    <span>Okuma</span><span class="bd">·</span>
+    <span>Chiron</span><span class="bd">·</span>
+    <span>Grob</span><span class="bd">·</span>
+    <span>Heller</span><span class="bd">·</span>
+    <span>Haas</span><span class="bd">·</span>
+    <span>Makino</span><span class="bd">·</span>
+    <span>Bosch Rexroth</span><span class="bd">·</span>
+    <span>THK</span><span class="bd">·</span>
+    <span>SKF</span><span class="bd">·</span>
+  </div>
+</div>
+<style>
+.brand-ticker-wrap{position:relative;overflow:hidden;border-top:1px solid rgba(228,177,94,0.1);border-bottom:1px solid rgba(228,177,94,0.1);padding:14px 0;background:rgba(228,177,94,0.03);}
+.brand-ticker-track{display:flex;align-items:center;gap:0;white-space:nowrap;animation:brandScroll 30s linear infinite;width:max-content;will-change:transform;}
+.brand-ticker-track span{font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(228,177,94,0.5);padding:0 1.2rem;}
+.brand-ticker-track span.bd{color:rgba(228,177,94,0.2);padding:0;letter-spacing:0;}
+.brand-fade-l{position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(90deg,var(--dark,#050607),transparent);z-index:2;pointer-events:none;}
+.brand-fade-r{position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(270deg,var(--dark,#050607),transparent);z-index:2;pointer-events:none;}
+@keyframes brandScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.brand-ticker-wrap:hover .brand-ticker-track{animation-play-state:paused;}
+</style>
 
 
 
@@ -2943,8 +2993,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 300);
 });
 </script>
-<script src="common.js"></script>
-
 <!-- ═══════════════════════════════════════════════
      HIGH-END FEATURES: TICKER · COUNTER · ALERTS
 ═══════════════════════════════════════════════ -->
@@ -3115,6 +3163,389 @@ function showAlert(){
 
 setTimeout(showAlert, 6000);
 setInterval(showAlert, 28000);
+
+})();
+</script>
+<!-- ═══════════════════════════════════════════════
+     EXIT INTENT POPUP
+═══════════════════════════════════════════════ -->
+<div id="exitOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+  <div id="exitModal" style="background:#080c12;border:1px solid rgba(228,177,94,0.35);border-radius:16px;max-width:520px;width:90%;padding:2.5rem;position:relative;transform:scale(0.88) translateY(20px);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;opacity:0;">
+    <button onclick="closeExit()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:22px;cursor:pointer;line-height:1;" aria-label="Schließen">&times;</button>
+    <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:3px;color:rgba(228,177,94,0.7);margin-bottom:12px;">&#9679; KI-SYSTEM · WARNUNG ERKANNT</div>
+    <h2 style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:2px;color:#fff;line-height:1.15;margin-bottom:1rem;">WARTEN SIE &mdash;<br><span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">IHRE ANLAGE WARTET NICHT.</span></h2>
+    <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:1.5rem;">Durchschnittlich erkennt unser System Lager- und Spindelschäden <strong style="color:#fff;">4&ndash;6 Wochen vor dem Ausfall</strong>. In dieser Zeit k&ouml;nnen Sie geplant reagieren &mdash; statt &nbsp;ein Wochenende mit einer kaputten Spindel zu verlieren.</p>
+    <div style="background:rgba(228,177,94,0.07);border:1px solid rgba(228,177,94,0.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem;">
+      <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:rgba(228,177,94,0.7);margin-bottom:6px;">KOSTENLOSES ANGEBOT</div>
+      <div style="font-size:1rem;font-weight:600;color:#fff;">15-Min. Live-Diagnose f&uuml;r Ihre Anlage</div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:4px;">Keine IT-Installation &middot; Keine Verpflichtung &middot; Sofort einsetzbar</div>
+    </div>
+    <a href="mailto:info@forbachandpartners.com?subject=Kostenlose%20KI-Diagnose%20anfragen&body=Hallo%2C%20ich%20m%C3%B6chte%20eine%20kostenlose%20Live-Diagnose%20f%C3%BCr%20meine%20Anlage%20anfragen." onclick="closeExit()" style="display:block;text-align:center;background:linear-gradient(135deg,#c49040,#e4b15e);color:#000;font-weight:700;font-size:1rem;padding:14px 24px;border-radius:8px;text-decoration:none;letter-spacing:1px;margin-bottom:10px;">Ja, kostenlose Demo buchen &rarr;</a>
+    <button onclick="closeExit()" style="display:block;width:100%;background:none;border:none;color:rgba(255,255,255,0.25);font-size:0.75rem;cursor:pointer;padding:6px;text-align:center;font-family:inherit;">Nein danke &mdash; ich riskiere lieber ungeplante Ausf&auml;lle</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     150% FEATURES: CURSOR · PROGRESS · REVEAL · TILT · MAGNETIC · TYPEWRITER · NAV-DOTS
+═══════════════════════════════════════════════ -->
+<style>
+/* SCROLL PROGRESS BAR */
+#scrollProgress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#c49040,#e4b15e,#f8dfa5);z-index:10001;transition:width 0.1s linear;pointer-events:none;}
+
+/* CUSTOM CURSOR */
+#cursorDot{position:fixed;width:8px;height:8px;border-radius:50%;background:#e4b15e;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:transform 0.1s,opacity 0.3s;mix-blend-mode:screen;}
+#cursorRing{position:fixed;width:32px;height:32px;border-radius:50%;border:1px solid rgba(228,177,94,0.5);pointer-events:none;z-index:9996;transform:translate(-50%,-50%);transition:left 0.12s ease,top 0.12s ease,width 0.2s,height 0.2s,opacity 0.3s;}
+body:has(a:hover) #cursorRing,body:has(button:hover) #cursorRing{width:48px;height:48px;border-color:rgba(228,177,94,0.8);}
+
+/* SECTION REVEAL */
+.reveal-section{opacity:0;transform:translateY(36px);transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.22,1,0.36,1);}
+.reveal-section.is-visible{opacity:1;transform:translateY(0);}
+
+/* SECTION NAV DOTS (right side) */
+#sectionDots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:10px;}
+.s-dot{width:7px;height:7px;border-radius:50%;border:1px solid rgba(228,177,94,0.5);background:transparent;cursor:pointer;transition:all 0.3s;display:block;}
+.s-dot.active{background:#e4b15e;border-color:#e4b15e;transform:scale(1.4);}
+.s-dot:hover{background:rgba(228,177,94,0.5);}
+@media(max-width:900px){#sectionDots,#cursorDot,#cursorRing{display:none!important;}}
+
+/* MAGNETIC BUTTON base */
+.btn-gold,.btn-outline,.nav-cta{transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s,background 0.2s,color 0.2s!important;}
+</style>
+
+<!-- CURSOR ELEMENTS -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+<!-- SCROLL PROGRESS -->
+<div id="scrollProgress"></div>
+<!-- SECTION NAV DOTS -->
+<div id="sectionDots"></div>
+
+<script>
+/* ══ EXIT INTENT ══ */
+function closeExit(){
+  var ov=document.getElementById('exitOverlay');
+  var mo=document.getElementById('exitModal');
+  if(mo){mo.style.opacity='0';mo.style.transform='scale(0.88) translateY(20px)';}
+  setTimeout(function(){if(ov)ov.style.display='none';},400);
+}
+function showExit(){
+  var ov=document.getElementById('exitOverlay');
+  var mo=document.getElementById('exitModal');
+  if(!ov||!mo)return;
+  ov.style.display='flex';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    mo.style.opacity='1';mo.style.transform='scale(1) translateY(0)';
+  });});
+}
+var exitShown=false;
+document.addEventListener('mouseleave',function(e){
+  if(e.clientY<5&&!exitShown&&!sessionStorage.getItem('ep_shown')){
+    exitShown=true;sessionStorage.setItem('ep_shown','1');
+    setTimeout(showExit,200);
+  }
+});
+document.getElementById('exitOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeExit();
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeExit();});
+
+/* ══ HERO CNC CANVAS ══ */
+(function(){
+  var canvas=document.getElementById('heroCNC');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W,H;
+  function resize(){
+    var sec=canvas.parentElement.parentElement;
+    W=canvas.width=sec.offsetWidth||1200;
+    H=canvas.height=sec.offsetHeight||700;
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+
+  /* Toolpath segments */
+  var paths=[];
+  var colors=['rgba(228,177,94,','rgba(255,200,80,','rgba(200,160,60,'];
+
+  function makePath(){
+    var sx=(Math.random()*0.8+0.1)*W;
+    var sy=(Math.random()*0.8+0.1)*H;
+    var pts=[];
+    var x=sx,y=sy;
+    for(var i=0;i<6+Math.floor(Math.random()*5);i++){
+      x+=( Math.random()-0.5)*W*0.25;
+      y+=( Math.random()-0.5)*H*0.25;
+      x=Math.max(20,Math.min(W-20,x));
+      y=Math.max(20,Math.min(H-20,y));
+      pts.push({x:x,y:y});
+    }
+    var col=colors[Math.floor(Math.random()*colors.length)];
+    return {pts:pts,progress:0,speed:0.004+Math.random()*0.006,
+      color:col,opacity:0.12+Math.random()*0.18,
+      drawn:[],age:0,maxAge:300+Math.floor(Math.random()*200)};
+  }
+
+  for(var i=0;i<8;i++){var p=makePath();p.progress=Math.random();paths.push(p);}
+
+  /* Crosshair follower */
+  var ch={x:W/2,y:H/2};
+
+  /* Data readouts */
+  var readouts=[
+    {x:0.08,y:0.15,lines:['SPINDLE RPM','12.400'],color:'rgba(228,177,94,'},
+    {x:0.75,y:0.08,lines:['X AXIS','+148.320 mm'],color:'rgba(0,200,120,'},
+    {x:0.85,y:0.75,lines:['FEED RATE','850 mm/min'],color:'rgba(228,177,94,'},
+    {x:0.05,y:0.82,lines:['TOOL LIFE','73%'],color:'rgba(255,120,60,'}
+  ];
+  var rdPhase=0;
+
+  function drawFrame(){
+    requestAnimationFrame(drawFrame);
+    ctx.clearRect(0,0,W,H);
+
+    rdPhase+=0.008;
+
+    /* Grid lines — very subtle */
+    ctx.strokeStyle='rgba(228,177,94,0.03)';
+    ctx.lineWidth=1;
+    for(var gx=0;gx<W;gx+=60){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+    for(var gy=0;gy<H;gy+=60){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+
+    /* Paths */
+    for(var pi=0;pi<paths.length;pi++){
+      var p=paths[pi];
+      p.age++;
+      if(p.age>p.maxAge){paths[pi]=makePath();continue;}
+
+      /* Fade in/out */
+      var fade=1;
+      if(p.age<40)fade=p.age/40;
+      if(p.age>p.maxAge-40)fade=(p.maxAge-p.age)/40;
+      var op=p.opacity*fade;
+
+      p.progress=Math.min(1,p.progress+p.speed);
+
+      /* Interpolate along pts */
+      var totalLen=p.pts.length-1;
+      var rawPos=p.progress*totalLen;
+      var segIdx=Math.min(Math.floor(rawPos),totalLen-1);
+      var segT=rawPos-segIdx;
+      var a=segIdx>0?p.pts[segIdx-1]:p.pts[0];
+      var b=p.pts[segIdx];
+      var c=p.pts[Math.min(segIdx+1,totalLen)];
+      var cx2=(b.x+c.x)/2;var cy2=(b.y+c.y)/2;
+
+      /* Draw full path so far */
+      if(p.progress>0){
+        ctx.beginPath();
+        ctx.moveTo(p.pts[0].x,p.pts[0].y);
+        for(var pi2=1;pi2<=segIdx&&pi2<p.pts.length;pi2++){
+          ctx.lineTo(p.pts[pi2].x,p.pts[pi2].y);
+        }
+        ctx.lineTo(b.x+( c.x-b.x)*segT,b.y+(c.y-b.y)*segT);
+        ctx.strokeStyle=p.color+op+')';
+        ctx.lineWidth=1;
+        ctx.stroke();
+      }
+
+      /* Crosshair at current pos */
+      var hx=b.x+(c.x-b.x)*segT;
+      var hy=b.y+(c.y-b.y)*segT;
+      if(pi===0){ch.x=hx;ch.y=hy;}
+
+      /* Cutting point glow */
+      var grad=ctx.createRadialGradient(hx,hy,0,hx,hy,12);
+      grad.addColorStop(0,p.color+(op*2.5)+')');
+      grad.addColorStop(1,p.color+'0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath();ctx.arc(hx,hy,12,0,Math.PI*2);ctx.fill();
+
+      /* Small dot */
+      ctx.fillStyle=p.color+(Math.min(1,op*4))+')';
+      ctx.beginPath();ctx.arc(hx,hy,2.5,0,Math.PI*2);ctx.fill();
+
+      if(p.progress>=1){paths[pi]=makePath();}
+    }
+
+    /* Main crosshair */
+    var cx3=ch.x,cy3=ch.y;
+    ctx.strokeStyle='rgba(228,177,94,0.6)';
+    ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx3-14,cy3);ctx.lineTo(cx3-5,cy3);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx3+5,cy3);ctx.lineTo(cx3+14,cy3);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx3,cy3-14);ctx.lineTo(cx3,cy3-5);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx3,cy3+5);ctx.lineTo(cx3,cy3+14);ctx.stroke();
+    ctx.strokeStyle='rgba(228,177,94,0.35)';
+    ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(cx3,cy3,8,0,Math.PI*2);ctx.stroke();
+
+    /* Data readouts */
+    for(var ri=0;ri<readouts.length;ri++){
+      var rd=readouts[ri];
+      var rx=rd.x*W, ry=rd.y*H;
+      var rdOp=0.3+Math.sin(rdPhase+ri*1.3)*0.1;
+      ctx.font='700 9px Courier New';
+      ctx.fillStyle=rd.color+rdOp+')';
+      ctx.letterSpacing='2px';
+      ctx.fillText(rd.lines[0],rx,ry);
+      ctx.font='600 12px Courier New';
+      ctx.fillStyle=rd.color+(rdOp+0.2)+')';
+      ctx.fillText(rd.lines[1],rx,ry+16);
+      /* Bracket decoration */
+      ctx.strokeStyle=rd.color+(rdOp*0.5)+')';
+      ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(rx-6,ry-12);ctx.lineTo(rx-6,ry+20);ctx.stroke();
+    }
+  }
+  drawFrame();
+})();
+
+(function(){
+var isMobile = window.matchMedia('(max-width:900px)').matches || ('ontouchstart' in window);
+
+/* ══ SCROLL PROGRESS ══ */
+var prog = document.getElementById('scrollProgress');
+window.addEventListener('scroll', function(){
+  if(!prog) return;
+  var total = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+  prog.style.width = pct.toFixed(1) + '%';
+}, {passive:true});
+
+/* ══ CUSTOM CURSOR ══ */
+if(!isMobile){
+  var dot = document.getElementById('cursorDot');
+  var ring = document.getElementById('cursorRing');
+  var mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    if(dot){ dot.style.left = mx+'px'; dot.style.top = my+'px'; }
+  });
+  function animRing(){
+    rx += (mx-rx)*0.14; ry += (my-ry)*0.14;
+    if(ring){ ring.style.left=Math.round(rx)+'px'; ring.style.top=Math.round(ry)+'px'; }
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.addEventListener('mousedown',function(){ if(dot)dot.style.transform='translate(-50%,-50%) scale(0.6)'; });
+  document.addEventListener('mouseup',function(){ if(dot)dot.style.transform='translate(-50%,-50%) scale(1)'; });
+}
+
+/* ══ SECTION REVEAL ══ */
+var revealTargets = document.querySelectorAll('.section,.section-full,.ref-section,.dt-section,.cta-section,.contact-section,.trust-bar,.expertise-strip,.brand-ticker-wrap');
+revealTargets.forEach(function(el){ el.classList.add('reveal-section'); });
+if('IntersectionObserver' in window){
+  var revObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('is-visible'); revObs.unobserve(e.target); }
+    });
+  },{threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+  revealTargets.forEach(function(el){ revObs.observe(el); });
+}
+
+/* ══ SECTION NAV DOTS ══ */
+if(!isMobile){
+  var dotContainer = document.getElementById('sectionDots');
+  var navSections = [
+    {id:'home-hero', label:'Home'},
+    {id:'maschinen', label:'Maschinen'},
+    {id:'verlauf-section', label:'Verlauf'},
+    {id:'roi', label:'ROI'},
+    {id:'referenzen', label:'Referenzen'},
+    {id:'kontakt', label:'Kontakt'}
+  ];
+  var dotEls = [];
+  navSections.forEach(function(s,i){
+    var el = document.getElementById(s.id);
+    if(!el) return;
+    var d = document.createElement('button');
+    d.className = 's-dot'; d.title = s.label;
+    d.setAttribute('aria-label', s.label);
+    d.addEventListener('click',function(){
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    dotContainer.appendChild(d);
+    dotEls.push({dot:d, section:el});
+  });
+  var dotObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var found = dotEls.find(function(d){ return d.section===e.target; });
+      if(found){ found.dot.classList.toggle('active', e.isIntersecting); }
+    });
+  },{threshold:0.4});
+  dotEls.forEach(function(d){ dotObs.observe(d.section); });
+}
+
+/* ══ MAGNETIC BUTTONS ══ */
+if(!isMobile){
+  document.querySelectorAll('.btn-gold,.btn-outline,.nav-cta').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r = btn.getBoundingClientRect();
+      var x = (e.clientX - r.left - r.width/2)*0.22;
+      var y = (e.clientY - r.top - r.height/2)*0.28;
+      btn.style.transform = 'translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){
+      btn.style.transform = '';
+    });
+  });
+}
+
+/* ══ 3D CARD TILT ══ */
+if(!isMobile){
+  document.querySelectorAll('.service-card,.ref-card,.monitor-card').forEach(function(card){
+    card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+    card.addEventListener('mousemove',function(e){
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left)/r.width  - 0.5;
+      var y = (e.clientY - r.top) /r.height - 0.5;
+      card.style.transform = 'perspective(800px) rotateX('+(-y*6).toFixed(1)+'deg) rotateY('+(x*6).toFixed(1)+'deg) scale(1.02)';
+      card.style.boxShadow = '0 '+(8+y*8)+'px '+(24+Math.abs(y)*16)+'px rgba(0,0,0,0.5), 0 0 30px rgba(228,177,94,0.08)';
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+/* ══ TYPEWRITER HERO BADGE ══ */
+var phrases = ['Spindelausfall verhindert.','Wartungskosten halbiert.','Stillstand prognostiziert.','Produktion gesichert.'];
+var pi = 0, ci = 0, isDeleting = false, tw = null;
+function getTypeBadge(){
+  if(!tw){ tw = document.querySelector('.hero-badge, .hero-tagline, .section-label'); }
+  return tw;
+}
+var twTarget = document.querySelector('[data-typewriter]');
+if(!twTarget){
+  var heroLabel = document.querySelector('.hero-badge, #home-hero .section-label');
+  if(heroLabel){ heroLabel.setAttribute('data-typewriter','1'); twTarget = heroLabel; }
+}
+if(twTarget){
+  var origText = twTarget.textContent;
+  var twSpeed = 55, twPause = 1800;
+  function typeStep(){
+    var phrase = phrases[pi];
+    if(isDeleting){
+      ci--;
+      twTarget.textContent = phrase.substring(0,ci);
+      if(ci===0){ isDeleting=false; pi=(pi+1)%phrases.length; setTimeout(typeStep,300); return; }
+      setTimeout(typeStep, twSpeed/2);
+    } else {
+      ci++;
+      twTarget.textContent = phrase.substring(0,ci);
+      if(ci===phrase.length){ isDeleting=true; setTimeout(typeStep,twPause); return; }
+      setTimeout(typeStep,twSpeed);
+    }
+  }
+  setTimeout(typeStep, 2000);
+}
+
+/* ══ GOLD GRADIENT ANIMATION ══ */
+var style = document.createElement('style');
+style.textContent = '@keyframes goldShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}' +
+  '.trust-val,.hero-stat-val{background-size:200% 200%!important;animation:goldShift 4s ease infinite!important;}';
+document.head.appendChild(style);
 
 })();
 </script>
