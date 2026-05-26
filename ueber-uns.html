@@ -216,6 +216,43 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .reveal.v{opacity:1;transform:translateY(0);}
 .rd1{transition-delay:0.1s;}.rd2{transition-delay:0.18s;}.rd3{transition-delay:0.26s;}.rd4{transition-delay:0.34s;}.rd5{transition-delay:0.42s;}
+
+/* ── HAMBURGER ── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:1px solid rgba(228,177,94,0.4);border-radius:8px;padding:8px 10px;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+.nav-hamburger span{display:block;width:20px;height:2px;background:#e4b15e;border-radius:2px;transition:all 0.3s;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:900px){
+  .nav-hamburger{display:flex;}
+  .lang-toggle-nav{display:none!important;}
+  .nav-phone{display:none!important;}
+  .nav-cta{font-size:0.72rem;padding:0.35rem 0.85rem;}
+}
+@media(max-width:480px){.nav-cta{display:none;}}
+/* ── MOBILE OVERLAY ── */
+.mobile-nav-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mobile-nav-overlay.open{opacity:1;pointer-events:all;}
+.mobile-nav-menu{position:absolute;top:0;right:0;width:min(320px,90vw);height:100%;background:#0d0d0d;border-left:1px solid rgba(228,177,94,0.3);padding:1.5rem;display:flex;flex-direction:column;gap:0.25rem;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);}
+.mobile-nav-overlay.open .mobile-nav-menu{transform:translateX(0);}
+.mobile-nav-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(228,177,94,0.2);}
+.mobile-nav-logo{font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.mobile-nav-close{background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mobile-nav-link{color:#a0a0a0;text-decoration:none;font-size:1rem;font-family:'Raleway',sans-serif;font-weight:500;padding:0.85rem 1rem;border-radius:8px;transition:all 0.2s;display:block;}
+.mobile-nav-link:hover,.mobile-nav-link.active{color:#fff;background:rgba(228,177,94,0.08);}
+.mobile-nav-link.active{color:#e4b15e;}
+.mobile-nav-divider{height:1px;background:rgba(228,177,94,0.15);margin:0.75rem 0;}
+.mobile-nav-phone{color:#a0a0a0;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.75rem 1rem;display:block;border-radius:8px;}
+.mobile-nav-cta{display:block;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:1rem 1.5rem;border-radius:10px;font-weight:700;font-size:0.95rem;text-decoration:none;text-align:center;margin-top:0.5rem;letter-spacing:0.5px;}
+.mobile-nav-lang{display:flex;gap:0.75rem;margin-top:1rem;padding:0 1rem;}
+.mobile-lang-btn{flex:1;background:rgba(228,177,94,0.08);border:1px solid rgba(228,177,94,0.3);border-radius:8px;color:#e4b15e;font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.6rem;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+/* ── OVERFLOW GUARD ── */
+html,body{overflow-x:hidden;max-width:100vw;}
+@media(max-width:768px){
+  .section{padding:3.5rem 1.25rem;}
+  .section-full{padding:3.5rem 1.25rem;}
+}
+
 </style>
 </head>
 <body style="overflow-x:hidden;">
@@ -238,7 +275,32 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 
     </div>
     <a href="kontakt.html" class="nav-cta"><span class="de">Termin vereinbaren</span><span class="en">Book a Call</span></a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()">
+  <div class="mobile-nav-menu" onclick="event.stopPropagation()">
+    <div class="mobile-nav-top">
+      <span class="mobile-nav-logo">FORBACH &amp; PARTNERS</span>
+      <button class="mobile-nav-close" onclick="closeMobileNav()">&#x2715;</button>
+    </div>
+    <a href="index.html" class="mobile-nav-link"><span class="de">Home</span><span class="en">Home</span></a>
+    <a href="ueber-uns.html" class="mobile-nav-link active"><span class="de">Über uns</span><span class="en">About Us</span></a>
+    <a href="cnc-fraeszentren.html" class="mobile-nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
+    <a href="blog.html" class="mobile-nav-link"><span class="de">Blog</span><span class="en">Blog</span></a>
+    <a href="kontakt.html" class="mobile-nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+    <div class="mobile-nav-divider"></div>
+    <a href="tel:004921190989962" class="mobile-nav-phone">&#128222; +49 211 90989962</a>
+    <a href="mailto:info@forbachandpartners.com" class="mobile-nav-cta"><span class="de">Termin anfragen &#8594;</span><span class="en">Book Meeting &#8594;</span></a>
+    <div class="mobile-nav-lang">
+      <button onclick="setLang('de');closeMobileNav()" class="mobile-lang-btn">DE</button>
+      <button onclick="setLang('en');closeMobileNav()" class="mobile-lang-btn">EN</button>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -760,5 +822,22 @@ document.getElementById('contactForm').addEventListener('submit', async function
 });
 </script>
 <script src="common.js"></script>
+
+<script>
+function toggleMobileNav(){
+  var o=document.getElementById('mobileNavOverlay');
+  var b=document.getElementById('navHamburger');
+  var open=o.classList.toggle('open');
+  b.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeMobileNav(){
+  document.getElementById('mobileNavOverlay').classList.remove('open');
+  var b=document.getElementById('navHamburger');
+  if(b) b.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileNav();});
+</script>
 </body>
 </html>

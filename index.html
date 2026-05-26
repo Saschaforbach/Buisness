@@ -1165,6 +1165,583 @@ html,body{overflow-x:hidden;max-width:100vw;}
   </div>
 </section>
 
+
+<!-- ══════════════════════════════════════════
+     3D CNC MACHINE VISUALIZER
+══════════════════════════════════════════ -->
+<div id="cnc3d" class="section-full">
+  <div class="section-inner" style="margin-bottom:2.5rem;">
+    <div class="section-label"><span class="de">3D Maschinenvisualisierung · Live Sensor-Overlay</span><span class="en">3D Machine Visualization · Live Sensor Overlay</span></div>
+    <h2 class="section-title">
+      <span class="de">IHRE CNC-ANLAGE<br><span class="gold">IN ECHTZEIT</span></span>
+      <span class="en">YOUR CNC MACHINE<br><span class="gold">IN REAL TIME</span></span>
+    </h2>
+    <p class="section-sub">
+      <span class="de">Klicken Sie auf einen Sensor-Punkt um den aktuellen Status zu sehen. Drehen: Maus ziehen · Zoom: Scrollrad.</span>
+      <span class="en">Click a sensor dot to see current status. Rotate: drag mouse · Zoom: scroll wheel.</span>
+    </p>
+  </div>
+
+  <div class="cnc3d-wrap" id="cnc3dWrap">
+    <canvas id="cnc3dCanvas"></canvas>
+
+    <!-- Sensor info panel -->
+    <div class="cnc-info-panel" id="cncInfoPanel">
+      <div class="cip-header">
+        <div>
+          <div class="cip-id" id="cipId">S1</div>
+          <div class="cip-name" id="cipName">—</div>
+        </div>
+        <div class="cip-badge" id="cipBadge">●</div>
+      </div>
+      <div class="cip-row"><span class="cip-lbl">Temp.</span><span class="cip-val" id="cipTemp">—</span></div>
+      <div class="cip-row"><span class="cip-lbl">Vibration</span><span class="cip-val" id="cipVib">—</span></div>
+      <div class="cip-row"><span class="cip-lbl">Risiko</span><span class="cip-risk-wrap"><div class="cip-risk-bar"><div class="cip-risk-fill" id="cipRiskFill"></div></div><span class="cip-val" id="cipRisk">—</span></span></div>
+      <div class="cip-desc" id="cipDesc">—</div>
+      <button class="cip-close" onclick="closeCipPanel()">✕</button>
+    </div>
+
+    <!-- Status legend -->
+    <div class="cnc-legend">
+      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></span><span class="de">Normal</span><span class="en">Normal</span></span>
+      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#ffb800;box-shadow:0 0 6px #ffb800"></span><span class="de">Achtung</span><span class="en">Warning</span></span>
+      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#ff3860;box-shadow:0 0 6px #ff3860"></span><span class="de">Kritisch</span><span class="en">Critical</span></span>
+    </div>
+
+    <!-- Hint -->
+    <div class="cnc-hint" id="cncHint"><span class="de">↻ Drehen · ⊕ Zoom · Sensor klicken</span><span class="en">↻ Rotate · ⊕ Zoom · Click sensor</span></div>
+  </div>
+</div>
+
+<style>
+.cnc3d-wrap{position:relative;width:100%;height:600px;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(228,177,94,0.04) 0%,transparent 70%),#050507;border-top:1px solid rgba(228,177,94,0.12);border-bottom:1px solid rgba(228,177,94,0.12);overflow:hidden;}
+#cnc3dCanvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;display:block;touch-action:none;}
+@media(max-width:600px){.cnc3d-wrap{height:420px;}}
+.cnc-info-panel{position:absolute;top:1.5rem;right:1.5rem;width:clamp(220px,28%,300px);background:rgba(10,10,14,0.95);border:1px solid rgba(228,177,94,0.4);border-radius:14px;padding:1.25rem;backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateX(10px);z-index:10;}
+.cnc-info-panel.visible{opacity:1;pointer-events:all;transform:translateX(0);}
+.cip-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(228,177,94,0.15);}
+.cip-id{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:2px;}
+.cip-name{font-size:0.85rem;font-weight:700;color:#fff;line-height:1.3;}
+.cip-badge{font-size:1.2rem;animation:blink 1.2s ease-in-out infinite;}
+.cip-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;}
+.cip-lbl{color:#5a5a5a;text-transform:uppercase;letter-spacing:1px;}
+.cip-val{color:#fff;font-weight:600;}
+.cip-risk-wrap{display:flex;align-items:center;gap:0.5rem;flex:1;justify-content:flex-end;}
+.cip-risk-bar{width:80px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.cip-risk-fill{height:100%;border-radius:2px;transition:width 0.6s ease;}
+.cip-desc{font-size:0.72rem;color:#707070;line-height:1.55;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
+.cip-close{position:absolute;top:0.75rem;right:0.75rem;background:transparent;border:none;color:#555;font-size:0.8rem;cursor:pointer;transition:color 0.2s;padding:2px 5px;}
+.cip-close:hover{color:#fff;}
+.cnc-legend{position:absolute;bottom:1.25rem;left:1.5rem;display:flex;gap:1rem;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.5rem 0.85rem;backdrop-filter:blur(8px);}
+.cnc-leg-item{display:flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#888;letter-spacing:0.5px;}
+.cnc-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.cnc-hint{position:absolute;bottom:1.25rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:rgba(255,255,255,0.25);letter-spacing:1px;}
+@media(max-width:600px){
+  .cnc-info-panel{top:auto;bottom:4rem;right:0.75rem;left:0.75rem;width:auto;}
+  .cnc-hint{display:none;}
+  .cnc-legend{bottom:0.75rem;left:0.75rem;gap:0.6rem;padding:0.4rem 0.6rem;}
+  .cnc-leg-item{font-size:0.52rem;}
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function initCNC3D(){
+'use strict';
+
+var wrap = document.getElementById('cnc3dWrap');
+var canvas = document.getElementById('cnc3dCanvas');
+if(!wrap || !canvas){ console.warn('CNC3D: elements not found'); return; }
+if(typeof THREE === 'undefined'){ console.warn('CNC3D: THREE not loaded'); return; }
+
+// ── RENDERER ────────────────────────────────────────
+var renderer = new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setClearColor(0x050507,1);
+
+var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050507);
+
+var W = wrap.offsetWidth || 800;
+var H = wrap.offsetHeight || 600;
+renderer.setSize(W, H, false);
+canvas.style.width = W+'px';
+canvas.style.height = H+'px';
+var camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 100);
+camera.position.set(8,5.5,9);
+
+// ── MATERIALS ────────────────────────────────────────
+function M(hex,opts){return new THREE.MeshPhongMaterial(Object.assign({color:hex,shininess:80},opts||{}));}
+var mat = {
+  body:  M(0x22252b,{shininess:50}),
+  body2: M(0x1a1d23,{shininess:40}),
+  panel: M(0x2e3240,{shininess:120,specular:new THREE.Color(0x334466)}),
+  spin:  M(0x454a56,{shininess:220,specular:new THREE.Color(0x778899)}),
+  table: M(0x282c34,{shininess:160,specular:new THREE.Color(0x445566)}),
+  tool:  M(0x6a6d76,{shininess:260,specular:new THREE.Color(0xaabbcc)}),
+  gold:  M(0xe4b15e,{shininess:200,specular:new THREE.Color(0xf8dfa5)}),
+  glass: M(0x5577aa,{transparent:true,opacity:0.10,shininess:400,specular:new THREE.Color(0xffffff)}),
+  rubber:M(0x141416,{shininess:5}),
+  acc:   M(0x383c48,{shininess:100}),
+  work:  M(0x7a8899,{shininess:80,specular:new THREE.Color(0x99aacc)}),
+  screen:M(0x001833,{emissive:new THREE.Color(0x003366),emissiveIntensity:0.6}),
+  led_g: M(0x00ff88,{emissive:new THREE.Color(0x00ff88),emissiveIntensity:0.8}),
+  led_r: M(0xff3860,{emissive:new THREE.Color(0xff3860),emissiveIntensity:0.8}),
+};
+
+// ── GEOMETRY HELPERS ────────────────────────────────
+function box(w,h,d,m,x,y,z){
+  var mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);
+  mesh.position.set(x||0,y||0,z||0);
+  mesh.castShadow=true;mesh.receiveShadow=true;
+  return mesh;
+}
+function cyl(rt,rb,h,m,x,y,z,seg){
+  var mesh=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||32),m);
+  mesh.position.set(x||0,y||0,z||0);
+  mesh.castShadow=true;mesh.receiveShadow=true;
+  return mesh;
+}
+
+// ── BUILD MACHINE ────────────────────────────────────
+var machine = new THREE.Group();
+
+// BASE SLAB
+machine.add(box(6,0.55,5,mat.body, 0,0,0));
+machine.add(box(5.8,0.1,4.8,mat.panel, 0,0.32,0));
+// Gold base trim
+machine.add(box(6.02,0.04,0.04,mat.gold, 0,0.28,2.5));
+machine.add(box(6.02,0.04,0.04,mat.gold, 0,0.28,-2.5));
+machine.add(box(0.04,0.04,5,mat.gold, 3,0.28,0));
+machine.add(box(0.04,0.04,5,mat.gold, -3,0.28,0));
+
+// COLUMN (left rear)
+machine.add(box(1.4,5.8,1.3,mat.body2, -2.1,3.25,-1.5));
+machine.add(box(0.08,5.8,0.04,mat.gold, -1.38,3.25,-0.85)); // gold trim
+machine.add(box(1.5,0.12,1.4,mat.panel, -2.1,6.2,-1.5));    // column cap
+
+// HORIZONTAL BEAM
+machine.add(box(4.0,0.55,1.3,mat.body, 0.1,6.2,-1.5));
+machine.add(box(4.2,0.04,0.04,mat.gold, 0.1,5.93,-0.85));
+
+// SPINDLE HEAD
+var spH = new THREE.Group();
+spH.add(box(1.65,1.55,1.3,mat.panel, 0,0,0));
+spH.add(box(1.75,0.1,1.4,mat.acc, 0,0.83,0));
+spH.add(box(0.08,1.55,0.04,mat.gold, 0.87,0,0));
+// Spindle housing
+spH.add(cyl(0.38,0.42,1.15,mat.spin, 0,-0.58,0));
+spH.add(cyl(0.42,0.38,0.12,mat.acc, 0,-0.07,0));  // flange top
+spH.add(cyl(0.28,0.28,0.2,mat.spin, 0,-1.22,0));   // nose
+
+// Spindle shaft group (rotates)
+var spShaft = new THREE.Group();
+spShaft.add(cyl(0.075,0.075,1.0,mat.tool, 0,0,0));
+// HSK tool holder
+spShaft.add(cyl(0.14,0.08,0.2,mat.tool, 0,-0.6,0));
+spShaft.add(cyl(0.08,0.08,0.08,mat.acc, 0,-0.72,0));
+// End mill
+spShaft.add(cyl(0.055,0.042,0.38,mat.tool, 0,-0.97,0));
+// Cutting tip
+spShaft.add(cyl(0.042,0.0,0.04,mat.tool, 0,-1.17,0));
+spShaft.position.set(0,-0.9,0);
+spH.add(spShaft);
+
+spH.position.set(-0.15,3.5,-0.9);
+machine.add(spH);
+
+// Z-AXIS LINEAR GUIDES (on column face)
+for(var s=-1;s<=1;s+=2){
+  machine.add(box(0.08,4.5,0.12,mat.acc, -1.42+s*0.3,3.25,-0.86));
+}
+// Z carriage blocks
+machine.add(box(0.3,0.3,0.16,mat.spin, -1.42-0.3,3.5,-0.82));
+machine.add(box(0.3,0.3,0.16,mat.spin, -1.42+0.3,3.5,-0.82));
+
+// Y-AXIS SADDLE
+var saddle = new THREE.Group();
+saddle.add(box(4.2,0.22,3.8,mat.body, 0,0,0));
+saddle.add(box(4.0,0.08,3.6,mat.panel, 0,0.15,0));
+// Y guide rails
+saddle.add(box(0.1,0.1,3.6,mat.spin, -1.8,0.12,0));
+saddle.add(box(0.1,0.1,3.6,mat.spin,  1.8,0.12,0));
+saddle.position.set(0.3,0.65,0.3);
+machine.add(saddle);
+
+// X-AXIS TABLE
+var xTab = new THREE.Group();
+xTab.add(box(3.4,0.26,3.0,mat.table, 0,0,0));
+// T-slots
+for(var t=-1;t<=1;t++){
+  xTab.add(box(3.2,0.08,0.09,mat.rubber, 0,-0.02,t*0.65));
+  xTab.add(box(3.2,0.04,0.16,mat.body2, 0,-0.08,t*0.65));
+}
+// Table surface sheen
+xTab.add(box(3.3,0.02,2.9,mat.acc, 0,0.14,0));
+// X guide blocks
+xTab.add(box(0.2,0.18,0.2,mat.spin, -1.5,0.22,0.8));
+xTab.add(box(0.2,0.18,0.2,mat.spin,  1.5,0.22,0.8));
+
+// WORKPIECE (aluminum block being machined)
+var wpMat = new THREE.MeshPhongMaterial({color:0x8899bb,shininess:150,specular:new THREE.Color(0xaabbdd)});
+xTab.add(box(1.3,0.5,1.0,wpMat, 0.1,0.38,0));
+// Machined surface (slightly different color)
+xTab.add(box(0.9,0.02,0.7,new THREE.MeshPhongMaterial({color:0xaabbcc,shininess:250,specular:new THREE.Color(0xddeeff)}), 0.1,0.64,0));
+// Vise jaws
+xTab.add(box(0.12,0.38,1.0,mat.body2, -0.76,0.38,0));
+xTab.add(box(0.12,0.38,1.0,mat.body2,  0.96,0.38,0));
+// Vise screws
+xTab.add(cyl(0.055,0.055,0.3,mat.spin, -0.84,0.38,0,8));
+xTab.add(cyl(0.055,0.055,0.3,mat.spin,  1.04,0.38,0,8));
+
+xTab.position.set(0.3,0.87,0.3);
+machine.add(xTab);
+
+// ATC CAROUSEL (right side of column)
+var atc = new THREE.Group();
+atc.add(box(0.7,1.0,0.7,mat.body2, 0,0,0));
+var drum = new THREE.Group();
+drum.add(cyl(0.58,0.58,0.28,mat.panel, 0,0,0,24));
+drum.add(cyl(0.18,0.18,0.32,mat.spin, 0,0,0,16));
+// Tool pockets (16 positions)
+for(var p=0;p<16;p++){
+  var a = (p/16)*Math.PI*2;
+  var pocket = cyl(0.07,0.07,0.12,mat.spin, Math.cos(a)*0.44,0,Math.sin(a)*0.44,8);
+  drum.add(pocket);
+  // Tool sticking out
+  var tl = cyl(0.045,0.035,0.22,mat.tool, Math.cos(a)*0.44,-0.18,Math.sin(a)*0.44,8);
+  drum.add(tl);
+}
+atc.add(drum);
+// ATC arm
+atc.add(box(1.1,0.12,0.12,mat.spin, 0,0.52,0));
+atc.add(cyl(0.09,0.09,0.28,mat.tool, -0.55,0.52,0,8));
+atc.add(cyl(0.09,0.09,0.28,mat.tool,  0.55,0.52,0,8));
+atc.position.set(-2.1,4.4,-0.5);
+machine.add(atc);
+
+// COOLANT SYSTEM
+function nozzle(x,y,z,rx,rz){
+  var g=new THREE.Group();
+  g.add(cyl(0.03,0.03,0.45,mat.rubber, 0,0,0,8));
+  g.add(cyl(0.04,0.018,0.1,mat.rubber, 0,-0.27,0,8));
+  g.position.set(x,y,z);
+  g.rotation.set(rx||0,0,rz||0);
+  return g;
+}
+machine.add(nozzle(-0.6,2.1,-0.45, 0.45, 0.25));
+machine.add(nozzle( 0.6,2.1,-0.45, 0.45,-0.25));
+machine.add(nozzle( 0,  2.1,-0.5,  0.5,  0));
+
+// ENCLOSURE PANELS (semi-transparent)
+machine.add(box(0.04,6.2,5.2,mat.glass, 3.05,3.45,0));   // right
+machine.add(box(6.2,6.2,0.04,mat.glass, 0,3.45,2.65));   // front
+machine.add(box(6.2,0.04,5.3,mat.glass, 0,6.55,0));       // top
+// Gold edge strips
+machine.add(box(0.04,6.2,0.04,mat.gold, 3.05,3.45,2.65));
+machine.add(box(0.04,6.2,0.04,mat.gold, 3.05,3.45,-2.65));
+machine.add(box(6.2,0.04,0.04,mat.gold, 0,0.33,2.65));
+machine.add(box(6.2,0.04,0.04,mat.gold, 0,6.58,2.65));
+
+// CONTROL PANEL (Siemens 840D style)
+var cp = new THREE.Group();
+cp.add(box(0.9,1.4,0.18,mat.body2, 0,0,0));
+cp.add(box(0.04,1.4,0.04,mat.gold, 0.47,0,0));
+// Main screen
+cp.add(box(0.72,0.65,0.03,mat.screen, 0,0.25,0.1));
+// Screen glow overlay
+cp.add(box(0.68,0.61,0.01,new THREE.MeshPhongMaterial({color:0x0066cc,emissive:new THREE.Color(0x0044aa),emissiveIntensity:0.4,transparent:true,opacity:0.7}), 0,0.25,0.11));
+// Keypad area
+cp.add(box(0.72,0.35,0.02,mat.acc, 0,-0.25,0.1));
+// Buttons row
+for(var b=0;b<5;b++){
+  var bc = [mat.led_g,mat.led_g,mat.led_r,mat.acc,mat.acc][b];
+  cp.add(cyl(0.038,0.038,0.04,bc, -0.25+b*0.125,-0.25,0.11,8));
+}
+// E-Stop (red mushroom)
+cp.add(cyl(0.07,0.07,0.05,mat.led_r, 0.3,-0.4,0.11,16));
+cp.add(cyl(0.1,0.06,0.03,mat.led_r, 0.3,-0.4,0.13,16));
+// Label plate
+cp.add(box(0.3,0.05,0.02,new THREE.MeshPhongMaterial({color:0xe4b15e,emissive:new THREE.Color(0xe4b15e),emissiveIntensity:0.1}), 0,0.6,0.1));
+cp.position.set(2.8,1.8,1.8);
+cp.rotation.y = -0.55;
+machine.add(cp);
+
+// COOLANT TANK (rear left)
+machine.add(box(1.2,1.4,0.9,mat.body2, -2.1,0.97,1.5));
+machine.add(box(1.1,0.05,0.8,mat.panel, -2.1,1.72,1.5));
+// Pump indicator
+machine.add(cyl(0.06,0.06,0.12,mat.led_g, -1.7,1.5,1.5,8));
+
+// CHIP CONVEYOR (front)
+machine.add(box(5.8,0.18,0.45,mat.rubber, 0,0.14,2.45));
+machine.add(box(5.6,0.08,0.38,mat.acc, 0,0.23,2.45));
+
+// Whole machine offset
+machine.position.set(0,-2.5,0);
+scene.add(machine);
+
+// ── SENSOR HOTSPOTS ─────────────────────────────────
+var SENSORS = [
+  {
+    id:'S1', name:{de:'Spindellager',en:'Spindle Bearing'},
+    wpos:new THREE.Vector3(-0.15,1.18,-0.9),
+    status:'crit',risk:87,
+    temp:'72.4°C',vib:'4.82 mm/s',
+    desc:{de:'Erhöhte Vibrationsamplitude. BPFO-Frequenz 3.4× über Normalwert. Lagertausch empfohlen innerhalb 48–72h.',
+          en:'Elevated vibration. BPFO frequency 3.4× above normal. Bearing replacement recommended within 48–72h.'},
+    color:0xff3860,hex:'#ff3860'
+  },
+  {
+    id:'S2', name:{de:'Z-Achse Linearführung',en:'Z-Axis Linear Guide'},
+    wpos:new THREE.Vector3(-2.1,3.5,-0.9),
+    status:'warn',risk:52,
+    temp:'41.2°C',vib:'1.23 mm/s',
+    desc:{de:'Anstieg im Schleppfehler-Trend. Schmierung empfohlen innerhalb 2 Wochen.',
+          en:'Tracking error trend rising. Lubrication recommended within 2 weeks.'},
+    color:0xffb800,hex:'#ffb800'
+  },
+  {
+    id:'S3', name:{de:'X-Achse Kugelgewindetrieb',en:'X-Axis Ball Screw'},
+    wpos:new THREE.Vector3(0.3,-0.72,0.3),
+    status:'ok',risk:18,
+    temp:'34.1°C',vib:'0.41 mm/s',
+    desc:{de:'Alle Parameter im Normalbereich. Nächste Wartung in 847 Betriebsstunden.',
+          en:'All parameters normal. Next service in 847 operating hours.'},
+    color:0x00ff88,hex:'#00ff88'
+  },
+  {
+    id:'S4', name:{de:'Werkzeugwechsler (ATC)',en:'Tool Changer (ATC)'},
+    wpos:new THREE.Vector3(-2.1,2.0,-0.5),
+    status:'ok',risk:23,
+    temp:'38.7°C',vib:'0.67 mm/s',
+    desc:{de:'Wechselzeit stabil. Nockenwellen-Reibung im Sollbereich. 1.847 Zyklen seit Wartung.',
+          en:'Cycle time stable. Cam friction within spec. 1,847 cycles since last service.'},
+    color:0x00ff88,hex:'#00ff88'
+  },
+  {
+    id:'S5', name:{de:'Y-Achse Antrieb',en:'Y-Axis Drive'},
+    wpos:new THREE.Vector3(0.3,0.78,0.3),
+    status:'ok',risk:12,
+    temp:'31.8°C',vib:'0.29 mm/s',
+    desc:{de:'Servo-Motorstrom nominal. Positioniergenauigkeit ±0.8 µm. Keine Anomalien.',
+          en:'Servo current nominal. Positioning accuracy ±0.8 µm. No anomalies detected.'},
+    color:0x00ff88,hex:'#00ff88'
+  },
+  {
+    id:'S6', name:{de:'Kühlmittel-System',en:'Coolant System'},
+    wpos:new THREE.Vector3(-2.1,0.5,1.5),
+    status:'warn',risk:44,
+    temp:'28.3°C',vib:'—',
+    desc:{de:'Durchfluss 12% unter Sollwert. Filter-Differenzdruck erhöht. Filterwechsel empfohlen.',
+          en:'Flow rate 12% below setpoint. Filter differential pressure elevated. Filter change recommended.'},
+    color:0xffb800,hex:'#ffb800'
+  }
+];
+
+var hotspots = [];
+SENSORS.forEach(function(s){
+  var g = new THREE.Group();
+  // Outer ring (pulsing)
+  var ring = new THREE.Mesh(
+    new THREE.SphereGeometry(0.16,16,16),
+    new THREE.MeshBasicMaterial({color:s.color,transparent:true,opacity:0.25})
+  );
+  // Inner dot
+  var dot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.09,16,16),
+    new THREE.MeshBasicMaterial({color:s.color,transparent:true,opacity:0.95})
+  );
+  g.add(ring);
+  g.add(dot);
+  // World position offset by machine
+  g.position.set(s.wpos.x, s.wpos.y - 2.5, s.wpos.z);
+  g.userData = s;
+  g.userData.ring = ring;
+  g.userData.dot = dot;
+  scene.add(g);
+  hotspots.push(g);
+});
+
+// ── LIGHTING ────────────────────────────────────────
+var ambLight = new THREE.AmbientLight(0x223355, 0.6);
+scene.add(ambLight);
+
+var dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+dirLight.position.set(8,12,8);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.width = 2048;
+dirLight.shadow.mapSize.height = 2048;
+scene.add(dirLight);
+
+var fillLight = new THREE.DirectionalLight(0x334466, 0.4);
+fillLight.position.set(-6,4,-4);
+scene.add(fillLight);
+
+var rimLight = new THREE.DirectionalLight(0xe4b15e, 0.3);
+rimLight.position.set(4,2,-8);
+scene.add(rimLight);
+
+// Point light inside machine (simulates coolant spray glow)
+var pLight = new THREE.PointLight(0x4488ff, 0.5, 6);
+pLight.position.set(-0.15,-1.3,-0.9);
+scene.add(pLight);
+
+// ── ORBIT CONTROLS ──────────────────────────────────
+var spherical = {theta:-0.4, phi:1.05, radius:14};
+var target = new THREE.Vector3(0,0.5,0);
+var isDrag = false, prevMouse = {x:0,y:0};
+var autoRot = true, autoRotTimer = null;
+
+function updateCamera(){
+  var x = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
+  var y = spherical.radius * Math.cos(spherical.phi);
+  var z = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
+  camera.position.set(target.x+x, target.y+y, target.z+z);
+  camera.lookAt(target);
+}
+updateCamera();
+
+function onStart(cx,cy){isDrag=true;prevMouse={x:cx,y:cy};autoRot=false;clearTimeout(autoRotTimer);}
+function onEnd(){isDrag=false;autoRotTimer=setTimeout(function(){autoRot=true;},3000);}
+function onMove(cx,cy){
+  if(!isDrag)return;
+  var dx=cx-prevMouse.x, dy=cy-prevMouse.y;
+  spherical.theta -= dx*0.008;
+  spherical.phi = Math.max(0.25,Math.min(Math.PI*0.45, spherical.phi+dy*0.007));
+  prevMouse={x:cx,y:cy};
+  updateCamera();
+}
+
+canvas.addEventListener('mousedown',function(e){onStart(e.clientX,e.clientY);});
+canvas.addEventListener('mouseup',onEnd);
+canvas.addEventListener('mouseleave',onEnd);
+canvas.addEventListener('mousemove',function(e){onMove(e.clientX,e.clientY);});
+canvas.addEventListener('wheel',function(e){
+  e.preventDefault();
+  spherical.radius = Math.max(7,Math.min(22,spherical.radius+e.deltaY*0.02));
+  updateCamera();
+},{passive:false});
+canvas.addEventListener('touchstart',function(e){if(e.touches.length===1)onStart(e.touches[0].clientX,e.touches[0].clientY);});
+canvas.addEventListener('touchend',onEnd);
+canvas.addEventListener('touchmove',function(e){if(e.touches.length===1){e.preventDefault();onMove(e.touches[0].clientX,e.touches[0].clientY);}},{passive:false});
+
+// ── RAYCASTER ───────────────────────────────────────
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+raycaster.params.Points = {threshold:0.3};
+
+function getMouseNDC(ev){
+  var rect = canvas.getBoundingClientRect();
+  mouse.x = ((ev.clientX-rect.left)/rect.width)*2-1;
+  mouse.y = -((ev.clientY-rect.top)/rect.height)*2+1;
+}
+
+canvas.addEventListener('click',function(e){
+  getMouseNDC(e);
+  raycaster.setFromCamera(mouse,camera);
+  var targets = hotspots.map(function(h){return h.children[1];});
+  var hits = raycaster.intersectObjects(targets);
+  if(hits.length>0){
+    var hs = hits[0].object.parent;
+    showPanel(hs.userData);
+  }
+});
+
+function showPanel(s){
+  var isDE = document.documentElement.lang !== 'en' && !document.body.classList.contains('lang-en');
+  var lang = isDE ? 'de' : 'en';
+  document.getElementById('cipId').textContent = s.id;
+  document.getElementById('cipName').textContent = typeof s.name==='object' ? s.name[lang]||s.name.de : s.name;
+  document.getElementById('cipTemp').textContent = s.temp;
+  document.getElementById('cipVib').textContent = s.vib;
+  document.getElementById('cipRisk').textContent = s.risk + ' %';
+  document.getElementById('cipDesc').textContent = typeof s.desc==='object' ? s.desc[lang]||s.desc.de : s.desc;
+  var fill = document.getElementById('cipRiskFill');
+  fill.style.width = s.risk+'%';
+  fill.style.background = s.status==='crit'?'#ff3860':s.status==='warn'?'#ffb800':'#00ff88';
+  var badge = document.getElementById('cipBadge');
+  badge.textContent = '●';
+  badge.style.color = s.hex;
+  document.getElementById('cncInfoPanel').classList.add('visible');
+}
+
+window.closeCipPanel = function(){
+  document.getElementById('cncInfoPanel').classList.remove('visible');
+};
+
+// ── RESIZE ──────────────────────────────────────────
+window.addEventListener('resize',function(){
+  var W2=wrap.offsetWidth||800, H2=wrap.offsetHeight||600;
+  renderer.setSize(W2,H2,false);
+  canvas.style.width=W2+'px';
+  canvas.style.height=H2+'px';
+  camera.aspect=W2/H2;
+  camera.updateProjectionMatrix();
+});
+
+// ── ANIMATE ─────────────────────────────────────────
+var clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  var t = clock.getElapsedTime();
+
+  // Spindle rotation
+  spShaft.rotation.y = t * 18;
+
+  // ATC drum slow rotation
+  drum.rotation.y = t * 0.3;
+
+  // Table slow CNC motion (X)
+  xTab.position.x = Math.sin(t*0.4) * 0.35;
+  // Table Y motion
+  saddle.position.z = Math.sin(t*0.25+1) * 0.2;
+
+  // Spindle head Z motion
+  spH.position.y = 3.5 + Math.sin(t*0.3+0.5)*0.15;
+
+  // Auto-rotate camera
+  if(autoRot){
+    spherical.theta += 0.003;
+    updateCamera();
+  }
+
+  // Sensor hotspot pulse
+  hotspots.forEach(function(h,i){
+    var pulse = 0.7 + 0.3*Math.sin(t*2.5 + i*1.2);
+    h.userData.ring.material.opacity = 0.1 + 0.2*pulse;
+    var sc = 0.85 + 0.15*pulse;
+    h.userData.ring.scale.set(sc,sc,sc);
+    // Critical sensor extra pulse
+    if(h.userData.status==='crit'){
+      h.userData.ring.scale.set(0.8+0.35*pulse,0.8+0.35*pulse,0.8+0.35*pulse);
+      h.userData.ring.material.opacity = 0.15+0.35*pulse;
+    }
+  });
+
+  renderer.render(scene,camera);
+}
+animate();
+
+// Hide hint after 5s
+setTimeout(function(){
+  var hint = document.getElementById('cncHint');
+  if(hint) hint.style.opacity='0';
+},5000);
+
+} // end initCNC3D
+
+// Start when page is fully loaded
+if(document.readyState === 'complete'){
+  setTimeout(initCNC3D, 100);
+} else {
+  window.addEventListener('load', function(){ setTimeout(initCNC3D, 100); });
+}
+</script>
+
+
 <!-- Trust Bar -->
 <div class="trust-bar">
   <div class="trust-item">
