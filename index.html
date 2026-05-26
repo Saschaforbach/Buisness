@@ -1166,581 +1166,534 @@ html,body{overflow-x:hidden;max-width:100vw;}
 </section>
 
 
-<!-- ══════════════════════════════════════════
-     3D CNC MACHINE VISUALIZER
-══════════════════════════════════════════ -->
-<div id="cnc3d" class="section-full">
-  <div class="section-inner" style="margin-bottom:2.5rem;">
-    <div class="section-label"><span class="de">3D Maschinenvisualisierung · Live Sensor-Overlay</span><span class="en">3D Machine Visualization · Live Sensor Overlay</span></div>
-    <h2 class="section-title">
-      <span class="de">IHRE CNC-ANLAGE<br><span class="gold">IN ECHTZEIT</span></span>
-      <span class="en">YOUR CNC MACHINE<br><span class="gold">IN REAL TIME</span></span>
-    </h2>
-    <p class="section-sub">
-      <span class="de">Klicken Sie auf einen Sensor-Punkt um den aktuellen Status zu sehen. Drehen: Maus ziehen · Zoom: Scrollrad.</span>
-      <span class="en">Click a sensor dot to see current status. Rotate: drag mouse · Zoom: scroll wheel.</span>
-    </p>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DIGITAL TWIN COMMAND CENTER
+═══════════════════════════════════════════════════════════ -->
+<section class="dt-section">
+  <div class="dt-header">
+    <span class="dt-badge">● LIVE DIGITAL TWIN</span>
+    <h2 class="dt-title">Ihre CNC-Anlage — <em>in Echtzeit überwacht</em></h2>
+    <p class="dt-sub">Interaktives 3D-Modell mit KI-Sensorik. Drehen · Zoomen · Hotspots anklicken.</p>
   </div>
-
-  <div class="cnc3d-wrap" id="cnc3dWrap">
-    <canvas id="cnc3dCanvas"></canvas>
-
-    <!-- Sensor info panel -->
-    <div class="cnc-info-panel" id="cncInfoPanel">
-      <div class="cip-header">
-        <div>
-          <div class="cip-id" id="cipId">S1</div>
-          <div class="cip-name" id="cipName">—</div>
-        </div>
-        <div class="cip-badge" id="cipBadge">●</div>
+  <div class="dt-container">
+    <div class="dt-wrap" id="dtWrap">
+      <canvas id="dtCanvas"></canvas>
+      <!-- Sensor Labels -->
+      <div class="dt-label" id="lb0"><span class="lb-dot green"></span>Spindel <strong>98.2%</strong></div>
+      <div class="dt-label" id="lb1"><span class="lb-dot yellow"></span>Lager <strong>WARN</strong></div>
+      <div class="dt-label" id="lb2"><span class="lb-dot green"></span>Kühlmittel <strong>18°C</strong></div>
+      <div class="dt-label" id="lb3"><span class="lb-dot green"></span>ATC-Magazin <strong>16/16</strong></div>
+      <div class="dt-label" id="lb4"><span class="lb-dot red"></span>Vibration <strong>ALERT</strong></div>
+      <div class="dt-label" id="lb5"><span class="lb-dot green"></span>Steuerung <strong>840D OK</strong></div>
+    </div>
+    <div class="dt-sidebar">
+      <div class="dt-zoom-btns">
+        <button class="dt-zoom-btn" id="dtZoomIn" title="Zoom In">＋</button>
+        <button class="dt-zoom-btn" id="dtZoomOut" title="Zoom Out">－</button>
       </div>
-      <div class="cip-row"><span class="cip-lbl">Temp.</span><span class="cip-val" id="cipTemp">—</span></div>
-      <div class="cip-row"><span class="cip-lbl">Vibration</span><span class="cip-val" id="cipVib">—</span></div>
-      <div class="cip-row"><span class="cip-lbl">Risiko</span><span class="cip-risk-wrap"><div class="cip-risk-bar"><div class="cip-risk-fill" id="cipRiskFill"></div></div><span class="cip-val" id="cipRisk">—</span></span></div>
-      <div class="cip-desc" id="cipDesc">—</div>
-      <button class="cip-close" onclick="closeCipPanel()">✕</button>
+      <div class="dt-panel">
+        <div class="dt-panel-title">SYSTEMSTATUS</div>
+        <div class="dt-stat"><span>Spindeldrehzahl</span><strong class="green">12.400 RPM</strong></div>
+        <div class="dt-stat"><span>Vorschub</span><strong class="green">850 mm/min</strong></div>
+        <div class="dt-stat"><span>Lagertemperatur</span><strong class="yellow">67°C ▲</strong></div>
+        <div class="dt-stat"><span>Kühlmitteldruck</span><strong class="green">4.2 bar</strong></div>
+        <div class="dt-stat"><span>Vibration X</span><strong class="red">2.8 g !</strong></div>
+        <div class="dt-stat"><span>Werkzeug-Leben</span><strong class="green">73%</strong></div>
+        <div class="dt-stat"><span>Nächste Wartung</span><strong>in 14 Tagen</strong></div>
+      </div>
+      <div class="dt-panel">
+        <div class="dt-panel-title">KI-DIAGNOSE</div>
+        <div class="dt-ai-msg">⚠ Lager Y-Achse zeigt Frühverschleiß. Empfehlung: Tausch in 4–6 Tagen.</div>
+        <div class="dt-ai-msg ok">✓ Spindel-Parametrik im Normalbereich.</div>
+        <div class="dt-ai-msg ok">✓ Werkzeugverschleiß unauffällig.</div>
+      </div>
     </div>
-
-    <!-- Status legend -->
-    <div class="cnc-legend">
-      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></span><span class="de">Normal</span><span class="en">Normal</span></span>
-      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#ffb800;box-shadow:0 0 6px #ffb800"></span><span class="de">Achtung</span><span class="en">Warning</span></span>
-      <span class="cnc-leg-item"><span class="cnc-leg-dot" style="background:#ff3860;box-shadow:0 0 6px #ff3860"></span><span class="de">Kritisch</span><span class="en">Critical</span></span>
-    </div>
-
-    <!-- Hint -->
-    <div class="cnc-hint" id="cncHint"><span class="de">↻ Drehen · ⊕ Zoom · Sensor klicken</span><span class="en">↻ Rotate · ⊕ Zoom · Click sensor</span></div>
   </div>
-</div>
+  <div class="dt-footer-cta">
+    <a href="kontakt.html" class="dt-cta-btn">Jetzt Digital-Twin-Demo anfragen →</a>
+  </div>
+</section>
 
 <style>
-.cnc3d-wrap{position:relative;width:100%;height:600px;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(228,177,94,0.04) 0%,transparent 70%),#050507;border-top:1px solid rgba(228,177,94,0.12);border-bottom:1px solid rgba(228,177,94,0.12);overflow:hidden;}
-#cnc3dCanvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;display:block;touch-action:none;}
-@media(max-width:600px){.cnc3d-wrap{height:420px;}}
-.cnc-info-panel{position:absolute;top:1.5rem;right:1.5rem;width:clamp(220px,28%,300px);background:rgba(10,10,14,0.95);border:1px solid rgba(228,177,94,0.4);border-radius:14px;padding:1.25rem;backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateX(10px);z-index:10;}
-.cnc-info-panel.visible{opacity:1;pointer-events:all;transform:translateX(0);}
-.cip-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(228,177,94,0.15);}
-.cip-id{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:2px;}
-.cip-name{font-size:0.85rem;font-weight:700;color:#fff;line-height:1.3;}
-.cip-badge{font-size:1.2rem;animation:blink 1.2s ease-in-out infinite;}
-.cip-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;}
-.cip-lbl{color:#5a5a5a;text-transform:uppercase;letter-spacing:1px;}
-.cip-val{color:#fff;font-weight:600;}
-.cip-risk-wrap{display:flex;align-items:center;gap:0.5rem;flex:1;justify-content:flex-end;}
-.cip-risk-bar{width:80px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
-.cip-risk-fill{height:100%;border-radius:2px;transition:width 0.6s ease;}
-.cip-desc{font-size:0.72rem;color:#707070;line-height:1.55;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.05);}
-.cip-close{position:absolute;top:0.75rem;right:0.75rem;background:transparent;border:none;color:#555;font-size:0.8rem;cursor:pointer;transition:color 0.2s;padding:2px 5px;}
-.cip-close:hover{color:#fff;}
-.cnc-legend{position:absolute;bottom:1.25rem;left:1.5rem;display:flex;gap:1rem;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.5rem 0.85rem;backdrop-filter:blur(8px);}
-.cnc-leg-item{display:flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#888;letter-spacing:0.5px;}
-.cnc-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.cnc-hint{position:absolute;bottom:1.25rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:rgba(255,255,255,0.25);letter-spacing:1px;}
-@media(max-width:600px){
-  .cnc-info-panel{top:auto;bottom:4rem;right:0.75rem;left:0.75rem;width:auto;}
-  .cnc-hint{display:none;}
-  .cnc-legend{bottom:0.75rem;left:0.75rem;gap:0.6rem;padding:0.4rem 0.6rem;}
-  .cnc-leg-item{font-size:0.52rem;}
+/* ── Digital Twin Section ── */
+.dt-section{background:#040508;padding:80px 0 60px;position:relative;overflow:hidden;}
+.dt-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(0,180,255,.07) 0%,transparent 70%);pointer-events:none;}
+.dt-header{text-align:center;margin-bottom:40px;padding:0 20px;}
+.dt-badge{display:inline-block;background:rgba(0,255,120,.12);border:1px solid rgba(0,255,120,.4);color:#00ff78;font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 18px;border-radius:20px;margin-bottom:18px;animation:dtBlink 2s ease-in-out infinite;}
+@keyframes dtBlink{0%,100%{opacity:1}50%{opacity:.6}}
+.dt-title{font-size:clamp(1.6rem,3.5vw,2.6rem);color:#fff;font-weight:800;margin:0 0 12px;line-height:1.2;}
+.dt-title em{color:#00b4ff;font-style:normal;}
+.dt-sub{color:rgba(255,255,255,.5);font-size:1rem;margin:0;}
+.dt-container{display:flex;gap:20px;max-width:1400px;margin:0 auto;padding:0 24px;align-items:flex-start;}
+.dt-wrap{position:relative;flex:1;min-width:0;height:640px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,180,255,.2);box-shadow:0 0 60px rgba(0,180,255,.12),0 0 120px rgba(0,180,255,.05);}
+#dtCanvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block;}
+/* Sensor labels */
+.dt-label{position:absolute;background:rgba(4,5,8,.85);border:1px solid rgba(0,180,255,.4);color:#fff;font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;pointer-events:none;white-space:nowrap;display:none;backdrop-filter:blur(4px);box-shadow:0 0 12px rgba(0,180,255,.3);}
+.dt-label.visible{display:block;}
+.lb-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.lb-dot.green{background:#00ff78;box-shadow:0 0 6px #00ff78;}
+.lb-dot.yellow{background:#ffcc00;box-shadow:0 0 6px #ffcc00;}
+.lb-dot.red{background:#ff3030;box-shadow:0 0 6px #ff3030;animation:dtBlink 1s ease-in-out infinite;}
+/* Sidebar */
+.dt-sidebar{width:260px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;}
+.dt-zoom-btns{display:flex;gap:8px;justify-content:flex-end;}
+.dt-zoom-btn{width:40px;height:40px;border-radius:8px;border:1px solid rgba(0,180,255,.4);background:rgba(0,180,255,.08);color:#00b4ff;font-size:22px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;}
+.dt-zoom-btn:hover{background:rgba(0,180,255,.2);box-shadow:0 0 16px rgba(0,180,255,.3);}
+.dt-panel{background:rgba(255,255,255,.03);border:1px solid rgba(0,180,255,.15);border-radius:10px;padding:16px;}
+.dt-panel-title{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(0,180,255,.7);margin-bottom:12px;border-bottom:1px solid rgba(0,180,255,.1);padding-bottom:8px;}
+.dt-stat{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.6);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.dt-stat strong{font-size:12px;color:#fff;}
+.dt-stat strong.green{color:#00ff78;}
+.dt-stat strong.yellow{color:#ffcc00;}
+.dt-stat strong.red{color:#ff4444;}
+.dt-ai-msg{font-size:11px;color:#ffcc00;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4;}
+.dt-ai-msg.ok{color:rgba(0,255,120,.8);}
+.dt-footer-cta{text-align:center;margin-top:40px;}
+.dt-cta-btn{display:inline-block;background:linear-gradient(135deg,#0066cc,#00b4ff);color:#fff;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:8px;text-decoration:none;letter-spacing:.5px;box-shadow:0 8px 32px rgba(0,180,255,.35);transition:all .3s;}
+.dt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,180,255,.5);}
+@media(max-width:900px){
+  .dt-container{flex-direction:column;}
+  .dt-wrap{height:380px;width:100%;}
+  .dt-sidebar{width:100%;}
+  .dt-stat{font-size:11px;}
 }
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-function initCNC3D(){
-'use strict';
-
-var wrap = document.getElementById('cnc3dWrap');
-var canvas = document.getElementById('cnc3dCanvas');
-if(!wrap || !canvas){ console.warn('CNC3D: elements not found'); return; }
-if(typeof THREE === 'undefined'){ console.warn('CNC3D: THREE not loaded'); return; }
-
-// ── RENDERER ────────────────────────────────────────
-var renderer = new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setClearColor(0x050507,1);
-
-var scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050507);
-
-var W = wrap.offsetWidth || 800;
-var H = wrap.offsetHeight || 600;
-renderer.setSize(W, H, false);
-canvas.style.width = W+'px';
-canvas.style.height = H+'px';
-var camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 100);
-camera.position.set(8,5.5,9);
-
-// ── MATERIALS ────────────────────────────────────────
-function M(hex,opts){return new THREE.MeshPhongMaterial(Object.assign({color:hex,shininess:80},opts||{}));}
-var mat = {
-  body:  M(0x22252b,{shininess:50}),
-  body2: M(0x1a1d23,{shininess:40}),
-  panel: M(0x2e3240,{shininess:120,specular:new THREE.Color(0x334466)}),
-  spin:  M(0x454a56,{shininess:220,specular:new THREE.Color(0x778899)}),
-  table: M(0x282c34,{shininess:160,specular:new THREE.Color(0x445566)}),
-  tool:  M(0x6a6d76,{shininess:260,specular:new THREE.Color(0xaabbcc)}),
-  gold:  M(0xe4b15e,{shininess:200,specular:new THREE.Color(0xf8dfa5)}),
-  glass: M(0x5577aa,{transparent:true,opacity:0.10,shininess:400,specular:new THREE.Color(0xffffff)}),
-  rubber:M(0x141416,{shininess:5}),
-  acc:   M(0x383c48,{shininess:100}),
-  work:  M(0x7a8899,{shininess:80,specular:new THREE.Color(0x99aacc)}),
-  screen:M(0x001833,{emissive:new THREE.Color(0x003366),emissiveIntensity:0.6}),
-  led_g: M(0x00ff88,{emissive:new THREE.Color(0x00ff88),emissiveIntensity:0.8}),
-  led_r: M(0xff3860,{emissive:new THREE.Color(0xff3860),emissiveIntensity:0.8}),
-};
-
-// ── GEOMETRY HELPERS ────────────────────────────────
-function box(w,h,d,m,x,y,z){
-  var mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);
-  mesh.position.set(x||0,y||0,z||0);
-  mesh.castShadow=true;mesh.receiveShadow=true;
-  return mesh;
-}
-function cyl(rt,rb,h,m,x,y,z,seg){
-  var mesh=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||32),m);
-  mesh.position.set(x||0,y||0,z||0);
-  mesh.castShadow=true;mesh.receiveShadow=true;
-  return mesh;
+/* ══════════════════════════════════════════════════════
+   DIGITAL TWIN — Three.js r128
+══════════════════════════════════════════════════════ */
+(function(){
+var DT_LOADED=false;
+function loadThree(cb){
+  if(window.THREE&&window.THREE.Scene){cb();return;}
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.onload=cb;document.head.appendChild(s);
 }
 
-// ── BUILD MACHINE ────────────────────────────────────
-var machine = new THREE.Group();
+function initDT(){
+  if(DT_LOADED)return; DT_LOADED=true;
+  var wrap=document.getElementById('dtWrap');
+  var canvas=document.getElementById('dtCanvas');
+  if(!wrap||!canvas)return;
 
-// BASE SLAB
-machine.add(box(6,0.55,5,mat.body, 0,0,0));
-machine.add(box(5.8,0.1,4.8,mat.panel, 0,0.32,0));
-// Gold base trim
-machine.add(box(6.02,0.04,0.04,mat.gold, 0,0.28,2.5));
-machine.add(box(6.02,0.04,0.04,mat.gold, 0,0.28,-2.5));
-machine.add(box(0.04,0.04,5,mat.gold, 3,0.28,0));
-machine.add(box(0.04,0.04,5,mat.gold, -3,0.28,0));
+  var W=wrap.offsetWidth||900, H=wrap.offsetHeight||640;
+  var THREE=window.THREE;
 
-// COLUMN (left rear)
-machine.add(box(1.4,5.8,1.3,mat.body2, -2.1,3.25,-1.5));
-machine.add(box(0.08,5.8,0.04,mat.gold, -1.38,3.25,-0.85)); // gold trim
-machine.add(box(1.5,0.12,1.4,mat.panel, -2.1,6.2,-1.5));    // column cap
+  /* ── Renderer ── */
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W,H,false);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0x040508,1);
+  renderer.toneMapping=THREE.ReinhardToneMapping;
+  renderer.toneMappingExposure=1.2;
+  canvas.style.width='100%'; canvas.style.height='100%';
 
-// HORIZONTAL BEAM
-machine.add(box(4.0,0.55,1.3,mat.body, 0.1,6.2,-1.5));
-machine.add(box(4.2,0.04,0.04,mat.gold, 0.1,5.93,-0.85));
+  /* ── Scene ── */
+  var scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x040508);
+  scene.fog=new THREE.Fog(0x040508,25,80);
 
-// SPINDLE HEAD
-var spH = new THREE.Group();
-spH.add(box(1.65,1.55,1.3,mat.panel, 0,0,0));
-spH.add(box(1.75,0.1,1.4,mat.acc, 0,0.83,0));
-spH.add(box(0.08,1.55,0.04,mat.gold, 0.87,0,0));
-// Spindle housing
-spH.add(cyl(0.38,0.42,1.15,mat.spin, 0,-0.58,0));
-spH.add(cyl(0.42,0.38,0.12,mat.acc, 0,-0.07,0));  // flange top
-spH.add(cyl(0.28,0.28,0.2,mat.spin, 0,-1.22,0));   // nose
+  /* ── Camera ── */
+  var cam=new THREE.PerspectiveCamera(42,W/H,0.1,200);
+  cam.position.set(0,6,14);
+  cam.lookAt(0,3,0);
 
-// Spindle shaft group (rotates)
-var spShaft = new THREE.Group();
-spShaft.add(cyl(0.075,0.075,1.0,mat.tool, 0,0,0));
-// HSK tool holder
-spShaft.add(cyl(0.14,0.08,0.2,mat.tool, 0,-0.6,0));
-spShaft.add(cyl(0.08,0.08,0.08,mat.acc, 0,-0.72,0));
-// End mill
-spShaft.add(cyl(0.055,0.042,0.38,mat.tool, 0,-0.97,0));
-// Cutting tip
-spShaft.add(cyl(0.042,0.0,0.04,mat.tool, 0,-1.17,0));
-spShaft.position.set(0,-0.9,0);
-spH.add(spShaft);
-
-spH.position.set(-0.15,3.5,-0.9);
-machine.add(spH);
-
-// Z-AXIS LINEAR GUIDES (on column face)
-for(var s=-1;s<=1;s+=2){
-  machine.add(box(0.08,4.5,0.12,mat.acc, -1.42+s*0.3,3.25,-0.86));
-}
-// Z carriage blocks
-machine.add(box(0.3,0.3,0.16,mat.spin, -1.42-0.3,3.5,-0.82));
-machine.add(box(0.3,0.3,0.16,mat.spin, -1.42+0.3,3.5,-0.82));
-
-// Y-AXIS SADDLE
-var saddle = new THREE.Group();
-saddle.add(box(4.2,0.22,3.8,mat.body, 0,0,0));
-saddle.add(box(4.0,0.08,3.6,mat.panel, 0,0.15,0));
-// Y guide rails
-saddle.add(box(0.1,0.1,3.6,mat.spin, -1.8,0.12,0));
-saddle.add(box(0.1,0.1,3.6,mat.spin,  1.8,0.12,0));
-saddle.position.set(0.3,0.65,0.3);
-machine.add(saddle);
-
-// X-AXIS TABLE
-var xTab = new THREE.Group();
-xTab.add(box(3.4,0.26,3.0,mat.table, 0,0,0));
-// T-slots
-for(var t=-1;t<=1;t++){
-  xTab.add(box(3.2,0.08,0.09,mat.rubber, 0,-0.02,t*0.65));
-  xTab.add(box(3.2,0.04,0.16,mat.body2, 0,-0.08,t*0.65));
-}
-// Table surface sheen
-xTab.add(box(3.3,0.02,2.9,mat.acc, 0,0.14,0));
-// X guide blocks
-xTab.add(box(0.2,0.18,0.2,mat.spin, -1.5,0.22,0.8));
-xTab.add(box(0.2,0.18,0.2,mat.spin,  1.5,0.22,0.8));
-
-// WORKPIECE (aluminum block being machined)
-var wpMat = new THREE.MeshPhongMaterial({color:0x8899bb,shininess:150,specular:new THREE.Color(0xaabbdd)});
-xTab.add(box(1.3,0.5,1.0,wpMat, 0.1,0.38,0));
-// Machined surface (slightly different color)
-xTab.add(box(0.9,0.02,0.7,new THREE.MeshPhongMaterial({color:0xaabbcc,shininess:250,specular:new THREE.Color(0xddeeff)}), 0.1,0.64,0));
-// Vise jaws
-xTab.add(box(0.12,0.38,1.0,mat.body2, -0.76,0.38,0));
-xTab.add(box(0.12,0.38,1.0,mat.body2,  0.96,0.38,0));
-// Vise screws
-xTab.add(cyl(0.055,0.055,0.3,mat.spin, -0.84,0.38,0,8));
-xTab.add(cyl(0.055,0.055,0.3,mat.spin,  1.04,0.38,0,8));
-
-xTab.position.set(0.3,0.87,0.3);
-machine.add(xTab);
-
-// ATC CAROUSEL (right side of column)
-var atc = new THREE.Group();
-atc.add(box(0.7,1.0,0.7,mat.body2, 0,0,0));
-var drum = new THREE.Group();
-drum.add(cyl(0.58,0.58,0.28,mat.panel, 0,0,0,24));
-drum.add(cyl(0.18,0.18,0.32,mat.spin, 0,0,0,16));
-// Tool pockets (16 positions)
-for(var p=0;p<16;p++){
-  var a = (p/16)*Math.PI*2;
-  var pocket = cyl(0.07,0.07,0.12,mat.spin, Math.cos(a)*0.44,0,Math.sin(a)*0.44,8);
-  drum.add(pocket);
-  // Tool sticking out
-  var tl = cyl(0.045,0.035,0.22,mat.tool, Math.cos(a)*0.44,-0.18,Math.sin(a)*0.44,8);
-  drum.add(tl);
-}
-atc.add(drum);
-// ATC arm
-atc.add(box(1.1,0.12,0.12,mat.spin, 0,0.52,0));
-atc.add(cyl(0.09,0.09,0.28,mat.tool, -0.55,0.52,0,8));
-atc.add(cyl(0.09,0.09,0.28,mat.tool,  0.55,0.52,0,8));
-atc.position.set(-2.1,4.4,-0.5);
-machine.add(atc);
-
-// COOLANT SYSTEM
-function nozzle(x,y,z,rx,rz){
-  var g=new THREE.Group();
-  g.add(cyl(0.03,0.03,0.45,mat.rubber, 0,0,0,8));
-  g.add(cyl(0.04,0.018,0.1,mat.rubber, 0,-0.27,0,8));
-  g.position.set(x,y,z);
-  g.rotation.set(rx||0,0,rz||0);
-  return g;
-}
-machine.add(nozzle(-0.6,2.1,-0.45, 0.45, 0.25));
-machine.add(nozzle( 0.6,2.1,-0.45, 0.45,-0.25));
-machine.add(nozzle( 0,  2.1,-0.5,  0.5,  0));
-
-// ENCLOSURE PANELS (semi-transparent)
-machine.add(box(0.04,6.2,5.2,mat.glass, 3.05,3.45,0));   // right
-machine.add(box(6.2,6.2,0.04,mat.glass, 0,3.45,2.65));   // front
-machine.add(box(6.2,0.04,5.3,mat.glass, 0,6.55,0));       // top
-// Gold edge strips
-machine.add(box(0.04,6.2,0.04,mat.gold, 3.05,3.45,2.65));
-machine.add(box(0.04,6.2,0.04,mat.gold, 3.05,3.45,-2.65));
-machine.add(box(6.2,0.04,0.04,mat.gold, 0,0.33,2.65));
-machine.add(box(6.2,0.04,0.04,mat.gold, 0,6.58,2.65));
-
-// CONTROL PANEL (Siemens 840D style)
-var cp = new THREE.Group();
-cp.add(box(0.9,1.4,0.18,mat.body2, 0,0,0));
-cp.add(box(0.04,1.4,0.04,mat.gold, 0.47,0,0));
-// Main screen
-cp.add(box(0.72,0.65,0.03,mat.screen, 0,0.25,0.1));
-// Screen glow overlay
-cp.add(box(0.68,0.61,0.01,new THREE.MeshPhongMaterial({color:0x0066cc,emissive:new THREE.Color(0x0044aa),emissiveIntensity:0.4,transparent:true,opacity:0.7}), 0,0.25,0.11));
-// Keypad area
-cp.add(box(0.72,0.35,0.02,mat.acc, 0,-0.25,0.1));
-// Buttons row
-for(var b=0;b<5;b++){
-  var bc = [mat.led_g,mat.led_g,mat.led_r,mat.acc,mat.acc][b];
-  cp.add(cyl(0.038,0.038,0.04,bc, -0.25+b*0.125,-0.25,0.11,8));
-}
-// E-Stop (red mushroom)
-cp.add(cyl(0.07,0.07,0.05,mat.led_r, 0.3,-0.4,0.11,16));
-cp.add(cyl(0.1,0.06,0.03,mat.led_r, 0.3,-0.4,0.13,16));
-// Label plate
-cp.add(box(0.3,0.05,0.02,new THREE.MeshPhongMaterial({color:0xe4b15e,emissive:new THREE.Color(0xe4b15e),emissiveIntensity:0.1}), 0,0.6,0.1));
-cp.position.set(2.8,1.8,1.8);
-cp.rotation.y = -0.55;
-machine.add(cp);
-
-// COOLANT TANK (rear left)
-machine.add(box(1.2,1.4,0.9,mat.body2, -2.1,0.97,1.5));
-machine.add(box(1.1,0.05,0.8,mat.panel, -2.1,1.72,1.5));
-// Pump indicator
-machine.add(cyl(0.06,0.06,0.12,mat.led_g, -1.7,1.5,1.5,8));
-
-// CHIP CONVEYOR (front)
-machine.add(box(5.8,0.18,0.45,mat.rubber, 0,0.14,2.45));
-machine.add(box(5.6,0.08,0.38,mat.acc, 0,0.23,2.45));
-
-// Whole machine offset
-machine.position.set(0,-2.5,0);
-scene.add(machine);
-
-// ── SENSOR HOTSPOTS ─────────────────────────────────
-var SENSORS = [
-  {
-    id:'S1', name:{de:'Spindellager',en:'Spindle Bearing'},
-    wpos:new THREE.Vector3(-0.15,1.18,-0.9),
-    status:'crit',risk:87,
-    temp:'72.4°C',vib:'4.82 mm/s',
-    desc:{de:'Erhöhte Vibrationsamplitude. BPFO-Frequenz 3.4× über Normalwert. Lagertausch empfohlen innerhalb 48–72h.',
-          en:'Elevated vibration. BPFO frequency 3.4× above normal. Bearing replacement recommended within 48–72h.'},
-    color:0xff3860,hex:'#ff3860'
-  },
-  {
-    id:'S2', name:{de:'Z-Achse Linearführung',en:'Z-Axis Linear Guide'},
-    wpos:new THREE.Vector3(-2.1,3.5,-0.9),
-    status:'warn',risk:52,
-    temp:'41.2°C',vib:'1.23 mm/s',
-    desc:{de:'Anstieg im Schleppfehler-Trend. Schmierung empfohlen innerhalb 2 Wochen.',
-          en:'Tracking error trend rising. Lubrication recommended within 2 weeks.'},
-    color:0xffb800,hex:'#ffb800'
-  },
-  {
-    id:'S3', name:{de:'X-Achse Kugelgewindetrieb',en:'X-Axis Ball Screw'},
-    wpos:new THREE.Vector3(0.3,-0.72,0.3),
-    status:'ok',risk:18,
-    temp:'34.1°C',vib:'0.41 mm/s',
-    desc:{de:'Alle Parameter im Normalbereich. Nächste Wartung in 847 Betriebsstunden.',
-          en:'All parameters normal. Next service in 847 operating hours.'},
-    color:0x00ff88,hex:'#00ff88'
-  },
-  {
-    id:'S4', name:{de:'Werkzeugwechsler (ATC)',en:'Tool Changer (ATC)'},
-    wpos:new THREE.Vector3(-2.1,2.0,-0.5),
-    status:'ok',risk:23,
-    temp:'38.7°C',vib:'0.67 mm/s',
-    desc:{de:'Wechselzeit stabil. Nockenwellen-Reibung im Sollbereich. 1.847 Zyklen seit Wartung.',
-          en:'Cycle time stable. Cam friction within spec. 1,847 cycles since last service.'},
-    color:0x00ff88,hex:'#00ff88'
-  },
-  {
-    id:'S5', name:{de:'Y-Achse Antrieb',en:'Y-Axis Drive'},
-    wpos:new THREE.Vector3(0.3,0.78,0.3),
-    status:'ok',risk:12,
-    temp:'31.8°C',vib:'0.29 mm/s',
-    desc:{de:'Servo-Motorstrom nominal. Positioniergenauigkeit ±0.8 µm. Keine Anomalien.',
-          en:'Servo current nominal. Positioning accuracy ±0.8 µm. No anomalies detected.'},
-    color:0x00ff88,hex:'#00ff88'
-  },
-  {
-    id:'S6', name:{de:'Kühlmittel-System',en:'Coolant System'},
-    wpos:new THREE.Vector3(-2.1,0.5,1.5),
-    status:'warn',risk:44,
-    temp:'28.3°C',vib:'—',
-    desc:{de:'Durchfluss 12% unter Sollwert. Filter-Differenzdruck erhöht. Filterwechsel empfohlen.',
-          en:'Flow rate 12% below setpoint. Filter differential pressure elevated. Filter change recommended.'},
-    color:0xffb800,hex:'#ffb800'
+  /* ── Orbit state ── */
+  var isDragging=false, lastX=0, lastY=0;
+  var spherical={theta:-0.3,phi:1.1,r:14};
+  function camFromSpherical(){
+    cam.position.x=spherical.r*Math.sin(spherical.phi)*Math.sin(spherical.theta);
+    cam.position.y=spherical.r*Math.cos(spherical.phi)+3;
+    cam.position.z=spherical.r*Math.sin(spherical.phi)*Math.cos(spherical.theta);
+    cam.lookAt(0,3,0);
   }
-];
+  camFromSpherical();
 
-var hotspots = [];
-SENSORS.forEach(function(s){
-  var g = new THREE.Group();
-  // Outer ring (pulsing)
-  var ring = new THREE.Mesh(
-    new THREE.SphereGeometry(0.16,16,16),
-    new THREE.MeshBasicMaterial({color:s.color,transparent:true,opacity:0.25})
-  );
-  // Inner dot
-  var dot = new THREE.Mesh(
-    new THREE.SphereGeometry(0.09,16,16),
-    new THREE.MeshBasicMaterial({color:s.color,transparent:true,opacity:0.95})
-  );
-  g.add(ring);
-  g.add(dot);
-  // World position offset by machine
-  g.position.set(s.wpos.x, s.wpos.y - 2.5, s.wpos.z);
-  g.userData = s;
-  g.userData.ring = ring;
-  g.userData.dot = dot;
-  scene.add(g);
-  hotspots.push(g);
-});
-
-// ── LIGHTING ────────────────────────────────────────
-var ambLight = new THREE.AmbientLight(0x223355, 0.6);
-scene.add(ambLight);
-
-var dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
-dirLight.position.set(8,12,8);
-dirLight.castShadow = true;
-dirLight.shadow.mapSize.width = 2048;
-dirLight.shadow.mapSize.height = 2048;
-scene.add(dirLight);
-
-var fillLight = new THREE.DirectionalLight(0x334466, 0.4);
-fillLight.position.set(-6,4,-4);
-scene.add(fillLight);
-
-var rimLight = new THREE.DirectionalLight(0xe4b15e, 0.3);
-rimLight.position.set(4,2,-8);
-scene.add(rimLight);
-
-// Point light inside machine (simulates coolant spray glow)
-var pLight = new THREE.PointLight(0x4488ff, 0.5, 6);
-pLight.position.set(-0.15,-1.3,-0.9);
-scene.add(pLight);
-
-// ── ORBIT CONTROLS ──────────────────────────────────
-var spherical = {theta:-0.4, phi:1.05, radius:14};
-var target = new THREE.Vector3(0,0.5,0);
-var isDrag = false, prevMouse = {x:0,y:0};
-var autoRot = true, autoRotTimer = null;
-
-function updateCamera(){
-  var x = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
-  var y = spherical.radius * Math.cos(spherical.phi);
-  var z = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
-  camera.position.set(target.x+x, target.y+y, target.z+z);
-  camera.lookAt(target);
-}
-updateCamera();
-
-function onStart(cx,cy){isDrag=true;prevMouse={x:cx,y:cy};autoRot=false;clearTimeout(autoRotTimer);}
-function onEnd(){isDrag=false;autoRotTimer=setTimeout(function(){autoRot=true;},3000);}
-function onMove(cx,cy){
-  if(!isDrag)return;
-  var dx=cx-prevMouse.x, dy=cy-prevMouse.y;
-  spherical.theta -= dx*0.008;
-  spherical.phi = Math.max(0.25,Math.min(Math.PI*0.45, spherical.phi+dy*0.007));
-  prevMouse={x:cx,y:cy};
-  updateCamera();
-}
-
-canvas.addEventListener('mousedown',function(e){onStart(e.clientX,e.clientY);});
-canvas.addEventListener('mouseup',onEnd);
-canvas.addEventListener('mouseleave',onEnd);
-canvas.addEventListener('mousemove',function(e){onMove(e.clientX,e.clientY);});
-canvas.addEventListener('wheel',function(e){
-  e.preventDefault();
-  spherical.radius = Math.max(7,Math.min(22,spherical.radius+e.deltaY*0.02));
-  updateCamera();
-},{passive:false});
-canvas.addEventListener('touchstart',function(e){if(e.touches.length===1)onStart(e.touches[0].clientX,e.touches[0].clientY);});
-canvas.addEventListener('touchend',onEnd);
-canvas.addEventListener('touchmove',function(e){if(e.touches.length===1){e.preventDefault();onMove(e.touches[0].clientX,e.touches[0].clientY);}},{passive:false});
-
-// ── RAYCASTER ───────────────────────────────────────
-var raycaster = new THREE.Raycaster();
-var mouse = new THREE.Vector2();
-raycaster.params.Points = {threshold:0.3};
-
-function getMouseNDC(ev){
-  var rect = canvas.getBoundingClientRect();
-  mouse.x = ((ev.clientX-rect.left)/rect.width)*2-1;
-  mouse.y = -((ev.clientY-rect.top)/rect.height)*2+1;
-}
-
-canvas.addEventListener('click',function(e){
-  getMouseNDC(e);
-  raycaster.setFromCamera(mouse,camera);
-  var targets = hotspots.map(function(h){return h.children[1];});
-  var hits = raycaster.intersectObjects(targets);
-  if(hits.length>0){
-    var hs = hits[0].object.parent;
-    showPanel(hs.userData);
-  }
-});
-
-function showPanel(s){
-  var isDE = document.documentElement.lang !== 'en' && !document.body.classList.contains('lang-en');
-  var lang = isDE ? 'de' : 'en';
-  document.getElementById('cipId').textContent = s.id;
-  document.getElementById('cipName').textContent = typeof s.name==='object' ? s.name[lang]||s.name.de : s.name;
-  document.getElementById('cipTemp').textContent = s.temp;
-  document.getElementById('cipVib').textContent = s.vib;
-  document.getElementById('cipRisk').textContent = s.risk + ' %';
-  document.getElementById('cipDesc').textContent = typeof s.desc==='object' ? s.desc[lang]||s.desc.de : s.desc;
-  var fill = document.getElementById('cipRiskFill');
-  fill.style.width = s.risk+'%';
-  fill.style.background = s.status==='crit'?'#ff3860':s.status==='warn'?'#ffb800':'#00ff88';
-  var badge = document.getElementById('cipBadge');
-  badge.textContent = '●';
-  badge.style.color = s.hex;
-  document.getElementById('cncInfoPanel').classList.add('visible');
-}
-
-window.closeCipPanel = function(){
-  document.getElementById('cncInfoPanel').classList.remove('visible');
-};
-
-// ── RESIZE ──────────────────────────────────────────
-window.addEventListener('resize',function(){
-  var W2=wrap.offsetWidth||800, H2=wrap.offsetHeight||600;
-  renderer.setSize(W2,H2,false);
-  canvas.style.width=W2+'px';
-  canvas.style.height=H2+'px';
-  camera.aspect=W2/H2;
-  camera.updateProjectionMatrix();
-});
-
-// ── ANIMATE ─────────────────────────────────────────
-var clock = new THREE.Clock();
-function animate(){
-  requestAnimationFrame(animate);
-  var t = clock.getElapsedTime();
-
-  // Spindle rotation
-  spShaft.rotation.y = t * 18;
-
-  // ATC drum slow rotation
-  drum.rotation.y = t * 0.3;
-
-  // Table slow CNC motion (X)
-  xTab.position.x = Math.sin(t*0.4) * 0.35;
-  // Table Y motion
-  saddle.position.z = Math.sin(t*0.25+1) * 0.2;
-
-  // Spindle head Z motion
-  spH.position.y = 3.5 + Math.sin(t*0.3+0.5)*0.15;
-
-  // Auto-rotate camera
-  if(autoRot){
-    spherical.theta += 0.003;
-    updateCamera();
-  }
-
-  // Sensor hotspot pulse
-  hotspots.forEach(function(h,i){
-    var pulse = 0.7 + 0.3*Math.sin(t*2.5 + i*1.2);
-    h.userData.ring.material.opacity = 0.1 + 0.2*pulse;
-    var sc = 0.85 + 0.15*pulse;
-    h.userData.ring.scale.set(sc,sc,sc);
-    // Critical sensor extra pulse
-    if(h.userData.status==='crit'){
-      h.userData.ring.scale.set(0.8+0.35*pulse,0.8+0.35*pulse,0.8+0.35*pulse);
-      h.userData.ring.material.opacity = 0.15+0.35*pulse;
+  /* ── Mouse orbit ── */
+  canvas.addEventListener('mousedown',function(e){isDragging=true;lastX=e.clientX;lastY=e.clientY;});
+  window.addEventListener('mouseup',function(){isDragging=false;});
+  window.addEventListener('mousemove',function(e){
+    if(!isDragging)return;
+    var dx=e.clientX-lastX, dy=e.clientY-lastY;
+    spherical.theta-=dx*0.008;
+    spherical.phi=Math.max(0.3,Math.min(1.5,spherical.phi+dy*0.008));
+    lastX=e.clientX; lastY=e.clientY;
+    camFromSpherical();
+  });
+  /* Touch orbit */
+  var touchLast={x:0,y:0};
+  canvas.addEventListener('touchstart',function(e){if(e.touches.length===1){touchLast.x=e.touches[0].clientX;touchLast.y=e.touches[0].clientY;}},{passive:true});
+  canvas.addEventListener('touchmove',function(e){
+    if(e.touches.length===1){
+      var dx=e.touches[0].clientX-touchLast.x, dy=e.touches[0].clientY-touchLast.y;
+      spherical.theta-=dx*0.01;
+      spherical.phi=Math.max(0.3,Math.min(1.5,spherical.phi+dy*0.01));
+      touchLast.x=e.touches[0].clientX; touchLast.y=e.touches[0].clientY;
+      camFromSpherical();
     }
+  },{passive:true});
+  /* Scroll wheel – BLOCK page scroll */
+  wrap.addEventListener('wheel',function(e){
+    e.preventDefault();
+    spherical.r=Math.max(5,Math.min(28,spherical.r+e.deltaY*0.04));
+    camFromSpherical();
+  },{passive:false});
+  /* +/- buttons */
+  var btnIn=document.getElementById('dtZoomIn');
+  var btnOut=document.getElementById('dtZoomOut');
+  if(btnIn)btnIn.addEventListener('click',function(){spherical.r=Math.max(5,spherical.r-1.5);camFromSpherical();});
+  if(btnOut)btnOut.addEventListener('click',function(){spherical.r=Math.min(28,spherical.r+1.5);camFromSpherical();});
+
+  /* ══ MATERIALS ══ */
+  var matMachine=new THREE.MeshPhongMaterial({color:0x1a2330,specular:0x445566,shininess:80});
+  var matGrey=new THREE.MeshPhongMaterial({color:0x2a3340,specular:0x334455,shininess:60});
+  var matDark=new THREE.MeshPhongMaterial({color:0x0d1117,specular:0x223344,shininess:40});
+  var matAccent=new THREE.MeshPhongMaterial({color:0x005599,specular:0x00aaff,shininess:120,emissive:0x001122});
+  var matSpindle=new THREE.MeshPhongMaterial({color:0xaabbcc,specular:0xffffff,shininess:200});
+  var matTool=new THREE.MeshPhongMaterial({color:0x778899,specular:0xccddee,shininess:180});
+  var matGold=new THREE.MeshPhongMaterial({color:0xcc8800,specular:0xffdd44,shininess:200,emissive:0x221100});
+  var matGreen=new THREE.MeshPhongMaterial({color:0x00aa44,specular:0x00ff88,shininess:100,emissive:0x002211});
+  var matRed=new THREE.MeshPhongMaterial({color:0xcc2200,specular:0xff4422,shininess:100,emissive:0x220000});
+  var matPanel=new THREE.MeshPhongMaterial({color:0x0a0e14,specular:0x223344,shininess:60});
+  var matScreen=new THREE.MeshPhongMaterial({color:0x001833,specular:0x0066cc,shininess:120,emissive:0x000d1a});
+  var matAlum=new THREE.MeshPhongMaterial({color:0x8899aa,specular:0xccddee,shininess:160});
+
+  /* ══ HELPERS ══ */
+  var G=THREE.BoxGeometry, C=THREE.CylinderGeometry;
+  function box(w,h,d,mat,px,py,pz,rx,ry,rz){
+    var m=new THREE.Mesh(new G(w,h,d),mat);
+    m.position.set(px||0,py||0,pz||0);
+    if(rx)m.rotation.x=rx; if(ry)m.rotation.y=ry; if(rz)m.rotation.z=rz;
+    m.castShadow=true; m.receiveShadow=true;
+    scene.add(m); return m;
+  }
+  function cyl(rt,rb,h,seg,mat,px,py,pz,rx,ry){
+    var m=new THREE.Mesh(new C(rt,rb,h,seg),mat);
+    m.position.set(px||0,py||0,pz||0);
+    if(rx)m.rotation.x=rx; if(ry)m.rotation.y=ry;
+    m.castShadow=true; m.receiveShadow=true;
+    scene.add(m); return m;
+  }
+  function edge(mesh,col){
+    var e=new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),new THREE.LineBasicMaterial({color:col||0x00aaff,transparent:true,opacity:0.35}));
+    e.position.copy(mesh.position);
+    e.rotation.copy(mesh.rotation);
+    scene.add(e); return e;
+  }
+
+  /* ══ FLOOR ══ */
+  var floorGeo=new THREE.PlaneGeometry(40,40);
+  var floorMat=new THREE.MeshPhongMaterial({color:0x080b0f,specular:0x112233,shininess:30});
+  var floor=new THREE.Mesh(floorGeo,floorMat);
+  floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; scene.add(floor);
+  var grid=new THREE.GridHelper(40,40,0x0a1a2a,0x0a1a2a);
+  grid.material.opacity=0.5; grid.material.transparent=true; scene.add(grid);
+
+  /* ══ HEX PLATFORM ══ */
+  var hexGeo=new C(3.2,3.2,0.15,6);
+  var hexMat=new THREE.MeshPhongMaterial({color:0x001122,specular:0x0044aa,shininess:120,emissive:0x000511});
+  var hex=new THREE.Mesh(hexGeo,hexMat);
+  hex.position.set(0,0.07,0); hex.receiveShadow=true; scene.add(hex);
+  var hexEdge=new THREE.LineSegments(new THREE.EdgesGeometry(hexGeo),new THREE.LineBasicMaterial({color:0x00b4ff,transparent:true,opacity:0.9}));
+  hexEdge.position.copy(hex.position); scene.add(hexEdge);
+  /* hex glow ring */
+  var ringGeo=new THREE.RingGeometry(3.1,3.35,48);
+  var ringMat=new THREE.MeshBasicMaterial({color:0x0066ff,side:THREE.DoubleSide,transparent:true,opacity:0.25});
+  var ring=new THREE.Mesh(ringGeo,ringMat);
+  ring.rotation.x=-Math.PI/2; ring.position.y=0.09; scene.add(ring);
+
+  /* ══ MACHINE BASE ══ */
+  var base=box(4,0.6,4.5,matDark, 0,0.45,0);
+  edge(base,0x0044aa);
+  /* front lip */
+  box(4,0.12,0.15,matAccent, 0,0.78,-2.15);
+  /* side panels */
+  box(0.12,0.55,4.5,matMachine, -2.04,0.45,0);
+  box(0.12,0.55,4.5,matMachine,  2.04,0.45,0);
+
+  /* ══ COLUMN ══ */
+  var col=box(1.8,6,2.0,matMachine, 0,4.0,1.5);
+  edge(col,0x003366);
+  /* ribs on column */
+  for(var ri=0;ri<4;ri++){
+    var ry2=1.5+ri*1.1;
+    box(1.82,0.12,0.15,matAccent, 0,ry2,1.45);
+  }
+  /* column top cap */
+  box(2.0,0.25,2.2,matGrey, 0,7.15,1.5);
+
+  /* ══ SPINDLE HEAD (Z-slide) ══ */
+  var head=box(1.6,1.8,1.5,matGrey, 0,5.2,0.55);
+  edge(head,0x0055aa);
+  /* head face plate */
+  box(1.62,1.82,0.08,matAccent, 0,5.2,0.28);
+  /* spindle nose */
+  cyl(0.22,0.22,0.8,24,matSpindle, 0,4.4,0.15);
+  /* HSK tool holder taper */
+  cyl(0.18,0.08,0.45,16,matSpindle, 0,3.85,0.15);
+  /* 4-flute end mill */
+  cyl(0.06,0.06,1.1,8,matTool, 0,3.15,0.15);
+  /* flutes detail */
+  for(var fi=0;fi<4;fi++){
+    var fa=fi*Math.PI/2;
+    var flute=cyl(0.015,0.015,1.05,6,matDark, Math.cos(fa)*0.058,3.15,0.15+Math.sin(fa)*0.058);
+  }
+  /* tool tip glow sphere */
+  var tipGeo=new THREE.SphereGeometry(0.04,8,8);
+  var tipMat=new THREE.MeshBasicMaterial({color:0xffaa00,transparent:true,opacity:0.9});
+  var tip=new THREE.Mesh(tipGeo,tipMat);
+  tip.position.set(0,2.6,0.15); scene.add(tip);
+
+  /* ══ X-AXIS SLIDE (table top) ══ */
+  var table=box(5.0,0.25,3.2,matGrey, 0,0.9,-0.4);
+  edge(table,0x003366);
+  /* T-slots on table */
+  for(var ti=0;ti<5;ti++){
+    box(4.8,0.05,0.12,matDark, 0,1.04,-1.2+ti*0.55);
+  }
+
+  /* ══ WORKPIECE (aluminium block with machined pocket) ══ */
+  box(1.8,0.5,1.1,matAlum, 0,1.2,-0.4);
+  /* machined pocket */
+  box(1.0,0.22,0.6,matDark, 0,1.38,-0.4);
+  /* chip highlight */
+  box(1.82,0.02,1.12,matGold, 0,1.465,-0.4);
+
+  /* ══ VISE ══ */
+  box(1.9,0.35,1.15,matMachine, 0,0.94,-0.35);
+  box(1.9,0.45,0.2,matGrey, 0,1.06,-1.0);
+  box(1.9,0.45,0.2,matGrey, 0,1.06,0.3);
+
+  /* ══ ATC CAROUSEL ══ */
+  var atcGroup=new THREE.Group();
+  atcGroup.position.set(2.4,6.8,1.0);
+  scene.add(atcGroup);
+  /* disc */
+  var discGeo=new C(1.15,1.15,0.2,16);
+  var disc=new THREE.Mesh(discGeo,matMachine);
+  disc.castShadow=true; atcGroup.add(disc);
+  var discEdge=new THREE.LineSegments(new THREE.EdgesGeometry(discGeo),new THREE.LineBasicMaterial({color:0x0055aa,transparent:true,opacity:0.6}));
+  atcGroup.add(discEdge);
+  /* 16 pockets + tools */
+  for(var ai=0;ai<16;ai++){
+    var angle=ai*(2*Math.PI/16);
+    var px2=Math.cos(angle)*0.85, pz2=Math.sin(angle)*0.85;
+    var pocket=new THREE.Mesh(new C(0.07,0.07,0.15,8),matDark);
+    pocket.position.set(px2,0,pz2); atcGroup.add(pocket);
+    if(ai!==0){/* tool in pocket */
+      var t2=new THREE.Mesh(new C(0.04,0.04,0.28,8),matTool);
+      t2.position.set(px2,-0.18,pz2); atcGroup.add(t2);
+    }
+  }
+
+  /* ══ CONTROL PANEL (Siemens 840D) ══ */
+  var panelGroup=new THREE.Group();
+  panelGroup.position.set(-2.5,3.5,-1.8);
+  panelGroup.rotation.y=0.6;
+  scene.add(panelGroup);
+  /* panel body */
+  var pb=new THREE.Mesh(new G(1.4,2.0,0.18),matPanel);
+  pb.castShadow=true; panelGroup.add(pb);
+  edge(pb,0x0033aa);
+  /* screen */
+  var sc=new THREE.Mesh(new G(1.0,0.75,0.04),matScreen);
+  sc.position.set(0,0.5,0.12); panelGroup.add(sc);
+  /* screen glow */
+  var scGlowMat=new THREE.MeshBasicMaterial({color:0x0044cc,transparent:true,opacity:0.18});
+  var scGlow=new THREE.Mesh(new G(1.1,0.85,0.01),scGlowMat);
+  scGlow.position.set(0,0.5,0.13); panelGroup.add(scGlow);
+  /* button rows */
+  var btnColors=[0x00aa44,0xffaa00,0xcc2200,0x0066cc];
+  for(var bi=0;bi<12;bi++){
+    var bc=btnColors[bi%4];
+    var bm=new THREE.MeshPhongMaterial({color:bc,specular:0xffffff,shininess:100,emissive:new THREE.Color(bc).multiplyScalar(0.3)});
+    var btn=new THREE.Mesh(new G(0.09,0.09,0.04),bm);
+    btn.position.set(-0.42+((bi%4)*0.28),-0.28+Math.floor(bi/4)*-0.18,0.12);
+    panelGroup.add(btn);
+  }
+  /* E-STOP */
+  var estop=new THREE.Mesh(new C(0.1,0.1,0.06,16),matRed);
+  estop.position.set(0.42,-0.7,0.12); estop.rotation.x=Math.PI/2; panelGroup.add(estop);
+  /* handwheel */
+  var hw=new THREE.Mesh(new C(0.18,0.18,0.05,20),matGrey);
+  hw.position.set(-0.38,-0.7,0.12); hw.rotation.x=Math.PI/2; panelGroup.add(hw);
+
+  /* ══ COOLANT TANK ══ */
+  var tank=box(1.0,0.9,0.8,matDark, -1.8,0.65,-1.7);
+  edge(tank,0x003355);
+  box(1.0,0.05,0.8,matAccent, -1.8,1.12,-1.7);
+  /* coolant pipe */
+  cyl(0.04,0.04,1.0,8,matGrey, -1.4,1.3,-0.9, 0.5,0);
+
+  /* ══ CHIP CONVEYOR ══ */
+  box(4.5,0.18,0.4,matDark, 0,0.27,-2.4);
+  box(4.5,0.06,0.42,matGrey, 0,0.18,-2.4);
+  box(0.4,0.7,0.4,matDark, 2.5,0.55,-2.4);
+
+  /* ══ AMBIENT PARTICLES ══ */
+  var ambCount=300;
+  var ambPos=new Float32Array(ambCount*3);
+  for(var i=0;i<ambCount;i++){
+    ambPos[i*3]=( Math.random()-0.5)*18;
+    ambPos[i*3+1]=Math.random()*10;
+    ambPos[i*3+2]=(Math.random()-0.5)*18;
+  }
+  var ambGeo=new THREE.BufferGeometry();
+  ambGeo.setAttribute('position',new THREE.BufferAttribute(ambPos,3));
+  var ambMat=new THREE.PointsMaterial({color:0x00aaff,size:0.06,transparent:true,opacity:0.5,sizeAttenuation:true});
+  var ambPts=new THREE.Points(ambGeo,ambMat);
+  scene.add(ambPts);
+
+  /* ══ SPARK PARTICLES ══ */
+  var spkCount=120;
+  var spkPos=new Float32Array(spkCount*3);
+  var spkVel=[];
+  var spkLife=[];
+  for(var i=0;i<spkCount;i++){
+    spkPos[i*3]=0;spkPos[i*3+1]=2.6;spkPos[i*3+2]=0.15;
+    spkVel.push({x:(Math.random()-0.5)*0.12,y:Math.random()*0.08+0.02,z:(Math.random()-0.5)*0.12});
+    spkLife.push(Math.random());
+  }
+  var spkGeo=new THREE.BufferGeometry();
+  spkGeo.setAttribute('position',new THREE.BufferAttribute(spkPos,3));
+  var spkMat=new THREE.PointsMaterial({color:0xffaa00,size:0.05,transparent:true,opacity:0.9,sizeAttenuation:true});
+  var spkPts=new THREE.Points(spkGeo,spkMat);
+  scene.add(spkPts);
+
+  /* ══ SCAN LINE ══ */
+  var scanGeo=new THREE.PlaneGeometry(6,0.3);
+  var scanMat=new THREE.MeshBasicMaterial({color:0x00ff88,transparent:true,opacity:0.18,side:THREE.DoubleSide,depthWrite:false});
+  var scanLine=new THREE.Mesh(scanGeo,scanMat);
+  scanLine.rotation.x=-Math.PI/2;
+  scene.add(scanLine);
+  var scanY=0;
+
+  /* ══ LIGHTS ══ */
+  scene.add(new THREE.AmbientLight(0x0a1a2a,1.0));
+  /* main spot */
+  var spot=new THREE.SpotLight(0xffffff,2.5,40,Math.PI/5,0.4,1.5);
+  spot.position.set(2,18,4);
+  spot.target.position.set(0,3,0);
+  spot.castShadow=true;
+  spot.shadow.mapSize.set(1024,1024);
+  scene.add(spot); scene.add(spot.target);
+  /* fill */
+  var fill=new THREE.DirectionalLight(0x0055aa,0.8);
+  fill.position.set(-8,6,-4); scene.add(fill);
+  /* gold rim */
+  var rim=new THREE.DirectionalLight(0x664400,0.6);
+  rim.position.set(6,4,-8); scene.add(rim);
+  /* interior blue */
+  var interior=new THREE.PointLight(0x0044ff,1.2,8);
+  interior.position.set(0,5,0.5); scene.add(interior);
+  /* alert red – pulsing */
+  var alert=new THREE.PointLight(0xff2200,0.0,6);
+  alert.position.set(-1,5.5,0); scene.add(alert);
+  /* tool tip */
+  var tipLight=new THREE.PointLight(0xffaa00,1.5,3);
+  tipLight.position.set(0,2.6,0.15); scene.add(tipLight);
+
+  /* ══ SENSOR HOTSPOTS (world positions) ══ */
+  var hotspots=[
+    {id:'lb0',pos:new THREE.Vector3(0,4.4,0.1)},
+    {id:'lb1',pos:new THREE.Vector3(0,3.0,0.4)},
+    {id:'lb2',pos:new THREE.Vector3(-1.8,1.12,-1.7)},
+    {id:'lb3',pos:new THREE.Vector3(2.4,7.2,1.0)},
+    {id:'lb4',pos:new THREE.Vector3(0,1.3,-0.4)},
+    {id:'lb5',pos:new THREE.Vector3(-2.5,4.2,-1.5)},
+  ];
+  var projVec=new THREE.Vector3();
+
+  /* ══ ATC ROTATION ══ */
+  var atcAngle=0;
+
+  /* ══ RESIZE ══ */
+  window.addEventListener('resize',function(){
+    var nw=wrap.offsetWidth||900, nh=wrap.offsetHeight||640;
+    cam.aspect=nw/nh; cam.updateProjectionMatrix();
+    renderer.setSize(nw,nh,false);
   });
 
-  renderer.render(scene,camera);
+  /* ══ ANIMATE ══ */
+  var clock=new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    var t=clock.getElapsedTime();
+
+    /* ATC rotation */
+    atcAngle+=0.003; atcGroup.rotation.y=atcAngle;
+
+    /* Tip/spindle pulse */
+    tip.material.opacity=0.7+Math.sin(t*8)*0.25;
+    tipLight.intensity=1.2+Math.sin(t*8)*0.6;
+
+    /* Alert pulse */
+    alert.intensity=Math.max(0,(Math.sin(t*3)*0.8));
+
+    /* Scan line sweep */
+    scanY=(scanY+0.025)%(10);
+    scanLine.position.set(0,scanY,0);
+    scanMat.opacity=0.08+Math.sin(t*2)*0.06;
+
+    /* Spark update */
+    var sp=spkGeo.attributes.position.array;
+    for(var i=0;i<spkCount;i++){
+      spkLife[i]+=0.025;
+      if(spkLife[i]>1){
+        sp[i*3]=0; sp[i*3+1]=2.6; sp[i*3+2]=0.15;
+        spkVel[i]={x:(Math.random()-0.5)*0.12,y:Math.random()*0.1+0.02,z:(Math.random()-0.5)*0.12};
+        spkLife[i]=0;
+      } else {
+        sp[i*3]+=spkVel[i].x;
+        sp[i*3+1]+=spkVel[i].y;
+        sp[i*3+1]-=0.005; /* gravity */
+        sp[i*3+2]+=spkVel[i].z;
+      }
+    }
+    spkGeo.attributes.position.needsUpdate=true;
+    spkMat.opacity=0.7+Math.sin(t*4)*0.2;
+
+    /* Ambient particles drift */
+    var ap=ambGeo.attributes.position.array;
+    for(var i=0;i<ambCount;i++){
+      ap[i*3+1]+=0.005;
+      if(ap[i*3+1]>10) ap[i*3+1]=0;
+    }
+    ambGeo.attributes.position.needsUpdate=true;
+
+    /* Hex ring pulse */
+    ringMat.opacity=0.15+Math.sin(t*1.5)*0.1;
+
+    /* Hotspot label projection */
+    for(var h=0;h<hotspots.length;h++){
+      var hs=hotspots[h];
+      projVec.copy(hs.pos).project(cam);
+      var el=document.getElementById(hs.id);
+      if(!el)continue;
+      if(projVec.z>=1){el.classList.remove('visible');continue;}
+      var sx=(projVec.x*0.5+0.5)*W;
+      var sy=(-projVec.y*0.5+0.5)*H;
+      el.style.left=(sx+12)+'px';
+      el.style.top=(sy-12)+'px';
+      el.classList.add('visible');
+    }
+
+    renderer.render(scene,cam);
+  }
+  animate();
 }
-animate();
 
-// Hide hint after 5s
-setTimeout(function(){
-  var hint = document.getElementById('cncHint');
-  if(hint) hint.style.opacity='0';
-},5000);
-
-} // end initCNC3D
-
-// Start when page is fully loaded
-if(document.readyState === 'complete'){
-  setTimeout(initCNC3D, 100);
-} else {
-  window.addEventListener('load', function(){ setTimeout(initCNC3D, 100); });
-}
+loadThree(function(){
+  if(document.readyState==='complete'){setTimeout(initDT,200);}
+  else{window.addEventListener('load',function(){setTimeout(initDT,200);});}
+});
+})();
 </script>
-
 
 <!-- Trust Bar -->
 <div class="trust-bar">
@@ -2305,7 +2258,7 @@ function renderVerlauf() {
         </div>
         <div class="ref-card-kpis">
           <div class="ref-kpi" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);">
-            <div class="ref-kpi-val" style="color:var(--green);">−68 %</div>
+            <div class="ref-kpi-val" style="color:var(--green);">-68 %</div>
             <div class="ref-kpi-lbl" style="color:rgba(0,255,136,0.7);"><span class="de">Ausschussquote</span><span class="en">scrap rate</span></div>
           </div>
           <div class="ref-kpi" style="background:rgba(0,180,255,0.06);border:1px solid rgba(0,180,255,0.2);">
@@ -2404,7 +2357,7 @@ function renderVerlauf() {
         </div>
         <div class="ref-card-kpis">
           <div class="ref-kpi" style="background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);">
-            <div class="ref-kpi-val" style="color:#a855f7;">−100 %</div>
+            <div class="ref-kpi-val" style="color:#a855f7;">-100 %</div>
             <div class="ref-kpi-lbl" style="color:rgba(168,85,247,0.7);"><span class="de">ATC-Notfälle</span><span class="en">ATC emergencies</span></div>
           </div>
           <div class="ref-kpi" style="background:rgba(228,177,94,0.06);border:1px solid rgba(228,177,94,0.2);">
