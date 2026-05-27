@@ -2999,6 +2999,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <style>
 /* ── 1. AUSFALL-TICKER ── */
 #ausfallTicker{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0a0500;border-bottom:1px solid rgba(228,177,94,0.25);padding:6px 0;overflow:hidden;pointer-events:none;}
+@media(max-width:900px){#ausfallTicker{display:none;}}
 .ticker-inner{display:flex;align-items:center;justify-content:center;gap:2rem;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1.5px;}
 .ticker-label{color:rgba(228,177,94,0.6);text-transform:uppercase;}
 .ticker-val{color:#e4b15e;font-weight:700;font-size:13px;min-width:80px;text-align:center;}
