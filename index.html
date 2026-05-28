@@ -1368,8 +1368,15 @@ html,body{overflow-x:hidden;max-width:100vw;}
     <p class="dt-sub">Interaktives 3D-Modell &middot; KI-Sensorik &middot; Drehen &middot; Zoomen &middot; Hotspots anklicken</p>
   </div>
   <div class="dt-container">
-    <div class="dt-wrap" id="dtWrap">
+    <div class="dt-wrap" id="dtWrap" onclick="if(window.innerWidth<=900){document.getElementById('dtMobileOverlay').classList.add('open');startMobileDemo();}">
       <canvas id="dtCanvas"></canvas>
+      <!-- Mobile Tap Hint (nur mobil sichtbar) -->
+      <div class="dt-mobile-tap" id="dtMobileTap">
+        <div class="dt-mobile-tap-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e4b15e" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+        </div>
+        <div class="dt-mobile-tap-label">TIPPEN FÜR LIVE-DEMO</div>
+      </div>
       <div class="dt-hud-tl">
         <div class="dt-hud-line"><span class="dt-hud-dot pulse-green"></span>SPINDEL AKTIV</div>
         <div class="dt-hud-rpm">n&nbsp;=&nbsp;<span id="dtRPM">12.400</span> U/min</div>
@@ -1426,7 +1433,7 @@ html,body{overflow-x:hidden;max-width:100vw;}
 .dt-badge{display:inline-block;background:rgba(0,255,120,.12);border:1px solid rgba(0,255,120,.4);color:#00ff78;font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 18px;border-radius:20px;margin-bottom:18px;animation:dtBlink 2s ease-in-out infinite;}
 @keyframes dtBlink{0%,100%{opacity:1}50%{opacity:.6}}
 .dt-title{font-size:clamp(1.6rem,3.5vw,2.6rem);color:#fff;font-weight:800;margin:0 0 12px;line-height:1.2;}
-.dt-title em{color:#00b4ff;font-style:normal;}
+.dt-title em{color:#e4b15e;font-style:normal;}
 .dt-sub{color:rgba(255,255,255,.5);font-size:1rem;margin:0;}
 .dt-container{display:flex;gap:20px;max-width:1400px;margin:0 auto;padding:0 24px;align-items:flex-start;}
 .dt-wrap{position:relative;flex:1;min-width:0;height:640px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,180,255,.2);box-shadow:0 0 60px rgba(0,180,255,.12);}
@@ -1463,10 +1470,62 @@ html,body{overflow-x:hidden;max-width:100vw;}
 .dt-ai-msg{font-size:11px;color:#ffcc00;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4;}
 .dt-ai-msg.ok{color:rgba(0,255,120,.8);}
 .dt-footer-cta{text-align:center;margin-top:40px;}
-.dt-cta-btn{display:inline-block;background:linear-gradient(135deg,#0066cc,#00b4ff);color:#fff;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:8px;text-decoration:none;letter-spacing:.5px;box-shadow:0 8px 32px rgba(0,180,255,.35);transition:all .3s;}
-.dt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,180,255,.5);}
-@media(max-width:900px){.dt-container{flex-direction:column;}.dt-wrap{height:380px;width:100%;}.dt-sidebar{width:100%;}.dt-hud-tl,.dt-hud-tr,.dt-hud-bl{display:none;}}
+.dt-cta-btn{display:inline-block;background:linear-gradient(135deg,#c49040,#e4b15e);color:#000;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:8px;text-decoration:none;letter-spacing:.5px;box-shadow:0 8px 32px rgba(228,177,94,.35);transition:all .3s;}
+.dt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(228,177,94,.5);}
+@media(max-width:900px){
+  .dt-container{flex-direction:column;}
+  .dt-wrap{height:300px;width:100%;cursor:pointer;}
+  .dt-sidebar{display:none;}
+  .dt-hud-tl,.dt-hud-tr,.dt-hud-bl{display:none;}
+  /* Mobile tap overlay */
+  .dt-mobile-tap{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;background:rgba(4,5,8,0.55);z-index:10;flex-direction:column;gap:10px;border-radius:12px;pointer-events:none;}
+  .dt-mobile-tap-icon{width:64px;height:64px;border-radius:50%;background:rgba(228,177,94,0.15);border:2px solid rgba(228,177,94,0.6);display:flex;align-items:center;justify-content:center;animation:tapPulse 2s ease-in-out infinite;}
+  .dt-mobile-tap-label{font-size:13px;font-weight:700;color:#e4b15e;letter-spacing:1px;text-align:center;}
+  @keyframes tapPulse{0%,100%{box-shadow:0 0 0 0 rgba(228,177,94,0.4);}50%{box-shadow:0 0 0 16px rgba(228,177,94,0);}}
+}
+@media(min-width:901px){.dt-mobile-tap{display:none!important;}}
+/* MINI DEMO OVERLAY (mobile) */
+#dtMobileOverlay{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);flex-direction:column;overflow-y:auto;}
+#dtMobileOverlay.open{display:flex;}
+.dt-mo-header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 0;border-bottom:1px solid rgba(228,177,94,0.2);padding-bottom:16px;}
+.dt-mo-title{font-size:1rem;font-weight:800;color:#e4b15e;letter-spacing:1px;}
+.dt-mo-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(228,177,94,0.4);background:transparent;color:#e4b15e;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.dt-mo-body{padding:20px;display:flex;flex-direction:column;gap:12px;}
+.dt-mo-canvas-wrap{width:100%;height:260px;border-radius:12px;overflow:hidden;border:1px solid rgba(228,177,94,0.25);position:relative;}
+.dt-mo-canvas-wrap canvas{width:100%;height:100%;display:block;}
+.dt-mo-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.dt-mo-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.15);border-radius:8px;padding:10px 12px;}
+.dt-mo-stat-label{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-bottom:4px;}
+.dt-mo-stat-val{font-size:14px;font-weight:700;color:#fff;}
+.dt-mo-stat-val.ok{color:#00ff78;}
+.dt-mo-stat-val.warn{color:#ffcc00;}
+.dt-mo-stat-val.alert{color:#ff4444;}
+.dt-mo-ai{background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:8px;padding:12px;font-size:12px;color:#ffcc00;line-height:1.5;}
+.dt-mo-cta{display:block;text-align:center;background:linear-gradient(135deg,#c49040,#e4b15e);color:#000;font-weight:800;font-size:1rem;padding:14px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;margin-top:4px;}
 </style>
+
+<!-- MOBILE MINI-DEMO OVERLAY -->
+<div id="dtMobileOverlay">
+  <div class="dt-mo-header">
+    <span class="dt-mo-title">⚙ LIVE DIGITAL TWIN — KI-Demo</span>
+    <button class="dt-mo-close" onclick="document.getElementById('dtMobileOverlay').classList.remove('open')">✕</button>
+  </div>
+  <div class="dt-mo-body">
+    <div class="dt-mo-canvas-wrap">
+      <canvas id="dtCanvasMobile"></canvas>
+    </div>
+    <div class="dt-mo-stats">
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">SPINDEL</div><div class="dt-mo-stat-val ok" id="moRPM">12.400 U/min</div></div>
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">LAGERTEMP</div><div class="dt-mo-stat-val warn" id="moTemp">67°C ▲</div></div>
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">VIBRATION X</div><div class="dt-mo-stat-val alert">2.8 g !</div></div>
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">KÜHLMITTEL</div><div class="dt-mo-stat-val ok">4.2 bar ✓</div></div>
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">WERKZEUG</div><div class="dt-mo-stat-val ok">73% verbleibend</div></div>
+      <div class="dt-mo-stat"><div class="dt-mo-stat-label">NÄCHSTE WARTUNG</div><div class="dt-mo-stat-val">in 14 Tagen</div></div>
+    </div>
+    <div class="dt-mo-ai">⚠ KI-Diagnose: Lager Y-Achse zeigt Frühverschleiß. Tausch in 4–6 Tagen empfohlen — bevor der Crash passiert.</div>
+    <a href="kontakt.html" class="dt-mo-cta">Jetzt kostenlose Demo anfragen →</a>
+  </div>
+</div>
 <script>
 (function(){
 var DT_LOADED=false;
@@ -3395,8 +3454,8 @@ body:has(a:hover) #cursorRing,body:has(button:hover) #cursorRing{width:48px;heig
 .reveal-section{opacity:0;transform:translateY(36px);transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.22,1,0.36,1);}
 .reveal-section.is-visible{opacity:1;transform:translateY(0);}
 
-/* SECTION NAV DOTS (right side) */
-#sectionDots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:10px;}
+/* SECTION NAV DOTS (left side) */
+#sectionDots{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:10px;}
 .s-dot{width:7px;height:7px;border-radius:50%;border:1px solid rgba(228,177,94,0.5);background:transparent;cursor:pointer;transition:all 0.3s;display:block;}
 .s-dot.active{background:#e4b15e;border-color:#e4b15e;transform:scale(1.4);}
 .s-dot:hover{background:rgba(228,177,94,0.5);}
@@ -3731,6 +3790,78 @@ style.textContent = '@keyframes goldShift{0%{background-position:0% 50%}50%{back
 document.head.appendChild(style);
 
 })();
+
+/* ══ MOBILE DIGITAL TWIN MINI-DEMO ══ */
+var moDemoStarted = false;
+function startMobileDemo(){
+  if(moDemoStarted) return;
+  moDemoStarted = true;
+  var mc = document.getElementById('dtCanvasMobile');
+  if(!mc) return;
+  var wrap = mc.parentElement;
+  mc.width = wrap.offsetWidth || 320;
+  mc.height = 260;
+  var ctx = mc.getContext('2d');
+  var t = 0;
+  var parts = [];
+  for(var i=0;i<40;i++){
+    parts.push({x:Math.random()*mc.width,y:Math.random()*mc.height,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,r:Math.random()*2+1,a:Math.random()});
+  }
+  function drawFrame(){
+    ctx.clearRect(0,0,mc.width,mc.height);
+    // Background
+    var bg=ctx.createRadialGradient(mc.width/2,mc.height/2,0,mc.width/2,mc.height/2,mc.width*0.7);
+    bg.addColorStop(0,'rgba(0,20,40,0.95)');
+    bg.addColorStop(1,'rgba(4,5,8,0.99)');
+    ctx.fillStyle=bg;
+    ctx.fillRect(0,0,mc.width,mc.height);
+    // Grid
+    ctx.strokeStyle='rgba(228,177,94,0.06)';
+    ctx.lineWidth=1;
+    for(var gx=0;gx<mc.width;gx+=30){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,mc.height);ctx.stroke();}
+    for(var gy=0;gy<mc.height;gy+=30){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(mc.width,gy);ctx.stroke();}
+    // Particles
+    parts.forEach(function(p){
+      p.x+=p.vx; p.y+=p.vy; p.a=Math.abs(Math.sin(t*0.02+p.x));
+      if(p.x<0||p.x>mc.width)p.vx*=-1;
+      if(p.y<0||p.y>mc.height)p.vy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(228,177,94,'+p.a.toFixed(2)+')';
+      ctx.fill();
+    });
+    // Waveform — Spindel vibration
+    var cx=mc.width/2, cy=mc.height*0.38, amp=28+Math.sin(t*0.05)*4;
+    ctx.beginPath();
+    for(var wx=0;wx<=mc.width;wx+=2){
+      var wy=cy+Math.sin((wx/mc.width)*Math.PI*8+t*0.1)*amp*Math.sin((wx/mc.width)*Math.PI);
+      if(wx===0)ctx.moveTo(wx,wy); else ctx.lineTo(wx,wy);
+    }
+    ctx.strokeStyle='rgba(0,255,120,0.7)';ctx.lineWidth=2;ctx.stroke();
+    // Vibration ALERT spike
+    var spike=cy+Math.sin(t*0.3)*14;
+    ctx.beginPath();
+    ctx.moveTo(mc.width*0.72,cy);ctx.lineTo(mc.width*0.75,cy-44);ctx.lineTo(mc.width*0.78,cy);
+    ctx.strokeStyle='rgba(255,68,68,0.85)';ctx.lineWidth=2.5;ctx.stroke();
+    ctx.fillStyle='rgba(255,68,68,0.85)';ctx.font='bold 10px monospace';
+    ctx.fillText('ALERT',mc.width*0.67,cy-50);
+    // Label
+    ctx.fillStyle='rgba(228,177,94,0.9)';ctx.font='bold 11px monospace';
+    ctx.fillText('KI-SCHWINGUNGSANALYSE · LIVE',14,mc.height-12);
+    // Scan line
+    var scanX=(t*2)%mc.width;
+    ctx.beginPath();ctx.moveTo(scanX,0);ctx.lineTo(scanX,mc.height);
+    ctx.strokeStyle='rgba(228,177,94,0.12)';ctx.lineWidth=1;ctx.stroke();
+    // RPM live update
+    var rpm=(12400+Math.floor(Math.sin(t*0.04)*60)).toLocaleString('de-DE');
+    var el=document.getElementById('moRPM'); if(el)el.textContent=rpm+' U/min';
+    var tempVal=(67+Math.sin(t*0.02)*1.5).toFixed(1);
+    var tel=document.getElementById('moTemp'); if(tel)tel.textContent=tempVal+'°C ▲';
+    t++;
+    if(document.getElementById('dtMobileOverlay').classList.contains('open')) requestAnimationFrame(drawFrame);
+    else moDemoStarted=false;
+  }
+  drawFrame();
+}
 </script>
 <script src="common.js"></script>
 
