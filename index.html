@@ -11,6 +11,12 @@
 <meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
 <meta name="robots" content="index, follow">
 <meta name="language" content="de">
+
+<!-- ══ GOOGLE SEARCH CONSOLE VERIFIZIERUNG ══
+     1) In der Search Console "URL-Präfix" → Methode "HTML-Tag" wählen.
+     2) Den dort angezeigten content-Wert unten zwischen die Anführungszeichen kopieren.
+     (Setzt keine Cookies – darf ohne Einwilligung geladen werden.) -->
+<meta name="google-site-verification" content="HIER_SEARCH_CONSOLE_CODE_EINTRAGEN">
 <link rel="canonical" href="https://forbachandpartners.com/">
 <link rel="alternate" hreflang="de" href="https://forbachandpartners.com/">
 <link rel="alternate" hreflang="en" href="https://forbachandpartners.com/?lang=en">
@@ -1370,6 +1376,11 @@ html,body{overflow-x:hidden;max-width:100vw;}
   <div class="dt-container">
     <div class="dt-wrap" id="dtWrap">
       <canvas id="dtCanvas"></canvas>
+      <button type="button" id="dtMobileStart" class="dt-mobile-start" aria-label="3D-Maschine ansehen">
+        <span class="dt-ms-icon">&#9658;</span>
+        <span class="dt-ms-text"><span class="de">3D-Maschine ansehen</span><span class="en">View 3D machine</span></span>
+        <span class="dt-ms-hint"><span class="de">Tippen zum Starten &middot; Drehen &amp; Zoomen</span><span class="en">Tap to start &middot; rotate &amp; zoom</span></span>
+      </button>
       <div class="dt-hud-tl">
         <div class="dt-hud-line"><span class="dt-hud-dot pulse-green"></span>SPINDEL AKTIV</div>
         <div class="dt-hud-rpm">n&nbsp;=&nbsp;<span id="dtRPM">12.400</span> U/min</div>
@@ -1466,6 +1477,24 @@ html,body{overflow-x:hidden;max-width:100vw;}
 .dt-cta-btn{display:inline-block;background:linear-gradient(135deg,#0066cc,#00b4ff);color:#fff;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:8px;text-decoration:none;letter-spacing:.5px;box-shadow:0 8px 32px rgba(0,180,255,.35);transition:all .3s;}
 .dt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,180,255,.5);}
 @media(max-width:900px){.dt-container{flex-direction:column;}.dt-wrap{height:380px;width:100%;}.dt-sidebar{width:100%;}.dt-hud-tl,.dt-hud-tr,.dt-hud-bl{display:none;}}
+/* 3D-Ansehen-Button (nur Handy): startet das 3D erst auf Tippen */
+.dt-mobile-start{display:none;}
+@media(max-width:900px){
+  .dt-mobile-start{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    position:absolute;inset:0;z-index:6;width:100%;height:100%;border:none;cursor:pointer;
+    background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(0,180,255,0.10) 0%,transparent 70%),#050709;
+    color:#fff;font-family:'Raleway',sans-serif;padding:1rem;text-align:center;
+  }
+  .dt-mobile-start .dt-ms-icon{
+    width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;color:#00b4ff;border:1px solid rgba(0,180,255,0.5);
+    background:rgba(0,180,255,0.10);box-shadow:0 0 24px rgba(0,180,255,0.25);
+  }
+  .dt-mobile-start .dt-ms-text{font-size:1rem;font-weight:700;letter-spacing:0.5px;}
+  .dt-mobile-start .dt-ms-hint{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+}
+.dt-mobile-start.hidden{display:none!important;}
 </style>
 <script>
 (function(){
@@ -1524,10 +1553,14 @@ function initDT(){
       tLast.x=e.touches[0].clientX;tLast.y=e.touches[0].clientY;updateCam();
     }
   },{passive:true});
+  /* Mausrad NICHT mehr abfangen: Seite scrollt normal weiter, auch über dem 3D-Modell.
+     Zoomen erfolgt über die +/- Buttons. Optional: Zoom nur mit Strg/Cmd + Mausrad. */
   wrap.addEventListener('wheel',function(e){
-    e.preventDefault();
-    sph.r=Math.max(5,Math.min(32,sph.r+e.deltaY*0.04));
-    updateCam();
+    if(e.ctrlKey || e.metaKey){
+      e.preventDefault();
+      sph.r=Math.max(5,Math.min(32,sph.r+e.deltaY*0.04));
+      updateCam();
+    }
   },{passive:false});
   var btnIn=document.getElementById('dtZoomIn');
   var btnOut=document.getElementById('dtZoomOut');
@@ -1755,10 +1788,25 @@ function initDT(){
   }
   animate();
 }
-loadThree(function(){
-  if(document.readyState==='complete'){setTimeout(initDT,200);}
-  else{window.addEventListener('load',function(){setTimeout(initDT,200);});}
-});
+var dtIsMobile = window.matchMedia('(max-width:900px)').matches;
+var dtStartBtn = document.getElementById('dtMobileStart');
+function dtAutoStart(){
+  loadThree(function(){
+    if(document.readyState==='complete'){setTimeout(initDT,200);}
+    else{window.addEventListener('load',function(){setTimeout(initDT,200);});}
+  });
+}
+if(dtIsMobile && dtStartBtn){
+  /* Handy: 3D erst auf Tippen laden (Performance + klarer Button) */
+  dtStartBtn.addEventListener('click', function(){
+    dtStartBtn.classList.add('hidden');
+    loadThree(function(){ setTimeout(initDT, 30); });
+  }, { once:true });
+} else {
+  /* Desktop: wie bisher automatisch starten */
+  if(dtStartBtn) dtStartBtn.classList.add('hidden');
+  dtAutoStart();
+}
 })();
 </script>
 
@@ -3875,12 +3923,98 @@ html{scrollbar-width:thin;scrollbar-color:rgba(228,177,94,0.5) #0a0a0a;}
 /* Navigations-Punkte ausblenden, damit sie nicht mehr unter den mittig fixierten Kontakt-Buttons liegen */
 #sectionDots{display:none!important;}
 
+/* ── 8. Ruhigeres Bild: blinkende Status-Punkte beruhigen (bleiben sichtbar, kein Blinken) ── */
+.mc-dot,.badge-dot,.ticker-dot{animation:none!important;}
+
 /* ── 6. Etwas mehr Weißraum in großen Sektionen (Desktop) ── */
 @media(min-width:901px){
   .section{padding-top:7rem;padding-bottom:7rem;}
   .section-full{padding-top:7rem;padding-bottom:7rem;}
 }
 </style>
+
+<!-- ════════════════════════════════════════════════════════════════
+     COOKIE-CONSENT + TRACKING (Google Analytics 4 / GoHighLevel)
+     WICHTIG: Solange unten die Platzhalter stehen, erscheint KEIN Banner
+     und es wird NICHTS geladen — die Seite bleibt cookiefrei.
+     AKTIVIEREN:
+       • GA4-Mess-ID  →  Variable GA_ID  (Format G-XXXXXXXXXX)
+       • GoHighLevel  →  Snippet in loadGHL() einfügen + GHL_ENABLED = true
+     Danach erscheint automatisch das Banner; Tracking lädt erst nach "Akzeptieren".
+     (Datenschutzerklärung anschließend aktivieren – siehe datenschutz.html)
+═════════════════════════════════════════════════════════════════ -->
+<div id="cookieConsent" class="cc-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung" style="display:none;">
+  <div class="cc-text">
+    <strong class="de">Datenschutz-Einstellungen</strong><strong class="en">Privacy settings</strong>
+    <span class="de">Wir nutzen optionale Dienste (Google Analytics, GoHighLevel), um unsere Website zu verbessern. Diese werden erst nach Ihrer Zustimmung geladen. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
+    <span class="en">We use optional services (Google Analytics, GoHighLevel) to improve our website. They are loaded only after your consent. More in our <a href="datenschutz.html">privacy policy</a>.</span>
+  </div>
+  <div class="cc-btns">
+    <button type="button" class="cc-btn cc-decline" id="ccDecline"><span class="de">Ablehnen</span><span class="en">Decline</span></button>
+    <button type="button" class="cc-btn cc-accept" id="ccAccept"><span class="de">Akzeptieren</span><span class="en">Accept</span></button>
+  </div>
+</div>
+<style>
+.cc-banner{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:3000;width:min(680px,calc(100vw - 32px));background:rgba(12,10,7,0.97);border:1px solid rgba(228,177,94,0.4);border-radius:14px;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;backdrop-filter:blur(14px);box-shadow:0 16px 50px rgba(0,0,0,0.55);}
+.cc-text{flex:1;min-width:240px;font-family:'Raleway',sans-serif;font-size:0.8rem;line-height:1.55;color:#cfcfcf;}
+.cc-text strong{display:block;color:#fff;font-size:0.92rem;margin-bottom:0.35rem;letter-spacing:0.3px;}
+.cc-text a{color:#e4b15e;text-decoration:underline;}
+.cc-btns{display:flex;gap:0.6rem;flex-shrink:0;}
+.cc-btn{padding:0.6rem 1.3rem;border-radius:10px;font-family:'Raleway',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;}
+.cc-decline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#cfcfcf;}
+.cc-decline:hover{border-color:#fff;color:#fff;}
+.cc-accept{background:linear-gradient(135deg,#caa052,#f3d792,#e4b15e);border:1px solid rgba(255,255,255,0.18);color:#000;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);}
+.cc-accept:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(228,177,94,0.3);}
+@media(max-width:900px){.cc-banner{bottom:84px;}}
+</style>
+<script>
+(function(){
+  /* ═══════════ HIER KONFIGURIEREN ═══════════ */
+  var GA_ID = 'G-XXXXXXXXXX';   /* <-- echte GA4-Mess-ID eintragen (z. B. G-ABC123XYZ) */
+  var GHL_ENABLED = false;      /* <-- auf true setzen, sobald loadGHL() ein Snippet enthält */
+  function loadGHL(){
+    /* GoHighLevel-Snippet hier einfügen, z. B.:
+       var s=document.createElement('script'); s.src='https://...'; document.body.appendChild(s);
+    */
+  }
+  /* ══════════════════════════════════════════ */
+
+  var GA_OK = GA_ID && GA_ID !== 'G-XXXXXXXXXX';
+  var trackingConfigured = GA_OK || GHL_ENABLED;
+  var KEY = 'fp_consent';
+  var banner = document.getElementById('cookieConsent');
+
+  function loadAnalytics(){
+    if(window.__fpTrack) return; window.__fpTrack = true;
+    if(GA_OK){
+      var s=document.createElement('script'); s.async=true;
+      s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);} window.gtag=gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip:true });
+    }
+    if(GHL_ENABLED){ try{ loadGHL(); }catch(e){} }
+  }
+  function getConsent(){ try{ return localStorage.getItem(KEY); }catch(e){ return null; } }
+  function setConsent(v){ try{ localStorage.setItem(KEY, v); }catch(e){} }
+  function hide(){ if(banner) banner.style.display='none'; }
+
+  if(!trackingConfigured){ return; }      /* nichts konfiguriert → kein Banner, nichts laden */
+
+  var prior = getConsent();
+  if(prior === 'granted'){ loadAnalytics(); return; }
+  if(prior === 'denied'){ return; }
+
+  if(banner){
+    banner.style.display='flex';
+    var a=document.getElementById('ccAccept'), d=document.getElementById('ccDecline');
+    if(a) a.addEventListener('click', function(){ setConsent('granted'); hide(); loadAnalytics(); });
+    if(d) d.addEventListener('click', function(){ setConsent('denied'); hide(); });
+  }
+})();
+</script>
 
 </body>
 </html>
