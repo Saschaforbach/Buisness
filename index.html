@@ -1549,6 +1549,8 @@ html,body{overflow-x:hidden;max-width:100vw;}
 /* Handy: WebGL-3D weglassen, stattdessen garantiert sichtbare SVG-Maschine */
 .dt-mobile-viz{display:none;}
 @media(max-width:900px){
+  /* WICHTIG: dt-wrap darf nicht zusammenfallen (flex:1 würde die Höhe auf 0 ziehen) */
+  .dt-wrap{flex:0 0 auto!important;height:380px!important;min-height:340px!important;}
   #dtCanvas{display:none!important;}
   .dt-mobile-start{display:none!important;}
   .dt-close{display:none!important;}
