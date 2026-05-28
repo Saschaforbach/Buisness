@@ -1191,11 +1191,15 @@ nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:1000;bac
   .hero-sub{font-size:0.95rem;max-width:100%;}
   .hero-panel{display:none;}
 }
+@media(max-width:900px){
+  .hero-btns{flex-direction:column;align-items:stretch;}
+  .hero-btns .btn-gold,.hero-btns .btn-outline{width:100%;text-align:center;box-sizing:border-box;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .cta-btns .btn-gold,.cta-btns .btn-outline{width:100%;max-width:340px;text-align:center;box-sizing:border-box;}
+}
 @media(max-width:480px){
   .hero-stats{gap:1rem;flex-wrap:wrap;}
   .hero-stat-val{font-size:1.4rem;}
-  .hero-btns{flex-direction:column;}
-  .hero-btns .btn-gold,.hero-btns .btn-outline{width:100%;text-align:center;}
 }
 
 /* ══════════════════════════════════
