@@ -1183,7 +1183,7 @@ nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:1000;bac
 .nav-hamburger.open span:nth-child(2){opacity:0;}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 @media(max-width:900px){
-  .nav-hamburger{display:flex;}
+  .nav-hamburger{display:flex!important;}
   .nav-right .lang-toggle-nav{display:none!important;}
   .nav-phone{display:none!important;}
   .nav-cta{display:none!important;}
@@ -1396,6 +1396,13 @@ html,body{overflow-x:hidden;max-width:100vw;}
     <h2 class="dt-title">Ihre CNC-Anlage &mdash; <em>in Echtzeit &uuml;berwacht</em></h2>
     <p class="dt-sub">Interaktives 3D-Modell &middot; KI-Sensorik &middot; Drehen &middot; Zoomen &middot; Hotspots anklicken</p>
   </div>
+  <!-- Mobile Launch Button — nur auf Handy sichtbar -->
+  <div class="dt-mobile-launch-wrap">
+    <button class="dt-mobile-launch-btn" onclick="document.getElementById('dtMobileOverlay').classList.add('open');startMobileDemo();">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 3.5"/></svg>
+      3D CNC-MASCHINE STARTEN →
+    </button>
+  </div>
   <div class="dt-container">
     <div class="dt-wrap" id="dtWrap" onclick="if(window.innerWidth<=900){document.getElementById('dtMobileOverlay').classList.add('open');startMobileDemo();}">
       <canvas id="dtCanvas"></canvas>
@@ -1513,6 +1520,12 @@ html,body{overflow-x:hidden;max-width:100vw;}
   @keyframes tapPulse{0%,100%{box-shadow:0 0 0 0 rgba(228,177,94,0.4);}50%{box-shadow:0 0 0 16px rgba(228,177,94,0);}}
 }
 @media(min-width:901px){.dt-mobile-tap{display:none!important;}}
+.dt-mobile-launch-wrap{display:none;}
+@media(max-width:900px){
+  .dt-mobile-launch-wrap{display:flex;justify-content:center;padding:0 1.25rem 1.5rem;}
+  .dt-mobile-launch-btn{background:linear-gradient(135deg,#c49040,#e4b15e,#f8dfa5,#e4b15e,#c49040);color:#000;border:none;border-radius:14px;padding:1.1rem 2rem;font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;cursor:pointer;width:100%;max-width:420px;display:flex;align-items:center;justify-content:center;gap:0.75rem;box-shadow:0 6px 32px rgba(228,177,94,0.4);transition:all 0.2s;}
+  .dt-mobile-launch-btn:active{transform:scale(0.97);box-shadow:0 2px 12px rgba(228,177,94,0.3);}
+}
 /* MINI DEMO OVERLAY (mobile) */
 #dtMobileOverlay{display:none;position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);flex-direction:column;overflow-y:auto;}
 #dtMobileOverlay.open{display:flex;}
@@ -1520,7 +1533,7 @@ html,body{overflow-x:hidden;max-width:100vw;}
 .dt-mo-title{font-size:1rem;font-weight:800;color:#e4b15e;letter-spacing:1px;}
 .dt-mo-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(228,177,94,0.4);background:transparent;color:#e4b15e;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .dt-mo-body{padding:20px;display:flex;flex-direction:column;gap:12px;}
-.dt-mo-canvas-wrap{width:100%;height:260px;border-radius:12px;overflow:hidden;border:1px solid rgba(228,177,94,0.25);position:relative;}
+.dt-mo-canvas-wrap{width:100%;height:300px;border-radius:12px;overflow:hidden;border:1px solid rgba(228,177,94,0.25);position:relative;}
 .dt-mo-canvas-wrap canvas{width:100%;height:100%;display:block;}
 .dt-mo-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .dt-mo-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.15);border-radius:8px;padding:10px 12px;}
@@ -3820,81 +3833,176 @@ document.head.appendChild(style);
 
 })();
 
-/* ══ MOBILE DIGITAL TWIN MINI-DEMO ══ */
+/* ══ MOBILE DIGITAL TWIN — ECHTE 3D-MASCHINE ══ */
 var moDemoStarted = false;
+var moRenderer3D = null;
+
 function startMobileDemo(){
   if(moDemoStarted) return;
   moDemoStarted = true;
-  // Warte 1 Frame damit das Overlay sichtbar ist, dann Canvas korrekt messen
-  requestAnimationFrame(function(){
-  setTimeout(function(){
-  var mc = document.getElementById('dtCanvasMobile');
-  if(!mc) return;
-  var wrap = mc.parentElement;
-  mc.width = wrap.clientWidth || window.innerWidth - 40;
-  mc.height = 260;
-  var ctx = mc.getContext('2d');
-  var t = 0;
-  var parts = [];
-  for(var i=0;i<40;i++){
-    parts.push({x:Math.random()*mc.width,y:Math.random()*mc.height,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,r:Math.random()*2+1,a:Math.random()});
-  }
-  function drawFrame(){
-    ctx.clearRect(0,0,mc.width,mc.height);
-    // Background
-    var bg=ctx.createRadialGradient(mc.width/2,mc.height/2,0,mc.width/2,mc.height/2,mc.width*0.7);
-    bg.addColorStop(0,'rgba(0,20,40,0.95)');
-    bg.addColorStop(1,'rgba(4,5,8,0.99)');
-    ctx.fillStyle=bg;
-    ctx.fillRect(0,0,mc.width,mc.height);
-    // Grid
-    ctx.strokeStyle='rgba(228,177,94,0.06)';
-    ctx.lineWidth=1;
-    for(var gx=0;gx<mc.width;gx+=30){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,mc.height);ctx.stroke();}
-    for(var gy=0;gy<mc.height;gy+=30){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(mc.width,gy);ctx.stroke();}
-    // Particles
-    parts.forEach(function(p){
-      p.x+=p.vx; p.y+=p.vy; p.a=Math.abs(Math.sin(t*0.02+p.x));
-      if(p.x<0||p.x>mc.width)p.vx*=-1;
-      if(p.y<0||p.y>mc.height)p.vy*=-1;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(228,177,94,'+p.a.toFixed(2)+')';
-      ctx.fill();
-    });
-    // Waveform — Spindel vibration
-    var cx=mc.width/2, cy=mc.height*0.38, amp=28+Math.sin(t*0.05)*4;
-    ctx.beginPath();
-    for(var wx=0;wx<=mc.width;wx+=2){
-      var wy=cy+Math.sin((wx/mc.width)*Math.PI*8+t*0.1)*amp*Math.sin((wx/mc.width)*Math.PI);
-      if(wx===0)ctx.moveTo(wx,wy); else ctx.lineTo(wx,wy);
+
+  function buildMobile3D(){
+    var mc = document.getElementById('dtCanvasMobile');
+    if(!mc) return;
+    var wrap = mc.parentElement;
+    var W = wrap.clientWidth || (window.innerWidth - 40);
+    var H = 300;
+    mc.width = W; mc.height = H;
+
+    var T = window.THREE;
+    if(!T){ moDemoStarted=false; return; }
+
+    // Aufräumen falls schon gestartet
+    if(moRenderer3D){ try{moRenderer3D.dispose();}catch(e){} moRenderer3D=null; }
+
+    var renderer = new T.WebGLRenderer({canvas:mc, antialias:true, alpha:false});
+    moRenderer3D = renderer;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+    renderer.setSize(W, H, false);
+    renderer.setClearColor(0x040508, 1);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = T.PCFSoftShadowMap;
+
+    var scene = new T.Scene();
+    var camera = new T.PerspectiveCamera(42, W/H, 0.1, 200);
+
+    // Lichter
+    scene.add(new T.AmbientLight(0x334466, 1.4));
+    var sun = new T.DirectionalLight(0xffffff, 2.2);
+    sun.position.set(10, 20, 10);
+    sun.castShadow = true;
+    scene.add(sun);
+    var glow = new T.PointLight(0xe4b15e, 4.0, 35);
+    glow.position.set(-4, 8, 6);
+    scene.add(glow);
+    var blue = new T.PointLight(0x0060ff, 1.5, 20);
+    blue.position.set(6, 2, -4);
+    scene.add(blue);
+
+    // Materialien
+    var MS = T.MeshStandardMaterial;
+    var mBase   = new MS({color:0x0f1720,metalness:0.15,roughness:0.88});
+    var mBody   = new MS({color:0x1c2636,metalness:0.2,roughness:0.75});
+    var mAccent = new MS({color:0x003d80,metalness:0.3,roughness:0.5,emissive:new T.Color(0x001230)});
+    var mRail   = new MS({color:0xc8d8ea,metalness:0.92,roughness:0.06});
+    var mCarr   = new MS({color:0x3a5070,metalness:0.6,roughness:0.35});
+    var mSpind  = new MS({color:0xd0e0f0,metalness:0.95,roughness:0.04});
+    var mTool   = new MS({color:0x5a6a7a,metalness:0.85,roughness:0.12});
+    var mGold   = new MS({color:0xe4b15e,metalness:0.6,roughness:0.3,emissive:new T.Color(0x301800)});
+
+    function box(w,h,d,mat,px,py,pz){ var m=new T.Mesh(new T.BoxGeometry(w,h,d),mat); m.position.set(px,py,pz); m.castShadow=true; m.receiveShadow=true; scene.add(m); return m; }
+    function cyl(rt,rb,h,seg,mat,px,py,pz,ry){ var m=new T.Mesh(new T.CylinderGeometry(rt,rb,h,seg),mat); m.position.set(px,py,pz); if(ry)m.rotation.y=ry; m.castShadow=true; scene.add(m); return m; }
+
+    // Maschinenbett
+    box(9,0.9,7.5,mBase,0,0,0);
+    box(8.5,6,0.65,mBody,0,3.2,-3.5);   // Rückwand
+    box(0.65,6,7.5,mBody,-4.5,3.2,0);   // Linke Wand
+    box(0.65,6,7.5,mBody,4.5,3.2,0);    // Rechte Wand
+    box(9.5,0.55,7.5,mBody,0,6.3,0);    // Decke
+    box(8.5,0.3,7.5,mAccent,0,0.65,0);  // Akzent-Streifen
+
+    // X-Schienen (oben)
+    box(8.5,0.28,0.28,mRail,0,5.9,-1.8);
+    box(8.5,0.28,0.28,mRail,0,5.9,1.8);
+
+    // Y-Schlitten
+    var carriage = box(3,0.7,3.5,mCarr,0,6.05,0);
+
+    // Z-Führungen
+    box(0.22,4.2,0.22,mRail,-0.8,3.9,0);
+    box(0.22,4.2,0.22,mRail,0.8,3.9,0);
+
+    // Spindelkopf
+    var spHead = box(1.6,1.4,1.6,mBody,0,4.5,0);
+
+    // Spindel
+    var spindle = cyl(0.55,0.55,2.8,20,mSpind,0,4.5,0);
+
+    // Werkzeug
+    var tool = cyl(0.2,0.06,1.6,10,mTool,0,3.05,0);
+
+    // Gold-Sensoren (pulsierend)
+    var sensors = [];
+    for(var si=0;si<4;si++){
+      var sa=(si/4)*Math.PI*2;
+      var s=new T.Mesh(new T.SphereGeometry(0.14,10,10),mGold);
+      s.position.set(Math.cos(sa)*0.75,4.9,Math.sin(sa)*0.75);
+      scene.add(s);
+      sensors.push(s);
     }
-    ctx.strokeStyle='rgba(0,255,120,0.7)';ctx.lineWidth=2;ctx.stroke();
-    // Vibration ALERT spike
-    var spike=cy+Math.sin(t*0.3)*14;
-    ctx.beginPath();
-    ctx.moveTo(mc.width*0.72,cy);ctx.lineTo(mc.width*0.75,cy-44);ctx.lineTo(mc.width*0.78,cy);
-    ctx.strokeStyle='rgba(255,68,68,0.85)';ctx.lineWidth=2.5;ctx.stroke();
-    ctx.fillStyle='rgba(255,68,68,0.85)';ctx.font='bold 10px monospace';
-    ctx.fillText('ALERT',mc.width*0.67,cy-50);
-    // Label
-    ctx.fillStyle='rgba(228,177,94,0.9)';ctx.font='bold 11px monospace';
-    ctx.fillText('KI-SCHWINGUNGSANALYSE · LIVE',14,mc.height-12);
-    // Scan line
-    var scanX=(t*2)%mc.width;
-    ctx.beginPath();ctx.moveTo(scanX,0);ctx.lineTo(scanX,mc.height);
-    ctx.strokeStyle='rgba(228,177,94,0.12)';ctx.lineWidth=1;ctx.stroke();
-    // RPM live update
-    var rpm=(12400+Math.floor(Math.sin(t*0.04)*60)).toLocaleString('de-DE');
-    var el=document.getElementById('moRPM'); if(el)el.textContent=rpm+' U/min';
-    var tempVal=(67+Math.sin(t*0.02)*1.5).toFixed(1);
-    var tel=document.getElementById('moTemp'); if(tel)tel.textContent=tempVal+'°C ▲';
-    t++;
-    if(document.getElementById('dtMobileOverlay').classList.contains('open')) requestAnimationFrame(drawFrame);
-    else moDemoStarted=false;
+
+    // Akzent-Leisten
+    box(0.12,6,0.12,mAccent,-4.1,3.2,-3.1);
+    box(0.12,6,0.12,mAccent,4.1,3.2,-3.1);
+
+    // Boden-Grid
+    var grid = new T.GridHelper(14,14,0xe4b15e,0x1a1a2e);
+    grid.position.y=-0.01;
+    scene.add(grid);
+
+    // Touch-Steuerung
+    var orbitAngle = 0.5;
+    var touchX = null;
+    mc.addEventListener('touchstart',function(e){touchX=e.touches[0].clientX;},{passive:true});
+    mc.addEventListener('touchmove',function(e){
+      if(touchX!==null){ orbitAngle+=(e.touches[0].clientX-touchX)*0.012; touchX=e.touches[0].clientX; }
+    },{passive:true});
+    mc.addEventListener('touchend',function(){touchX=null;},{passive:true});
+
+    var frame=0;
+    function moAnimate(){
+      var overlay=document.getElementById('dtMobileOverlay');
+      if(!overlay||!overlay.classList.contains('open')){
+        if(moRenderer3D){try{moRenderer3D.dispose();}catch(e){} moRenderer3D=null;}
+        moDemoStarted=false;
+        return;
+      }
+      requestAnimationFrame(moAnimate);
+      orbitAngle+=0.007;
+      var r=18;
+      camera.position.x=Math.sin(orbitAngle)*r;
+      camera.position.z=Math.cos(orbitAngle)*r;
+      camera.position.y=10;
+      camera.lookAt(0,3,0);
+
+      // Spindel dreht
+      spindle.rotation.y+=0.06;
+      tool.rotation.y+=0.06;
+
+      // Sensoren pulsieren (Auf-/Abbewegung + Glow)
+      sensors.forEach(function(s,i){
+        s.position.y=4.9+Math.sin(frame*0.05+i*1.5)*0.08;
+      });
+
+      // Schlitten bewegt sich
+      carriage.position.x=Math.sin(frame*0.018)*2.5;
+
+      // Live-Werte aktualisieren
+      if(frame%6===0){
+        var rpm=(12400+Math.floor(Math.sin(frame*0.04)*80));
+        var el=document.getElementById('moRPM'); if(el)el.textContent=rpm.toLocaleString('de-DE')+' U/min';
+        var tempVal=(67+Math.sin(frame*0.02)*1.5).toFixed(1);
+        var tel=document.getElementById('moTemp'); if(tel)tel.textContent=tempVal+'°C ▲';
+      }
+      frame++;
+      renderer.render(scene,camera);
+    }
+    moAnimate();
   }
-  drawFrame();
-  },50); // 50ms delay damit Overlay voll gerendert
-  }); // end requestAnimationFrame
+
+  // Three.js laden falls nötig, dann 3D starten
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      if(window.THREE){
+        buildMobile3D();
+      } else {
+        var s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        s.onload=buildMobile3D;
+        document.head.appendChild(s);
+      }
+    },60);
+  });
 }
 </script>
 <script src="common.js?v=20260528"></script>
