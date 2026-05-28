@@ -1379,8 +1379,9 @@ html,body{overflow-x:hidden;max-width:100vw;}
       <button type="button" id="dtMobileStart" class="dt-mobile-start" aria-label="3D-Maschine ansehen">
         <span class="dt-ms-icon">&#9658;</span>
         <span class="dt-ms-text"><span class="de">3D-Maschine ansehen</span><span class="en">View 3D machine</span></span>
-        <span class="dt-ms-hint"><span class="de">Tippen zum Starten &middot; Drehen &amp; Zoomen</span><span class="en">Tap to start &middot; rotate &amp; zoom</span></span>
+        <span class="dt-ms-hint"><span class="de">Tippen zum &Ouml;ffnen &middot; Vollbild &middot; Drehen &amp; Zoomen</span><span class="en">Tap to open &middot; fullscreen &middot; rotate &amp; zoom</span></span>
       </button>
+      <button type="button" id="dtClose" class="dt-close" aria-label="3D schließen">&#10005;</button>
       <div class="dt-hud-tl">
         <div class="dt-hud-line"><span class="dt-hud-dot pulse-green"></span>SPINDEL AKTIV</div>
         <div class="dt-hud-rpm">n&nbsp;=&nbsp;<span id="dtRPM">12.400</span> U/min</div>
@@ -1495,6 +1496,11 @@ html,body{overflow-x:hidden;max-width:100vw;}
   .dt-mobile-start .dt-ms-hint{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);}
 }
 .dt-mobile-start.hidden{display:none!important;}
+/* Vollbild-Modus für das 3D auf dem Handy */
+.dt-close{display:none;}
+.dt-wrap.dt-fullscreen{position:fixed!important;inset:0!important;z-index:9999!important;width:100vw!important;height:100vh!important;height:100dvh!important;border-radius:0!important;border:none!important;box-shadow:none!important;}
+.dt-wrap.dt-fullscreen #dtCanvas{width:100%!important;height:100%!important;}
+.dt-wrap.dt-fullscreen .dt-close{display:flex;align-items:center;justify-content:center;position:fixed;top:16px;right:16px;z-index:10000;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.35);color:#fff;font-size:1.2rem;cursor:pointer;backdrop-filter:blur(6px);}
 </style>
 <script>
 (function(){
@@ -1797,11 +1803,27 @@ function dtAutoStart(){
   });
 }
 if(dtIsMobile && dtStartBtn){
-  /* Handy: 3D erst auf Tippen laden (Performance + klarer Button) */
+  /* Handy: 3D im Vollbild öffnen (mehr Platz, zuverlässiger sichtbar) */
+  var dtWrapEl = document.getElementById('dtWrap');
+  var dtCloseBtn = document.getElementById('dtClose');
   dtStartBtn.addEventListener('click', function(){
     dtStartBtn.classList.add('hidden');
-    loadThree(function(){ setTimeout(initDT, 30); });
+    if(dtWrapEl) dtWrapEl.classList.add('dt-fullscreen');
+    document.body.style.overflow = 'hidden';
+    loadThree(function(){
+      setTimeout(function(){
+        initDT();
+        window.dispatchEvent(new Event('resize')); /* Canvas auf Vollbildgröße bringen */
+      }, 60);
+    });
   }, { once:true });
+  if(dtCloseBtn){
+    dtCloseBtn.addEventListener('click', function(){
+      if(dtWrapEl) dtWrapEl.classList.remove('dt-fullscreen');
+      document.body.style.overflow = '';
+      window.dispatchEvent(new Event('resize')); /* zurück auf Inline-Größe */
+    });
+  }
 } else {
   /* Desktop: wie bisher automatisch starten */
   if(dtStartBtn) dtStartBtn.classList.add('hidden');
