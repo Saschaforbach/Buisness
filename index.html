@@ -1425,6 +1425,7 @@ html,body{overflow-x:hidden;max-width:100vw;}
           </g>
         </svg>
         <span class="dt-viz-tag"><span class="dt-viz-dot"></span>LIVE&nbsp;&middot;&nbsp;DIGITAL&nbsp;TWIN</span>
+        <a href="maschine-3d.html" class="dt-viz-btn"><span class="de">3D-Maschine ansehen</span><span class="en">View 3D machine</span> &rarr;</a>
       </div>
       <div class="dt-hud-tl">
         <div class="dt-hud-line"><span class="dt-hud-dot pulse-green"></span>SPINDEL AKTIV</div>
@@ -1558,6 +1559,8 @@ html,body{overflow-x:hidden;max-width:100vw;}
 }
 .dt-viz-glow{animation:dtVizPulse 3.2s ease-in-out infinite;}
 @keyframes dtVizPulse{0%,100%{opacity:0.45;}50%{opacity:0.95;}}
+.dt-viz-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0066cc,#00b4ff);color:#fff;font-weight:700;font-size:0.92rem;padding:0.8rem 1.7rem;border-radius:10px;text-decoration:none;letter-spacing:0.3px;box-shadow:0 8px 24px rgba(0,180,255,0.32);border:1px solid rgba(255,255,255,0.18);}
+.dt-viz-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,180,255,0.45);}
 </style>
 <script>
 (function(){
