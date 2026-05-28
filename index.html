@@ -3737,7 +3737,7 @@ document.head.appendChild(style);
 <script src="common.js"></script>
 
 <!-- DESKTOP FLOATING BUTTONS (rechte Seite) -->
-<div id="desktopFloat" style="position:fixed;right:20px;bottom:30px;z-index:1400;display:flex;flex-direction:column;gap:10px;">
+<div id="desktopFloat" style="position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:1400;display:flex;flex-direction:column;gap:10px;">
   <a href="mailto:info@forbachandpartners.com" title="E-Mail schreiben"
     style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:rgba(228,177,94,0.12);border:1px solid rgba(228,177,94,0.4);color:#e4b15e;border-radius:50%;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.4);transition:all 0.3s;backdrop-filter:blur(10px);"
     onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(228,177,94,0.7)';this.style.color='#f8dfa5';this.style.background='rgba(228,177,94,0.22)'"
@@ -3759,14 +3759,128 @@ document.head.appendChild(style);
 </div>
 <style>@media(max-width:900px){#desktopFloat{display:none!important;}}</style>
 
-<!-- MOBIL KONTAKT-LEISTE (nur WhatsApp) -->
+<!-- MOBIL KONTAKT-LEISTE (Telefon · WhatsApp · E-Mail) -->
 <div class="mobile-contact-bar">
-  <div class="mcb-inner" style="justify-content:center;">
-    <a href="https://wa.me/4915208525369" class="mcb-btn mcb-wa" target="_blank" rel="noopener" style="max-width:200px;flex:none;">
+  <div class="mcb-inner">
+    <a href="tel:021190989962" class="mcb-btn mcb-tel">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.12-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+      <span class="de">Anrufen</span><span class="en">Call</span>
+    </a>
+    <a href="https://wa.me/4915208525369" class="mcb-btn mcb-wa" target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp schreiben
+      WhatsApp
+    </a>
+    <a href="mailto:info@forbachandpartners.com" class="mcb-btn mcb-mail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <span class="de">E-Mail</span><span class="en">Email</span>
     </a>
   </div>
 </div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     HIGH-END REFINEMENT LAYER
+     Rein gestalterische Verfeinerung (Typografie, Abstände, Farben,
+     Rahmen, Buttons). Ändert KEINE Inhalte, kein Layout-Raster,
+     keine Reihenfolge. Bei Bedarf einfach diesen Block entfernen.
+═════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── 1. Render- & Typo-Politur (schärfere, edlere Schrift) ── */
+html{scroll-behavior:smooth;scroll-padding-top:96px;}
+body{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"kern" 1,"liga" 1;
+}
+::selection{background:rgba(228,177,94,0.30);color:#fff;}
+
+/* Ausgewogenere Zeilenumbrüche bei Überschriften, ruhigerer Fließtext */
+.hero-title,.section-title,.cta-title,.sc-title,.dt-title{text-wrap:balance;}
+.hero-sub,.section-sub,.cta-sub,.sc-desc,.dt-sub{text-wrap:pretty;}
+
+/* Etwas feinere Laufweite & Hierarchie der Display-Überschriften */
+.section-title{letter-spacing:0.5px;line-height:1.12;}
+.hero-title{letter-spacing:1.5px;}
+.section-sub,.cta-sub{max-width:620px;}
+.section-sub{margin-bottom:4rem;}
+
+/* Tastatur-Fokus sichtbar & edel (Barrierefreiheit) */
+a:focus-visible,button:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible,[role=button]:focus-visible{
+  outline:2px solid rgba(228,177,94,0.7);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+/* ── 2. Edler, schlanker Scrollbalken ── */
+html{scrollbar-width:thin;scrollbar-color:rgba(228,177,94,0.5) #0a0a0a;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:#0a0a0a;}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#c49040,#e4b15e);
+  border:2px solid #0a0a0a;border-radius:8px;
+}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#e4b15e,#f8dfa5);}
+
+/* ── 3. Ruhigere, hochwertigere Effekte (weniger Neon-Geflacker) ── */
+@keyframes warn-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,184,0,0);}
+  50%{box-shadow:0 0 14px 1px rgba(255,184,0,0.12);}
+}
+@keyframes crit-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,56,96,0);}
+  50%{box-shadow:0 0 18px 2px rgba(255,56,96,0.16);}
+}
+@keyframes crit-border{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,56,96,0);}
+  50%{box-shadow:0 0 20px 1px rgba(255,56,96,0.12);}
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.fill-ok{box-shadow:none;}
+.fill-warn{box-shadow:none;}
+.fill-crit{box-shadow:none;}
+.amort-fill{box-shadow:0 0 8px rgba(228,177,94,0.25);}
+.exp-dot{box-shadow:0 0 4px rgba(228,177,94,0.6);}
+
+/* ── 4. Einheitliche, weichere Radien & Hairline-Rahmen ── */
+.machine-card,.monitor-card,.service-card{border-radius:16px;}
+.roi-right{border-radius:18px;}
+.machine-input-card,.roi-result-card,.maint-bar,.sensor-tile{border-radius:12px;}
+.btn-gold,.btn-outline,.nav-cta,.form-submit,.lang-toggle{border-radius:10px;}
+.exp-badge,.sc-tag,.badge,.mc-status{border-radius:8px;}
+
+/* Sanftere, konsistentere Karten-Schatten beim Hover */
+.service-card:hover,.monitor-card:hover{box-shadow:0 18px 48px rgba(0,0,0,0.55);}
+.machine-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.5);}
+
+/* ── 5. Edlere Gold-Buttons (metallischer Verlauf + feiner Glanz) ── */
+.btn-gold,.nav-cta,.form-submit,.mobile-nav-cta{
+  background:linear-gradient(135deg,#caa052 0%,#f3d792 45%,#e4b15e 100%);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 2px 10px rgba(0,0,0,0.25);
+}
+.btn-gold:hover,.nav-cta:hover,.form-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.45),0 10px 28px rgba(228,177,94,0.28);
+}
+.btn-outline{transition:all 0.3s ease;}
+.btn-outline:hover{transform:translateY(-2px);}
+
+/* Etwas mehr Luft & feinere Laufweite in der Navigation */
+.nav-link{letter-spacing:0.3px;padding:0.4rem 0.7rem;}
+
+/* ── 7. Aufräumen rechts: doppeltes Kontakt-Widget & Nav-Punkte entfernen ── */
+/* Schwarzes Telefon/E-Mail-Widget aus common.js komplett ausblenden (Desktop + Handy) */
+#floatContact{display:none!important;}
+/* Navigations-Punkte ausblenden, damit sie nicht mehr unter den mittig fixierten Kontakt-Buttons liegen */
+#sectionDots{display:none!important;}
+
+/* ── 6. Etwas mehr Weißraum in großen Sektionen (Desktop) ── */
+@media(min-width:901px){
+  .section{padding-top:7rem;padding-bottom:7rem;}
+  .section-full{padding-top:7rem;padding-bottom:7rem;}
+}
+</style>
+
 </body>
 </html>
