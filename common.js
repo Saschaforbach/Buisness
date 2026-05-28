@@ -208,23 +208,7 @@ async function submitTermin(e){
   });
 })();
 
-/* ── FLOATING CONTACT WIDGET ── */
-document.addEventListener('DOMContentLoaded', function(){
-  var widget = document.createElement('div');
-  widget.id = 'floatContact';
-  widget.innerHTML = `
-    <a href="tel:004921190989962" title="Jetzt anrufen" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#141414;border:1px solid rgba(228,177,94,0.25);border-radius:10px;color:#e4b15e;text-decoration:none;font-size:1.1rem;transition:all 0.2s;margin-bottom:8px;">📞</a>
-    <a href="mailto:info@forbachandpartners.com" title="E-Mail senden" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:#141414;border:1px solid rgba(228,177,94,0.25);border-radius:10px;color:#e4b15e;text-decoration:none;font-size:1.1rem;transition:all 0.2s;">✉️</a>
-  `;
-  widget.style.cssText = 'position:fixed;right:16px;bottom:80px;z-index:1000;display:flex;flex-direction:column;align-items:center;';
-  document.body.appendChild(widget);
-
-  // Hover-Effekt
-  widget.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('mouseenter', function(){ this.style.borderColor='rgba(228,177,94,0.7)'; this.style.background='rgba(228,177,94,0.1)'; this.style.transform='scale(1.08)'; });
-    a.addEventListener('mouseleave', function(){ this.style.borderColor='rgba(228,177,94,0.25)'; this.style.background='#141414'; this.style.transform=''; });
-  });
-});
+/* ── FLOATING CONTACT WIDGET — entfernt (durch goldene Buttons ersetzt) ── */
 
 /* ── NAV CTA → Modal verdrahten (alle Seiten) ── */
 document.addEventListener('DOMContentLoaded', function(){
