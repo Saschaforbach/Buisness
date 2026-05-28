@@ -1382,6 +1382,50 @@ html,body{overflow-x:hidden;max-width:100vw;}
         <span class="dt-ms-hint"><span class="de">Tippen zum &Ouml;ffnen &middot; Vollbild &middot; Drehen &amp; Zoomen</span><span class="en">Tap to open &middot; fullscreen &middot; rotate &amp; zoom</span></span>
       </button>
       <button type="button" id="dtClose" class="dt-close" aria-label="3D schließen">&#10005;</button>
+      <!-- Garantiert sichtbare Maschinen-Grafik für Handys (kein WebGL) -->
+      <div class="dt-mobile-viz" aria-label="CNC-Bearbeitungszentrum">
+        <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img">
+          <defs>
+            <linearGradient id="dtvMetal" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e9f2fb"/><stop offset="1" stop-color="#8fa2b6"/>
+            </linearGradient>
+          </defs>
+          <!-- Bodenraster -->
+          <g stroke="rgba(0,180,255,0.10)" stroke-width="1">
+            <line x1="20" y1="280" x2="400" y2="280"/><line x1="20" y1="296" x2="400" y2="296"/>
+            <line x1="70" y1="270" x2="40" y2="306"/><line x1="150" y1="270" x2="130" y2="306"/>
+            <line x1="270" y1="270" x2="290" y2="306"/><line x1="350" y1="270" x2="380" y2="306"/>
+          </g>
+          <!-- Basis -->
+          <rect x="64" y="236" width="292" height="40" rx="6" fill="#0f1720" stroke="rgba(0,180,255,0.30)"/>
+          <!-- Säule hinten -->
+          <rect x="252" y="56" width="74" height="186" rx="5" fill="#1c2636" stroke="rgba(0,180,255,0.28)"/>
+          <!-- Querarm oben -->
+          <rect x="150" y="56" width="176" height="34" rx="5" fill="#1c2636" stroke="rgba(0,180,255,0.28)"/>
+          <!-- Spindelkopf -->
+          <rect x="166" y="88" width="52" height="50" rx="4" fill="#283848" stroke="rgba(0,180,255,0.40)"/>
+          <rect x="176" y="96" width="32" height="6" rx="3" fill="rgba(0,180,255,0.5)"/>
+          <!-- Spindel -->
+          <rect x="186" y="138" width="12" height="32" rx="2" fill="url(#dtvMetal)"/>
+          <!-- Werkzeug -->
+          <polygon points="187,170 197,170 194,190 190,190" fill="#9fb0c2"/>
+          <!-- Werktisch -->
+          <rect x="112" y="208" width="196" height="16" rx="3" fill="#283848" stroke="rgba(0,180,255,0.25)"/>
+          <line x1="112" y1="226" x2="308" y2="226" stroke="url(#dtvMetal)" stroke-width="2" opacity="0.55"/>
+          <!-- Werkstück -->
+          <rect x="168" y="190" width="50" height="18" rx="2" fill="#3a5070" stroke="rgba(0,180,255,0.35)"/>
+          <!-- Schnittpunkt-Glühen -->
+          <circle cx="192" cy="190" r="6" fill="#00b4ff" class="dt-viz-glow"/>
+          <!-- Beschriftungen -->
+          <g font-family="'JetBrains Mono', monospace" font-size="9" fill="rgba(0,180,255,0.7)" letter-spacing="1">
+            <line x1="218" y1="113" x2="300" y2="113" stroke="rgba(0,180,255,0.3)"/>
+            <text x="304" y="116">SPINDEL</text>
+            <line x1="218" y1="199" x2="300" y2="199" stroke="rgba(0,180,255,0.3)"/>
+            <text x="304" y="202">WERKSTÜCK</text>
+          </g>
+        </svg>
+        <span class="dt-viz-tag"><span class="dt-viz-dot"></span>LIVE&nbsp;&middot;&nbsp;DIGITAL&nbsp;TWIN</span>
+      </div>
       <div class="dt-hud-tl">
         <div class="dt-hud-line"><span class="dt-hud-dot pulse-green"></span>SPINDEL AKTIV</div>
         <div class="dt-hud-rpm">n&nbsp;=&nbsp;<span id="dtRPM">12.400</span> U/min</div>
@@ -1501,6 +1545,19 @@ html,body{overflow-x:hidden;max-width:100vw;}
 .dt-wrap.dt-fullscreen{position:fixed!important;inset:0!important;z-index:9999!important;width:100vw!important;height:100vh!important;height:100dvh!important;border-radius:0!important;border:none!important;box-shadow:none!important;}
 .dt-wrap.dt-fullscreen #dtCanvas{width:100%!important;height:100%!important;}
 .dt-wrap.dt-fullscreen .dt-close{display:flex;align-items:center;justify-content:center;position:fixed;top:16px;right:16px;z-index:10000;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.35);color:#fff;font-size:1.2rem;cursor:pointer;backdrop-filter:blur(6px);}
+/* Handy: WebGL-3D weglassen, stattdessen garantiert sichtbare SVG-Maschine */
+.dt-mobile-viz{display:none;}
+@media(max-width:900px){
+  #dtCanvas{display:none!important;}
+  .dt-mobile-start{display:none!important;}
+  .dt-close{display:none!important;}
+  .dt-mobile-viz{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:absolute;inset:0;width:100%;height:100%;padding:10px;background:radial-gradient(ellipse 80% 70% at 50% 45%,rgba(0,180,255,0.08) 0%,transparent 70%),#050709;}
+  .dt-mobile-viz svg{width:100%;height:auto;max-height:80%;}
+  .dt-viz-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:rgba(0,255,120,0.85);display:flex;align-items:center;gap:6px;}
+  .dt-viz-dot{width:7px;height:7px;border-radius:50%;background:#00ff78;box-shadow:0 0 8px #00ff78;}
+}
+.dt-viz-glow{animation:dtVizPulse 3.2s ease-in-out infinite;}
+@keyframes dtVizPulse{0%,100%{opacity:0.45;}50%{opacity:0.95;}}
 </style>
 <script>
 (function(){
@@ -1802,30 +1859,12 @@ function dtAutoStart(){
     else{window.addEventListener('load',function(){setTimeout(initDT,200);});}
   });
 }
-if(dtIsMobile && dtStartBtn){
-  /* Handy: 3D im Vollbild öffnen (mehr Platz, zuverlässiger sichtbar) */
-  var dtWrapEl = document.getElementById('dtWrap');
-  var dtCloseBtn = document.getElementById('dtClose');
-  dtStartBtn.addEventListener('click', function(){
-    dtStartBtn.classList.add('hidden');
-    if(dtWrapEl) dtWrapEl.classList.add('dt-fullscreen');
-    document.body.style.overflow = 'hidden';
-    loadThree(function(){
-      setTimeout(function(){
-        initDT();
-        window.dispatchEvent(new Event('resize')); /* Canvas auf Vollbildgröße bringen */
-      }, 60);
-    });
-  }, { once:true });
-  if(dtCloseBtn){
-    dtCloseBtn.addEventListener('click', function(){
-      if(dtWrapEl) dtWrapEl.classList.remove('dt-fullscreen');
-      document.body.style.overflow = '';
-      window.dispatchEvent(new Event('resize')); /* zurück auf Inline-Größe */
-    });
-  }
+if(dtIsMobile){
+  /* Handy: KEIN WebGL (rendert auf vielen Geräten nicht zuverlässig).
+     Stattdessen wird die feste SVG-Maschine (.dt-mobile-viz) per CSS angezeigt.
+     Die Live-Daten erscheinen darunter in der Seitenleiste. */
 } else {
-  /* Desktop: wie bisher automatisch starten */
+  /* Desktop: interaktives 3D wie bisher automatisch starten */
   if(dtStartBtn) dtStartBtn.classList.add('hidden');
   dtAutoStart();
 }
