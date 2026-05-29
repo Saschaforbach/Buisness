@@ -28,7 +28,7 @@ body{background:#040508;color:#fff;font-family:var(--font-body);line-height:1.6;
 .dt-badge{display:inline-block;background:rgba(0,255,120,.12);border:1px solid rgba(0,255,120,.4);color:#00ff78;font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 18px;border-radius:20px;margin-bottom:18px;animation:dtBlink 2s ease-in-out infinite;}
 @keyframes dtBlink{0%,100%{opacity:1}50%{opacity:.6}}
 .dt-title{font-size:clamp(1.6rem,3.5vw,2.6rem);color:#fff;font-weight:800;margin:0 0 12px;line-height:1.2;}
-.dt-title em{color:#00b4ff;font-style:normal;}
+.dt-title em{font-style:normal;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#e4b15e;}
 .dt-sub{color:rgba(255,255,255,.5);font-size:1rem;margin:0;}
 .dt-container{display:flex;gap:20px;max-width:1400px;margin:0 auto;padding:0 24px;align-items:flex-start;}
 .dt-wrap{position:relative;flex:1;min-width:0;height:640px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,180,255,.2);box-shadow:0 0 60px rgba(0,180,255,.12);}
@@ -249,10 +249,11 @@ function initDT(){
   if(!wrap||!canvas)return;
   var W=wrap.offsetWidth||900, H=wrap.offsetHeight||640;
   var T=window.THREE;
-  var renderer=new T.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  var _lowGPU = window.matchMedia('(max-width:900px)').matches; /* Handy: leichter rendern */
+  var renderer=new T.WebGLRenderer({canvas:canvas,antialias:!_lowGPU,alpha:false});
+  renderer.setPixelRatio(_lowGPU ? 1 : Math.min(window.devicePixelRatio,2));
   renderer.setSize(W,H,false);
-  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.enabled=!_lowGPU;
   renderer.shadowMap.type=T.PCFSoftShadowMap;
   renderer.setClearColor(0x040508,1);
   renderer.toneMapping=T.ACESFilmicToneMapping;
