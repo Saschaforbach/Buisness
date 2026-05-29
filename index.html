@@ -6,17 +6,13 @@
 
 <!-- ══ SEO META TAGS ══ -->
 <title>KI-Zustandsüberwachung für CNC-Maschinen | Forbach & Partners — Predictive Maintenance</title>
-<meta name="description" content="Forbach & Partners erkennt Lager- und Spindelschäden an CNC-Fräszentren 4–6 Wochen vor dem Ausfall. KI-gestützte Predictive Maintenance für Maschinenbau & Zerspanung in Deutschland. Kostenlose Live-Demo anfragen.">
-<meta name="keywords" content="Predictive Maintenance CNC, KI Zustandsüberwachung Maschinen, Spindelüberwachung CNC, Lagerüberwachung Fräszentren, Maschinenbau KI Deutschland, vorausschauende Wartung, Condition Monitoring, Schwingungsanalyse CNC, DMG Mori Predictive Maintenance, Hermle Überwachung">
+<meta name="description" content="Forbach & Partners erkennt Lager- und Spindelschäden an CNC-Fräszentren 4–6 Wochen vor dem Ausfall. KI-gestützte Predictive Maintenance für Maschinenbau & Zerspanung. Kostenlose Live-Demo anfragen.">
+<meta name="keywords" content="Predictive Maintenance CNC, KI Zustandsüberwachung Maschinen, Spindelüberwachung CNC, Lagerüberwachung Fräszentren, Maschinenbau KI, vorausschauende Wartung, Condition Monitoring, Schwingungsanalyse CNC, DMG Mori Predictive Maintenance, Hermle Überwachung">
 <meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
 <meta name="robots" content="index, follow">
 <meta name="language" content="de">
 
-<!-- ══ GOOGLE SEARCH CONSOLE VERIFIZIERUNG ══
-     1) In der Search Console "URL-Präfix" → Methode "HTML-Tag" wählen.
-     2) Den dort angezeigten content-Wert unten zwischen die Anführungszeichen kopieren.
-     (Setzt keine Cookies – darf ohne Einwilligung geladen werden.) -->
-<meta name="google-site-verification" content="HIER_SEARCH_CONSOLE_CODE_EINTRAGEN">
+<!-- Google Search Console: über DNS-TXT-Eintrag (All-Inkl) verifiziert – kein HTML-Tag nötig -->
 <link rel="canonical" href="https://forbachandpartners.com/">
 <link rel="alternate" hreflang="de" href="https://forbachandpartners.com/">
 <link rel="alternate" hreflang="en" href="https://forbachandpartners.com/?lang=en">
@@ -1337,8 +1333,8 @@ html,body{overflow-x:hidden;max-width:100vw;}
         <span class="en">SPINDLES<br>THAT <span class="gold">WARN</span><br>BEFORE THEY<br>FAIL</span>
       </h1>
       <p class="hero-sub">
-        <span class="de">KI-gestützte Zustandsüberwachung für CNC-Fräszentren und Bearbeitungszentren. Achslager, Spindeln, Werkzeugwechsler — wir erkennen Ausfälle 48–72 h bevor sie passieren.</span>
-        <span class="en">AI-powered condition monitoring for CNC machining centers. Spindle bearings, tool changers, feed axes — we detect failures 48–72 h before they happen.</span>
+        <span class="de">KI-gestützte Zustandsüberwachung für CNC-Fräs- und Bearbeitungszentren. Spindeln, Achslager und Werkzeugwechsler stehen unter permanenter Kontrolle — kritische Schäden erkennen wir 48–72 Stunden, bevor sie zum Ausfall führen. Geplant statt überrascht.</span>
+        <span class="en">AI-powered condition monitoring for CNC machining and milling centers. Spindles, bearings and tool changers under permanent watch — we detect critical faults 48–72 hours before they cause failure. Planned, not caught off guard.</span>
       </p>
       <div class="hero-stats">
         <div>
@@ -1363,7 +1359,7 @@ html,body{overflow-x:hidden;max-width:100vw;}
       </div>
       <div class="hero-btns">
         <a href="#roi" class="btn-gold"><span class="de">ROI berechnen</span><span class="en">Calculate ROI</span></a>
-        <a href="mailto:info@forbachandpartners.com" class="btn-outline"><span class="de">Jetzt Termin buchen</span><span class="en">Book a Meeting</span></a>
+        <a href="mailto:info@forbachandpartners.com" class="btn-outline"><span class="de">Live-Demo anfragen</span><span class="en">Request a live demo</span></a>
       </div>
     </div>
 
@@ -1878,9 +1874,18 @@ if(dtIsMobile){
      Stattdessen wird die feste SVG-Maschine (.dt-mobile-viz) per CSS angezeigt.
      Die Live-Daten erscheinen darunter in der Seitenleiste. */
 } else {
-  /* Desktop: interaktives 3D wie bisher automatisch starten */
+  /* Desktop: interaktives 3D erst laden, wenn der Bereich in Sichtweite kommt
+     (entlastet den Erststart → bessere Performance/TBT, Optik bleibt voll) */
   if(dtStartBtn) dtStartBtn.classList.add('hidden');
-  dtAutoStart();
+  var _dtSec = document.querySelector('.dt-section');
+  if('IntersectionObserver' in window && _dtSec){
+    var _dtIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ _dtIO.disconnect(); dtAutoStart(); } });
+    }, { rootMargin: '300px' });
+    _dtIO.observe(_dtSec);
+  } else {
+    dtAutoStart();
+  }
 }
 })();
 </script>
