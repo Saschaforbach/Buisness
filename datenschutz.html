@@ -9,6 +9,11 @@
 :root{--gold:#e4b15e;--gold-light:#f8dfa5;--black:#000;--dark-2:#111;--dark-card:#141414;--border:rgba(228,177,94,0.15);--border-strong:rgba(228,177,94,0.38);--text:#fff;--text-dim:#a0a0a0;--text-muted:#555;--font-d:'Oswald',sans-serif;--font-b:'Raleway',sans-serif;--font-m:'JetBrains Mono',monospace;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{scroll-behavior:smooth;overflow-x:hidden;}
+/* Sprache vor dem Rendern festlegen → kein Sprach-Flackern/Layout-Sprung */
+.de{display:block}.en{display:none}
+span.de{display:inline}span.en{display:none}
+body.lang-en .de{display:none}body.lang-en .en{display:block}
+body.lang-en span.en{display:inline}body.lang-en span.de{display:none}
 body{background:var(--black);color:var(--text);font-family:var(--font-b);line-height:1.6;}
 nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);border:1px solid var(--border-strong);border-radius:14px;padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:2rem;width:min(1200px,calc(100vw - 2rem));}
 .nav-logo{font-family:var(--font-d);font-size:1.2rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
