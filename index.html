@@ -4047,6 +4047,11 @@ html{scrollbar-width:thin;scrollbar-color:rgba(228,177,94,0.5) #0a0a0a;}
   -webkit-text-fill-color:transparent!important;color:#e4b15e!important;
 }
 
+/* ── 17. Mobil: Maschinen-Monitor auf die ersten 3 Karten kürzen (Desktop zeigt alle) ── */
+@media(max-width:900px){
+  .machines-monitor .monitor-card:nth-child(n+4){display:none!important;}
+}
+
 /* ── 6. Etwas mehr Weißraum in großen Sektionen (Desktop) ── */
 @media(min-width:901px){
   .section{padding-top:7rem;padding-bottom:7rem;}
