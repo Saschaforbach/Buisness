@@ -52,6 +52,123 @@
 const POSTS = [
 
   // ─────────────────────────────────────────────
+  // POST 16 — Kosten Maschinenstillstand (SEO)
+  // ─────────────────────────────────────────────
+  {
+    id: 16,
+    featured: false,
+    date: "2026-06-10",
+    dateFormatted: "10. Juni 2026",
+    readTime: "6 Min.",
+    category: "ROI & Wirtschaftlichkeit",
+    author: "Sascha Forbach",
+    title: "Was kostet eine Stunde Maschinenstillstand wirklich? Die ehrliche Rechnung für Fertigungsbetriebe",
+    excerpt: "Die meisten Betriebe unterschätzen ihre Stillstandskosten um den Faktor 3 — weil sie nur den Maschinenstundensatz rechnen. Wir zeigen die vollständige Kalkulation mit allen versteckten Kostenblöcken.",
+    tags: ["Maschinenstillstand", "Stillstandskosten", "Ungeplante Ausfälle", "OEE", "Fertigung"],
+    content: `
+      <p class="detail-lead">Wenn ein Fertigungsleiter sagt "die Maschine kostet uns 120 €/Stunde", meint er den Maschinenstundensatz. Die tatsächlichen Kosten eines ungeplanten Stillstands liegen meist beim Drei- bis Fünffachen.</p>
+      <h2>Die sichtbaren Kosten: nur die Spitze</h2>
+      <p>Der Maschinenstundensatz (Abschreibung, Energie, Fläche, Wartung) ist der einzige Kostenblock, den fast jeder Betrieb kennt. Bei einem 5-Achs-Bearbeitungszentrum liegt er typisch zwischen 80 und 150 €/Stunde. Doch er beschreibt nur, was die stehende Maschine kostet — nicht, was der Stillstand auslöst.</p>
+      <h2>Die versteckten Kostenblöcke</h2>
+      <ul>
+        <li><strong>Entgangener Deckungsbeitrag:</strong> Jede Stunde Stillstand ist eine Stunde nicht produzierter Teile. Bei ausgelasteter Fertigung sind das schnell 300–800 € pro Stunde — der größte Einzelposten.</li>
+        <li><strong>Personalkosten ohne Output:</strong> Maschinenbediener, Einrichter und oft die nachgelagerte Montage warten mit. Drei Mitarbeiter à 45 €/Stunde sind 135 €/Stunde — produktivlos.</li>
+        <li><strong>Express-Kosten der Reparatur:</strong> Ungeplant heißt: Ersatzteil per Express (Aufschlag 50–200 %), Servicetechniker mit Wochenend-Zuschlag, keine Verhandlungsposition.</li>
+        <li><strong>Folgeschäden am Bauteil:</strong> Ein Spindelcrash beschädigt selten nur die Spindel. Werkstück, Werkzeug und teils die Achsmechanik kommen dazu.</li>
+        <li><strong>Vertragsstrafen und Liefertreue:</strong> Bei Just-in-time-Verträgen mit OEMs drohen Pönalen — und der langfristige Schaden beim Lieferanten-Rating ist schwer bezifferbar.</li>
+      </ul>
+      <h2>Beispielrechnung: 5-Achs-Zentrum, 14 Stunden ungeplanter Ausfall</h2>
+      <ul>
+        <li>Maschinenstundensatz: 14 h × 120 € = 1.680 €</li>
+        <li>Entgangener Deckungsbeitrag: 14 h × 450 € = 6.300 €</li>
+        <li>Wartendes Personal: 14 h × 135 € = 1.890 €</li>
+        <li>Express-Ersatzteil + Wochenendeinsatz: 4.800 €</li>
+        <li>Ausschuss des laufenden Auftrags: 1.200 €</li>
+      </ul>
+      <p><strong>Gesamt: 15.870 €</strong> — gegenüber den 1.680 €, die in der klassischen Rechnung auftauchen. Faktor 9,4.</p>
+      <div class="highlight-box">
+        <strong>Faustregel:</strong> Rechnen Sie Ihren Maschinenstundensatz mal 3 bis 5 — das ist die realistische Untergrenze Ihrer Stillstandskosten pro Stunde. Bei verketteten Anlagen oder Engpassmaschinen eher mal 8 bis 10.
+      </div>
+      <h2>Der Unterschied: geplant vs. ungeplant</h2>
+      <p>Derselbe Lagertausch kostet als geplante Maßnahme in der Nachtschicht einen Bruchteil: Ersatzteil zur Normallieferzeit, Stillstand außerhalb der Produktivzeit, kein Ausschuss, kein wartendes Personal. Genau dieser Unterschied — ungeplant zu geplant — ist der wirtschaftliche Kern von Predictive Maintenance: Die Sensorik kündigt den Schaden 48–96 Stunden vorher an, und aus einem 15.000-€-Ereignis wird ein 2.000-€-Wartungstermin.</p>
+      <h2>Was Sie jetzt tun können</h2>
+      <p>Rechnen Sie die Kalkulation oben einmal für Ihre Engpassmaschine durch. Wenn das Ergebnis pro Ausfall fünfstellig ist, amortisiert sich eine permanente Zustandsüberwachung in der Regel mit dem ersten verhinderten Stillstand.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 17 — Vibrationsanalyse ISO 10816 (SEO)
+  // ─────────────────────────────────────────────
+  {
+    id: 17,
+    featured: false,
+    date: "2026-06-05",
+    dateFormatted: "5. Juni 2026",
+    readTime: "6 Min.",
+    category: "CNC",
+    author: "Sascha Forbach",
+    title: "Vibrationsanalyse an Werkzeugmaschinen: ISO-Grenzwerte einfach erklärt",
+    excerpt: "Ab welcher Schwinggeschwindigkeit wird es kritisch? Wir übersetzen die ISO-Bewertungszonen in die Praxis — und erklären, warum ein einzelner Messwert weniger sagt als der Trend.",
+    tags: ["Vibrationsanalyse", "ISO 10816", "Schwinggeschwindigkeit", "Werkzeugmaschinen", "Condition Monitoring"],
+    content: `
+      <p class="detail-lead">2,8 mm/s — diese Zahl sollte jeder Fertigungsleiter kennen. Ab dieser Schwinggeschwindigkeit gilt der Zustand vieler Werkzeugmaschinen als kritisch. Doch der Grenzwert allein erzählt nur die halbe Geschichte.</p>
+      <h2>Die Bewertungszonen im Überblick</h2>
+      <p>Die Normenreihe ISO 10816 / ISO 20816 teilt den Maschinenzustand anhand der effektiven Schwinggeschwindigkeit (mm/s RMS) in vier Zonen ein:</p>
+      <ul>
+        <li><strong>Zone A (neuwertig):</strong> bis ca. 0,71 mm/s — Zustand einer frisch in Betrieb genommenen Maschine.</li>
+        <li><strong>Zone B (dauerbetriebstauglich):</strong> bis ca. 1,8 mm/s — unbedenklich für den Langzeitbetrieb.</li>
+        <li><strong>Zone C (eingeschränkt):</strong> bis ca. 4,5 mm/s — Betrieb nur noch zeitlich begrenzt vertretbar, Ursache klären und Instandhaltung planen.</li>
+        <li><strong>Zone D (kritisch):</strong> darüber — Schäden an der Maschine sind zu erwarten, kurzfristiges Handeln erforderlich.</li>
+      </ul>
+      <p>Wichtig: Die genauen Grenzen hängen von Maschinengröße, Fundament und Drehzahlbereich ab. Für präzise Werkzeugmaschinen gelten in der Praxis oft strengere Hausgrenzwerte, weil die Bearbeitungsqualität schon weit vor Zone D leidet.</p>
+      <h2>Warum der Einzelmesswert trügt</h2>
+      <p>Eine Maschine bei 1,5 mm/s kann gesünder sein als eine bei 0,9 mm/s — entscheidend ist der Verlauf. Ein Lagerschaden zeigt sich typisch als schleichender Anstieg über Tage bis Wochen, oft zuerst nur in bestimmten Frequenzbändern. Wer einmal im Quartal mit dem Handmessgerät misst, sieht diesen Trend nicht. Permanente Sensorik erfasst ihn automatisch und erkennt zusätzlich die charakteristischen Schadensfrequenzen (BPFO, BPFI, BSF), die verraten, <em>welches</em> Bauteil betroffen ist — nicht nur, <em>dass</em> etwas schwingt.</p>
+      <div class="highlight-box">
+        <strong>Praxis-Tipp:</strong> Messen Sie immer an denselben Punkten (Lagernähe, Spindelstock) und bei denselben Betriebsbedingungen (Drehzahl, ohne Zerspanung). Nur vergleichbare Messungen ergeben einen aussagekräftigen Trend.
+      </div>
+      <h2>Vom Grenzwert zum Frühwarnsystem</h2>
+      <p>Statische Grenzwerte behandeln jede Maschine gleich. Moderne Systeme lernen stattdessen das individuelle Schwingungsprofil jeder Maschine im Normalzustand und alarmieren bei Abweichungen — auch wenn der absolute Wert noch in Zone B liegt. So entsteht aus einer Norm-Tabelle ein echtes Frühwarnsystem mit 48–96 Stunden Vorlauf vor dem Ausfall.</p>
+      <h2>Fazit</h2>
+      <p>Die ISO-Zonen sind der richtige Startpunkt: Über 2,8 mm/s sollten bei Werkzeugmaschinen die Alarmglocken läuten. Wer aber planbar statt reaktiv instand halten will, braucht den Trend — und der entsteht nur durch kontinuierliche Messung.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 18 — Condition Monitoring vs. Predictive Maintenance (SEO)
+  // ─────────────────────────────────────────────
+  {
+    id: 18,
+    featured: false,
+    date: "2026-06-01",
+    dateFormatted: "1. Juni 2026",
+    readTime: "5 Min.",
+    category: "Technologie",
+    author: "Sascha Forbach",
+    title: "Condition Monitoring vs. Predictive Maintenance: Der Unterschied — und warum er über Ihren ROI entscheidet",
+    excerpt: "Beide Begriffe werden im Vertrieb gern vermischt. Dabei trennt sie genau eine Fähigkeit: der Blick nach vorn. Wir erklären die vier Stufen der Instandhaltung und woran Sie echte Vorhersage erkennen.",
+    tags: ["Condition Monitoring", "Predictive Maintenance", "Instandhaltungsstrategie", "Industrie 4.0", "KI"],
+    content: `
+      <p class="detail-lead">Condition Monitoring sagt Ihnen, wie es Ihrer Maschine jetzt geht. Predictive Maintenance sagt Ihnen, wie es ihr in 72 Stunden gehen wird. Dieser Unterschied entscheidet darüber, ob Sie reagieren oder planen.</p>
+      <h2>Die vier Stufen der Instandhaltung</h2>
+      <ul>
+        <li><strong>Reaktiv:</strong> Reparieren, wenn es kaputt ist. Maximale Stillstandskosten, null Planbarkeit.</li>
+        <li><strong>Präventiv:</strong> Wartung nach festen Intervallen (Betriebsstunden, Kalender). Besser — aber es werden auch intakte Teile getauscht, und Schäden zwischen den Intervallen bleiben unentdeckt.</li>
+        <li><strong>Zustandsorientiert (Condition Monitoring):</strong> Sensoren überwachen kontinuierlich Vibration, Temperatur, Strom. Bei Grenzwertüberschreitung gibt es einen Alarm. Sie wissen, <em>dass</em> etwas nicht stimmt — sofort.</li>
+        <li><strong>Vorausschauend (Predictive Maintenance):</strong> KI-Modelle lernen das Normalverhalten jeder Maschine, erkennen schleichende Anomalien und prognostizieren die verbleibende Restlaufzeit. Sie wissen, <em>was</em> kommt und <em>wann</em> — Tage im Voraus.</li>
+      </ul>
+      <h2>Warum die Verwechslung teuer ist</h2>
+      <p>Viele Systeme am Markt sind klassisches Condition Monitoring mit festen Schwellenwerten — verkauft als "Predictive". Der Praxisunterschied: Ein Grenzwert-Alarm kommt oft erst, wenn der Schaden fortgeschritten ist. Dann bleiben Stunden statt Tage — zu wenig, um Ersatzteil, Personal und ein Produktionsfenster zu organisieren. Der wirtschaftliche Hebel von Predictive Maintenance liegt aber genau in diesem Vorlauf: Aus einem ungeplanten Ausfall wird ein geplanter Wartungstermin in der Nachtschicht.</p>
+      <div class="highlight-box">
+        <strong>Woran Sie echte Vorhersage erkennen:</strong> Fragen Sie den Anbieter, ob das System das Normalverhalten Ihrer konkreten Maschine lernt (statt nur Werks-Grenzwerte zu prüfen), ob es eine Vorwarnzeit in Stunden/Tagen liefert und ob es zwischen Schadensarten unterscheiden kann (Lager, Unwucht, Schmierung). Dreimal Ja = Predictive. Dreimal Nein = Grenzwert-Wächter.
+      </div>
+      <h2>Brauchen Sie überhaupt die höchste Stufe?</h2>
+      <p>Nicht jede Maschine rechtfertigt KI-Überwachung. Die ehrliche Antwort: Für unkritische Aggregate mit günstigen Ersatzteilen reicht präventive Wartung. Für Engpassmaschinen, verkettete Anlagen und Spindeln mit fünfstelligen Folgekosten pro Ausfall ist der Vorlauf von Predictive Maintenance dagegen bares Geld — die Amortisation gelingt häufig schon mit dem ersten verhinderten Stillstand.</p>
+      <h2>Fazit</h2>
+      <p>Condition Monitoring ist der Tacho, Predictive Maintenance das Navi mit Stauwarnung. Beides hat seinen Platz — aber nur eines verschafft Ihnen die Zeit, dem Stau auszuweichen.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
   // POST 11 — CNC Spindel Geräusche
   // ─────────────────────────────────────────────
   {
