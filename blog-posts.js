@@ -56,6 +56,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 16,
+    slug: "was-kostet-eine-stunde-maschinenstillstand",
     featured: false,
     date: "2026-06-10",
     dateFormatted: "10. Juni 2026",
@@ -101,6 +102,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 17,
+    slug: "vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte",
     featured: false,
     date: "2026-06-05",
     dateFormatted: "5. Juni 2026",
@@ -138,6 +140,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 18,
+    slug: "condition-monitoring-vs-predictive-maintenance",
     featured: false,
     date: "2026-06-01",
     dateFormatted: "1. Juni 2026",
@@ -173,6 +176,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 11,
+    slug: "cnc-spindel-geraeusche-ursachen",
     featured: false,
     date: "2026-05-20",
     dateFormatted: "20. Mai 2026",
@@ -207,6 +211,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 12,
+    slug: "vorschubachsen-cnc-verschleissmuster",
     featured: false,
     date: "2026-05-15",
     dateFormatted: "15. Mai 2026",
@@ -239,6 +244,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 13,
+    slug: "oee-unter-75-prozent-hauptursachen",
     featured: false,
     date: "2026-05-10",
     dateFormatted: "10. Mai 2026",
@@ -272,6 +278,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 14,
+    slug: "waelzlagerschaden-frueh-erkennen-vibrationsmuster",
     featured: false,
     date: "2026-05-05",
     dateFormatted: "5. Mai 2026",
@@ -307,6 +314,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 15,
+    slug: "werkzeugwechsler-cnc-ausfall-frueher-erkennen",
     featured: false,
     date: "2026-04-28",
     dateFormatted: "28. April 2026",
@@ -340,6 +348,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 1,
+    slug: "3-sigma-alarme-vs-ki-anomalieerkennung",
     featured: true,
     date: "2026-05-20",
     dateFormatted: "20. Mai 2026",
@@ -423,6 +432,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 2,
+    slug: "fallstudie-5-achs-cnc-spindelausfall-verhindert",
     featured: false,
     date: "2026-05-08",
     dateFormatted: "8. Mai 2026",
@@ -475,6 +485,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 3,
+    slug: "opc-ua-vs-mqtt-produktionsdaten",
     featured: false,
     date: "2026-04-22",
     dateFormatted: "22. April 2026",
@@ -530,6 +541,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 4,
+    slug: "roi-predictive-maintenance-berechnen",
     featured: false,
     date: "2026-04-10",
     dateFormatted: "10. April 2026",
@@ -582,6 +594,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 5,
+    slug: "kuehlmittelueberwachung-cnc-fraeszentren",
     featured: false,
     date: "2026-03-28",
     dateFormatted: "28. März 2026",
@@ -625,6 +638,7 @@ const POSTS = [
   // ─────────────────────────────────────────────
   {
     id: 6,
+    slug: "edge-computing-vs-cloud-ki",
     featured: false,
     date: "2026-03-14",
     dateFormatted: "14. März 2026",

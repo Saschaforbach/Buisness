@@ -1,63 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
     <loc>https://forbachandpartners.com/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://forbachandpartners.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://forbachandpartners.com/?lang=en"/>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/ueber-uns.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/cnc-fraeszentren.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/kontakt.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/blog.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/maschine-3d.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/impressum.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <url>
     <loc>https://forbachandpartners.com/datenschutz.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-was-kostet-eine-stunde-maschinenstillstand.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-condition-monitoring-vs-predictive-maintenance.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-cnc-spindel-geraeusche-ursachen.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-oee-unter-75-prozent-hauptursachen.html</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-fallstudie-5-achs-cnc-spindelausfall-verhindert.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-opc-ua-vs-mqtt-produktionsdaten.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-roi-predictive-maintenance-berechnen.html</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-kuehlmittelueberwachung-cnc-fraeszentren.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://forbachandpartners.com/blog-edge-computing-vs-cloud-ki.html</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>

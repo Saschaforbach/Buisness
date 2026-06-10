@@ -109,7 +109,7 @@ nav {
   letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.25rem; }
 .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
 .blog-hero h1 { font-family: var(--font-d); font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 0.95; letter-spacing: 2px; margin-bottom: 1.2rem; }
+  line-height: 1.12; letter-spacing: 2px; margin-bottom: 1.2rem; }
 .blog-hero h1 .gold { background: linear-gradient(135deg, #e4b15e, #f8dfa5, #c49040);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .blog-hero-sub { font-size: 1rem; color: var(--text-dim); max-width: 560px; line-height: 1.7; }
@@ -156,6 +156,7 @@ nav {
   background: var(--dark-card); border: 1px solid var(--border);
   border-radius: 18px; overflow: hidden;
   transition: all 0.35s; cursor: pointer; display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
 }
 .post-card::before {
   content: ''; display: block; height: 3px;
@@ -506,8 +507,8 @@ function filterPosts() {
 
   const grid = document.getElementById('postGrid');
   grid.innerHTML = visible.map((p, i) => `
-    <article class="post-card${p.featured && i === 0 ? ' featured' : ''} reveal"
-             onclick="openPost(${p.id})"
+    <a class="post-card${p.featured && i === 0 ? ' featured' : ''} reveal"
+             href="blog-${p.slug}.html"
              itemscope itemtype="https://schema.org/BlogPosting">
       <div class="post-card-header">
         <div class="post-cat-badge">${p.category}</div>
@@ -524,7 +525,7 @@ function filterPosts() {
         </div>
         <span class="post-read-more">${t('Lesen →', 'Read →')}</span>
       </div>
-    </article>
+    </a>
   `).join('');
 
   document.getElementById('noResults').style.display = visible.length === 0 ? 'block' : 'none';
