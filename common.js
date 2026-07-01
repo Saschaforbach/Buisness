@@ -146,11 +146,33 @@ document.addEventListener('DOMContentLoaded', function(){
     if(b){ b.style.opacity='0'; b.style.transform='translateY(20px)'; setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); },400); }
   }
 
-  function accept(){ setCookie(COOKIE_KEY,'accepted'); removeBanner(); }
+  // LinkedIn Insight Tag — laedt NUR nach ausdruecklicher Einwilligung (DSGVO/TTDSG)
+  var LI_PARTNER_ID = '10395825';
+  var liTagLoaded = false;
+  function loadLinkedInInsightTag(){
+    if(liTagLoaded) return;
+    liTagLoaded = true;
+    window._linkedin_partner_id = LI_PARTNER_ID;
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(LI_PARTNER_ID);
+    (function(l){
+      if(!l){ window.lintrk = function(a,b){ window.lintrk.q.push([a,b]); }; window.lintrk.q=[]; }
+      var s = document.getElementsByTagName('script')[0];
+      var b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+  }
+
+  function accept(){ setCookie(COOKIE_KEY,'accepted'); removeBanner(); loadLinkedInInsightTag(); }
   function reject(){ setCookie(COOKIE_KEY,'rejected'); removeBanner(); }
 
   window.cookieAccept = accept;
   window.cookieReject = reject;
+
+  // Wiederkehrende Besucher, die bereits zugestimmt haben: Tag direkt laden
+  if(getCookie(COOKIE_KEY) === 'accepted'){ loadLinkedInInsightTag(); }
 
   document.addEventListener('DOMContentLoaded', function(){
     if(getCookie(COOKIE_KEY)) return; // schon entschieden
@@ -162,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <div style="flex:1;min-width:220px;">
           <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#e4b15e;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.4rem;">🍪 Datenschutz</div>
           <p style="font-size:0.78rem;color:#a0a0a0;line-height:1.65;margin:0;">
-            Diese Website speichert Ihre Spracheinstellung lokal in Ihrem Browser (kein Tracking, keine Weitergabe). Mehr dazu in unserer
+            Wir speichern Ihre Spracheinstellung lokal (notwendig). Nur mit Ihrer Zustimmung setzen wir zusaetzlich den LinkedIn Insight Tag ein, um die Reichweite unserer Anzeigen zu messen. Mit „Ablehnen" wird kein Tracking geladen. Mehr dazu in unserer
             <a href="datenschutz.html" style="color:#e4b15e;text-decoration:none;border-bottom:1px solid rgba(228,177,94,0.3);">Datenschutzerklärung</a>.
           </p>
         </div>
