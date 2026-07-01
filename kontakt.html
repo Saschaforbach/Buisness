@@ -36,7 +36,7 @@ nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;back
 .hero-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;}
 .eyebrow{display:inline-flex;align-items:center;gap:0.75rem;font-family:var(--font-m);font-size:0.65rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;}
 .eyebrow::before,.eyebrow::after{content:'';width:24px;height:1px;background:var(--gold);}
-h1{font-family:var(--font-d);font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.92;letter-spacing:2px;margin-bottom:1rem;}
+h1{font-family:var(--font-d);font-size:clamp(2.5rem,6vw,5.5rem);line-height:1.12;letter-spacing:2px;margin-bottom:1rem;}
 .gold{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .hero-sub{font-size:1rem;color:var(--text-dim);line-height:1.75;max-width:560px;margin:0 auto;}
 
@@ -47,7 +47,7 @@ h1{font-family:var(--font-d);font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.92
 .contact-info-card{background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
 .contact-info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 .ci-label{font-family:var(--font-m);font-size:0.58rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:0.5rem;}
-.ci-title{font-family:var(--font-d);font-size:2rem;letter-spacing:1px;margin-bottom:2rem;line-height:0.95;}
+.ci-title{font-family:var(--font-d);font-size:2rem;letter-spacing:1px;margin-bottom:2rem;line-height:1.12;}
 .ci-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
 .ci-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .ci-icon{width:40px;height:40px;background:rgba(228,177,94,0.1);border:1px solid rgba(228,177,94,0.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
@@ -263,11 +263,11 @@ html,body{overflow-x:hidden;max-width:100vw;}
         <span class="en">Free · No Obligation · 20 Minutes</span>
       </p>
 
-      <form id="kontaktForm" onsubmit="submitKontakt(event)">
-        <input type="hidden" name="access_key" value="7f37e43d-150e-4ecd-8b4d-b0a79a4bf330">
-        <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners">
-        <input type="hidden" name="from_name" value="Forbach & Partners Website">
-        <input type="hidden" name="redirect" value="false">
+      <form id="kontaktForm" action="https://formular.forbachandpartners.com/kontakt.php" method="POST">
+        <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners (Kontaktseite)">
+        <input type="hidden" name="source" value="Kontaktseite">
+        <!-- Spamschutz (Honeypot): bleibt für Menschen unsichtbar und muss leer sein -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
 
         <div style="margin-bottom:1rem;">
           <div class="fl" style="margin-bottom:0.6rem;">
@@ -376,27 +376,14 @@ function selectPlat(el, val){
   document.getElementById('platVal').value = val;
 }
 
-async function submitKontakt(e){
-  e.preventDefault();
+// Absenden läuft jetzt nativ über das PHP-Skript (All-Inkl) → Weiterleitung auf danke.html.
+// Kleiner Komfort: Button beim Klick auf "wird gesendet…" setzen.
+document.getElementById('kontaktForm').addEventListener('submit', function(){
   var btn = document.getElementById('kontaktSubmitBtn');
   var isEn = document.body.classList.contains('lang-en');
   btn.disabled = true;
-  btn.innerHTML = isEn ? 'SENDING…' : 'WIRD GESENDET…';
-  try {
-    var res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: new FormData(e.target) });
-    var json = await res.json();
-    if(json.success){
-      document.getElementById('kontaktSuccess').style.display = 'block';
-      btn.style.display = 'none';
-    } else { throw new Error(); }
-  } catch(err){
-    btn.disabled = false;
-    btn.innerHTML = isEn
-      ? '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE DISCOVERY CALL →</span>'
-      : '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE DISCOVERY CALL →</span>';
-    document.getElementById('kontaktError').style.display = 'block';
-  }
-}
+  btn.innerHTML = isEn ? 'WIRD GESENDET…' : 'WIRD GESENDET…';
+});
 </script>
 <script src="common.js"></script>
 

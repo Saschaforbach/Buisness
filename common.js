@@ -13,11 +13,11 @@
     <h3 style="font-family:'Oswald',sans-serif;font-size:2rem;letter-spacing:1px;margin-bottom:0.5rem;color:#fff;">TERMIN<br><span style="background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">VEREINBAREN</span></h3>
     <p style="font-size:0.82rem;color:#a0a0a0;margin-bottom:1.75rem;line-height:1.6;">In 20 Minuten sehen Sie ob und wie wir Ihre Anlage überwachen können. Wählen Sie Ihr bevorzugtes Meeting-Format:</p>
 
-    <form id="terminForm" onsubmit="submitTermin(event)">
-      <input type="hidden" name="access_key" value="7f37e43d-150e-4ecd-8b4d-b0a79a4bf330">
-      <input type="hidden" name="subject" value="Neuer Terminwunsch — Forbach & Partners">
-      <input type="hidden" name="from_name" value="Forbach & Partners Website">
-      <input type="hidden" name="redirect" value="false">
+    <form id="terminForm" action="https://formular.forbachandpartners.com/kontakt.php" method="POST">
+      <input type="hidden" name="subject" value="Neuer Terminwunsch — Forbach & Partners (Popup)">
+      <input type="hidden" name="source" value="Termin-Popup">
+      <!-- Spamschutz (Honeypot): unsichtbar, muss leer bleiben -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
 
       <!-- Plattform-Auswahl -->
       <div style="margin-bottom:1.25rem;">
@@ -120,22 +120,15 @@ function closeTerminModal(){
   var m = document.getElementById('terminModal');
   if(m){ m.style.display = 'none'; document.body.style.overflow = ''; }
 }
-async function submitTermin(e){
-  e.preventDefault();
-  var btn = document.getElementById('terminSubmitBtn');
-  btn.disabled = true; btn.textContent = 'WIRD GESENDET…';
-  try {
-    var res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: new FormData(e.target) });
-    var json = await res.json();
-    if(json.success){
-      document.getElementById('terminSuccess').style.display = 'block';
-      btn.style.display = 'none';
-    } else { throw new Error(); }
-  } catch(err){
-    btn.disabled = false; btn.textContent = 'TERMIN ANFRAGEN →';
-    document.getElementById('terminError').style.display = 'block';
-  }
-}
+// Absenden läuft jetzt nativ über das PHP-Skript (All-Inkl) → Weiterleitung auf danke.html.
+document.addEventListener('DOMContentLoaded', function(){
+  var f = document.getElementById('terminForm');
+  if(!f) return;
+  f.addEventListener('submit', function(){
+    var btn = document.getElementById('terminSubmitBtn');
+    if(btn){ btn.disabled = true; btn.textContent = 'WIRD GESENDET…'; }
+  });
+});
 
 /* ── COOKIE BANNER ── */
 (function(){

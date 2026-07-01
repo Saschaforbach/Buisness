@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spindelschäden erkennen, bevor sie passieren | Forbach &amp; Partners</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Raleway:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #e4b15e;
+    --gold-light: #f8dfa5;
+    --gold-dark: #c49040;
+    --black: #000000;
+    --dark: #0a0a0a;
+    --dark-2: #111111;
+    --dark-3: #1a1a1a;
+    --dark-card: #141414;
+    --border: rgba(228,177,94,0.18);
+    --border-strong: rgba(228,177,94,0.4);
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+    --text-muted: #5a5a5a;
+    --green: #00ff88;
+    --red: #ff3860;
+    --amber: #ffb800;
+    --blue: #00b4ff;
+  }
+  body { background: var(--black); color: var(--text); font-family: 'Raleway', sans-serif; }
+  .font-display { font-family: 'Oswald', sans-serif; line-height: 1.25; }
+  h2.font-display, h3.font-display { line-height: 1.3; }
+  .font-mono2 { font-family: 'JetBrains Mono', monospace; }
+  .gold-text { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gold-btn { background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e); color: #000; box-shadow: 0 4px 24px rgba(228,177,94,0.25); transition: all .2s; }
+  .gold-btn:hover { box-shadow: 0 6px 32px rgba(228,177,94,0.45); transform: translateY(-2px); }
+  .card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 16px; transition: border-color .3s; }
+  .card:hover { border-color: var(--border-strong); }
+  .section-label { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  input, select { background: var(--dark-3) !important; border: 1px solid var(--border) !important; color: #fff !important; }
+  input::placeholder { color: var(--text-muted) !important; }
+  input:focus, select:focus { outline: none; border-color: var(--border-strong) !important; }
+  input[type=range] { accent-color: var(--gold); border: none !important; background: transparent !important; }
+  @keyframes pulse-red { 0%,100% { opacity:1 } 50% { opacity:.4 } }
+  .alarm { animation: pulse-red 1s infinite; }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="max-w-5xl mx-auto px-5 pt-14 pb-10 text-center" style="background: radial-gradient(ellipse at top, rgba(228,177,94,0.07), transparent 60%);">
+  <p class="section-label inline-block border rounded-full px-4 py-1.5 mb-6" style="border-color: var(--border-strong); background: rgba(228,177,94,0.08);">Für Instandhaltung · Produktion · Geschäftsführung</p>
+  <h1 class="font-display text-4xl md:text-6xl font-bold uppercase tracking-wide" style="line-height:1.25;">Ein Spindelschaden kündigt sich <span class="gold-text">4–6 Wochen vorher</span> an.<br>Hören Sie ihn rechtzeitig.</h1>
+  <p class="mt-6 text-lg max-w-2xl mx-auto" style="color: var(--text-dim);">Vibrationssensoren am Achslager + KI-Anomalie-Erkennung melden Lagerschäden, bevor die Maschine steht. Wartung wandert ins geplante Wochenende – statt in die Nachtschicht mit Terminverzug.</p>
+  <a href="#demo-buchen" class="gold-btn inline-block mt-8 font-bold text-lg px-9 py-4 rounded-xl">15-MINUTEN-LIVE-DEMO BUCHEN →</a>
+  <p class="font-mono2 mt-4 text-xs" style="color: var(--text-muted); letter-spacing: 2px;">KEIN FOLIEN-PITCH · WIR ZEIGEN DAS ECHTE SYSTEM</p>
+</section>
+
+<!-- ============ LIVE-DEMO ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10">
+  <div class="card p-6 md:p-8" style="background: var(--dark-2);">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div>
+        <p class="section-label mb-2">● Live Telemetrie</p>
+        <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide">Bearbeitungszentrum BAZ-03 · Achslager X</h2>
+        <p class="font-mono2 text-xs mt-1" style="color: var(--text-muted);">Schwingungsamplitude in Echtzeit · dynamischer 3σ-Schwellenwert · simulierte Daten</p>
+      </div>
+      <div id="status-badge" class="flex items-center gap-2 rounded-full px-4 py-2" style="background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.35);">
+        <span id="status-dot" class="w-3 h-3 rounded-full" style="background: var(--green);"></span>
+        <span id="status-text" class="font-mono2 text-sm font-bold" style="color: var(--green);">STATUS: GRÜN – LAGER UNAUFFÄLLIG</span>
+      </div>
+    </div>
+    <canvas id="vibChart" class="w-full rounded-xl" style="background: var(--black); border: 1px solid var(--border);" height="240"></canvas>
+    <div class="flex flex-wrap gap-4 mt-5 text-sm items-center">
+      <button onclick="triggerAnomaly()" id="anomalyBtn" class="gold-btn font-bold px-6 py-3 rounded-xl">▶ LAGERSCHADEN SIMULIEREN</button>
+      <button onclick="resetSim()" class="font-bold px-6 py-3 rounded-xl" style="background: var(--dark-3); border: 1px solid var(--border); color: var(--text-dim);">↺ Zurücksetzen</button>
+      <p style="color: var(--text-dim);">Klicken Sie auf "Lagerschaden simulieren" – genau so meldet sich das System Wochen vor dem Ausfall, per SMS und E-Mail.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STILLSTANDSKOSTEN-RECHNER ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10">
+  <div class="card p-6 md:p-8" style="background: linear-gradient(135deg, rgba(228,177,94,0.08), var(--dark-2) 55%); border-color: var(--border-strong);">
+    <p class="section-label mb-2">ROI-Kalkulator</p>
+    <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide">Was kostet Sie ein ungeplanter <span class="gold-text">Stillstand</span> wirklich?</h2>
+    <p class="text-sm mt-1 mb-7" style="color: var(--text-dim);">Rechnen Sie es in 10 Sekunden für Ihren Maschinenpark aus.</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div>
+        <label class="text-sm font-semibold flex justify-between" style="color: var(--text-dim);">CNC-Maschinen im Werk <span id="v-machines" class="font-mono2 font-bold" style="color: var(--gold);">8</span></label>
+        <input type="range" id="machines" min="1" max="40" value="8" class="w-full mt-2" oninput="roi()">
+      </div>
+      <div>
+        <label class="text-sm font-semibold flex justify-between" style="color: var(--text-dim);">Stillstandskosten €/Stunde <span id="v-cost" class="font-mono2 font-bold" style="color: var(--gold);">1.200 €</span></label>
+        <input type="range" id="cost" min="300" max="5000" step="100" value="1200" class="w-full mt-2" oninput="roi()">
+      </div>
+      <div>
+        <label class="text-sm font-semibold flex justify-between" style="color: var(--text-dim);">Ungeplante Ausfälle/Jahr (gesamt) <span id="v-fails" class="font-mono2 font-bold" style="color: var(--gold);">4</span></label>
+        <input type="range" id="fails" min="1" max="20" value="4" class="w-full mt-2" oninput="roi()">
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-8 text-center">
+      <div class="rounded-2xl p-5" style="background: rgba(255,56,96,0.06); border: 1px solid rgba(255,56,96,0.25);">
+        <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--text-muted); letter-spacing: 2px;">Ihr jährliches Risiko</p>
+        <p id="r-risk" class="font-display text-3xl font-bold mt-1" style="color: var(--red);">–</p>
+        <p class="text-xs mt-1" style="color: var(--text-muted);">Ø 36 h Stillstand je Spindelschaden (Reparatur + Ersatzteil + Anlauf)</p>
+      </div>
+      <div class="rounded-2xl p-5" style="background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.25);">
+        <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--text-muted); letter-spacing: 2px;">Vermeidbar mit Früherkennung</p>
+        <p id="r-saved" class="font-display text-3xl font-bold mt-1" style="color: var(--green);">–</p>
+        <p class="text-xs mt-1" style="color: var(--text-muted);">~70 % der Ausfälle kündigen sich im Schwingungsbild an</p>
+      </div>
+      <div class="rounded-2xl p-5" style="background: rgba(228,177,94,0.06); border: 1px solid var(--border-strong);">
+        <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--text-muted); letter-spacing: 2px;">Amortisation</p>
+        <p id="r-payback" class="font-display text-3xl font-bold mt-1 gold-text">–</p>
+        <p class="text-xs mt-1" style="color: var(--text-muted);">bezogen auf Systemkosten Jahr 1</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 SCHRITTE ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10">
+  <p class="section-label text-center mb-2">So funktioniert es</p>
+  <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide text-center mb-8">In 3 Schritten zur <span class="gold-text">vorausschauenden Wartung</span></h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card p-6">
+      <div class="font-display text-3xl font-bold gold-text">01</div>
+      <h3 class="font-bold text-lg mt-2">Sensor ans Achslager</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Beschleunigungssensor wird am Lager montiert – ohne Eingriff in die Maschinensteuerung. Anbindung per MQTT oder OPC UA an unser Gateway. Montage: unter 2 Stunden pro Maschine.</p>
+    </div>
+    <div class="card p-6">
+      <div class="font-display text-3xl font-bold gold-text">02</div>
+      <h3 class="font-bold text-lg mt-2">KI lernt Ihre Maschine</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Das Modell lernt 2–3 Wochen die normale Schwingungssignatur Ihrer Maschine – jede Maschine bekommt ihren eigenen, dynamischen Schwellenwert. Keine starren Grenzwerte aus dem Katalog.</p>
+    </div>
+    <div class="card p-6">
+      <div class="font-display text-3xl font-bold gold-text">03</div>
+      <h3 class="font-bold text-lg mt-2">Alarm vor dem Ausfall</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Weicht das Lager vom Normalbild ab, geht der Status auf Rot – SMS und E-Mail an Ihre Instandhaltung, Wochen vor dem Schaden. Sie planen die Wartung, statt ihr hinterherzulaufen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WAS WIR BIETEN ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10" style="background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <p class="section-label text-center mb-2">Leistungsumfang</p>
+  <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide text-center">Ein <span class="gold-text">Komplettsystem</span>, kein Bastelprojekt</h2>
+  <p class="text-center text-sm mt-2 mb-8 max-w-2xl mx-auto" style="color: var(--text-dim);">Hardware, KI-Software und Service aus einer Hand – Sie brauchen weder eine IT-Abteilung noch einen Data Scientist.</p>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card p-6">
+      <div class="text-2xl">📡</div>
+      <h3 class="font-bold text-lg mt-2">Industrie-Sensorik &amp; Montage</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Hochfrequente Beschleunigungssensoren (kHz-Bereich) direkt am Achslager. Montage durch unser Team in unter 2 Stunden pro Maschine – im laufenden Betrieb, ohne Eingriff in die Steuerung. Funktioniert auch an 20 Jahre alten Maschinen (Retrofit).</p>
+    </div>
+    <div class="card p-6">
+      <div class="text-2xl">🔌</div>
+      <h3 class="font-bold text-lg mt-2">Gateway &amp; sichere Anbindung</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Datenübertragung per MQTT oder OPC UA an unser Industrie-Gateway. Verarbeitung wahlweise komplett on-premise in Ihrer Werkshalle oder in deutscher Cloud – Ihre Produktionsdaten verlassen das Haus nur, wenn Sie es wollen. DSGVO-konform.</p>
+    </div>
+    <div class="card p-6">
+      <div class="text-2xl">🧠</div>
+      <h3 class="font-bold text-lg mt-2">KI-Anomalie-Erkennung</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Jede Maschine bekommt ihr eigenes, selbstlernendes Modell (Isolation Forest + Deep-Learning-Autoencoder für Zeitreihen). Kein starrer Katalog-Grenzwert: Das System lernt die individuelle Schwingungssignatur Ihrer Maschine und erkennt schleichende Veränderungen Wochen im Voraus.</p>
+    </div>
+    <div class="card p-6">
+      <div class="text-2xl">📊</div>
+      <h3 class="font-bold text-lg mt-2">Live-Dashboard für die Werkshalle</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Ampelstatus aller Maschinen auf einen Blick – optimiert für Tablet und Großbildschirm in der Halle. Trendverläufe, Restlaufzeit-Indikation und Wartungshistorie je Maschine. Ihre Schichtleiter sehen sofort, wo Handlungsbedarf entsteht.</p>
+    </div>
+    <div class="card p-6">
+      <div class="text-2xl">🚨</div>
+      <h3 class="font-bold text-lg mt-2">Alarme, die ankommen</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Überschreitet die Schwingung den gelernten Schwellenwert nachhaltig, geht der Status auf Rot – mit sofortiger SMS und E-Mail an Ihre Instandhaltung. Eskalationskette frei konfigurierbar: erst Techniker, dann Leiter, dann Geschäftsführung.</p>
+    </div>
+    <div class="card p-6">
+      <div class="text-2xl">🛠</div>
+      <h3 class="font-bold text-lg mt-2">Service &amp; Modellpflege inklusive</h3>
+      <p class="text-sm mt-2" style="color: var(--text-dim);">Die monatliche Wartungspauschale deckt alles ab: Modell-Updates, Sensor-Austausch, Support mit garantierten Reaktionszeiten und vierteljährlicher Auswertungsbericht für Ihre Instandhaltungsplanung. Sie kaufen ein Ergebnis, kein Projekt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FÜR JEDE ROLLE ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10">
+  <p class="section-label text-center mb-2">Perspektiven</p>
+  <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide text-center mb-8">Was es für Sie bedeutet – <span class="gold-text">je nachdem, wo Sie sitzen</span></h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card p-6" style="border-top: 3px solid var(--gold);">
+      <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--gold); letter-spacing: 2px;">Geschäftsführung</p>
+      <h3 class="font-bold text-lg mt-1">Planbarkeit statt Feuerwehr</h3>
+      <ul class="text-sm mt-3 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Ungeplante Stillstände sind die teuerste Stunde im Werk – hier werden sie zur planbaren Wartung am Wochenende</li>
+        <li>Amortisation typisch in 6–18 Monaten, transparent nachrechenbar (Rechner oben)</li>
+        <li>Liefertermintreue schützt Ihre Kundenbeziehungen und Konventionalstrafen-Risiken</li>
+        <li>Investitionsschutz: Spindeln und Lager halten länger, wenn Schäden früh erkannt werden</li>
+      </ul>
+    </div>
+    <div class="card p-6" style="border-top: 3px solid var(--green);">
+      <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--green); letter-spacing: 2px;">Instandhaltungsleitung</p>
+      <h3 class="font-bold text-lg mt-1">Endlich vor der Lage</h3>
+      <ul class="text-sm mt-3 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Wochen Vorlauf statt 3-Uhr-nachts-Anruf: Ersatzteile bestellen, Wartungsfenster planen</li>
+        <li>Objektive Daten statt Bauchgefühl – Argumente für Budget und Personal gegenüber der GF</li>
+        <li>Entlastung beim Fachkräftemangel: das System überwacht 24/7, Ihr Team handelt gezielt</li>
+        <li>Wartungshistorie und Trendberichte für Audits und TPM auf Knopfdruck</li>
+      </ul>
+    </div>
+    <div class="card p-6" style="border-top: 3px solid var(--blue);">
+      <p class="font-mono2 text-xs uppercase font-bold" style="color: var(--blue); letter-spacing: 2px;">Produktionsleitung</p>
+      <h3 class="font-bold text-lg mt-1">Maschinenverfügbarkeit rauf</h3>
+      <ul class="text-sm mt-3 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Höhere OEE durch weniger ungeplante Ausfälle auf den Engpassmaschinen</li>
+        <li>Schichtplanung ohne Überraschungen – der Ampelstatus hängt in der Halle</li>
+        <li>Qualitätsschutz: angeschlagene Lager erzeugen Maßabweichungen, bevor sie ausfallen – Sie erkennen beides früher</li>
+        <li>Keine Mehrarbeit fürs Team: Alarme kommen nur, wenn wirklich etwas ist</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAKETE ============ -->
+<section class="max-w-5xl mx-auto px-5 py-10">
+  <p class="section-label text-center mb-2">Einstieg</p>
+  <h2 class="font-display text-xl md:text-2xl font-semibold uppercase tracking-wide text-center mb-8">Drei Wege <span class="gold-text">zu starten</span></h2>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card p-6 relative" style="border: 2px solid var(--border-strong); background: linear-gradient(180deg, rgba(228,177,94,0.07), var(--dark-card) 40%);">
+      <span class="absolute -top-3 left-6 font-mono2 text-xs font-bold px-3 py-1 rounded-full" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #000;">EMPFOHLENER EINSTIEG</span>
+      <h3 class="font-display font-bold text-xl mt-2 uppercase">Pilot</h3>
+      <p class="font-mono2 text-xs" style="color: var(--text-muted);">1 Maschine · 3 Monate · Festpreis</p>
+      <ul class="text-sm mt-4 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Sensorik, Montage und Dashboard komplett</li>
+        <li>Ergebnisbericht mit Schwingungsanalyse Ihrer Maschine</li>
+        <li>Pilotpreis wird bei Ausbau voll auf die Lizenz angerechnet</li>
+        <li>Kein Risiko: keine Vertragsbindung nach den 3 Monaten</li>
+      </ul>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-display font-bold text-xl mt-2 uppercase">Werkspaket</h3>
+      <p class="font-mono2 text-xs" style="color: var(--text-muted);">3–10 Maschinen · Staffelpreis</p>
+      <ul class="text-sm mt-4 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Deutlicher Mengenrabatt ab der dritten Maschine</li>
+        <li>Priorisierung nach Engpass: wir starten bei den Maschinen, deren Ausfall am meisten kostet</li>
+        <li>Hallen-Dashboard für alle überwachten Maschinen</li>
+        <li>Quartalsbericht für Instandhaltung und GF</li>
+      </ul>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-display font-bold text-xl mt-2 uppercase">Standort &amp; Gruppe</h3>
+      <p class="font-mono2 text-xs" style="color: var(--text-muted);">Ab 10 Maschinen · mehrere Werke</p>
+      <ul class="text-sm mt-4 space-y-2 list-disc list-inside" style="color: var(--text-dim);">
+        <li>Bester Maschinenpreis der Staffel</li>
+        <li>Werksübergreifendes Management-Dashboard</li>
+        <li>On-premise-Betrieb und Anbindung an Ihr ERP/CMMS möglich</li>
+        <li>Persönlicher Ansprechpartner mit SLA</li>
+      </ul>
+    </div>
+  </div>
+  <p class="text-center text-sm mt-6" style="color: var(--text-dim);">Konkrete Preise nennen wir Ihnen in der Demo – abhängig von Maschinenzahl und Anbindung. Fair, transparent, ohne versteckte Kosten.</p>
+</section>
+
+<!-- ============ EINWÄNDE ============ -->
+<section class="max-w-5xl mx-auto px-5 py-6">
+  <div class="grid md:grid-cols-3 gap-4 text-sm">
+    <div class="card p-4"><p class="font-bold">„Unsere Maschinen sind alt."</p><p class="mt-1" style="color: var(--text-dim);">Perfekt – Retrofit ist unser Kerngeschäft. Der Sensor braucht keine moderne Steuerung.</p></div>
+    <div class="card p-4"><p class="font-bold">„Unsere Daten verlassen das Haus nicht."</p><p class="mt-1" style="color: var(--text-dim);">Verarbeitung wahlweise on-premise auf dem Gateway oder in deutscher Cloud. DSGVO-konform.</p></div>
+    <div class="card p-4"><p class="font-bold">„Keine Zeit für IT-Projekte."</p><p class="mt-1" style="color: var(--text-dim);">Pilot = 1 Maschine, 3 Monate, Festpreis. Montage 2 h, danach läuft alles von allein.</p></div>
+  </div>
+</section>
+
+<!-- ============ CTA / FORMULAR ============ -->
+<section id="demo-buchen" class="max-w-3xl mx-auto px-5 py-14">
+  <div class="rounded-3xl p-8 md:p-10 text-center" style="background: var(--dark-2); border: 1px solid var(--border-strong); box-shadow: 0 0 80px rgba(228,177,94,0.12);">
+    <p class="section-label mb-2">Nächster Schritt</p>
+    <h2 class="font-display text-2xl md:text-3xl font-bold uppercase tracking-wide">Sehen Sie Ihr Risiko, <span class="gold-text">bevor es teuer wird.</span></h2>
+    <p class="mt-3" style="color: var(--text-dim);">15 Minuten Live-Demo am Bildschirm – wir zeigen das echte Dashboard, keine Folien. Gern auch gemeinsam mit Instandhaltung und Geschäftsführung in einem Termin: Technik und Wirtschaftlichkeit in einer Viertelstunde.</p>
+
+    <form id="leadform" class="mt-7 grid md:grid-cols-2 gap-3 text-left" action="https://formular.forbachandpartners.com/kontakt.php" method="POST">
+      <input type="hidden" name="subject" value="Neue Demo-Anfrage — Forbach & Partners (LinkedIn-Funnel)">
+      <input type="hidden" name="source" value="LinkedIn-Landingpage">
+      <!-- Spamschutz (Honeypot): unsichtbar, muss leer bleiben -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+      <input required name="name" placeholder="Name *" class="rounded-xl px-4 py-3">
+      <input required name="company" placeholder="Firma *" class="rounded-xl px-4 py-3">
+      <input required type="email" name="email" placeholder="E-Mail *" class="rounded-xl px-4 py-3">
+      <input name="phone" placeholder="Telefon (für Terminabstimmung)" class="rounded-xl px-4 py-3">
+      <select name="role" class="rounded-xl px-4 py-3">
+        <option value="">Ihre Rolle im Unternehmen</option>
+        <option>Geschäftsführung / Inhaber</option>
+        <option>Instandhaltungsleitung</option>
+        <option>Produktions- / Betriebsleitung</option>
+        <option>Sonstige</option>
+      </select>
+      <select name="machines" class="rounded-xl px-4 py-3">
+        <option value="">Wie viele CNC-Maschinen?</option>
+        <option>1–5</option><option>6–15</option><option>16–50</option><option>über 50</option>
+      </select>
+      <button type="submit" class="gold-btn md:col-span-2 font-bold text-lg py-4 rounded-xl">DEMO-TERMIN ANFRAGEN →</button>
+    </form>
+    <p id="form-ok" class="hidden mt-4 font-bold rounded-xl py-3" style="background: rgba(0,255,136,0.12); border: 1px solid rgba(0,255,136,0.4); color: var(--green);">✓ Danke! Wir melden uns innerhalb von 24 Stunden mit Terminvorschlägen.</p>
+    <p class="font-mono2 mt-4 text-xs" style="color: var(--text-muted); letter-spacing: 1px;">IHRE DATEN WERDEN AUSSCHLIESSLICH ZUR TERMINVEREINBARUNG GENUTZT · KEIN NEWSLETTER · KEIN SPAM</p>
+  </div>
+</section>
+
+<footer class="text-center text-xs pb-10 px-5" style="color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 2rem;">
+  <span class="font-display uppercase tracking-widest" style="color: var(--gold);">Forbach &amp; Partners</span><br><br>
+  © 2026 Forbach and Partners Ltd · Predictive Intelligence · CNC-Fräszentren ·
+  <a href="https://forbachandpartners.com/impressum.html" class="underline" style="color: var(--text-dim);">Impressum</a> ·
+  <a href="https://forbachandpartners.com/datenschutz.html" class="underline" style="color: var(--text-dim);">Datenschutz</a>
+  <br><a href="mailto:info@forbachandpartners.com" style="color: var(--text-dim);">info@forbachandpartners.com</a> · <a href="tel:021190989962" style="color: var(--text-dim);">+49 211 90989962</a>
+  <br><br><span style="color: #3a3a3a;">Formular sendet über All-Inkl (kontakt.php) an info@forbachandpartners.com und leitet auf danke.html weiter.</span>
+</footer>
+
+<script>
+/* ============ LIVE-VIBRATIONS-DEMO ============ */
+const canvas = document.getElementById('vibChart');
+const ctx = canvas.getContext('2d');
+let data = [], anomaly = false, anomalyT = 0, alarmFired = false, t = 0;
+const N = 220;
+
+function resize() {
+  canvas.width = canvas.clientWidth * devicePixelRatio;
+  canvas.height = 240 * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+}
+window.addEventListener('resize', resize); resize();
+
+function nextVal() {
+  t++;
+  let base = 1 + 0.25 * Math.sin(t / 9) + (Math.random() - 0.5) * 0.35;
+  if (anomaly) {
+    anomalyT++;
+    base += Math.min(anomalyT / 28, 2.2) * (1 + 0.5 * Math.random());
+  }
+  return base;
+}
+
+function setStatus(red) {
+  const badge = document.getElementById('status-badge');
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if (red) {
+    badge.style.background = 'rgba(255,56,96,0.12)';
+    badge.style.border = '1px solid rgba(255,56,96,0.5)';
+    badge.classList.add('alarm');
+    dot.style.background = 'var(--red)';
+    txt.style.color = 'var(--red)';
+    txt.innerText = 'STATUS: ROT – ANOMALIE! SMS & E-MAIL AUSGELÖST';
+  } else {
+    badge.style.background = 'rgba(0,255,136,0.08)';
+    badge.style.border = '1px solid rgba(0,255,136,0.35)';
+    badge.classList.remove('alarm');
+    dot.style.background = 'var(--green)';
+    txt.style.color = 'var(--green)';
+    txt.innerText = 'STATUS: GRÜN – LAGER UNAUFFÄLLIG';
+  }
+}
+
+function draw() {
+  data.push(nextVal());
+  if (data.length > N) data.shift();
+
+  const w = canvas.clientWidth, h = 240;
+  ctx.clearRect(0, 0, w, h);
+
+  const upper = 1 + 0.25 + 3 * 0.18;
+  const yOf = v => h - (v / 4.2) * h - 10;
+
+  // threshold band (gold)
+  ctx.fillStyle = 'rgba(228,177,94,0.06)';
+  ctx.fillRect(0, yOf(upper), w, h - yOf(upper));
+  ctx.strokeStyle = 'rgba(228,177,94,0.8)';
+  ctx.setLineDash([6,5]);
+  ctx.beginPath(); ctx.moveTo(0, yOf(upper)); ctx.lineTo(w, yOf(upper)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(248,223,165,0.9)';
+  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.fillText('3σ-SCHWELLENWERT (DYNAMISCH GELERNT)', 8, yOf(upper) - 6);
+
+  // signal
+  ctx.beginPath();
+  data.forEach((v, i) => {
+    const x = (i / (N - 1)) * w;
+    i === 0 ? ctx.moveTo(x, yOf(v)) : ctx.lineTo(x, yOf(v));
+  });
+  const over = data[data.length-1] > upper;
+  ctx.strokeStyle = over ? '#ff3860' : '#00ff88';
+  ctx.lineWidth = 2;
+  ctx.shadowColor = over ? 'rgba(255,56,96,0.5)' : 'rgba(0,255,136,0.35)';
+  ctx.shadowBlur = 6;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  if (over && anomaly && anomalyT > 30 && !alarmFired) {
+    alarmFired = true;
+    setStatus(true);
+  }
+
+  requestAnimationFrame(() => setTimeout(draw, 50));
+}
+
+function triggerAnomaly() {
+  anomaly = true; anomalyT = 0;
+  document.getElementById('anomalyBtn').disabled = true;
+  document.getElementById('anomalyBtn').style.opacity = '0.5';
+}
+function resetSim() {
+  anomaly = false; anomalyT = 0; alarmFired = false; data = [];
+  setStatus(false);
+  const b = document.getElementById('anomalyBtn');
+  b.disabled = false; b.style.opacity = '1';
+}
+draw();
+
+/* ============ ROI-RECHNER ============ */
+function roi() {
+  const m = +document.getElementById('machines').value;
+  const c = +document.getElementById('cost').value;
+  const f = +document.getElementById('fails').value;
+  document.getElementById('v-machines').innerText = m;
+  document.getElementById('v-cost').innerText = c.toLocaleString('de-DE') + ' €';
+  document.getElementById('v-fails').innerText = f;
+
+  const HOURS = 36, PREVENTABLE = 0.7;
+  const risk = f * HOURS * c;
+  const saved = risk * PREVENTABLE;
+
+  const lic = m >= 10 ? 12000 : m >= 3 ? 18000 : 25000;
+  const cost1 = m * lic + m * 12000;
+  const payback = saved > 0 ? cost1 / saved * 12 : 99;
+
+  document.getElementById('r-risk').innerText = Math.round(risk).toLocaleString('de-DE') + ' €';
+  document.getElementById('r-saved').innerText = Math.round(saved).toLocaleString('de-DE') + ' €/Jahr';
+  document.getElementById('r-payback').innerText = payback > 36 ? '> 3 Jahre' : Math.max(1, Math.round(payback)) + ' Monate';
+}
+roi();
+
+/* ============ FORMULAR ============
+   Absenden läuft nativ über kontakt.php (All-Inkl):
+   E-Mail an info@forbachandpartners.com → Weiterleitung auf danke.html. */
+document.getElementById('leadform').addEventListener('submit', function(){
+  var btn = this.querySelector('button[type="submit"]');
+  if(btn){ btn.disabled = true; btn.textContent = 'WIRD GESENDET…'; }
+});
+</script>
+
+</body>
+</html>

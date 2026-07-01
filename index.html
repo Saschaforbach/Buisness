@@ -2458,11 +2458,11 @@ function renderVerlauf() {
       <span class="en">In just 20 minutes we show you whether and how your machines can be monitored — specific to your equipment.<br>Free and without obligation.</span>
     </p>
 
-    <form class="contact-form" id="contactForm">
-      <input type="hidden" name="access_key" value="7f37e43d-150e-4ecd-8b4d-b0a79a4bf330">
-      <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners">
-      <input type="hidden" name="from_name" value="Forbach & Partners Website">
-      <input type="hidden" name="redirect" value="false">
+    <form class="contact-form" id="contactForm" action="https://formular.forbachandpartners.com/kontakt.php" method="POST">
+      <input type="hidden" name="subject" value="Neue Kontaktanfrage — Forbach & Partners (Startseite)">
+      <input type="hidden" name="source" value="Startseite">
+      <!-- Spamschutz (Honeypot): bleibt für Menschen unsichtbar und muss leer sein -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
 
       <div class="form-row">
         <div class="form-group">
@@ -2511,26 +2511,11 @@ function renderVerlauf() {
 </div>
 
 <script>
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+// Absenden läuft jetzt nativ über das PHP-Skript (All-Inkl) → Weiterleitung auf danke.html.
+document.getElementById('contactForm').addEventListener('submit', function() {
   const btn = document.getElementById('formSubmitBtn');
-  const success = document.getElementById('formSuccess');
-  const error = document.getElementById('formError');
   btn.disabled = true;
   btn.innerHTML = typeof t === 'function' ? t('WIRD GESENDET…', 'SENDING…') : 'WIRD GESENDET…';
-  const data = new FormData(this);
-  try {
-    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: data });
-    const json = await res.json();
-    if (json.success) {
-      this.style.display = 'none';
-      success.style.display = 'block';
-    } else { throw new Error(); }
-  } catch {
-    btn.disabled = false;
-    btn.innerHTML = '<span class="de">KOSTENLOSES ERSTGESPRÄCH ANFRAGEN →</span><span class="en">REQUEST FREE CONSULTATION →</span>';
-    error.style.display = 'block';
-  }
 });
 </script>
 
