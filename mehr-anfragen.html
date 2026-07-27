@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Kampagnen-Landingpage: nur über Google Ads erreichbar, nicht indexieren -->
+<meta name="robots" content="noindex, nofollow">
+<title>Mehr Anfragen für Maschinenbau & Lohnfertigung — Forbach & Partners</title>
+<meta name="description" content="Planbare Kundengewinnung für Maschinenbauer und Lohnfertiger. Google-Ads-Kampagnen von Leuten, die Ihre Werkhalle verstehen. Kostenloses Strategiegespräch.">
+<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap">
+<style>
+:root{--gold:#e4b15e;--gold-light:#f8dfa5;--gold-dark:#c49040;--black:#000;--dark-2:#111;--dark-card:#141414;--border:rgba(228,177,94,0.15);--border-strong:rgba(228,177,94,0.38);--text:#fff;--text-dim:#a0a0a0;--text-muted:#555;--font-d:'Oswald',sans-serif;--font-b:'Raleway',sans-serif;--font-m:'JetBrains Mono',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw;}
+body{background:var(--black);color:var(--text);font-family:var(--font-b);line-height:1.6;}
+
+/* Goldener Cursor wie auf der Hauptseite */
+*,*::before,*::after{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, auto;}
+a,button,label,select,input,textarea{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='22' viewBox='0 0 18 22'%3E%3Cpath fill='%23e4b15e' stroke='%23000' stroke-width='1.2' stroke-linejoin='round' d='M3 1 L3 17 L7 13 L10 20 L12 19 L9 12 L15 12 Z'/%3E%3C/svg%3E") 3 1, pointer;}
+
+::selection{background:rgba(228,177,94,0.35);color:#fff;}
+
+/* ── NAV ── */
+nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);border:1px solid var(--border-strong);border-radius:14px;padding:0 1.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:min(1200px,calc(100vw - 2rem));}
+.nav-logo{font-family:var(--font-d);font-size:1.1rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;}
+.nav-phone{font-family:var(--font-m);font-size:0.7rem;color:var(--text-dim);text-decoration:none;white-space:nowrap;transition:color 0.2s;}
+.nav-phone:hover{color:var(--gold);}
+.nav-cta{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.45rem 1.2rem;border-radius:6px;font-weight:700;font-size:0.78rem;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.nav-cta:hover{box-shadow:0 4px 20px rgba(248,223,165,0.3);transform:translateY(-1px);}
+@media(max-width:640px){.nav-phone{display:none;}}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:150px 2rem 90px;position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 35%,rgba(228,177,94,0.06) 0%,transparent 60%),linear-gradient(180deg,#000 0%,#0a0700 100%);}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(228,177,94,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(228,177,94,0.045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 20%,transparent 75%);}
+.toolpath{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.toolpath path{fill:none;stroke:rgba(228,177,94,0.28);stroke-width:1.5;stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 9s ease-in-out infinite;}
+.toolpath circle{fill:var(--gold);filter:drop-shadow(0 0 6px rgba(228,177,94,0.9));}
+@keyframes draw{0%{stroke-dashoffset:2600;}55%{stroke-dashoffset:0;}80%{stroke-dashoffset:0;opacity:1;}100%{stroke-dashoffset:0;opacity:0;}}
+.hero-inner{max-width:960px;margin:0 auto;text-align:center;position:relative;z-index:2;}
+.hero-coord{position:absolute;font-family:var(--font-m);font-size:0.55rem;color:rgba(228,177,94,0.35);letter-spacing:2px;pointer-events:none;}
+.eyebrow{display:inline-flex;align-items:center;gap:0.75rem;font-family:var(--font-m);font-size:0.65rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.75rem;}
+.eyebrow::before,.eyebrow::after{content:'';width:28px;height:1px;background:var(--gold);}
+h1{font-family:var(--font-d);font-size:clamp(2.6rem,7vw,5.8rem);line-height:1.08;letter-spacing:2px;margin-bottom:1.4rem;text-transform:uppercase;}
+.gold{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:1.05rem;color:var(--text-dim);line-height:1.8;max-width:640px;margin:0 auto 2.5rem;}
+.hero-sub strong{color:#fff;font-weight:600;}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;align-items:center;}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:1rem 2.2rem;border-radius:10px;font-weight:800;font-size:0.95rem;text-decoration:none;letter-spacing:0.5px;transition:all 0.3s;box-shadow:0 0 0 rgba(248,223,165,0);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(248,223,165,0.35);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;color:var(--text-dim);border:1px solid var(--border-strong);padding:0.95rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.85rem;text-decoration:none;font-family:var(--font-m);transition:all 0.2s;}
+.btn-ghost:hover{color:var(--gold);border-color:var(--gold);}
+.hero-trust{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:3rem;}
+.trust-chip{display:flex;align-items:center;gap:0.5rem;font-family:var(--font-m);font-size:0.62rem;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;}
+.trust-chip::before{content:'◆';color:var(--gold);font-size:0.5rem;}
+
+/* ── TICKER ── */
+.ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#060606;overflow:hidden;padding:0.85rem 0;position:relative;}
+.ticker{display:flex;gap:3rem;white-space:nowrap;animation:ticker 36s linear infinite;width:max-content;}
+.ticker span{font-family:var(--font-m);font-size:0.68rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;}
+.ticker span b{color:var(--gold);font-weight:400;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── SECTIONS ── */
+.section{max-width:1150px;margin:0 auto;padding:6rem 2rem;}
+.sec-eyebrow{font-family:var(--font-m);font-size:0.6rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.75rem;}
+.sec-eyebrow::before{content:'';width:26px;height:1px;background:var(--gold);}
+h2{font-family:var(--font-d);font-size:clamp(1.9rem,4.4vw,3.2rem);line-height:1.15;letter-spacing:1.5px;margin-bottom:1.1rem;text-transform:uppercase;}
+.sec-sub{color:var(--text-dim);font-size:0.95rem;line-height:1.8;max-width:640px;}
+
+/* Problem-Karten */
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+@media(max-width:860px){.pain-grid{grid-template-columns:1fr;}}
+.pain-card{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.pain-card:hover{border-color:var(--border-strong);transform:translateY(-4px);}
+.pain-num{font-family:var(--font-m);font-size:0.6rem;color:rgba(228,177,94,0.5);letter-spacing:2px;margin-bottom:1rem;}
+.pain-title{font-family:var(--font-d);font-size:1.25rem;letter-spacing:1px;margin-bottom:0.6rem;text-transform:uppercase;}
+.pain-text{font-size:0.85rem;color:var(--text-dim);line-height:1.7;}
+
+/* Differenzierer */
+.diff{background:linear-gradient(180deg,#0a0700,#000);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.diff-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;}
+@media(max-width:900px){.diff-grid{grid-template-columns:1fr;gap:2.5rem;}}
+.diff-quote{font-family:var(--font-d);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.3;letter-spacing:0.5px;color:#fff;border-left:3px solid var(--gold);padding-left:1.5rem;margin:2rem 0;}
+.diff-list{list-style:none;display:flex;flex-direction:column;gap:1.1rem;margin-top:2rem;}
+.diff-list li{display:flex;gap:1rem;align-items:flex-start;font-size:0.9rem;color:var(--text-dim);line-height:1.7;}
+.diff-list li::before{content:'✓';flex-shrink:0;width:26px;height:26px;border:1px solid var(--border-strong);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:0.8rem;margin-top:2px;}
+.diff-list li strong{color:#fff;}
+.proof-card{background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.proof-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.proof-label{font-family:var(--font-m);font-size:0.58rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.25rem;}
+.proof-links{display:flex;flex-direction:column;gap:0.75rem;}
+.proof-link{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;text-decoration:none;transition:all 0.2s;}
+.proof-link:hover{border-color:var(--gold);background:rgba(228,177,94,0.06);transform:translateX(4px);}
+.proof-link .pl-t{color:#fff;font-size:0.88rem;font-weight:600;}
+.proof-link .pl-s{font-family:var(--font-m);font-size:0.6rem;color:var(--text-muted);letter-spacing:1px;margin-top:2px;}
+.proof-link .pl-a{color:var(--gold);font-size:1rem;}
+
+/* Prozess */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;counter-reset:step;}
+@media(max-width:960px){.steps{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.steps{grid-template-columns:1fr;}}
+.step{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;padding:1.9rem 1.6rem;position:relative;transition:border-color 0.3s;}
+.step:hover{border-color:var(--border-strong);}
+.step-num{font-family:var(--font-m);font-size:2.2rem;font-weight:300;background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.9rem;display:block;}
+.step-title{font-family:var(--font-d);font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
+.step-text{font-size:0.8rem;color:var(--text-dim);line-height:1.65;}
+.step-tag{position:absolute;top:1.4rem;right:1.4rem;font-family:var(--font-m);font-size:0.52rem;color:var(--text-muted);letter-spacing:1.5px;}
+
+/* Leistungen */
+.deliver-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:3rem;}
+@media(max-width:760px){.deliver-grid{grid-template-columns:1fr;}}
+.dl-card{border:1px solid var(--border);border-radius:16px;padding:1.9rem;background:rgba(255,255,255,0.015);display:flex;gap:1.25rem;align-items:flex-start;transition:all 0.3s;}
+.dl-card:hover{border-color:var(--border-strong);background:rgba(228,177,94,0.03);}
+.dl-icon{width:46px;height:46px;flex-shrink:0;background:rgba(228,177,94,0.1);border:1px solid var(--border-strong);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;}
+.dl-title{font-family:var(--font-d);font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.4rem;}
+.dl-text{font-size:0.82rem;color:var(--text-dim);line-height:1.65;}
+
+/* Fallstudie in eigener Sache */
+.case-panel{margin-top:3rem;background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;overflow:hidden;position:relative;}
+.case-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.case-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.75rem;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.case-id{font-family:var(--font-m);font-size:0.62rem;color:var(--gold);letter-spacing:3px;}
+.case-status{font-family:var(--font-m);font-size:0.55rem;color:#00ff88;letter-spacing:2px;}
+.case-stats{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);}
+@media(max-width:960px){.case-stats{grid-template-columns:repeat(2,1fr);}.case-stats .cs:last-child{grid-column:1/-1;}}
+.cs{padding:1.75rem 1.25rem;text-align:center;border-right:1px solid var(--border);}
+.cs:last-child{border-right:none;}
+@media(max-width:960px){.cs{border-bottom:1px solid var(--border);}}
+.cs-num{font-family:var(--font-d);font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:600;letter-spacing:1px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#c49040);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;}
+.cs-label{font-family:var(--font-m);font-size:0.56rem;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:0.5rem;line-height:1.6;}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:820px){.case-grid{grid-template-columns:1fr;}}
+.case-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1.75rem;border-bottom:1px solid var(--border);}
+.case-item:nth-child(odd){border-right:1px solid var(--border);}
+@media(max-width:820px){.case-item:nth-child(odd){border-right:none;}}
+.case-item-num{flex-shrink:0;width:34px;height:34px;border:1px solid var(--border-strong);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:0.75rem;color:var(--gold);}
+.case-item-title{font-family:var(--font-d);font-size:1rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.35rem;}
+.case-item-text{font-size:0.8rem;color:var(--text-dim);line-height:1.65;margin-bottom:0.5rem;}
+.case-item-link{font-family:var(--font-m);font-size:0.65rem;color:var(--gold);text-decoration:none;letter-spacing:1px;}
+.case-item-link:hover{text-decoration:underline;}
+.case-foot{padding:1.25rem 1.75rem;font-family:var(--font-m);font-size:0.62rem;color:var(--text-muted);letter-spacing:0.5px;line-height:1.8;}
+
+/* FAQ */
+.faq{max-width:800px;}
+.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:0.75rem;background:var(--dark-card);overflow:hidden;}
+.faq-item summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.25rem 1.5rem;font-weight:600;font-size:0.92rem;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{content:'+';font-family:var(--font-m);color:var(--gold);font-size:1.2rem;transition:transform 0.25s;flex-shrink:0;}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-body{padding:0 1.5rem 1.4rem;font-size:0.85rem;color:var(--text-dim);line-height:1.75;}
+
+/* ── RATGEBER / WISSEN ── */
+.wissen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+@media(max-width:900px){.wissen-grid{grid-template-columns:1fr;}}
+.w-card{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;padding:1.9rem;display:flex;flex-direction:column;gap:0.75rem;transition:all 0.3s;position:relative;overflow:hidden;}
+.w-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+.w-tag{font-family:var(--font-m);font-size:0.55rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
+.w-title{font-family:var(--font-d);font-size:1.2rem;letter-spacing:0.5px;line-height:1.3;text-transform:uppercase;}
+.w-teaser{font-size:0.82rem;color:var(--text-dim);line-height:1.65;flex:1;}
+.w-meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-m);font-size:0.6rem;color:var(--text-muted);letter-spacing:1px;}
+.w-meta b{color:var(--gold);font-weight:400;}
+/* Reader-Overlay */
+.reader{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);overflow-y:auto;padding:2rem 1rem;}
+.reader.open{display:block;}
+.reader-inner{max-width:760px;margin:2rem auto 4rem;background:#0d0d0d;border:1px solid var(--border-strong);border-radius:20px;padding:clamp(1.75rem,5vw,3.5rem);position:relative;}
+.reader-close{position:sticky;top:0;float:right;background:#1a1a1a;border:1px solid var(--border-strong);border-radius:8px;color:#fff;font-size:1rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;margin:-0.5rem -0.5rem 0 1rem;z-index:2;}
+.reader-close:hover{color:var(--gold);border-color:var(--gold);}
+.reader-inner .r-tag{font-family:var(--font-m);font-size:0.58rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;}
+.reader-inner h3{font-family:var(--font-d);font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.2;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem;}
+.reader-inner h4{font-family:var(--font-d);font-size:1.15rem;letter-spacing:1px;text-transform:uppercase;margin:2.2rem 0 0.75rem;color:var(--gold-light);}
+.reader-inner p{font-size:0.92rem;color:#c9c9c9;line-height:1.85;margin-bottom:1.1rem;}
+.reader-inner p strong{color:#fff;}
+.reader-inner ul,.reader-inner ol{margin:0 0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem;}
+.reader-inner li{font-size:0.9rem;color:#c9c9c9;line-height:1.75;}
+.reader-inner li strong{color:#fff;}
+.r-box{background:rgba(228,177,94,0.06);border-left:3px solid var(--gold);border-radius:8px;padding:1.1rem 1.4rem;margin:1.5rem 0;font-size:0.88rem;color:#ddd;line-height:1.75;}
+.r-cta{margin-top:2.5rem;border-top:1px solid var(--border);padding-top:1.75rem;text-align:center;}
+.r-cta p{color:var(--text-dim);font-size:0.85rem;margin-bottom:1.1rem;}
+body.reader-lock{overflow:hidden;}
+
+/* ── FORM ── */
+.cta-section{background:radial-gradient(ellipse 60% 55% at 50% 30%,rgba(228,177,94,0.07) 0%,transparent 65%),linear-gradient(180deg,#000,#0a0700);border-top:1px solid var(--border);}
+.cta-wrap{max-width:1050px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1.25fr;gap:3.5rem;align-items:start;}
+@media(max-width:900px){.cta-wrap{grid-template-columns:1fr;}}
+.form-card{background:var(--dark-card);border:1px solid var(--border-strong);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fl{font-family:var(--font-m);font-size:0.58rem;color:rgba(228,177,94,0.8);text-transform:uppercase;letter-spacing:2px;}
+.fi,.fs,.ft{background:rgba(255,255,255,0.04);border:1px solid rgba(228,177,94,0.2);border-radius:8px;padding:0.7rem 0.9rem;color:#fff;font-family:inherit;font-size:0.875rem;transition:border-color 0.2s;width:100%;}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:rgba(228,177,94,0.7);background:rgba(228,177,94,0.04);}
+.fs{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23e4b15e' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.5rem;}
+.fs option{background:#111;}
+.ft{resize:vertical;min-height:100px;line-height:1.6;}
+.btn-submit{width:100%;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;border:none;padding:1rem;border-radius:8px;font-weight:800;font-size:0.92rem;transition:all 0.3s;margin-top:0.5rem;letter-spacing:0.5px;font-family:inherit;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(248,223,165,0.35);}
+.btn-submit:disabled{opacity:0.6;transform:none;}
+.form-note{font-family:var(--font-m);font-size:0.58rem;color:var(--text-muted);letter-spacing:1px;text-align:center;margin-top:0.9rem;line-height:1.8;}
+.cta-side h2{margin-bottom:1.25rem;}
+.cta-benefits{list-style:none;display:flex;flex-direction:column;gap:0.9rem;margin:1.75rem 0;}
+.cta-benefits li{display:flex;gap:0.8rem;align-items:flex-start;font-size:0.88rem;color:var(--text-dim);line-height:1.6;}
+.cta-benefits li::before{content:'→';color:var(--gold);flex-shrink:0;}
+.cta-phone-card{border:1px solid var(--border-strong);border-radius:14px;padding:1.4rem 1.6rem;display:flex;align-items:center;gap:1.1rem;background:rgba(228,177,94,0.04);}
+.cta-phone-card a{color:#fff;text-decoration:none;font-family:var(--font-m);font-size:1.05rem;letter-spacing:0.5px;}
+.cta-phone-card a:hover{color:var(--gold);}
+.cta-phone-label{font-family:var(--font-m);font-size:0.55rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;}
+
+/* ── FOOTER ── */
+footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;text-align:center;}
+.f-logo{font-family:var(--font-d);font-size:1.5rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.35rem;}
+.f-tag{font-family:var(--font-m);font-size:0.6rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;}
+.f-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.f-link{color:var(--text-muted);text-decoration:none;font-size:0.75rem;font-family:var(--font-m);letter-spacing:1px;transition:color 0.2s;}
+.f-link:hover{color:var(--gold);}
+.f-copy{font-size:0.65rem;color:var(--text-muted);font-family:var(--font-m);border-top:1px solid var(--border);padding-top:1.25rem;}
+
+/* Scroll-Reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.on{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}.ticker{animation:none;}.toolpath path{animation:none;stroke-dashoffset:0;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
+  <a href="tel:004921190989962" class="nav-phone">📞 +49 211 90989962</a>
+  <a href="#anfrage" class="nav-cta">Kostenloses Strategiegespräch</a>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="hero-grid-bg"></div>
+  <svg class="toolpath" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M60,700 L60,140 L340,140 L340,420 L620,420 L620,140 L900,140 L900,560 L1140,560"/>
+  </svg>
+  <span class="hero-coord" style="top:18%;left:6%;">X+412.50 Y-88.00</span>
+  <span class="hero-coord" style="top:70%;right:7%;">F2400 S12000 M03</span>
+  <span class="hero-coord" style="bottom:12%;left:10%;">G01 · ANFRAGE-PIPELINE AKTIV</span>
+
+  <div class="hero-inner">
+    <div class="eyebrow">Kundengewinnung · Maschinenbau &amp; Lohnfertigung</div>
+    <h1>VOLLE AUFTRAGSBÜCHER<br><span class="gold">SIND KEIN ZUFALL.</span></h1>
+    <p class="hero-sub">Wir bringen Maschinenbauern und Lohnfertigern <strong>planbar qualifizierte Anfragen</strong> — mit Google-Ads-Kampagnen von Leuten, die Ihre Werkhalle verstehen. Keine Agentur-Floskeln. <strong>Wir sprechen CNC.</strong></p>
+    <div class="hero-ctas">
+      <a href="#anfrage" class="btn-gold">JETZT MEHR ANFRAGEN SICHERN →</a>
+      <a href="tel:004921190989962" class="btn-ghost">📞 +49 211 90989962</a>
+    </div>
+    <div class="hero-trust">
+      <span class="trust-chip">Google-Ads-Praxis seit 2019</span>
+      <span class="trust-chip">1.326 Conversions selbst erzielt</span>
+      <span class="trust-chip">Erstgespräch kostenlos</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    <span>CNC-Fräsen <b>◆</b></span><span>Drehteile <b>◆</b></span><span>Lohnfertigung <b>◆</b></span><span>Baugruppenmontage <b>◆</b></span><span>Sondermaschinenbau <b>◆</b></span><span>Blechbearbeitung <b>◆</b></span><span>Werkzeugbau <b>◆</b></span><span>Zerspanung <b>◆</b></span>
+    <span>CNC-Fräsen <b>◆</b></span><span>Drehteile <b>◆</b></span><span>Lohnfertigung <b>◆</b></span><span>Baugruppenmontage <b>◆</b></span><span>Sondermaschinenbau <b>◆</b></span><span>Blechbearbeitung <b>◆</b></span><span>Werkzeugbau <b>◆</b></span><span>Zerspanung <b>◆</b></span>
+  </div>
+</div>
+
+<!-- ══════════ PROBLEM ══════════ -->
+<section class="section">
+  <div class="sec-eyebrow reveal">Das Problem</div>
+  <h2 class="reveal">TOP-QUALITÄT IN DER HALLE.<br><span class="gold">FUNKSTILLE IM POSTEINGANG.</span></h2>
+  <p class="sec-sub reveal">Die besten Fertiger Deutschlands sind online oft unsichtbar. Währenddessen googelt Ihr nächster Großkunde gerade „CNC Fräsen Lohnfertigung" — und landet beim Wettbewerber.</p>
+  <div class="pain-grid">
+    <div class="pain-card reveal">
+      <div class="pain-num">STÖRUNG 01</div>
+      <div class="pain-title">Abhängig von Stammkunden</div>
+      <p class="pain-text">Zwei, drei Großkunden tragen den Umsatz. Bricht einer weg, stehen Maschinen still. Neue Anfragen kommen nur über Empfehlungen — und die sind nicht planbar.</p>
+    </div>
+    <div class="pain-card reveal">
+      <div class="pain-num">STÖRUNG 02</div>
+      <div class="pain-title">Auslastungslücken</div>
+      <p class="pain-text">Mal Überlast, mal Leerlauf. Ohne konstanten Anfragen-Zufluss lässt sich weder Personal noch Maschinenpark vernünftig planen — Rüstzeiten und Kapazität verpuffen.</p>
+    </div>
+    <div class="pain-card reveal">
+      <div class="pain-num">STÖRUNG 03</div>
+      <div class="pain-title">Agenturen ohne Ahnung</div>
+      <p class="pain-text">Klassische Marketing-Agenturen kennen den Unterschied zwischen 3-Achs und 5-Achs nicht. Das Ergebnis: schöne Anzeigen, falsche Zielgruppe, verbranntes Budget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DIFFERENZIERER ══════════ -->
+<section class="diff">
+  <div class="section">
+    <div class="diff-grid">
+      <div>
+        <div class="sec-eyebrow reveal">Der Unterschied</div>
+        <h2 class="reveal">WIR SIND KEINE WERBEAGENTUR.<br><span class="gold">WIR KOMMEN AUS IHRER WELT.</span></h2>
+        <div class="diff-quote reveal">„Wer Losgrößen, Rüstzeiten und Spindelstunden versteht, schreibt andere Anzeigen als eine Agentur, die sonst Zahnärzte bewirbt."</div>
+        <ul class="diff-list">
+          <li class="reveal"><span><strong>Maschinenbau-DNA:</strong> Wir entwickeln KI-Zustandsüberwachung für CNC-Maschinen. Ihre Branche ist nicht unser „Kunde Nr. 47" — sie ist unser Zuhause.</span></li>
+          <li class="reveal"><span><strong>Einkäufer-Sprache:</strong> Wir wissen, wonach technische Einkäufer und Konstrukteure wirklich suchen — und bauen Kampagnen exakt auf diese Suchanfragen.</span></li>
+          <li class="reveal"><span><strong>Messbar bis zur Anfrage:</strong> Jeder Euro Werbebudget wird bis zur eingegangenen Anfrage getrackt. Sie sehen schwarz auf weiß, was Ihre Kundengewinnung leistet.</span></li>
+        </ul>
+      </div>
+      <div class="proof-card reveal">
+        <div class="proof-label">Überzeugen Sie sich selbst</div>
+        <div class="proof-links">
+          <a class="proof-link" href="cnc-fraeszentren.html">
+            <span><span class="pl-t">Unsere CNC-Kompetenz</span><br><span class="pl-s">KI-Zustandsüberwachung für Fräszentren</span></span>
+            <span class="pl-a">→</span>
+          </a>
+          <a class="proof-link" href="ueber-uns.html">
+            <span><span class="pl-t">Das Team dahinter</span><br><span class="pl-s">Wer bei Forbach &amp; Partners arbeitet</span></span>
+            <span class="pl-a">→</span>
+          </a>
+          <a class="proof-link" href="blog.html">
+            <span><span class="pl-t">Fachwissen im Blog</span><br><span class="pl-s">Predictive Maintenance &amp; Industrie 4.0</span></span>
+            <span class="pl-a">→</span>
+          </a>
+          <a class="proof-link" href="index.html">
+            <span><span class="pl-t">forbachandpartners.com</span><br><span class="pl-s">Unsere Hauptseite</span></span>
+            <span class="pl-a">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BEWEIS: IN EIGENER SACHE ══════════ -->
+<section class="section">
+  <div class="sec-eyebrow reveal">Der Beweis</div>
+  <h2 class="reveal">FALLSTUDIE <span class="gold">IN EIGENER SACHE.</span></h2>
+  <p class="sec-sub reveal">Die ehrlichste Referenz, die wir Ihnen zeigen können, sehen Sie gerade an: <strong style="color:#fff;">unser eigenes Marketing.</strong> Alles, was wir Ihnen anbieten, haben wir zuerst für uns selbst gebaut — und Sie können jeden Punkt live überprüfen.</p>
+
+  <div class="case-panel reveal">
+    <div class="case-head">
+      <span class="case-id">CASE 001 · FORBACH &amp; PARTNERS</span>
+      <span class="case-status">● LIVE &amp; ÜBERPRÜFBAR</span>
+    </div>
+    <div class="case-stats">
+      <div class="cs"><div class="cs-num">148</div><div class="cs-label">Google-Ads-<br>Kampagnen</div></div>
+      <div class="cs"><div class="cs-num">3,99&nbsp;Mio.</div><div class="cs-label">Impressionen</div></div>
+      <div class="cs"><div class="cs-num">53.478</div><div class="cs-label">Klicks</div></div>
+      <div class="cs"><div class="cs-num">1.326</div><div class="cs-label">Conversions</div></div>
+      <div class="cs"><div class="cs-num">≈&nbsp;48&nbsp;€</div><div class="cs-label">Ø Kosten je<br>Conversion</div></div>
+    </div>
+    <div class="case-grid">
+      <div class="case-item">
+        <div class="case-item-num">A</div>
+        <div>
+          <div class="case-item-title">Marke &amp; Website von null aufgebaut</div>
+          <p class="case-item-text">Auftritt, Positionierung und diese Seiten — komplett in Eigenregie entwickelt. Kein Baukasten, keine Agentur.</p>
+          <a class="case-item-link" href="index.html">forbachandpartners.com ansehen →</a>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-item-num">B</div>
+        <div>
+          <div class="case-item-title">SEO-Blog mit Fach-Artikeln</div>
+          <p class="case-item-text">Eigenes Content-System: Jeder Artikel als optimierte Seite für die Suchbegriffe unserer Branche — dieselbe Methodik bekommen Sie.</p>
+          <a class="case-item-link" href="blog.html">Blog live ansehen →</a>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-item-num">C</div>
+        <div>
+          <div class="case-item-title">Eigenes Tech-Produkt am Markt</div>
+          <p class="case-item-text">Wir vermarkten nicht nur — wir entwickeln selbst KI-Zustandsüberwachung für CNC-Maschinen. Daher kennen wir Ihre Kunden von innen.</p>
+          <a class="case-item-link" href="cnc-fraeszentren.html">CNC-Lösung ansehen →</a>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-item-num">D</div>
+        <div>
+          <div class="case-item-title">Funnel, Formulare, Tracking</div>
+          <p class="case-item-text">Vom LinkedIn-Funnel bis zum Anfrage-Formular mit sauberer Zustellung — die komplette Technik hinter der Kundengewinnung läuft bei uns täglich im Einsatz.</p>
+          <a class="case-item-link" href="kontakt.html">So sieht das live aus →</a>
+        </div>
+      </div>
+    </div>
+    <div class="case-foot">Kennzahlen aus eigener Google-Ads-Praxis · Zeitraum 09/2019–06/2026 · alle Kampagnen kumuliert. Wir verkaufen Ihnen nichts, was wir nicht selbst benutzen. Ihre Ergebnisse hängen von Markt, Region und Budget ab — genau das rechnen wir im Strategiegespräch gemeinsam durch.</div>
+  </div>
+</section>
+
+<!-- ══════════ LEISTUNGEN ══════════ -->
+<section class="section">
+  <div class="sec-eyebrow reveal">Was Sie bekommen</div>
+  <h2 class="reveal">KUNDENGEWINNUNG ALS <span class="gold">SYSTEM.</span></h2>
+  <p class="sec-sub reveal">Kein Bauchladen, kein Blindflug — ein durchdachtes Setup, das aus Suchanfragen qualifizierte Anfragen für Ihre Fertigung macht.</p>
+  <div class="deliver-grid">
+    <div class="dl-card reveal">
+      <div class="dl-icon">🎯</div>
+      <div>
+        <div class="dl-title">Google-Ads-Kampagnen</div>
+        <p class="dl-text">Kampagnen auf die Suchbegriffe, mit denen Einkäufer wirklich nach Fertigungspartnern suchen — regional oder DACH-weit, sauber ausgesteuert, ohne Streuverlust.</p>
+      </div>
+    </div>
+    <div class="dl-card reveal">
+      <div class="dl-icon">📐</div>
+      <div>
+        <div class="dl-title">Landingpages, die konvertieren</div>
+        <p class="dl-text">Ihre Anzeige führt nicht auf eine Startseite von 2015, sondern auf eine Seite, die Ihre Fertigungstiefe zeigt und Besucher zur Anfrage führt.</p>
+      </div>
+    </div>
+    <div class="dl-card reveal">
+      <div class="dl-icon">📊</div>
+      <div>
+        <div class="dl-title">Tracking &amp; Reporting</div>
+        <p class="dl-text">Conversion-Tracking bis zur Anfrage, monatliches Klartext-Reporting: Was hat es gekostet, was kam rein, was optimieren wir als Nächstes.</p>
+      </div>
+    </div>
+    <div class="dl-card reveal">
+      <div class="dl-icon">🔧</div>
+      <div>
+        <div class="dl-title">Laufende Optimierung</div>
+        <p class="dl-text">Kampagnen sind wie Maschinen: Sie laufen am besten mit kontinuierlicher Überwachung. Wir justieren Gebote, Anzeigen und Keywords fortlaufend nach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROZESS ══════════ -->
+<section class="diff">
+  <div class="section">
+    <div class="sec-eyebrow reveal">So läuft es ab</div>
+    <h2 class="reveal">IN 4 SCHRITTEN ZU <span class="gold">PLANBAREN ANFRAGEN.</span></h2>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-tag">WOCHE 1</span>
+        <span class="step-num">01</span>
+        <div class="step-title">Analyse</div>
+        <p class="step-text">Kostenloses Strategiegespräch: Ihre Fertigung, Ihre Wunschkunden, Ihr Einzugsgebiet. Wir prüfen ehrlich, ob und wo Potenzial liegt.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-tag">WOCHE 1–2</span>
+        <span class="step-num">02</span>
+        <div class="step-title">Strategie</div>
+        <p class="step-text">Keyword-Recherche, Wettbewerbsblick, Budget-Plan. Sie bekommen einen klaren Fahrplan — verständlich, ohne Marketing-Kauderwelsch.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-tag">WOCHE 2–3</span>
+        <span class="step-num">03</span>
+        <div class="step-title">Kampagnenstart</div>
+        <p class="step-text">Anzeigen, Landingpage und Tracking gehen live. Ab jetzt sind Sie sichtbar, wenn Ihr nächster Kunde nach Fertigungspartnern sucht.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-tag">LAUFEND</span>
+        <span class="step-num">04</span>
+        <div class="step-title">Optimierung</div>
+        <p class="step-text">Wir überwachen, justieren und berichten monatlich. Anfragen werden planbarer — und Ihr Werbebudget arbeitet, statt zu verpuffen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section">
+  <div class="sec-eyebrow reveal">Häufige Fragen</div>
+  <h2 class="reveal">KLARTEXT <span class="gold">STATT KLEINGEDRUCKTES.</span></h2>
+  <div class="faq" style="margin-top:2.5rem;">
+    <details class="faq-item reveal">
+      <summary>Funktioniert Google Ads überhaupt für Lohnfertiger?</summary>
+      <div class="faq-body">Ja — gerade im B2B. Technische Einkäufer suchen sehr konkret („CNC Drehteile Kleinserie", „Lohnfertigung Aluminium 5-Achs"). Wer bei diesen Suchanfragen sichtbar ist, bekommt Anfragen mit echtem Bedarf. Entscheidend ist, die richtigen Begriffe zu treffen — genau da hilft unser Maschinenbau-Hintergrund.</div>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Was kostet mich das?</summary>
+      <div class="faq-body">Das hängt von Region, Wettbewerb und Zielen ab — Pauschalversprechen wären unseriös. Im kostenlosen Strategiegespräch rechnen wir gemeinsam durch, welches Budget für Ihren Fall sinnvoll ist. Sie entscheiden danach in Ruhe, ohne Druck.</div>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Wie schnell kommen die ersten Anfragen?</summary>
+      <div class="faq-body">Kampagnen sind in der Regel innerhalb von zwei bis drei Wochen live. Erste Anfragen können früh kommen; belastbar planbar wird es nach der Optimierungsphase der ersten Wochen, wenn Daten zeigen, welche Suchbegriffe und Anzeigen bei Ihnen ziehen.</div>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Warum sollte ich das nicht einfach selbst machen?</summary>
+      <div class="faq-body">Können Sie — so wie wir theoretisch selbst zerspanen könnten. Die Frage ist, was Ihre Zeit kostet und wie teuer Anfängerfehler im Anzeigenkonto werden. Wir bringen das Setup, die Branchenkenntnis und die laufende Betreuung mit, während Sie fertigen.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════ RATGEBER / WISSEN ══════════ -->
+<section class="diff" id="ratgeber">
+  <div class="section">
+    <div class="sec-eyebrow reveal">Ratgeber für Fertigungsbetriebe</div>
+    <h2 class="reveal">WISSEN, DAS <span class="gold">AUFTRÄGE BRINGT.</span></h2>
+    <p class="sec-sub reveal">Keine Marketing-Phrasen, sondern konkrete Anleitungen aus der Praxis — geschrieben für Lohnfertiger und Maschinenbauer, die ihre Auftragslage selbst in die Hand nehmen wollen. Jeder Artikel in 5–7 Minuten lesbar.</p>
+
+    <div class="wissen-grid">
+      <div class="w-card reveal" onclick="openReader('art1')">
+        <span class="w-tag">Leitfaden</span>
+        <div class="w-title">Kundengewinnung für Lohnfertiger: Der komplette Leitfaden</div>
+        <p class="w-teaser">Warum Empfehlungen allein nicht mehr reichen, welche 6 Kanäle für Fertiger wirklich funktionieren — und wie Sie daraus ein System bauen, das planbar Anfragen liefert.</p>
+        <div class="w-meta"><span>⏱ 7 MIN</span><b>LESEN →</b></div>
+      </div>
+      <div class="w-card reveal" onclick="openReader('art2')">
+        <span class="w-tag">Google Ads</span>
+        <div class="w-title">Google Ads für Maschinenbau: So funktioniert es wirklich</div>
+        <p class="w-teaser">Welche Suchbegriffe Einkäufer tatsächlich eintippen, wie Sie Streuverlust vermeiden und mit welchem Budget Sie realistisch rechnen sollten — inklusive Beispielrechnung.</p>
+        <div class="w-meta"><span>⏱ 6 MIN</span><b>LESEN →</b></div>
+      </div>
+      <div class="w-card reveal" onclick="openReader('art3')">
+        <span class="w-tag">Website</span>
+        <div class="w-title">Die 7 teuersten Fehler auf Websites von Fertigungsbetrieben</div>
+        <p class="w-teaser">Ihre Website ist Ihr digitaler Messestand. Diese sieben Fehler kosten Fertiger jeden Monat Anfragen — und die meisten sind an einem Nachmittag behoben.</p>
+        <div class="w-meta"><span>⏱ 5 MIN</span><b>LESEN →</b></div>
+      </div>
+      <div class="w-card reveal" onclick="openReader('art4')">
+        <span class="w-tag">Einkäufer verstehen</span>
+        <div class="w-title">Was technische Einkäufer wirklich suchen</div>
+        <p class="w-teaser">Wer versteht, wie ein Einkäufer neue Fertigungspartner auswählt, gewinnt den Auftrag — bevor der Wettbewerber überhaupt angerufen hat. Ein Blick auf die andere Seite des Tisches.</p>
+        <div class="w-meta"><span>⏱ 5 MIN</span><b>LESEN →</b></div>
+      </div>
+      <div class="w-card reveal" onclick="openReader('art5')">
+        <span class="w-tag">Vertrieb</span>
+        <div class="w-title">Von der Anfrage zum Auftrag: Der Angebotsprozess, der gewinnt</div>
+        <p class="w-teaser">Anfragen sind nur die halbe Miete. Warum Reaktionszeit über Aufträge entscheidet, wie Sie Anfragen richtig qualifizieren und weshalb ein Nachfass-Anruf Gold wert ist.</p>
+        <div class="w-meta"><span>⏱ 5 MIN</span><b>LESEN →</b></div>
+      </div>
+      <div class="w-card reveal" onclick="openReader('art6')">
+        <span class="w-tag">Strategie</span>
+        <div class="w-title">SEO oder Ads? Die richtige Reihenfolge für Fertiger</div>
+        <p class="w-teaser">Beides bringt Kunden — aber auf völlig unterschiedlichen Zeitachsen. Wann sich was lohnt, wie sich beide Kanäle ergänzen und warum die Reihenfolge über den Erfolg entscheidet.</p>
+        <div class="w-meta"><span>⏱ 4 MIN</span><b>LESEN →</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reader-Overlay mit Artikeln -->
+<div class="reader" id="reader" onclick="if(event.target===this)closeReader()">
+  <div class="reader-inner">
+    <button class="reader-close" onclick="closeReader()" aria-label="Schließen">✕</button>
+    <div id="readerContent"></div>
+    <div class="r-cta">
+      <p>Lieber abkürzen? Im kostenlosen Strategiegespräch übersetzen wir das alles in einen konkreten Plan für Ihren Betrieb.</p>
+      <a href="#anfrage" class="btn-gold" onclick="closeReader()">KOSTENLOSES STRATEGIEGESPRÄCH →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Artikel-Inhalte (versteckt, werden ins Reader-Overlay geladen) -->
+<div id="articles" style="display:none;">
+
+  <article id="art1">
+    <div class="r-tag">Leitfaden · Kundengewinnung</div>
+    <h3>Kundengewinnung für Lohnfertiger: Der komplette Leitfaden</h3>
+    <p>Die meisten Lohnfertiger in Deutschland haben ihre Kunden auf einem von zwei Wegen gewonnen: über Empfehlungen oder über Bestandsbeziehungen, die teils Jahrzehnte zurückreichen. Das hat lange hervorragend funktioniert — und genau das ist das Problem. Denn ein Kundenstamm, der nur über Empfehlungen wächst, wächst nicht planbar. Er wächst zufällig.</p>
+    <h4>Warum Empfehlungen allein nicht mehr reichen</h4>
+    <p>Drei Entwicklungen treffen Fertigungsbetriebe gerade gleichzeitig: Erstens gehen in vielen Einkaufsabteilungen die langjährigen Ansprechpartner in Rente — und mit ihnen die persönlichen Beziehungen. Zweitens vergleichen jüngere Einkäufer Lieferanten zuerst online, bevor sie überhaupt zum Hörer greifen. Drittens sorgt der Kostendruck dafür, dass selbst treue Kunden regelmäßig Alternativangebote einholen müssen. <strong>Wer online nicht auffindbar ist, existiert für einen wachsenden Teil des Marktes schlicht nicht.</strong></p>
+    <h4>Die 6 Kanäle im ehrlichen Vergleich</h4>
+    <ul>
+      <li><strong>Empfehlungen:</strong> Beste Abschlussquote, null Kosten — aber nicht steuerbar. Pflegen, aber nie allein darauf bauen.</li>
+      <li><strong>Messen:</strong> Gut für Sichtbarkeit und Bestandspflege, aber teuer (schnell 10.000–30.000 € pro Auftritt) und mit langem Vorlauf.</li>
+      <li><strong>Ausschreibungsportale:</strong> Schnelle Anfragen, aber brutaler Preiskampf — Sie konkurrieren anonym gegen Dutzende Anbieter, oft international.</li>
+      <li><strong>Google Ads:</strong> Der schnellste steuerbare Kanal. Sie sind genau dann sichtbar, wenn jemand aktiv nach Fertigungskapazität sucht. Ergebnisse in Wochen, nicht Jahren.</li>
+      <li><strong>SEO / Fachartikel:</strong> Langfristig der günstigste Kanal pro Anfrage — aber es dauert 6–18 Monate, bis Rankings tragen. Früh anfangen, Geduld mitbringen.</li>
+      <li><strong>LinkedIn:</strong> Stark für Sondermaschinenbau und erklärungsbedürftige Leistungen mit langen Entscheidungswegen; für klassische Lohnfertigung eher Ergänzung als Hauptkanal.</li>
+    </ul>
+    <div class="r-box">Faustregel: Ein gesunder Fertigungsbetrieb hat <strong>mindestens zwei planbare Anfragekanäle</strong> neben den Empfehlungen. „Planbar" heißt: Sie können den Kanal mit Budget und Aufwand gezielt hoch- und runterregeln.</div>
+    <h4>Vom Kanal zum System</h4>
+    <p>Der entscheidende Denkfehler ist, Kundengewinnung als Aktion zu begreifen („wir schalten mal eine Anzeige") statt als System. Ein System besteht aus vier Teilen: einem Kanal, der Besucher bringt (z. B. Google Ads), einer Seite, die Besucher in Anfragen verwandelt, einem Prozess, der Anfragen schnell und professionell beantwortet, und einer Messung, die zeigt, was jeder Teil leistet. Fehlt eines der vier Teile, versickert das Budget — meistens unbemerkt.</p>
+    <p>Die gute Nachricht: Ein solches System ist kein Hexenwerk. Es ist Handwerk — wie eine sauber eingerichtete Maschine. Einmal richtig aufgebaut, läuft es mit überschaubarer Pflege und liefert das, was in der Fertigung am wertvollsten ist: <strong>Planbarkeit.</strong></p>
+  </article>
+
+  <article id="art2">
+    <div class="r-tag">Google Ads · Praxis</div>
+    <h3>Google Ads für Maschinenbau &amp; Lohnfertigung: So funktioniert es wirklich</h3>
+    <p>„Google Ads funktioniert bei uns nicht — haben wir probiert." Diesen Satz hören wir oft. Und fast immer steckt dahinter dieselbe Geschichte: breite Keywords, die Anzeige führte auf die Startseite, niemand hat Conversions gemessen, nach drei Monaten und einigen tausend Euro war Schluss. Das ist ungefähr so, als würde man eine CNC-Maschine ohne Einfahrprogramm und Werkzeugvermessung anwerfen und sich wundern, dass Ausschuss rauskommt.</p>
+    <h4>Es beginnt bei der Suchintention</h4>
+    <p>Der größte Hebel liegt in der Auswahl der Suchbegriffe. Ein Einkäufer, der <strong>„CNC Drehteile Kleinserie Lieferant"</strong> googelt, hat konkreten Bedarf. Jemand, der „CNC Maschine" sucht, will vielleicht eine kaufen, einen Job finden oder für die Berufsschule recherchieren. Gute Kampagnen leben von präzisen Begriffen — und genauso wichtig: von <strong>ausschließenden Keywords</strong> (gebraucht, Job, Ausbildung, kaufen…), die verhindern, dass Sie für die falschen Klicks zahlen.</p>
+    <ul>
+      <li><strong>Stark:</strong> „Lohnfertigung Aluminium 5-Achs", „Drehteile Edelstahl Zulieferer", „Frästeile Kleinserie Anbieter", „Baugruppenmontage Dienstleister"</li>
+      <li><strong>Geldverbrennung:</strong> „CNC", „Fräsen", „Maschinenbau" — zu breit, falsche Intention, teure Klicks ohne Bedarf</li>
+    </ul>
+    <h4>Die Beispielrechnung</h4>
+    <p>Rechnen wir konservativ: Bei 1,50–3 € pro Klick im B2B-Fertigungsumfeld und einer ordentlichen Landingpage mit 2–3% Anfragequote kostet eine qualifizierte Anfrage grob <strong>50–150 €</strong>. Wenn ein durchschnittlicher Erstauftrag bei Ihnen 5.000 € bringt und jeder fünfte Interessent bestellt, zahlen Sie also 250–750 € Werbekosten für 5.000 € Umsatz — plus alles, was aus der Kundenbeziehung danach entsteht. Deshalb funktioniert der Kanal: <strong>Der Lifetime-Wert eines Fertigungskunden ist enorm.</strong></p>
+    <div class="r-box">Wichtig für die Erwartung: Die ersten 4–8 Wochen sind Lernphase. Das System sammelt Daten, welche Begriffe und Anzeigen bei Ihnen konvertieren. Wer nach drei Wochen abbricht, bricht mitten im Einfahrprogramm ab.</div>
+    <h4>Die 4 häufigsten Fehler</h4>
+    <ol>
+      <li><strong>Anzeige führt auf die Startseite.</strong> Der Besucher sucht Drehteile — und landet auf „Willkommen bei Firma Müller". Jede Anzeigengruppe braucht eine passende Zielseite.</li>
+      <li><strong>Kein Conversion-Tracking.</strong> Ohne Messung wissen Sie nicht, welches Keyword Anfragen bringt und welches nur Budget frisst. Optimierung wird zum Ratespiel.</li>
+      <li><strong>Zu großes Einzugsgebiet oder zu kleines Budget.</strong> Lieber 30 km Umkreis sauber abdecken als bundesweit mit 5 € am Tag unsichtbar sein.</li>
+      <li><strong>Einmal aufsetzen, nie wieder anfassen.</strong> Kampagnen brauchen laufende Pflege: Suchbegriffe prüfen, Gebote justieren, schwache Anzeigen austauschen.</li>
+    </ol>
+    <p>Google Ads ist für Fertiger kein Glücksspiel — es ist ein Werkzeug mit klaren Parametern. Richtig eingerichtet und laufend nachjustiert, ist es der schnellste Weg zu planbaren Anfragen, den es aktuell gibt.</p>
+  </article>
+
+  <article id="art3">
+    <div class="r-tag">Website · Conversion</div>
+    <h3>Die 7 teuersten Fehler auf Websites von Fertigungsbetrieben</h3>
+    <p>Ihre Website ist Ihr digitaler Messestand — nur dass er 24 Stunden am Tag geöffnet hat und jeder Interessent zuerst dort vorbeischaut, bevor er anruft. Nach hunderten Fertiger-Websites, die wir uns angesehen haben, tauchen dieselben sieben Fehler immer wieder auf. Jeder einzelne kostet real Anfragen.</p>
+    <h4>Fehler 1: Der Maschinenpark ohne Kontext</h4>
+    <p>Eine Tabelle mit Maschinenbezeichnungen sagt einem Einkäufer wenig. Entscheidend ist die Übersetzung: Verfahrwege, maximale Teilegröße, Losgrößen, Materialien, Toleranzen. <strong>Schreiben Sie, was Sie fertigen können — nicht nur, womit.</strong></p>
+    <h4>Fehler 2: Keine Referenzteile</h4>
+    <p>Nichts überzeugt schneller als Fotos echter Teile (natürlich nur freigegebene). Ein Bild eines komplexen 5-Achs-Teils ersetzt drei Absätze Selbstbeschreibung.</p>
+    <h4>Fehler 3: Anfrage nur per E-Mail-Adresse</h4>
+    <p>Ein „info@"-Link ist keine Anfragemöglichkeit, sondern eine Hürde. Ein kurzes Formular — Name, Firma, Anliegen, optional Zeichnungsupload — senkt die Schwelle massiv. Und es muss zuverlässig zustellen (Spam-Ordner-Problematik bei Formular-Diensten ist real).</p>
+    <h4>Fehler 4: Zertifikate verstecken</h4>
+    <p>ISO 9001, Werkstoffzeugnisse, Erstmusterprüfberichte nach VDA/PPAP — für viele Einkäufer sind das K.-o.-Kriterien. Wenn diese Informationen fehlen, sortiert man Sie aus, ohne dass Sie es je erfahren.</p>
+    <h4>Fehler 5: Nicht mobiltauglich</h4>
+    <p>Auch B2B-Entscheider googeln abends auf dem Sofa. Eine Seite, die auf dem Handy zerfällt, wirkt wie eine Werkhalle mit kaputter Beleuchtung: Man traut dem Rest auch nicht mehr.</p>
+    <h4>Fehler 6: Veralteter Stand</h4>
+    <p>„Aktuelles: Weihnachtsfeier 2019" signalisiert Stillstand. Dann lieber gar keine News-Rubrik.</p>
+    <h4>Fehler 7: Keine Antwort auf die Kernfrage</h4>
+    <p>Ein Besucher entscheidet in Sekunden: Bin ich hier richtig? Ihre Startseite muss sofort beantworten, <strong>was</strong> Sie fertigen, <strong>für wen</strong> und <strong>in welchen Stückzahlen</strong>. Alles andere kommt danach.</p>
+    <div class="r-box">Selbsttest: Öffnen Sie Ihre Website auf dem Handy und stoppen Sie 10 Sekunden. Wissen Sie danach als Fremder, was dieser Betrieb kann und wie man anfragt? Wenn nicht, wissen es Ihre Interessenten auch nicht.</div>
+  </article>
+
+  <article id="art4">
+    <div class="r-tag">Zielgruppe · Einkauf</div>
+    <h3>Was technische Einkäufer wirklich suchen</h3>
+    <p>Wer verkaufen will, muss wissen, wie eingekauft wird. Die Auswahl eines neuen Fertigungspartners folgt in den meisten Betrieben einem erstaunlich ähnlichen Muster — und an jeder Station dieses Musters können Sie gewinnen oder rausfliegen.</p>
+    <h4>Station 1: Die Longlist entsteht online</h4>
+    <p>Am Anfang steht fast immer eine Suche: Google, Lieferantenportale, LinkedIn, Empfehlungen im Kollegenkreis. Hier entscheidet reine <strong>Auffindbarkeit</strong>. Wer nicht auftaucht, ist raus — unabhängig davon, wie gut die Fertigung ist.</p>
+    <h4>Station 2: Der 30-Sekunden-Check</h4>
+    <p>Von der Longlist bleiben nach einem kurzen Website-Besuch drei bis fünf Kandidaten übrig. Geprüft wird im Schnelldurchlauf: Passt das Leistungsspektrum? Passen Größenordnung und Losgrößen? Gibt es Zertifikate? Wirkt der Betrieb professionell und lieferfähig? <strong>Hier verlieren die meisten Fertiger — nicht in der Verhandlung.</strong></p>
+    <h4>Station 3: Die Testanfrage</h4>
+    <p>Die verbliebenen Kandidaten bekommen eine Anfrage, oft mit Zeichnung. Jetzt zählen zwei Dinge überproportional: <strong>Reaktionszeit</strong> (wer sich zuerst meldet, führt) und <strong>Qualität der Rückfragen</strong>. Ein Anbieter, der kluge technische Rückfragen stellt, beweist Kompetenz vor dem ersten Angebot.</p>
+    <h4>Was Einkäufer auf Ihrer Website sehen wollen</h4>
+    <ul>
+      <li><strong>Fertigungsspektrum konkret:</strong> Verfahren, Materialien, Teilegrößen, Toleranzen, Losgrößen</li>
+      <li><strong>Kapazität &amp; Lieferfähigkeit:</strong> Maschinenpark, Schichtmodell, typische Durchlaufzeiten</li>
+      <li><strong>Qualitätsnachweise:</strong> ISO 9001, Messmittel, Erstmusterprüfung, Rückverfolgbarkeit</li>
+      <li><strong>Referenzen &amp; Branchen:</strong> Für wen fertigen Sie? Auch anonymisiert wertvoll („Automobilzulieferer, Serien bis 50.000 Stück")</li>
+      <li><strong>Einen schnellen Anfrageweg:</strong> Formular mit Upload-Möglichkeit, direkte Durchwahl, benannter Ansprechpartner</li>
+    </ul>
+    <div class="r-box">Perspektivwechsel als Übung: Geben Sie Ihre wichtigste Leistung bei Google ein — so, wie ein Einkäufer es tun würde. Was finden Sie? Und was findet der Einkäufer über Ihren Wettbewerber?</div>
+  </article>
+
+  <article id="art5">
+    <div class="r-tag">Vertrieb · Prozess</div>
+    <h3>Von der Anfrage zum Auftrag: Der Angebotsprozess, der gewinnt</h3>
+    <p>Mehr Anfragen sind nur die halbe Miete. Der zweite, oft unterschätzte Hebel liegt danach: im Weg von der Anfrage zum Auftrag. Hier entscheidet sich, ob sich Ihre Kundengewinnung doppelt oder halbiert rechnet — mit denselben Anfragen.</p>
+    <h4>Reaktionszeit ist der stärkste Einzelfaktor</h4>
+    <p>Wer innerhalb weniger Stunden qualifiziert antwortet, verhandelt später gegen weniger Wettbewerber — oft gegen gar keinen mehr, weil der Einkäufer den Prozess gedanklich schon vergeben hat. <strong>Eine Eingangsbestätigung mit Zeitangabe („Angebot bis Donnerstag") kostet zwei Minuten und wirkt sofort professionell.</strong></p>
+    <h4>Nicht jede Anfrage verdient ein Vollangebot</h4>
+    <p>Qualifizieren Sie, bevor Sie kalkulieren: Passt das Teil zu Ihren Maschinen und Losgrößen? Ist der Interessent seriös? Gibt es realistische Chancen, oder sind Sie das dritte Vergleichsangebot für die Ablage? Drei kurze Rückfragen am Telefon sparen oft einen halben Tag Kalkulation — und hinterlassen nebenbei einen kompetenten Eindruck.</p>
+    <h4>Das Angebot als Verkaufsdokument</h4>
+    <p>Viele Angebote in der Fertigung sind reine Preislisten. Dabei ist das Angebot Ihr wichtigstes Verkaufsdokument: Nennen Sie explizit, was enthalten ist (Material, Prüfung, Verpackung, Lieferung), machen Sie Lieferzeiten verbindlich und geben Sie dem Einkäufer Argumente an die Hand, die er intern weitertragen kann — denn oft verkauft <em>er</em> Ihr Angebot an seine Fachabteilung weiter.</p>
+    <h4>Nachfassen: der 5-Minuten-Anruf, der Aufträge holt</h4>
+    <p>Die Zahlen sind überall ähnlich: Ein großer Teil der Angebote wird nie nachgefasst. Dabei ist der Anruf drei bis fünf Tage nach Angebotsabgabe pures Gold: Sie erfahren, wo Sie preislich stehen, welche Bedenken es gibt — und häufig genügt genau dieser Anruf, um den Auftrag zu holen, weil sonst niemand angerufen hat.</p>
+    <div class="r-box">Mini-Kennzahl mit großer Wirkung: Notieren Sie einen Monat lang nur zwei Zahlen — Anfragen rein, Aufträge raus. Diese eine Quote zeigt Ihnen, ob Ihr Engpass vor oder nach dem Angebot liegt.</div>
+  </article>
+
+  <article id="art6">
+    <div class="r-tag">Strategie · Kanäle</div>
+    <h3>SEO oder Google Ads? Die richtige Reihenfolge für Fertiger</h3>
+    <p>Die Frage kommt in fast jedem Erstgespräch: „Sollen wir lieber Anzeigen schalten oder auf Google-Rankings setzen?" Die ehrliche Antwort: beides — aber nicht gleichzeitig mit gleicher Priorität. Die Reihenfolge entscheidet.</p>
+    <h4>Die beiden Zeitachsen</h4>
+    <p><strong>Google Ads</strong> wirkt in Wochen: Kampagne live, Sichtbarkeit da, erste Anfragen messbar. Dafür kostet jeder Besucher Geld, und wenn Sie das Budget stoppen, stoppt der Kanal. <strong>SEO</strong> ist das Gegenteil: Monatelang passiert scheinbar wenig, dann beginnen Fachartikel und Leistungsseiten zu ranken — und liefern danach jahrelang Besucher, ohne dass pro Klick bezahlt wird.</p>
+    <h4>Warum Ads zuerst sinnvoll ist</h4>
+    <ul>
+      <li><strong>Schnelle Ergebnisse</strong> finanzieren die Geduld, die SEO braucht.</li>
+      <li><strong>Ads liefert Daten:</strong> Sie sehen nach wenigen Wochen schwarz auf weiß, welche Suchbegriffe echte Anfragen bringen — genau diese Begriffe sind dann die Blaupause für Ihre SEO-Inhalte. Ohne diese Daten schreibt man Artikel ins Blaue.</li>
+      <li><strong>Die Landingpage arbeitet doppelt:</strong> Eine Seite, die Ads-Besucher überzeugt, überzeugt später auch SEO-Besucher.</li>
+    </ul>
+    <h4>Der Ausbau danach</h4>
+    <p>Sobald die Kampagnen stabil laufen, fließen die Erkenntnisse in dauerhafte Inhalte: Leistungsseiten je Verfahren („CNC-Drehteile in Edelstahl"), Fachartikel zu den Fragen Ihrer Einkäufer, Referenzseiten. Mit jedem Monat übernimmt der organische Kanal mehr Grundlast — und das Werbebudget kann gezielter auf die wertvollsten Begriffe konzentriert werden, statt die ganze Sichtbarkeit allein zu tragen.</p>
+    <div class="r-box">Kurzfassung: <strong>Ads ist der Motorstart, SEO das Schwungrad.</strong> Wer nur Ads macht, bezahlt für immer. Wer nur SEO macht, wartet zu lange. Wer beides in der richtigen Reihenfolge kombiniert, baut sich einen Anfragekanal, der mit der Zeit immer günstiger wird.</div>
+  </article>
+
+</div>
+
+<!-- ══════════ CTA / FORMULAR ══════════ -->
+<section class="cta-section" id="anfrage">
+  <div class="cta-wrap">
+    <div class="cta-side">
+      <div class="sec-eyebrow reveal">Kostenloses Strategiegespräch</div>
+      <h2 class="reveal">LASSEN SIE UNS ÜBER<br><span class="gold">IHRE AUSLASTUNG REDEN.</span></h2>
+      <ul class="cta-benefits">
+        <li class="reveal">20 Minuten, unverbindlich und kostenlos — danach wissen Sie, ob Google Ads für Ihre Fertigung Sinn ergibt.</li>
+        <li class="reveal">Ehrliche Einschätzung: Wenn wir kein Potenzial sehen, sagen wir Ihnen das genauso klar.</li>
+        <li class="reveal">Direkt mit Sascha Forbach — kein Callcenter, kein Vertriebsskript.</li>
+      </ul>
+      <div class="cta-phone-card reveal">
+        <span style="font-size:1.4rem;">📞</span>
+        <span><span class="cta-phone-label">Lieber direkt anrufen</span><br><a href="tel:004921190989962">+49 211 90989962</a></span>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <form id="adsForm" action="https://formular.forbachandpartners.com/kontakt.php" method="POST">
+        <input type="hidden" name="subject" value="Neue Google-Ads-Anfrage — Kundengewinnung Maschinenbau">
+        <input type="hidden" name="source" value="Google-Ads-Landingpage (mehr-anfragen)">
+        <!-- Spamschutz (Honeypot): bleibt für Menschen unsichtbar und muss leer sein -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+        <div class="form-grid">
+          <div class="fg">
+            <label class="fl">Ihr Name *</label>
+            <input type="text" name="name" class="fi" placeholder="Max Mustermann" required>
+          </div>
+          <div class="fg">
+            <label class="fl">Unternehmen *</label>
+            <input type="text" name="company" class="fi" placeholder="Musterfirma GmbH" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="fg">
+            <label class="fl">E-Mail *</label>
+            <input type="email" name="email" class="fi" placeholder="m.mustermann@firma.de" required>
+          </div>
+          <div class="fg">
+            <label class="fl">Telefon</label>
+            <input type="tel" name="phone" class="fi" placeholder="+49 …">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="fg">
+            <label class="fl">Ihre Rolle</label>
+            <select name="role" class="fs">
+              <option value="">Bitte wählen…</option>
+              <option>Inhaber / Geschäftsführung</option>
+              <option>Vertrieb / Business Development</option>
+              <option>Fertigungsleitung</option>
+              <option>Marketing</option>
+              <option>Sonstige</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Ihre Fertigung</label>
+            <select name="machine_type" class="fs">
+              <option value="">Bitte wählen…</option>
+              <option>CNC-Fräsen</option>
+              <option>CNC-Drehen</option>
+              <option>Dreh- &amp; Frästeile</option>
+              <option>Blechbearbeitung</option>
+              <option>Baugruppen / Montage</option>
+              <option>Sondermaschinenbau</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:1rem;">
+          <label class="fl">Ihre Situation (optional)</label>
+          <textarea name="message" class="ft" placeholder="Aktuelle Auslastung, Wunschkunden, bisherige Erfahrungen mit Werbung…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="adsSubmitBtn">KOSTENLOSES STRATEGIEGESPRÄCH ANFRAGEN →</button>
+        <div class="form-note">100% UNVERBINDLICH · ANTWORT INNERHALB 24H · KEIN NEWSLETTER</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="f-logo">FORBACH &amp; PARTNERS</div>
+  <div class="f-tag">Kundengewinnung · Maschinenbau · Lohnfertigung · Industrie 4.0</div>
+  <div class="f-links">
+    <a class="f-link" href="index.html">Hauptseite</a>
+    <a class="f-link" href="ueber-uns.html">Über uns</a>
+    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
+    <a class="f-link" href="blog.html">Blog</a>
+    <a class="f-link" href="kontakt.html">Kontakt</a>
+    <a class="f-link" href="impressum.html">Impressum</a>
+    <a class="f-link" href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
+</footer>
+
+<script>
+// Button-Feedback beim Absenden (natives POST an kontakt.php → Weiterleitung auf danke.html)
+document.getElementById('adsForm').addEventListener('submit', function(){
+  var btn = document.getElementById('adsSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'WIRD GESENDET…';
+});
+
+// Ratgeber-Reader
+function openReader(id){
+  var src = document.getElementById(id);
+  if(!src) return;
+  document.getElementById('readerContent').innerHTML = src.innerHTML;
+  var r = document.getElementById('reader');
+  r.classList.add('open');
+  r.scrollTop = 0;
+  document.body.classList.add('reader-lock');
+}
+function closeReader(){
+  document.getElementById('reader').classList.remove('open');
+  document.body.classList.remove('reader-lock');
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeReader(); });
+
+// Scroll-Reveal
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('on'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('on'); io.unobserve(en.target); }
+    });
+  }, {threshold: 0.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>

@@ -52,6 +52,215 @@
 const POSTS = [
 
   // ─────────────────────────────────────────────
+  // POST 24 — SEO oder Google Ads (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 24,
+    slug: "seo-oder-google-ads-fertigungsbetriebe",
+    featured: false,
+    date: "2026-07-27",
+    dateFormatted: "27. Juli 2026",
+    readTime: "4 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "SEO oder Google Ads? Die richtige Reihenfolge für Fertigungsbetriebe",
+    excerpt: "Beide Kanäle bringen Kunden — aber auf völlig unterschiedlichen Zeitachsen. Warum die Reihenfolge über den Erfolg entscheidet und wie sich Anzeigen und Rankings gegenseitig verstärken.",
+    tags: ["Google Ads", "SEO", "Kundengewinnung", "Lohnfertigung", "Marketing Maschinenbau"],
+    content: `
+      <p class="detail-lead">Die Frage kommt in fast jedem Erstgespräch: „Sollen wir lieber Anzeigen schalten oder auf Google-Rankings setzen?" Die ehrliche Antwort: beides — aber nicht gleichzeitig mit gleicher Priorität. Die Reihenfolge entscheidet.</p>
+      <h2>Die beiden Zeitachsen</h2>
+      <p><strong>Google Ads</strong> wirkt in Wochen: Kampagne live, Sichtbarkeit da, erste Anfragen messbar. Dafür kostet jeder Besucher Geld, und wenn Sie das Budget stoppen, stoppt der Kanal. <strong>SEO</strong> ist das Gegenteil: Monatelang passiert scheinbar wenig, dann beginnen Fachartikel und Leistungsseiten zu ranken — und liefern danach jahrelang Besucher, ohne dass pro Klick bezahlt wird.</p>
+      <h2>Warum Ads zuerst sinnvoll ist</h2>
+      <ul>
+        <li><strong>Schnelle Ergebnisse</strong> finanzieren die Geduld, die SEO braucht.</li>
+        <li><strong>Ads liefert Daten:</strong> Sie sehen nach wenigen Wochen schwarz auf weiß, welche Suchbegriffe echte Anfragen bringen — genau diese Begriffe sind die Blaupause für Ihre SEO-Inhalte. Ohne diese Daten schreibt man Artikel ins Blaue.</li>
+        <li><strong>Die Landingpage arbeitet doppelt:</strong> Eine Seite, die Anzeigen-Besucher überzeugt, überzeugt später auch Suchmaschinen-Besucher.</li>
+      </ul>
+      <h2>Der Ausbau danach</h2>
+      <p>Sobald die Kampagnen stabil laufen, fließen die Erkenntnisse in dauerhafte Inhalte: Leistungsseiten je Verfahren („CNC-Drehteile in Edelstahl"), Fachartikel zu den Fragen Ihrer Einkäufer, Referenzseiten. Mit jedem Monat übernimmt der organische Kanal mehr Grundlast — und das Werbebudget kann gezielter auf die wertvollsten Begriffe konzentriert werden, statt die ganze Sichtbarkeit allein zu tragen.</p>
+      <h2>Kurzfassung</h2>
+      <p><strong>Ads ist der Motorstart, SEO das Schwungrad.</strong> Wer nur Ads macht, bezahlt für immer. Wer nur SEO macht, wartet zu lange. Wer beides in der richtigen Reihenfolge kombiniert, baut sich einen Anfragekanal, der mit der Zeit immer günstiger wird. Wenn Sie wissen wollen, wie diese Reihenfolge für Ihren Betrieb konkret aussieht: <a href="kontakt.html">Sprechen Sie mit uns</a> — wir rechnen es gemeinsam durch.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 23 — Angebotsprozess (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 23,
+    slug: "von-der-anfrage-zum-auftrag-angebotsprozess",
+    featured: false,
+    date: "2026-07-26",
+    dateFormatted: "26. Juli 2026",
+    readTime: "5 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "Von der Anfrage zum Auftrag: Der Angebotsprozess, der gewinnt",
+    excerpt: "Anfragen sind nur die halbe Miete. Warum Reaktionszeit über Aufträge entscheidet, wie Sie Anfragen richtig qualifizieren und weshalb ein Nachfass-Anruf Gold wert ist.",
+    tags: ["Angebotsprozess", "Vertrieb Maschinenbau", "Lohnfertigung", "Anfragen", "B2B-Vertrieb"],
+    content: `
+      <p class="detail-lead">Mehr Anfragen sind nur die halbe Miete. Der zweite, oft unterschätzte Hebel liegt danach: im Weg von der Anfrage zum Auftrag. Hier entscheidet sich, ob sich Ihre Kundengewinnung doppelt oder halbiert rechnet — mit denselben Anfragen.</p>
+      <h2>Reaktionszeit ist der stärkste Einzelfaktor</h2>
+      <p>Wer innerhalb weniger Stunden qualifiziert antwortet, verhandelt später gegen weniger Wettbewerber — oft gegen gar keinen mehr, weil der Einkäufer den Prozess gedanklich schon vergeben hat. <strong>Eine Eingangsbestätigung mit Zeitangabe („Angebot bis Donnerstag") kostet zwei Minuten und wirkt sofort professionell.</strong></p>
+      <h2>Nicht jede Anfrage verdient ein Vollangebot</h2>
+      <p>Qualifizieren Sie, bevor Sie kalkulieren: Passt das Teil zu Ihren Maschinen und Losgrößen? Ist der Interessent seriös? Gibt es realistische Chancen, oder sind Sie das dritte Vergleichsangebot für die Ablage? Drei kurze Rückfragen am Telefon sparen oft einen halben Tag Kalkulation — und hinterlassen nebenbei einen kompetenten Eindruck.</p>
+      <h2>Das Angebot als Verkaufsdokument</h2>
+      <p>Viele Angebote in der Fertigung sind reine Preislisten. Dabei ist das Angebot Ihr wichtigstes Verkaufsdokument: Nennen Sie explizit, was enthalten ist (Material, Prüfung, Verpackung, Lieferung), machen Sie Lieferzeiten verbindlich und geben Sie dem Einkäufer Argumente an die Hand, die er intern weitertragen kann — denn oft verkauft er Ihr Angebot an seine Fachabteilung weiter.</p>
+      <h2>Nachfassen: der 5-Minuten-Anruf, der Aufträge holt</h2>
+      <p>Die Zahlen sind überall ähnlich: Ein großer Teil der Angebote wird nie nachgefasst. Dabei ist der Anruf drei bis fünf Tage nach Angebotsabgabe pures Gold: Sie erfahren, wo Sie preislich stehen, welche Bedenken es gibt — und häufig genügt genau dieser Anruf, um den Auftrag zu holen, weil sonst niemand angerufen hat.</p>
+      <h2>Eine Mini-Kennzahl mit großer Wirkung</h2>
+      <p>Notieren Sie einen Monat lang nur zwei Zahlen — Anfragen rein, Aufträge raus. Diese eine Quote zeigt Ihnen, ob Ihr Engpass vor oder nach dem Angebot liegt. Und wenn er davor liegt, also zu wenige Anfragen reinkommen: <a href="kontakt.html">Genau dabei helfen wir</a>.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 22 — Technische Einkäufer (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 22,
+    slug: "was-technische-einkaeufer-wirklich-suchen",
+    featured: false,
+    date: "2026-07-25",
+    dateFormatted: "25. Juli 2026",
+    readTime: "5 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "Was technische Einkäufer wirklich suchen — und wie Fertiger den Auftrag gewinnen",
+    excerpt: "Wer versteht, wie ein Einkäufer neue Fertigungspartner auswählt, gewinnt den Auftrag, bevor der Wettbewerber überhaupt angerufen hat. Ein Blick auf die andere Seite des Tisches.",
+    tags: ["Technischer Einkauf", "Lieferantenauswahl", "Lohnfertigung", "B2B", "Zulieferer"],
+    content: `
+      <p class="detail-lead">Wer verkaufen will, muss wissen, wie eingekauft wird. Die Auswahl eines neuen Fertigungspartners folgt in den meisten Betrieben einem erstaunlich ähnlichen Muster — und an jeder Station dieses Musters können Sie gewinnen oder rausfliegen.</p>
+      <h2>Station 1: Die Longlist entsteht online</h2>
+      <p>Am Anfang steht fast immer eine Suche: Google, Lieferantenportale, LinkedIn, Empfehlungen im Kollegenkreis. Hier entscheidet reine <strong>Auffindbarkeit</strong>. Wer nicht auftaucht, ist raus — unabhängig davon, wie gut die Fertigung ist.</p>
+      <h2>Station 2: Der 30-Sekunden-Check</h2>
+      <p>Von der Longlist bleiben nach einem kurzen Website-Besuch drei bis fünf Kandidaten übrig. Geprüft wird im Schnelldurchlauf: Passt das Leistungsspektrum? Passen Größenordnung und Losgrößen? Gibt es Zertifikate? Wirkt der Betrieb professionell und lieferfähig? <strong>Hier verlieren die meisten Fertiger — nicht in der Verhandlung.</strong></p>
+      <h2>Station 3: Die Testanfrage</h2>
+      <p>Die verbliebenen Kandidaten bekommen eine Anfrage, oft mit Zeichnung. Jetzt zählen zwei Dinge überproportional: <strong>Reaktionszeit</strong> (wer sich zuerst meldet, führt) und <strong>Qualität der Rückfragen</strong>. Ein Anbieter, der kluge technische Rückfragen stellt, beweist Kompetenz vor dem ersten Angebot.</p>
+      <h2>Was Einkäufer auf Ihrer Website sehen wollen</h2>
+      <ul>
+        <li><strong>Fertigungsspektrum konkret:</strong> Verfahren, Materialien, Teilegrößen, Toleranzen, Losgrößen</li>
+        <li><strong>Kapazität und Lieferfähigkeit:</strong> Maschinenpark, Schichtmodell, typische Durchlaufzeiten</li>
+        <li><strong>Qualitätsnachweise:</strong> ISO 9001, Messmittel, Erstmusterprüfung, Rückverfolgbarkeit</li>
+        <li><strong>Referenzen und Branchen:</strong> Für wen fertigen Sie? Auch anonymisiert wertvoll („Automobilzulieferer, Serien bis 50.000 Stück")</li>
+        <li><strong>Einen schnellen Anfrageweg:</strong> Formular mit Upload-Möglichkeit, direkte Durchwahl, benannter Ansprechpartner</li>
+      </ul>
+      <h2>Perspektivwechsel als Übung</h2>
+      <p>Geben Sie Ihre wichtigste Leistung bei Google ein — so, wie ein Einkäufer es tun würde. Was finden Sie? Und was findet der Einkäufer über Ihren Wettbewerber? Wenn Ihnen das Ergebnis nicht gefällt, <a href="kontakt.html">sprechen Sie mit uns</a> — Sichtbarkeit ist machbar.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 21 — Website-Fehler (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 21,
+    slug: "website-fehler-fertigungsbetriebe",
+    featured: false,
+    date: "2026-07-24",
+    dateFormatted: "24. Juli 2026",
+    readTime: "5 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "Die 7 teuersten Fehler auf Websites von Fertigungsbetrieben",
+    excerpt: "Ihre Website ist Ihr digitaler Messestand. Diese sieben Fehler kosten Fertiger jeden Monat Anfragen — und die meisten sind an einem Nachmittag behoben.",
+    tags: ["Website Maschinenbau", "Conversion", "Lohnfertigung", "B2B-Website", "Anfragen"],
+    content: `
+      <p class="detail-lead">Ihre Website ist Ihr digitaler Messestand — nur dass er 24 Stunden am Tag geöffnet hat und jeder Interessent zuerst dort vorbeischaut, bevor er anruft. Dieselben sieben Fehler tauchen auf Fertiger-Websites immer wieder auf. Jeder einzelne kostet real Anfragen.</p>
+      <h2>Fehler 1: Der Maschinenpark ohne Kontext</h2>
+      <p>Eine Tabelle mit Maschinenbezeichnungen sagt einem Einkäufer wenig. Entscheidend ist die Übersetzung: Verfahrwege, maximale Teilegröße, Losgrößen, Materialien, Toleranzen. <strong>Schreiben Sie, was Sie fertigen können — nicht nur, womit.</strong></p>
+      <h2>Fehler 2: Keine Referenzteile</h2>
+      <p>Nichts überzeugt schneller als Fotos echter Teile (natürlich nur freigegebene). Ein Bild eines komplexen 5-Achs-Teils ersetzt drei Absätze Selbstbeschreibung.</p>
+      <h2>Fehler 3: Anfrage nur per E-Mail-Adresse</h2>
+      <p>Ein „info@"-Link ist keine Anfragemöglichkeit, sondern eine Hürde. Ein kurzes Formular — Name, Firma, Anliegen, optional Zeichnungsupload — senkt die Schwelle massiv. Und es muss zuverlässig zustellen: Anfragen, die im Spam-Ordner landen, sind verlorene Aufträge.</p>
+      <h2>Fehler 4: Zertifikate verstecken</h2>
+      <p>ISO 9001, Werkstoffzeugnisse, Erstmusterprüfberichte nach VDA/PPAP — für viele Einkäufer sind das K.-o.-Kriterien. Wenn diese Informationen fehlen, sortiert man Sie aus, ohne dass Sie es je erfahren.</p>
+      <h2>Fehler 5: Nicht mobiltauglich</h2>
+      <p>Auch B2B-Entscheider googeln abends auf dem Sofa. Eine Seite, die auf dem Handy zerfällt, wirkt wie eine Werkhalle mit kaputter Beleuchtung: Man traut dem Rest auch nicht mehr.</p>
+      <h2>Fehler 6: Veralteter Stand</h2>
+      <p>„Aktuelles: Weihnachtsfeier 2019" signalisiert Stillstand. Dann lieber gar keine News-Rubrik.</p>
+      <h2>Fehler 7: Keine Antwort auf die Kernfrage</h2>
+      <p>Ein Besucher entscheidet in Sekunden: Bin ich hier richtig? Ihre Startseite muss sofort beantworten, <strong>was</strong> Sie fertigen, <strong>für wen</strong> und <strong>in welchen Stückzahlen</strong>. Alles andere kommt danach.</p>
+      <h2>Der Selbsttest</h2>
+      <p>Öffnen Sie Ihre Website auf dem Handy und stoppen Sie 10 Sekunden. Wissen Sie danach als Fremder, was dieser Betrieb kann und wie man anfragt? Wenn nicht, wissen es Ihre Interessenten auch nicht. <a href="kontakt.html">Wir sagen Ihnen ehrlich, wo Ihre Seite steht</a> — kostenlos im Erstgespräch.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 20 — Google Ads Maschinenbau (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 20,
+    slug: "google-ads-maschinenbau-lohnfertigung",
+    featured: false,
+    date: "2026-07-23",
+    dateFormatted: "23. Juli 2026",
+    readTime: "6 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "Google Ads für Maschinenbau und Lohnfertigung: So funktioniert es wirklich",
+    excerpt: "Welche Suchbegriffe Einkäufer tatsächlich eintippen, wie Sie Streuverlust vermeiden und mit welchem Budget Sie realistisch rechnen sollten — inklusive Beispielrechnung.",
+    tags: ["Google Ads", "Maschinenbau", "Lohnfertigung", "Keywords", "B2B-Marketing"],
+    content: `
+      <p class="detail-lead">„Google Ads funktioniert bei uns nicht — haben wir probiert." Diesen Satz hören wir oft. Und fast immer steckt dahinter dieselbe Geschichte: breite Keywords, die Anzeige führte auf die Startseite, niemand hat Conversions gemessen, nach drei Monaten und einigen tausend Euro war Schluss. Das ist ungefähr so, als würde man eine CNC-Maschine ohne Einfahrprogramm und Werkzeugvermessung anwerfen und sich wundern, dass Ausschuss rauskommt.</p>
+      <h2>Es beginnt bei der Suchintention</h2>
+      <p>Der größte Hebel liegt in der Auswahl der Suchbegriffe. Ein Einkäufer, der <strong>„CNC Drehteile Kleinserie Lieferant"</strong> googelt, hat konkreten Bedarf. Jemand, der „CNC Maschine" sucht, will vielleicht eine kaufen, einen Job finden oder für die Berufsschule recherchieren. Gute Kampagnen leben von präzisen Begriffen — und genauso wichtig: von <strong>ausschließenden Keywords</strong> (gebraucht, Job, Ausbildung, kaufen…), die verhindern, dass Sie für die falschen Klicks zahlen.</p>
+      <ul>
+        <li><strong>Stark:</strong> „Lohnfertigung Aluminium 5-Achs", „Drehteile Edelstahl Zulieferer", „Frästeile Kleinserie Anbieter", „Baugruppenmontage Dienstleister"</li>
+        <li><strong>Geldverbrennung:</strong> „CNC", „Fräsen", „Maschinenbau" — zu breit, falsche Intention, teure Klicks ohne Bedarf</li>
+      </ul>
+      <h2>Die Beispielrechnung</h2>
+      <p>Rechnen wir konservativ: Bei 1,50–3 € pro Klick im B2B-Fertigungsumfeld und einer ordentlichen Landingpage mit 2–3 % Anfragequote kostet eine qualifizierte Anfrage grob <strong>50–150 €</strong>. Wenn ein durchschnittlicher Erstauftrag bei Ihnen 5.000 € bringt und jeder fünfte Interessent bestellt, zahlen Sie 250–750 € Werbekosten für 5.000 € Umsatz — plus alles, was aus der Kundenbeziehung danach entsteht. Deshalb funktioniert der Kanal: <strong>Der Lifetime-Wert eines Fertigungskunden ist enorm.</strong></p>
+      <h2>Die Lernphase gehört dazu</h2>
+      <p>Die ersten vier bis acht Wochen sind Lernphase. Das System sammelt Daten, welche Begriffe und Anzeigen bei Ihnen konvertieren. Wer nach drei Wochen abbricht, bricht mitten im Einfahrprogramm ab.</p>
+      <h2>Die 4 häufigsten Fehler</h2>
+      <ul>
+        <li><strong>Anzeige führt auf die Startseite.</strong> Der Besucher sucht Drehteile — und landet auf „Willkommen bei Firma Müller". Jede Anzeigengruppe braucht eine passende Zielseite.</li>
+        <li><strong>Kein Conversion-Tracking.</strong> Ohne Messung wissen Sie nicht, welches Keyword Anfragen bringt und welches nur Budget frisst. Optimierung wird zum Ratespiel.</li>
+        <li><strong>Zu großes Einzugsgebiet oder zu kleines Budget.</strong> Lieber 30 km Umkreis sauber abdecken als bundesweit mit 5 € am Tag unsichtbar sein.</li>
+        <li><strong>Einmal aufsetzen, nie wieder anfassen.</strong> Kampagnen brauchen laufende Pflege: Suchbegriffe prüfen, Gebote justieren, schwache Anzeigen austauschen.</li>
+      </ul>
+      <h2>Fazit</h2>
+      <p>Google Ads ist für Fertiger kein Glücksspiel — es ist ein Werkzeug mit klaren Parametern. Richtig eingerichtet und laufend nachjustiert, ist es der schnellste Weg zu planbaren Anfragen, den es aktuell gibt. Wir schalten selbst seit 2019 Google-Ads-Kampagnen und wissen aus eigener Praxis, was funktioniert. <a href="kontakt.html">Fragen Sie uns</a> — das Erstgespräch ist kostenlos.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
+  // POST 19 — Kundengewinnung Leitfaden (Kundengewinnung)
+  // ─────────────────────────────────────────────
+  {
+    id: 19,
+    slug: "kundengewinnung-lohnfertiger-leitfaden",
+    featured: false,
+    date: "2026-07-22",
+    dateFormatted: "22. Juli 2026",
+    readTime: "7 Min.",
+    category: "Kundengewinnung",
+    author: "Sascha Forbach",
+    title: "Kundengewinnung für Lohnfertiger: Der komplette Leitfaden",
+    excerpt: "Warum Empfehlungen allein nicht mehr reichen, welche 6 Kanäle für Fertiger wirklich funktionieren — und wie Sie daraus ein System bauen, das planbar Anfragen liefert.",
+    tags: ["Kundengewinnung", "Lohnfertigung", "Maschinenbau", "Neukunden", "Vertriebskanäle"],
+    content: `
+      <p class="detail-lead">Die meisten Lohnfertiger in Deutschland haben ihre Kunden auf einem von zwei Wegen gewonnen: über Empfehlungen oder über Bestandsbeziehungen, die teils Jahrzehnte zurückreichen. Das hat lange hervorragend funktioniert — und genau das ist das Problem. Denn ein Kundenstamm, der nur über Empfehlungen wächst, wächst nicht planbar. Er wächst zufällig.</p>
+      <h2>Warum Empfehlungen allein nicht mehr reichen</h2>
+      <p>Drei Entwicklungen treffen Fertigungsbetriebe gerade gleichzeitig: Erstens gehen in vielen Einkaufsabteilungen die langjährigen Ansprechpartner in Rente — und mit ihnen die persönlichen Beziehungen. Zweitens vergleichen jüngere Einkäufer Lieferanten zuerst online, bevor sie überhaupt zum Hörer greifen. Drittens sorgt der Kostendruck dafür, dass selbst treue Kunden regelmäßig Alternativangebote einholen müssen. <strong>Wer online nicht auffindbar ist, existiert für einen wachsenden Teil des Marktes schlicht nicht.</strong></p>
+      <h2>Die 6 Kanäle im ehrlichen Vergleich</h2>
+      <ul>
+        <li><strong>Empfehlungen:</strong> Beste Abschlussquote, null Kosten — aber nicht steuerbar. Pflegen, aber nie allein darauf bauen.</li>
+        <li><strong>Messen:</strong> Gut für Sichtbarkeit und Bestandspflege, aber teuer (schnell 10.000–30.000 € pro Auftritt) und mit langem Vorlauf.</li>
+        <li><strong>Ausschreibungsportale:</strong> Schnelle Anfragen, aber brutaler Preiskampf — Sie konkurrieren anonym gegen Dutzende Anbieter, oft international.</li>
+        <li><strong>Google Ads:</strong> Der schnellste steuerbare Kanal. Sie sind genau dann sichtbar, wenn jemand aktiv nach Fertigungskapazität sucht. Ergebnisse in Wochen, nicht Jahren.</li>
+        <li><strong>SEO und Fachartikel:</strong> Langfristig der günstigste Kanal pro Anfrage — aber es dauert 6–18 Monate, bis Rankings tragen. Früh anfangen, Geduld mitbringen.</li>
+        <li><strong>LinkedIn:</strong> Stark für Sondermaschinenbau und erklärungsbedürftige Leistungen mit langen Entscheidungswegen; für klassische Lohnfertigung eher Ergänzung als Hauptkanal.</li>
+      </ul>
+      <p>Faustregel: Ein gesunder Fertigungsbetrieb hat <strong>mindestens zwei planbare Anfragekanäle</strong> neben den Empfehlungen. „Planbar" heißt: Sie können den Kanal mit Budget und Aufwand gezielt hoch- und runterregeln.</p>
+      <h2>Vom Kanal zum System</h2>
+      <p>Der entscheidende Denkfehler ist, Kundengewinnung als Aktion zu begreifen („wir schalten mal eine Anzeige") statt als System. Ein System besteht aus vier Teilen: einem Kanal, der Besucher bringt (zum Beispiel Google Ads), einer Seite, die Besucher in Anfragen verwandelt, einem Prozess, der Anfragen schnell und professionell beantwortet, und einer Messung, die zeigt, was jeder Teil leistet. Fehlt eines der vier Teile, versickert das Budget — meistens unbemerkt.</p>
+      <h2>Handwerk, kein Hexenwerk</h2>
+      <p>Ein solches System ist wie eine sauber eingerichtete Maschine: Einmal richtig aufgebaut, läuft es mit überschaubarer Pflege und liefert das, was in der Fertigung am wertvollsten ist — <strong>Planbarkeit</strong>. Wenn Sie wissen wollen, wie das System für Ihren Betrieb aussehen könnte: <a href="kontakt.html">Vereinbaren Sie ein kostenloses Strategiegespräch</a>. Wir kommen selbst aus dem Maschinenbau-Umfeld und sagen Ihnen ehrlich, wo bei Ihnen Potenzial liegt — und wo nicht.</p>
+    `
+  },
+
+  // ─────────────────────────────────────────────
   // POST 16 — Kosten Maschinenstillstand (SEO)
   // ─────────────────────────────────────────────
   {
