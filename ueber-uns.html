@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Über uns — Sascha Forbach & Team | Forbach & Partners Predictive Maintenance</title>
-<meta name="description" content="Forbach & Partners: Gegründet von Sascha Forbach — 12 Jahre Selbstständigkeit, 4 Jahre KI-Entwicklung. Unser Team aus 6 Experten überwacht CNC-Fräszentren mit KI-Technologie. Standort Düsseldorf.">
-<meta name="keywords" content="Sascha Forbach, Forbach Partners Team, CNC Predictive Maintenance Experten, KI Maschinenbau Düsseldorf, Condition Monitoring Experte Deutschland">
+<title>Über uns — Sascha Forbach & Netzwerk | Forbach & Partners Predictive Maintenance</title>
+<meta name="description" content="Forbach & Partners: Gegründet von Sascha Forbach — 12 Jahre Selbstständigkeit, 4 Jahre KI-Entwicklung. Ein festes Netzwerk aus Experten und langjährigen Freelance-Partnern überwacht CNC-Fräszentren mit KI-Technologie. Standort Düsseldorf.">
+<meta name="keywords" content="Sascha Forbach, Forbach Partners Netzwerk, CNC Predictive Maintenance Experten, KI Maschinenbau Düsseldorf, Condition Monitoring Experte Deutschland">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://forbachandpartners.com/ueber-uns.html">
 <link rel="alternate" hreflang="de" href="https://forbachandpartners.com/ueber-uns.html">
 <link rel="alternate" hreflang="en" href="https://forbachandpartners.com/ueber-uns.html?lang=en">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://forbachandpartners.com/ueber-uns.html">
-<meta property="og:title" content="Über uns — Sascha Forbach & Team | Forbach & Partners">
-<meta property="og:description" content="Unser Team aus 6 Experten entwickelt KI-Lösungen für Predictive Maintenance an CNC-Maschinen. Gegründet von Sascha Forbach, Düsseldorf.">
+<meta property="og:title" content="Über uns — Sascha Forbach & Netzwerk | Forbach & Partners">
+<meta property="og:description" content="Ein festes Netzwerk aus Experten und langjährigen Freelance-Partnern entwickelt KI-Lösungen für Predictive Maintenance an CNC-Maschinen. Gegründet von Sascha Forbach, Düsseldorf.">
 <meta property="og:image" content="https://forbachandpartners.com/images/team/P1000253.jpg">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Forbach & Partners">
@@ -189,6 +189,16 @@ h2{font-family:var(--font-d);font-size:clamp(2rem,4vw,3.5rem);letter-spacing:1px
 .team-bio{font-size:0.78rem;color:var(--text-muted);line-height:1.65;flex:1;}
 .team-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:0.35rem;}
 .team-tag{font-family:var(--font-m);font-size:0.56rem;padding:2px 8px;border-radius:20px;border:1px solid rgba(228,177,94,0.2);color:rgba(228,177,94,0.6);letter-spacing:0.5px;}
+
+/* NETZWERK (Experten & Freelancer) */
+.network-intro{font-size:0.92rem;color:var(--text-dim);line-height:1.8;max-width:760px;margin-top:1.25rem;}
+.network-grid{grid-template-columns:repeat(3,1fr);}
+@media(max-width:860px){.network-grid{grid-template-columns:1fr;}}
+.network-card{background:var(--dark-card);border:1px solid var(--border);border-radius:14px;padding:1.6rem 1.4rem;transition:all 0.3s ease;display:flex;flex-direction:column;gap:0.75rem;}
+.network-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.55);}
+.network-icon{width:44px;height:44px;border-radius:12px;background:rgba(228,177,94,0.08);border:1px solid rgba(228,177,94,0.22);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.network-card .team-body{padding:0;gap:0.5rem;}
+.network-card .team-title{font-size:0.95rem;font-family:var(--font-d);letter-spacing:1px;color:var(--text);}
 
 /* KOMPETENZ */
 .kompetenz-section{padding:5rem 2rem;max-width:1100px;margin:0 auto;}
@@ -658,115 +668,59 @@ html,body{overflow-x:hidden;max-width:100vw;}
   </div>
 </div>
 
-<!-- TEAM -->
+<!-- NETZWERK -->
 <div class="team-section">
   <div class="section-label">
-    <span class="de">Das Expertenteam</span><span class="en">The Expert Team</span>
+    <span class="de">Wie wir arbeiten</span><span class="en">How we work</span>
   </div>
   <h2>
-    <span class="de">SECHS EXPERTEN —<br><span class="gold">EINE OBSESSION</span></span>
-    <span class="en">SIX EXPERTS —<br><span class="gold">ONE OBSESSION</span></span>
+    <span class="de">EIN FESTES NETZWERK —<br><span class="gold">KEIN AUFGEBLÄHTES TEAM</span></span>
+    <span class="en">A FIXED NETWORK —<br><span class="gold">NOT A BLOATED TEAM</span></span>
   </h2>
+  <p class="network-intro">
+    <span class="de">Forbach & Partners bleibt bewusst schlank — geführt von mir persönlich, ohne Zwischenebenen. Für jedes Projekt hole ich mir aber gezielt Verstärkung: ein fester Kreis aus Experten und Freelancern, mit denen ich seit Jahren zusammenarbeite und gemeinsam die unterschiedlichsten Projekte erfolgreich umgesetzt habe. Man kennt sich, man vertraut sich, man muss sich nicht erst einarbeiten. Das Ergebnis: die Schlagkraft eines größeren Teams, ohne dessen Overhead — und für Sie immer nur ein einziger Ansprechpartner.</span>
+    <span class="en">Forbach & Partners stays deliberately lean — led by me personally, with no layers in between. But for every project I bring in targeted reinforcement: a fixed circle of experts and freelancers I've worked with for years, having successfully delivered a wide range of projects together. We know each other, we trust each other, there's no ramp-up time. The result: the strength of a larger team without the overhead — and for you, always just one point of contact.</span>
+  </p>
 
-  <div class="team-grid">
+  <div class="team-grid network-grid">
 
-    <!-- 1 — KI-Entwickler -->
-    <div class="team-card reveal">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">L.B.</div>
-        <div class="team-dept"><span class="de">KI & Software</span><span class="en">AI & Software</span></div>
-      </div>
+    <!-- 1 — KI & Software -->
+    <div class="network-card reveal">
+      <div class="network-icon">🧠</div>
       <div class="team-body">
-        <div class="team-name">L. BRANDT</div>
-        <div class="team-title"><span class="de">Senior KI-Entwickler</span><span class="en">Senior AI Engineer</span></div>
-        <p class="team-bio"><span class="de">Architekt der KI-Modelle. Isolation Forest, LSTM und Anomalie-Erkennung auf industriellen Zeitreihendaten — 6 Jahre ausschließlich in produzierender Fertigung.</span><span class="en">Architect of the AI models. Isolation Forest, LSTM and anomaly detection on industrial time series — 6 years exclusively in manufacturing.</span></p>
-        <div class="team-tags"><span class="team-tag">Python</span><span class="team-tag">LSTM</span><span class="team-tag">Isolation Forest</span><span class="team-tag">Zeitreihen</span></div>
+        <div class="team-title"><span class="de">KI & Softwareentwicklung</span><span class="en">AI & Software Development</span></div>
+        <p class="team-bio"><span class="de">Freelance-Entwickler, mit denen ich seit Jahren an Machine-Learning-Modellen, Datenpipelines und Systemarchitektur arbeite — erprobt in mehreren gemeinsamen Projekten, nicht nur diesem.</span><span class="en">Freelance developers I've worked with for years on machine learning models, data pipelines and system architecture — proven across several joint projects, not just this one.</span></p>
+        <div class="team-tags"><span class="team-tag">Python</span><span class="team-tag">LSTM</span><span class="team-tag">Isolation Forest</span><span class="team-tag">OPC-UA / MQTT</span></div>
       </div>
     </div>
 
-    <!-- 2 — CNC-Techniker -->
-    <div class="team-card reveal rd1">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">T.Y.</div>
-        <div class="team-dept"><span class="de">CNC & Maschinentechnik</span><span class="en">CNC & Machine Tech</span></div>
-      </div>
+    <!-- 2 — CNC & Maschinentechnik -->
+    <div class="network-card reveal rd1">
+      <div class="network-icon">⚙️</div>
       <div class="team-body">
-        <div class="team-name">T. YILMAZ</div>
-        <div class="team-title"><span class="de">CNC-Maschinenexperte</span><span class="en">CNC Machine Specialist</span></div>
-        <p class="team-bio"><span class="de">20 Jahre Instandhaltungsleiter in der Serienfertigung. DMG Mori, Mazak, Heidenhain, Siemens 840D — er kennt jeden Alarm, bevor er erscheint.</span><span class="en">20 years as maintenance manager in series production. DMG Mori, Mazak, Heidenhain, Siemens 840D — he knows every alarm before it appears.</span></p>
-        <div class="team-tags"><span class="team-tag">DMG Mori</span><span class="team-tag">Mazak</span><span class="team-tag">Heidenhain</span><span class="team-tag">Siemens 840D</span></div>
+        <div class="team-title"><span class="de">CNC- & Maschinentechnik</span><span class="en">CNC & Machine Technology</span></div>
+        <p class="team-bio"><span class="de">Erfahrene Techniker aus der Instandhaltung und dem Maschinenbau, die unsere KI-Modelle an der Praxis spiegeln — an echten Bearbeitungszentren, mit echten Störfällen.</span><span class="en">Experienced maintenance and mechanical engineering specialists who ground our AI models in reality — on real machining centers, with real fault cases.</span></p>
+        <div class="team-tags"><span class="team-tag">Instandhaltung</span><span class="team-tag">Bearbeitungszentren</span><span class="team-tag">Praxiswissen</span></div>
       </div>
     </div>
 
-    <!-- 3 — Software-Architekt -->
-    <div class="team-card reveal rd2">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">M.N.</div>
-        <div class="team-dept"><span class="de">Systemarchitektur</span><span class="en">System Architecture</span></div>
-      </div>
+    <!-- 3 — Umsetzung & Qualität -->
+    <div class="network-card reveal rd2">
+      <div class="network-icon">✓</div>
       <div class="team-body">
-        <div class="team-name">M. NOWAK</div>
-        <div class="team-title"><span class="de">Software-Architekt</span><span class="en">Software Architect</span></div>
-        <p class="team-bio"><span class="de">Verantwortlich für OPC-UA / MQTT-Anbindung, Edge-Computing und Echtzeit-Datenpipelines. Systeme laufen stabil — auch in rauen Hallenumgebungen.</span><span class="en">Responsible for OPC-UA / MQTT integration, edge computing and real-time data pipelines. Systems run stable — even in harsh shop floor environments.</span></p>
-        <div class="team-tags"><span class="team-tag">OPC-UA</span><span class="team-tag">MQTT</span><span class="team-tag">Edge Computing</span><span class="team-tag">APIs</span></div>
-      </div>
-    </div>
-
-    <!-- 4 — Qualitätssicherung -->
-    <div class="team-card reveal">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">A.D.</div>
-        <div class="team-dept"><span class="de">Qualität & Onboarding</span><span class="en">Quality & Onboarding</span></div>
-      </div>
-      <div class="team-body">
-        <div class="team-name">A. DEMIR</div>
-        <div class="team-title"><span class="de">Qualitätssicherung & Projektleitung</span><span class="en">Quality Assurance & PM</span></div>
-        <p class="team-bio"><span class="de">Jede Installation wird erst freigegeben wenn alle Schwellenwerte validiert sind. A. Demir stellt sicher, dass kein System zum Kunden geht das nicht 100% zuverlässig funktioniert.</span><span class="en">Every installation is only approved when all thresholds are validated. A. Demir ensures no system reaches the client that doesn't function 100% reliably.</span></p>
-        <div class="team-tags"><span class="team-tag">ISO 9001</span><span class="team-tag">Validierung</span><span class="team-tag">Onboarding</span></div>
-      </div>
-    </div>
-
-    <!-- 5 — Vertrieb I -->
-    <div class="team-card reveal rd1">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">K.H.</div>
-        <div class="team-dept"><span class="de">Vertrieb & Kundenbetreuung</span><span class="en">Sales & Client Relations</span></div>
-      </div>
-      <div class="team-body">
-        <div class="team-name">K. HARTMANN</div>
-        <div class="team-title"><span class="de">Senior Account Manager</span><span class="en">Senior Account Manager</span></div>
-        <p class="team-bio"><span class="de">10 Jahre Industrievertrieb, davon 6 im Maschinenbau. Kennt die Entscheidungswege in mittelständischen Fertigungsbetrieben und spricht die Sprache der Geschäftsführung.</span><span class="en">10 years of industrial sales, 6 of them in mechanical engineering. Knows the decision paths in mid-sized manufacturing companies and speaks the language of management.</span></p>
-        <div class="team-tags"><span class="team-tag">B2B Vertrieb</span><span class="team-tag">Maschinenbau</span><span class="team-tag">DACH</span></div>
-      </div>
-    </div>
-
-    <!-- 6 — Vertrieb II -->
-    <div class="team-card reveal rd2">
-      <div class="team-avatar">
-        <div class="team-avatar-glow"></div>
-        <div class="team-initial">S.W.</div>
-        <div class="team-dept"><span class="de">Partnermanagement</span><span class="en">Partner Management</span></div>
-      </div>
-      <div class="team-body">
-        <div class="team-name">S. WIERZBICKI</div>
-        <div class="team-title"><span class="de">Vertrieb & Partnermanagement</span><span class="en">Sales & Partner Management</span></div>
-        <p class="team-bio"><span class="de">Zuständig für internationale Partnerschaften und Großkunden. Aufbau von Netzwerken in der Automobil- und Luftfahrtindustrie — Märkte in denen Präzision nicht verhandelbar ist.</span><span class="en">Responsible for international partnerships and key accounts. Building networks in the automotive and aerospace industries — markets where precision is non-negotiable.</span></p>
-        <div class="team-tags"><span class="team-tag">Automotive</span><span class="team-tag">Aerospace</span><span class="team-tag">Key Accounts</span></div>
+        <div class="team-title"><span class="de">Umsetzung & Qualität</span><span class="en">Delivery & Quality</span></div>
+        <p class="team-bio"><span class="de">Partner für Projektumsetzung, Validierung und Kundenbetreuung, die dafür sorgen, dass jede Installation zuverlässig läuft — bevor sie an Sie übergeben wird.</span><span class="en">Partners for project delivery, validation and client support who make sure every installation runs reliably — before it's handed over to you.</span></p>
+        <div class="team-tags"><span class="team-tag">Validierung</span><span class="team-tag">Projektleitung</span><span class="team-tag">Onboarding</span></div>
       </div>
     </div>
 
   </div>
 
   <div style="margin-top:2rem;padding:1.25rem 1.5rem;background:rgba(228,177,94,0.04);border:1px solid rgba(228,177,94,0.12);border-radius:10px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-    <div style="font-family:var(--font-m);font-size:0.6rem;color:rgba(228,177,94,0.5);letter-spacing:2px;">🔒</div>
+    <div style="font-family:var(--font-m);font-size:0.6rem;color:rgba(228,177,94,0.5);letter-spacing:2px;">🤝</div>
     <div style="font-size:0.78rem;color:var(--text-muted);">
-      <span class="de">Mitarbeiterdaten werden aus Datenschutzgründen anonym dargestellt. Auf Anfrage stellen wir relevante Referenzen und Qualifikationsnachweise bereit.</span>
-      <span class="en">Employee data is displayed anonymously for privacy reasons. References and qualification documents are available upon request.</span>
+      <span class="de">Je nach Projekt stelle ich das passende Team aus diesem Netzwerk zusammen. Sie haben trotzdem nie mehrere Ansprechpartner oder ein Ticket-System — sondern immer mich.</span>
+      <span class="en">Depending on the project, I put together the right team from this network. Either way, you never deal with multiple contacts or a ticket system — just me.</span>
     </div>
   </div>
 </div>
