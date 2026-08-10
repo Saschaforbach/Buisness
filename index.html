@@ -1866,6 +1866,7 @@ function updateRisk(i) {
   val.textContent = pct+'%';
   if (typeof calcROI === 'function') calcROI();
 }
+
 // ─────────────────────────────────────────────
 // CALC ROI
 // ─────────────────────────────────────────────
@@ -1892,9 +1893,10 @@ function calcROI() {
 
   // Maschinenanzahl aus dem Slider (kann über 8 gehen)
   const machineCount = parseInt(document.getElementById('machineCountSlider')?.value) || roiMachines.length;
-  document.getElementById('machineCountDisplay').textContent = machineCount + ' Maschinen';
+  const machineCountDisplayEl = document.getElementById('machineCountDisplay');
+  if (machineCountDisplayEl) machineCountDisplayEl.textContent = machineCount + ' Maschinen';
 
-  // ── Staffelpreise Software (einmalig pro Maschine) ────────────────
+  // ── Staffelpreise Software (einmalig pro Maschine) ──────────────
   // Maschinen  1 –  9 :  6.000 € / Maschine  (Sensorik + Einrichtung)
   // Maschinen 10 +    :  5.500 € / Maschine  (Mengenrabatt)
   let softwareCost;
@@ -1904,7 +1906,7 @@ function calcROI() {
     softwareCost = 9 * 6000 + (machineCount - 9) * 5500;
   }
 
-  // ── Wartungskosten jährlich (pro Maschine / Monat) ────────────────
+  // ── Wartungskosten jährlich (pro Maschine / Monat) ──────────────
   // Maschinen  1 –  9 :    250 € / Monat / Maschine
   // Maschinen 10 +    :    200 € / Monat / Maschine  (Mengenrabatt)
   let maintenanceCost;
@@ -1941,7 +1943,7 @@ function calcROI() {
              ✓ Mengenrabatt aktiv — ab der 10. Maschine
            </span>`
         : `<span style="color:var(--text-muted);font-size:0.58rem;display:block;margin-top:3px;">
-                          Ab 10 Maschinen: 5.500 € Software + 200 €/Monat Wartung
+             Ab 10 Maschinen: 5.500\u202f€ Software + 200\u202f€/Monat Wartung
            </span>`
       );
   }
@@ -1955,15 +1957,17 @@ function calcROI() {
        eine Einsparung von <strong style="color:var(--green)">€\u202f${saving.toLocaleString('de-DE')} im ersten Jahr</strong>.
        Die Investition amortisiert sich in <strong style="color:var(--gold)">${amort} Monaten</strong>.
        ${hasDiscount
-                  ? '<br><span style="color:var(--green);font-size:0.88em;">✓ Mengenrabatt: 5.500 € Software + 200 €/Monat Wartung ab der 10. Maschine.</span>'
-                  : '<br><span style="color:var(--text-muted);font-size:0.85em;">Tipp: Ab 10 Maschinen greifen Mengenrabatte — Software -8 %, Wartung -20 %.</span>'}`;
+         ? '<br><span style="color:var(--green);font-size:0.88em;">✓ Mengenrabatt: 5.500\u202f€ Software + 200\u202f€/Monat Wartung ab der 10.\u202fMaschine.</span>'
+         : '<br><span style="color:var(--text-muted);font-size:0.85em;">Tipp: Ab 10 Maschinen greifen Mengenrabatte — Software -8\u202f%, Wartung -20\u202f%.</span>'}`;
 
   document.getElementById('roiMessage').innerHTML = msg;
 }
 
 function resetROI() {
   const slider = document.getElementById('machineCountSlider');
-  if (slider) { slider.value = 8; document.getElementById('machineCountDisplay').textContent = '8 Maschinen'; }
+  const machineCountDisplayEl2 = document.getElementById('machineCountDisplay');
+  if (slider) { slider.value = 8; }
+  if (machineCountDisplayEl2) machineCountDisplayEl2.textContent = '8 Maschinen';
   const detail = document.getElementById('roiInvestDetail');
   if (detail) detail.innerHTML = '<span style="color:var(--text-muted);font-size:0.58rem;">Ab 10 Maschinen: Mengenrabatt aktiv</span>';
   roiMachines.forEach((m,i) => {
@@ -2090,7 +2094,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Auto-calc on load with defaults
   setTimeout(() => {
     const s = document.getElementById('machineCountSlider');
-    if (s) { s.value = 8; document.getElementById('machineCountDisplay').textContent = '8 Maschinen'; }
+    const machineCountDisplayEl3 = document.getElementById('machineCountDisplay');
+    if (s) { s.value = 8; }
+    if (machineCountDisplayEl3) machineCountDisplayEl3.textContent = '8 Maschinen';
     calcROI();
   }, 300);
 });
