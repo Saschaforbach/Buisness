@@ -57,10 +57,10 @@
       <div class="calc">
         <form id="calc" onsubmit="return false">
           <div class="field"><label for="c-m">Machining centres with spindle <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
-          <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="1500" step="25" value="400"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
-          <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="30"></div>
-          <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="2"></div>
-          <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="8000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
+          <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="2000" step="25" value="500"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
+          <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="40"></div>
+          <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="1"></div>
+          <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="15000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
           <div class="field"><label for="c-v">Share avoidable with early detection, your estimate <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
         </form>
         <div class="result" aria-live="polite">
@@ -73,7 +73,7 @@
           <div class="legend"><span><i class="la"></i>Downtime <b id="r-a">–</b></span><span><i class="lb"></i>Repair and consequential damage <b id="r-b">–</b></span></div>
           <div class="save"><span class="label">Avoidable by your estimate</span><b id="r-save">–</b><span class="muted" style="font-size:14px">per year</span></div>
           <a class="btn solid" id="r-cta" href="contact.html?rechner=1">Discuss the result in a call <span class="arr">→</span></a>
-          <small>A calculation aid based on your own assumptions, not a promise. The sliders show example values. Per working day assumes 250 working days per year. How early the system warns on your machines is shown during the pilot.</small>
+          <small>A calculation aid based on your own assumptions, not a promise. The sliders start with reference values from trade press and spindle service providers (downtime hour, spindle repair, outage duration); replace them with your own figures. Per working day assumes 250 working days per year. How early the system warns on your machines is shown during the pilot.</small>
         </div>
       </div>
     </div>

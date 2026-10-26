@@ -57,10 +57,10 @@
       <div class="calc">
         <form id="calc" onsubmit="return false">
           <div class="field"><label for="c-m">Bearbeitungszentren mit Spindel <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
-          <div class="field"><label for="c-h">Kosten je Stillstandsstunde <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="1500" step="25" value="400"><small class="hint">Maschinenstundensatz plus entgangener Deckungsbeitrag, wenn Aufträge warten.</small></div>
-          <div class="field"><label for="c-s">Ungeplante Stillstandsstunden je Maschine und Jahr durch Spindel- und Lagerschäden <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="30"></div>
-          <div class="field"><label for="c-n">Ungeplante Spindelschäden pro Jahr, alle Maschinen <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="2"></div>
-          <div class="field"><label for="c-r">Mehrkosten je ungeplantem Spindelschaden <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="8000"><small class="hint">Eilreparatur, Folgeschäden an Spindel und Werkstück, Expresskosten, Sonderschichten.</small></div>
+          <div class="field"><label for="c-h">Kosten je Stillstandsstunde <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="2000" step="25" value="500"><small class="hint">Maschinenstundensatz plus entgangener Deckungsbeitrag, wenn Aufträge warten.</small></div>
+          <div class="field"><label for="c-s">Ungeplante Stillstandsstunden je Maschine und Jahr durch Spindel- und Lagerschäden <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="40"></div>
+          <div class="field"><label for="c-n">Ungeplante Spindelschäden pro Jahr, alle Maschinen <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="1"></div>
+          <div class="field"><label for="c-r">Mehrkosten je ungeplantem Spindelschaden <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="15000"><small class="hint">Eilreparatur, Folgeschäden an Spindel und Werkstück, Expresskosten, Sonderschichten.</small></div>
           <div class="field"><label for="c-v">Davon vermeidbar bei früher Erkennung, Ihre Schätzung <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
         </form>
         <div class="result" aria-live="polite">
@@ -73,7 +73,7 @@
           <div class="legend"><span><i class="la"></i>Stillstand <b id="r-a">–</b></span><span><i class="lb"></i>Reparatur und Folgeschäden <b id="r-b">–</b></span></div>
           <div class="save"><span class="label">Nach Ihrer Schätzung vermeidbar</span><b id="r-save">–</b><span class="muted" style="font-size:14px">pro Jahr</span></div>
           <a class="btn solid" id="r-cta" href="kontakt.html?rechner=1">Ergebnis im Erstgespräch durchgehen <span class="arr">→</span></a>
-          <small>Rechenhilfe mit Ihren eigenen Annahmen, keine Zusage. Die Regler zeigen Beispielwerte. Pro Arbeitstag gerechnet mit 250 Arbeitstagen im Jahr. Wie früh das System an Ihren Maschinen warnt, zeigt der Pilotbetrieb.</small>
+          <small>Rechenhilfe mit Ihren eigenen Annahmen, keine Zusage. Die Regler starten mit Richtwerten aus Fachpresse und Spindelservice (Stillstandsstunde, Spindelreparatur, Ausfalldauer); ersetzen Sie sie durch Ihre eigenen Zahlen. Pro Arbeitstag gerechnet mit 250 Arbeitstagen im Jahr. Wie früh das System an Ihren Maschinen warnt, zeigt der Pilotbetrieb.</small>
         </div>
       </div>
     </div>
