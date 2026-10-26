@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spindle monitoring on CNC machining centres: a practical guide · Forbach &amp; Partners</title>
+<meta name="description" content="Spindle condition monitoring on CNC machining centres: bearing failure modes, sensors, envelope analysis, learned baseline, SINUMERIK/HEIDENHAIN, pilot, limits.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Spindle monitoring on CNC machining centres: a practical guide · Forbach &amp; Partners">
+<meta property="og:description" content="Spindle condition monitoring on CNC machining centres: bearing failure modes, sensors, envelope analysis, learned baseline, SINUMERIK/HEIDENHAIN, pilot, limits.">
+<meta property="og:url" content="https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Spindle monitoring on CNC machining centres: the guide", "description": "Spindle condition monitoring on CNC machining centres: bearing failure modes, sensors, envelope analysis, learned baseline, SINUMERIK/HEIDENHAIN, pilot, limits.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html", "articleSection": "Spindle and bearings", "wordCount": 2707}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Spindle monitoring on CNC machining centres: the guide", "item": "https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does spindle monitoring on a CNC machine cost?", "acceptedAnswer": {"@type": "Answer", "text": "The model consists of a one-off setup and a monthly licence per machine. The actual figure depends on the control, the number of measurement points and the number of machines, and is given in the introductory call. Whether monitoring pays off depends mainly on what an unplanned spindle failure costs your plant."}}, {"@type": "Question", "name": "Can spindle bearings be monitored using CNC control data alone?", "acceptedAnswer": {"@type": "Answer", "text": "No. The standard interfaces of the controls deliver values well below 1 kHz. Bearing damage shows up in the kilohertz range. This requires a vibration sensor on the spindle housing. The control additionally supplies speed, load and alarms."}}, {"@type": "Question", "name": "Which CNC controls can be connected for spindle monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "Siemens SINUMERIK 840D sl, 828D and ONE, and HEIDENHAIN TNC 640, TNC 620 and TNC7, each via OPC UA and read-only. On iTNC 530 and TNC 320 only the sensors work. FANUC is planned."}}, {"@type": "Question", "name": "How long does it take until monitoring reports reliably?", "acceptedAnswer": {"@type": "Answer", "text": "First the system has to learn the baseline of the spindle, separately for each measurement point and speed range. How long that takes depends on your part mix and the speeds you run. After that, the thresholds are calibrated during the pilot using your feedback."}}, {"@type": "Question", "name": "Will I lose the warranty if a sensor is mounted on the spindle?", "acceptedAnswer": {"@type": "Answer", "text": "The control connection uses the OPC UA interface offered by the manufacturer and writes nothing. For mounting the sensor on the spindle housing, please check your maintenance contract. If it reserves work on the machine for the machine builder, we will clarify this with you in advance."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-spindelueberwachung-cnc-leitfaden.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Spindle and bearings</span></nav>
+      <h1>Spindle monitoring on CNC machining centres: the guide</h1>
+      <p class="lead">What spindle monitoring can detect, which measurement equipment it needs, how vibration becomes an alert with a stated reason, and where the limits are. The overview, with links to every in-depth article.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>14 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#why-spindle">Why the spindle in particular is monitored</a></li>
+<li><a href="#failure-modes">Five failure modes spindle monitoring has to detect</a></li>
+<li><a href="#measurement">Measurement and connection: sensor on the housing, speed from the CNC control</a></li>
+<li><a href="#features">Features and envelope: what is calculated from the vibration</a></li>
+<li><a href="#baseline">Learned baseline, levels and alerts</a></li>
+<li><a href="#pilot">How a pilot works</a></li>
+<li><a href="#limits">What spindle monitoring does not do</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>The main spindle is the component a machining centre depends on. If it fails, the machine stops, and a repair is rarely a matter of hours. At the same time, spindle damage usually announces itself: the vibration pattern changes long before the spindle sounds different or runs hot. <strong>Spindle monitoring on CNC machining centres</strong> means measuring this change continuously, assessing it against the healthy state of your own machine and turning it into an alert that a maintenance engineer can act on.</p>
+      <p>This guide explains the approach from start to finish. It describes which types of damage can be detected, which measurement equipment is needed, which features are evaluated, how levels and alerts are produced, what the connection to the CNC control and IT looks like, and what a pilot actually involves. It closes with what spindle monitoring cannot do. Most sections have their own in-depth article.</p>
+
+      <h2 id="why-spindle">Why the spindle in particular is monitored</h2>
+      <p>A machining centre has many assemblies that wear: feed axes, tool changers, coolant supply, clamping systems. The spindle differs from them in three respects.</p>
+      <ul>
+        <li><strong>It works all the time.</strong> As long as the machine is cutting, the spindle is turning, often across wide speed ranges and under varying load.</li>
+        <li><strong>Its failure is expensive and takes a long time to fix.</strong> A spindle repair usually means removal, overhaul by a spindle service provider and refitting. How much the damage costs your plant depends on utilisation and spare capacity. The article <a href="cost-of-machine-downtime-per-hour.html">What an hour of machine downtime costs</a> and the <a href="index.html#calculator">calculator on the home page</a> help you work it out.</li>
+        <li><strong>Its damage is physically easy to measure.</strong> Spindle bearings are rolling bearings. A defect in a rolling bearing produces impacts at a repetition rate that can be calculated from bearing geometry and speed. This has been described and proven for decades.</li>
+      </ul>
+      <p>The third point is decisive. For other assemblies the signals are harder to interpret, or the methods are not yet mature enough for us to offer them in good conscience. That is why we focus on the spindle. The situation for other assemblies is described in the articles on <a href="feed-axes-ball-screw-wear-patterns.html">feed axes</a>, <a href="tool-changer-failure-patterns.html">tool changers</a> and <a href="coolant-monitoring-cnc-milling.html">coolant monitoring</a>. The effect of downtime on overall equipment effectiveness is covered in the article <a href="oee-cnc-machines-availability-losses.html">OEE below 75 per cent</a>.</p>
+
+      <h2 id="failure-modes">Five failure modes spindle monitoring has to detect</h2>
+      <p>Spindle monitoring should report not only that something has changed, but also where. To do this, it assigns every change to a failure mode. Our system currently evaluates five failure modes:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Failure mode</th><th>How it shows</th><th>Characteristic frequency</th></tr></thead>
+          <tbody>
+            <tr><td>Outer race defect</td><td>Line at the outer race defect frequency and its harmonics in the envelope spectrum</td><td class="m">BPFO</td></tr>
+            <tr><td>Inner race defect</td><td>Line at the inner race defect frequency, typically with sidebands spaced at the shaft frequency</td><td class="m">BPFI</td></tr>
+            <tr><td>Rolling element defect</td><td>Line at twice the rolling element spin frequency, because a damaged rolling element touches both raceways once per revolution</td><td class="m">2 × BSF</td></tr>
+            <tr><td>Cage defect</td><td>Line at the cage frequency, often also as modulation of other lines; frequently a sign of lubrication problems</td><td class="m">FTF</td></tr>
+            <tr><td>Unbalance</td><td>Increased vibration once per revolution, for example from contaminated tool holders or poorly balanced tools</td><td class="m">1 × shaft frequency</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The four bearing defects follow the same logic: each defect produces impacts with its own repetition rate. How to calculate these frequencies from the number of rolling elements, the diameters and the contact angle, and what they look like in the spectrum, is explained in detail in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+      <p>Unbalance is not a bearing defect, but it is a common reason for increased vibration at the spindle. It often does not originate in the spindle itself, but in the tool or the holder. For the maintenance engineer this is an important distinction: unbalance from a dirty taper is fixed with a cloth, a bearing defect is not. Other possible causes of unusual spindle noise are described in the article <a href="cnc-spindle-noise-causes.html">Unusual spindle noise</a>.</p>
+
+      <h2 id="measurement">Measurement and connection: sensor on the housing, speed from the CNC control</h2>
+      <p>Spindle monitoring needs two data sources: vibration, measured directly on the spindle, and the operating state, read from the CNC control. Neither is sufficient on its own.</p>
+
+      <h3>Vibration sensor on the spindle housing</h3>
+      <p>Bearing impacts excite the structure around the bearing in a high frequency range, usually in the kilohertz range. To capture them, you need an accelerometer mounted on the spindle housing as close to the bearing as possible, and a data acquisition card with a correspondingly high sampling rate. We decide exactly where the sensor goes during the on-site visit. What matters is a short, stiff transmission path from the bearing to the sensor.</p>
+      <div class="callout">
+        <p class="label">Why the CNC control alone is not enough</p>
+        <p>The standard interfaces of CNC controls deliver values at well below 1 kHz. Evaluating bearing damage requires signals in the kilohertz range. Treat any offer that promises spindle bearing diagnostics from control data alone with caution.</p>
+      </div>
+
+      <h3>Speed, load and state from the CNC control</h3>
+      <p>Bearing frequencies are proportional to speed. Without the current speed, the analysis does not know where to look. We also read spindle load, temperatures and control alarms. This allows every measurement to be assigned to an operating state, and measurements taken at standstill or during a tool change can be separated from measurements taken while cutting.</p>
+      <p>The connection uses OPC UA, the interface that Siemens and HEIDENHAIN themselves provide. Supported controls are SINUMERIK 840D sl, 828D and ONE, and HEIDENHAIN TNC 640, TNC 620 and TNC7. iTNC 530 and TNC 320 have no OPC UA NC server; there we work with the sensors only. FANUC is planned. What has to be enabled on the control is covered in the article <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+      <p>Access is strictly read-only and secured in four ways: the software contains no write code, an upstream filter blocks every request that would change anything, automated tests check with every change that no write path has been introduced, and the control has its own user with read-only rights. By default the edge box polls once per second, technically limited to no more than once every 0.1 s, so that the control is not put under load.</p>
+
+      <h3>Computing on site, features to Germany</h3>
+      <p>The edge box at the machine calculates the features itself. The raw vibration signals stay in the factory. Only the calculated features and state variables are transmitted, encrypted via MQTT over TLS, exclusively as an outbound connection. If the network goes down, the edge box buffers at least seven days of data and then sends it on without gaps. The data is stored in data centres in Germany. Why we use MQTT for transport and OPC UA for reading is explained in the article <a href="opc-ua-vs-mqtt-production-data.html">OPC UA or MQTT</a>. The required firewall rules are listed on the <a href="data-security.html">data security</a> page.</p>
+
+      <h2 id="features">Features and envelope: what is calculated from the vibration</h2>
+      <p>A raw signal with many thousands of values per second is of no use for an assessment. The edge box condenses each measurement window into a few features, each answering a specific question:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Feature</th><th>What it describes</th><th>What it is good for</th></tr></thead>
+          <tbody>
+            <tr><td>RMS</td><td>Energy of the vibration in the measurement window</td><td>General condition, but with bearing damage it usually rises only late</td></tr>
+            <tr><td>Crest factor</td><td>Ratio of peak value to RMS</td><td>Rises when short impacts appear in the signal</td></tr>
+            <tr><td>Kurtosis</td><td>How strongly individual peaks stand out from the signal</td><td>Sensitive to impulsive signals such as those produced by incipient bearing damage</td></tr>
+            <tr><td>Amplitudes at bearing frequencies</td><td>Energy in the envelope spectrum at BPFO, BPFI, 2 × BSF and FTF</td><td>Shows which bearing component is affected</td></tr>
+            <tr><td>Amplitude at 1 × shaft frequency</td><td>Vibration once per revolution, via order analysis</td><td>Unbalance from tool, tool holder or rotor</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>RMS, crest factor and kurtosis are time-domain features. They are robust and simple, but they do not tell you which component is changing. That requires <strong>envelope analysis</strong>: the signal is band-pass filtered around the resonance range, the envelope is formed and its spectrum calculated. There, the repetition rates of the bearing impacts appear as clear lines. We only count a line as a finding if the fundamental frequency itself is visible, not just a harmonic. The steps and the typical patterns for each defect are described in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+      <p>For unbalance we use order analysis. It converts the frequency axis into multiples of the shaft frequency. If the speed changes during a program, the signal is resampled to equal steps of rotation angle, so that the speed-related components stay sharp in the spectrum.</p>
+      <p>Why a single overall level says little about spindles, and what the ISO vibration standards actually specify, is covered in the article <a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools and ISO limits</a>.</p>
+
+      <h2 id="baseline">Learned baseline, levels and alerts</h2>
+      <p>A feature on its own says nothing. Whether an RMS value is high depends on the spindle: on design, installation, age, measurement point and speed. That is why our system assesses every feature against the <strong>learned baseline, i.e. the normal state of this spindle</strong>, separately for each measurement point and speed range. Only like is compared with like.</p>
+      <p>During the learning phase, the system collects measurements from healthy operation and determines the median and a robust spread for each feature. Robust means that individual outliers, such as an impact during a tool change, barely shift the learned baseline. Each new measurement is then assessed as follows:</p>
+      <div class="formula">Deviation = (measured value − median of learned baseline) / spread of learned baseline
+
+Spread: determined robustly, among other things from the median absolute deviation from the median (MAD)
+Only increases count. A falling feature triggers nothing.</div>
+      <p>The deviation results in one of four levels:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Level</th><th>Meaning</th><th>Recommended response</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td>Within the band of the learned baseline</td><td>None</td></tr>
+            <tr><td>Noticeable</td><td>Slight deviation</td><td>Keep an eye on it, no immediate action needed</td></tr>
+            <tr><td>Warning</td><td>Clear deviation or a recognised failure mode</td><td>Plan an inspection at the next opportunity</td></tr>
+            <tr><td>Alarm</td><td>Strong deviation</td><td>Inspect soon, increased risk of failure</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Two rules keep the number of false alarms low. First, a level is only reported once it persists over several consecutive measurements. A single outlier is not enough. Second, the thresholds between the levels are starting values. They come neither from a standard nor from the machine builder, and they are calibrated with real data and your feedback.</p>
+      <p>Every alert carries its reason: which feature, at which measurement point, at which speed, how far above the learned baseline, which failure mode is suspected and what to check. An example of the structure, not from a customer project: ‘Outer race defect suspected (spindle bearing). Line at BPFO clearly above the noise, confirmed over several measurements. Check: running noise, bearing temperature, lubrication, discuss findings with spindle service provider.’</p>
+      <p>The method is deliberately transparent. We only use machine learning once it has been shown to perform better on held-out data. Why we prefer a learned baseline to fixed thresholds, and how this differs from black-box methods, is covered in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds or learned baseline</a>. How condition monitoring differs from predictive maintenance is explained in the article <a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring or predictive maintenance</a>.</p>
+
+      <h2 id="pilot">How a pilot works</h2>
+      <p>Whether spindle monitoring works on your machines can only be shown on your machines. Our pilots run in four steps. No step changes anything on the machine, and you can stop at any point.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Pilot process in four steps">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="156" y1="72" x2="176" y2="72"/><line x1="326" y1="72" x2="346" y2="72"/><line x1="496" y1="72" x2="516" y2="72"/>
+          </g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Introductory call</text><text x="82" y="86" text-anchor="middle" style="fill:var(--ink-2)">Control, options</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Pre-check</text><text x="252" y="86" text-anchor="middle" style="fill:var(--ink-2)">Datasheet, photos, IT</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 On-site visit</text><text x="422" y="86" text-anchor="middle" style="fill:var(--ink-2)">Connection, sensors</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Pilot</text><text x="595" y="86" text-anchor="middle" style="fill:var(--ink-2)">Baseline, alerts</text>
+          <text x="340" y="132" text-anchor="middle" style="fill:var(--ink-2)">Feedback on every alert, monthly report per machine</text>
+        </svg>
+        <figcaption>The four steps of a pilot. The thresholds are calibrated during the pilot based on your feedback.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Introductory call:</strong> by phone or video, we check whether the control, software version and options are suitable. If they are not, we tell you in this call.</li>
+        <li><strong>Pre-check:</strong> for each machine you send us the manufacturer, model, year of manufacture and control, plus photos of the rating plate and the options screen. Your IT approves the single outbound connection.</li>
+        <li><strong>On-site visit:</strong> we connect the control read-only, document the available signals and agree the measurement points on the spindle housing with you. We only set up users and certificates on the control with your approval. Production carries on throughout.</li>
+        <li><strong>Pilot:</strong> the system first learns the baseline. How long that takes depends on how quickly the spindle runs through its usual speed ranges in healthy operation. After that, every alert comes with a reason, you tell us whether it was accurate, and once a month you receive a report per machine.</li>
+      </ol>
+      <p>For the bearing part of the analysis we need the geometry data of the spindle bearings: number of rolling elements, rolling element diameter, pitch diameter and contact angle. These are in the documentation from the spindle or bearing manufacturer. Estimated values shift all bearing frequencies. Details of the process are on the <a href="process.html">Process and requirements</a> page, the scope of service on the <a href="spindle-monitoring.html">Spindle monitoring for CNC machining centres</a> page.</p>
+
+      <h2 id="limits">What spindle monitoring does not do</h2>
+      <p>An honest description belongs in every guide. You should know these points before deciding on a system, ours included:</p>
+      <ul>
+        <li><strong>No prediction to the day.</strong> How much time passes between the first anomaly and a failure depends on bearing design, load, speed and lubrication. We show how far a spindle deviates from its learned baseline and which failure mode lies behind it. We do not state a fixed remaining useful life.</li>
+        <li><strong>No ‘zero downtime’.</strong> Sudden events such as a collision do not announce themselves in the vibration pattern. No monitoring system can prevent that.</li>
+        <li><strong>No intervention in the CNC control.</strong> We write nothing, start no programs and optimise no parameters. The decision on what happens with an alert stays with you.</li>
+        <li><strong>Not every assembly.</strong> Feed axes are in development; we record their signals during the pilot but do not yet assess them. Tool changers and coolant are on the roadmap and are not part of the offer today.</li>
+        <li><strong>Learn first, then assess.</strong> Without a learned baseline there is no reliable assessment. If a spindle is already damaged when the sensor is fitted, the system learns this state as its starting point. That is why a look at the spindle's age, history and running noise is part of the on-site visit.</li>
+        <li><strong>Limited without a control connection.</strong> On controls without OPC UA the vibration measurement works, but speed and load are missing. What this means for the analysis of your machine is something we clarify in the introductory call.</li>
+      </ul>
+      <p>If you want to know whether your control can be connected and which spindles are suitable for a pilot, get in touch via the <a href="contact.html">contact page</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What does spindle monitoring on a CNC machine cost?</summary><p>The model consists of a one-off setup and a monthly licence per machine. The actual figure depends on the control, the number of measurement points and the number of machines, and is given in the introductory call. Whether monitoring pays off depends mainly on what an unplanned spindle failure costs your plant.</p></details>
+        <details class="faq-item"><summary>Can spindle bearings be monitored using CNC control data alone?</summary><p>No. The standard interfaces of the controls deliver values well below 1 kHz. Bearing damage shows up in the kilohertz range. This requires a vibration sensor on the spindle housing. The control additionally supplies speed, load and alarms.</p></details>
+        <details class="faq-item"><summary>Which CNC controls can be connected for spindle monitoring?</summary><p>Siemens SINUMERIK 840D sl, 828D and ONE, and HEIDENHAIN TNC 640, TNC 620 and TNC7, each via OPC UA and read-only. On iTNC 530 and TNC 320 only the sensors work. FANUC is planned.</p></details>
+        <details class="faq-item"><summary>How long does it take until monitoring reports reliably?</summary><p>First the system has to learn the baseline of the spindle, separately for each measurement point and speed range. How long that takes depends on your part mix and the speeds you run. After that, the thresholds are calibrated during the pilot using your feedback.</p></details>
+        <details class="faq-item"><summary>Will I lose the warranty if a sensor is mounted on the spindle?</summary><p>The control connection uses the OPC UA interface offered by the manufacturer and writes nothing. For mounting the sensor on the spindle housing, please check your maintenance contract. If it reserves work on the machine for the machine builder, we will clarify this with you in advance.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Spindle and bearings</span><a href="order-analysis-spindle-unbalance.html">Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed</a></li>
+<li><span class="label">Spindle and bearings</span><a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

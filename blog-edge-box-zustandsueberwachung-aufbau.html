@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Edge-Box für Zustandsüberwachung: Aufbau und Aufgaben · Forbach &amp; Partners</title>
+<meta name="description" content="Was die Edge-Box an der CNC-Maschine tut: Steuerung nur lesen, Schwingung messen, Kennwerte vor Ort rechnen, sieben Tage puffern, verschlüsselt senden.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/edge-box-condition-monitoring.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Edge-Box für Zustandsüberwachung: Aufbau und Aufgaben · Forbach &amp; Partners">
+<meta property="og:description" content="Was die Edge-Box an der CNC-Maschine tut: Steuerung nur lesen, Schwingung messen, Kennwerte vor Ort rechnen, sieben Tage puffern, verschlüsselt senden.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall", "description": "Was die Edge-Box an der CNC-Maschine tut: Steuerung nur lesen, Schwingung messen, Kennwerte vor Ort rechnen, sieben Tage puffern, verschlüsselt senden.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html", "articleSection": "Unser System", "wordCount": 1640}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall", "item": "https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was passiert mit den Daten, wenn das Netzwerk ausfällt?", "acceptedAnswer": {"@type": "Answer", "text": "Die Box misst weiter und speichert alle Datensätze in ihrem lokalen Puffer, mindestens sieben Tage lang, in der Grundeinstellung vierzehn. Steht die Verbindung wieder, sendet sie alles in der richtigen Reihenfolge nach. Gelöscht wird erst nach Bestätigung durch die Plattform, Duplikate werden dort erkannt."}}, {"@type": "Question", "name": "Braucht die Edge-Box eine Portfreigabe in der Firewall?", "acceptedAnswer": {"@type": "Answer", "text": "Keine eingehende. Die Box baut nur ausgehende Verbindungen auf, per MQTT über TLS auf Port 8883 oder, wenn dieser gesperrt ist, über Port 443. Zur Steuerung braucht sie eine OPC-UA-Verbindung im Maschinennetz."}}, {"@type": "Question", "name": "Kann die Edge-Box etwas an der CNC-Steuerung verändern?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Software enthält keine Schreibfunktionen, eine Positivliste blockiert alle Anfragen außer Lesen, Durchsuchen, Abonnieren und Sitzung, Tests prüfen das, und an der Steuerung wird ein Benutzer nur mit Leserechten eingerichtet."}}, {"@type": "Question", "name": "Warum werden die Kennwerte auf der Box berechnet und nicht in der Cloud?", "acceptedAnswer": {"@type": "Answer", "text": "Weil das Rohsignal für die Lagerdiagnose im Kilohertz-Bereich liegt und dauerhaft große Datenmengen erzeugen würde. Die Box rechnet Spektrum und Hüllkurve vor Ort und überträgt nur die Kennwerte. Das spart Bandbreite, hält den Puffer klein und lässt weniger Daten Ihr Netz verlassen."}}, {"@type": "Question", "name": "Wie wird die Software der Edge-Box aktualisiert?", "acceptedAnswer": {"@type": "Answer", "text": "Die Box holt Updates ausgehend über https ab und akzeptiert nur signierte Updates mit neuerer Version, gültiger Laufzeit sowie passender Größe und Prüfsumme. Ein getrennter Dienst installiert das geprüfte Update und prüft vorher noch einmal."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/edge-box-condition-monitoring.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Unser System</span></nav>
+      <h1>Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall</h1>
+      <p class="lead">Die Box an der Maschine liest die Steuerung, misst die Schwingung, rechnet Kennwerte und sendet nur diese. Fällt das Netz aus, puffert sie mindestens sieben Tage und sendet danach lückenlos und ohne Duplikate nach.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>8 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#aufgaben">Die sechs Aufgaben der Edge-Box</a></li>
+<li><a href="#steuerung">Die Steuerung: nur lesen, vierfach abgesichert</a></li>
+<li><a href="#vor-ort-rechnen">Warum die Rechnung vor Ort passiert</a></li>
+<li><a href="#netzausfall">Verhalten bei Netzausfall: Puffer ohne Lücken und ohne Duplikate</a></li>
+<li><a href="#konfiguration">Konfiguration, Identität und Übertragung</a></li>
+<li><a href="#updates-gesundheit">Updates und Gesundheitsmeldungen</a></li>
+<li><a href="#nie">Was die Box nie tut</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Jede Zustandsüberwachung braucht einen Rechner in der Nähe der Maschine. Bei uns ist das die <strong>Edge-Box</strong>. Sie ist das einzige Teil unseres Systems, das im Netz Ihrer Werkhalle steht. Deshalb haben wir bei ihr besonders genau festgelegt, was sie tut, wie sie sich bei Störungen verhält und was sie niemals tut. Dieser Artikel beschreibt den Aufbau der Edge-Box für die Zustandsüberwachung so, wie er in unserer Software umgesetzt ist. Ein bestimmtes Hardware-Modell nennen wir bewusst nicht: Die Software ist festgelegt, die Auswahl der Hardware und der Messkarte ist noch offen.</p>
+
+      <h2 id="aufgaben">Die sechs Aufgaben der Edge-Box</h2>
+      <p>Die Software der Box läuft als ein Programm mit mehreren parallelen Abläufen. Jeder Ablauf hat eine Aufgabe, und ein Fehler in einem Ablauf bringt die anderen nicht zum Stillstand.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Aufgabe</th><th>Was genau passiert</th></tr></thead>
+          <tbody>
+            <tr><td>Steuerung lesen</td><td>Drehzahl, Spindellast, Programm, Betriebsart, aktives Werkzeug und Alarme per OPC UA, nur lesend, in der Grundeinstellung einmal pro Sekunde</td></tr>
+            <tr><td>Schwingung erfassen</td><td>kurze Messfenster vom Schwingungssensor am Spindelgehäuse, nur bei gleichbleibender Drehzahl</td></tr>
+            <tr><td>Kennwerte rechnen</td><td>Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis, Ordnungen, Hüllkurvenamplituden bei den Lagerfrequenzen</td></tr>
+            <tr><td>Puffern</td><td>alle Datensätze in einer lokalen Datenbank, bis die Plattform den Empfang bestätigt</td></tr>
+            <tr><td>Senden</td><td>nur ausgehend per MQTT über TLS mit eigenem Gerätezertifikat</td></tr>
+            <tr><td>Updates prüfen</td><td>signierte Updates abholen, prüfen und bereitlegen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Dazu kommt ein siebter Ablauf, der den Zustand der Box selbst meldet. Dazu weiter unten mehr.</p>
+
+      <h2 id="steuerung">Die Steuerung: nur lesen, vierfach abgesichert</h2>
+      <p>Die Box verbindet sich per OPC UA mit der Steuerung. Welche Signale sie liest, steht in ihrer Konfiguration, nicht im Programmcode. Die Pfade der Signale werden vor Ort mit einem Werkzeug ermittelt, das den Adressraum der Steuerung durchsucht und eine Tabelle aller Knoten erstellt. Auch dieses Werkzeug liest nur.</p>
+      <p>Das Lesen ist in vier Ebenen abgesichert: Die Treiber-Schnittstelle enthält keine Schreibfunktionen. Jede OPC-UA-Anfrage läuft durch eine einzige Stelle mit einer Positivliste, die nur Lesen, Durchsuchen, Abonnieren und Sitzungsverwaltung durchlässt. Schreiben, Methodenaufrufe, Anlegen und Löschen werden blockiert, bevor etwas gesendet wird. Automatische Tests beweisen das. Und an der Steuerung wird ein eigener Benutzer nur mit Leserechten eingerichtet. Die Abfrage läuft in der Grundeinstellung einmal pro Sekunde, nie öfter als alle 0,1 Sekunden.</p>
+      <p>Bei verschlüsselter Verbindung verlangt die Box das Zertifikat der Steuerung. Ohne dieses Zertifikat würde sie jeder Gegenstelle vertrauen, die sich als Steuerung ausgibt. Details stehen in den Artikeln <a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Schreibschutz an der CNC-Steuerung</a> und <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+
+      <h2 id="vor-ort-rechnen">Warum die Rechnung vor Ort passiert</h2>
+      <p>Lagerdiagnose braucht Schwingungssignale im Kilohertz-Bereich. Ein solches Rohsignal ist umfangreich, und es fällt ununterbrochen an. Würde man es in die Cloud schicken, bräuchte jede Maschine eine dauerhaft breite Leitung, und ein Netzausfall würde große Datenmengen aufstauen. Die Box rechnet deshalb die rechenintensiven Schritte selbst: Spektrum, Hüllkurve, Ordnungsanalyse, Suche der Lagerfrequenzen. Übertragen werden nur die Kennwerte und, wenn vorhanden, der Lagerbefund mit seinem Abstand zum Rauschen.</p>
+      <p>Das hat drei Folgen. Erstens bleibt die Datenmenge klein und planbar. Zweitens verlassen weniger Daten Ihr Netz, was die Prüfung durch Ihre IT vereinfacht. Drittens kann die Box auch bei längerer Netzstörung weiter messen, weil sie nur Kennwerte speichern muss.</p>
+      <p>Ein Messfenster wird nur ausgewertet, wenn die Drehzahl laut Steuerung vor und nach dem Fenster um höchstens 2 % abweicht und über 300 min⁻¹ liegt. Die Analyse läuft in einem eigenen Rechenstrang, damit die Box während der Rechnung weiter auf die Steuerung und das Netz reagiert. Was mit den Kennwerten auf der Plattform passiert, erklärt der Artikel <a href="blog-von-der-schwingung-zur-meldung-verarbeitungskette.html">Von der Schwingung zur Meldung</a>.</p>
+
+      <h2 id="netzausfall">Verhalten bei Netzausfall: Puffer ohne Lücken und ohne Duplikate</h2>
+      <p>Netzstörungen kommen in jeder Werkhalle vor. Die Box ist so gebaut, dass dabei weder Daten verloren gehen noch doppelt ankommen. Der Mechanismus hat vier Teile:</p>
+      <ol>
+        <li><strong>Fortlaufende Nummern:</strong> Jeder Datensatz bekommt beim Speichern eine aufsteigende Nummer, die nie wiederverwendet wird.</li>
+        <li><strong>Sicheres Speichern:</strong> Der Puffer ist eine SQLite-Datenbank, die jeden Schreibvorgang vollständig auf den Datenträger bringt. Ein Stromausfall verliert keine bereits gespeicherten Datensätze.</li>
+        <li><strong>Löschen erst nach Bestätigung:</strong> Die Box sendet ein Paket, wartet auf die Bestätigung der Plattform und löscht erst dann die bestätigten Datensätze. Kommt keine Bestätigung, sendet sie dasselbe Paket erneut.</li>
+        <li><strong>Duplikate erkennen:</strong> Die Plattform merkt sich zu jeder Box, welche Nummern sie schon gespeichert hat. Ein erneut gesendeter Datensatz wird erkannt und nicht ein zweites Mal gespeichert.</li>
+      </ol>
+      <p>Aus diesen Regeln folgt: Nach einer Störung sendet die Box alles in der ursprünglichen Reihenfolge nach. Kommt eine Bestätigung verloren, entsteht schlimmstenfalls ein Doppel, das die Plattform verwirft. Eine Lücke entsteht nicht.</p>
+      <div class="callout">
+        <p class="label">Wie lange die Box ohne Netz auskommt</p>
+        <p>Der Puffer hält Daten mindestens sieben Tage, in der Grundeinstellung vierzehn. Weniger als sieben Tage lassen sich in der Konfiguration nicht einstellen. Erst Datensätze, die älter sind als die eingestellte Pufferzeit, werden verworfen. Die Box zählt sie und meldet den Verlust an die Plattform, sobald die Verbindung wieder steht.</p>
+      </div>
+      <p>Auch die Verbindungen selbst sind auf Ausfälle ausgelegt. Bricht die Verbindung zur Steuerung oder zur Plattform ab, versucht die Box es erneut, mit wachsenden Pausen bis zu einer Obergrenze. Die Box stürzt dabei nicht ab und braucht keinen Neustart von Hand.</p>
+
+      <h2 id="konfiguration">Konfiguration, Identität und Übertragung</h2>
+      <h3>Eine Datei, keine Geheimnisse</h3>
+      <p>Alles, was die Box über ihre Maschine wissen muss, steht in einer einzigen Konfigurationsdatei: Geräte- und Maschinenkennung, Adresse der Steuerung, die gelesenen Signale, Messstelle, Messfenster und Messabstand, Frequenzband der Hüllkurve, die Lagergeometrie aus dem Datenblatt, Pufferzeit und Verbindung zur Plattform. Die Datei wird beim Start vollständig geprüft. Unbekannte Einträge, fehlende Pflichtangaben oder widersprüchliche Einstellungen führen zu einer klaren Fehlermeldung statt zu einem stillen Fehlbetrieb.</p>
+      <p>Einige Regeln sind in der Prüfung fest verankert:</p>
+      <ul>
+        <li>Passwörter stehen nie in der Datei. Sie kommen aus Umgebungsvariablen. Zertifikate und Schlüssel werden nur über ihren Dateipfad angegeben.</li>
+        <li>Unverschlüsselte Übertragung zur Plattform ist nur zum eigenen Rechner erlaubt, also für Tests. Für jede echte Adresse ist TLS Pflicht.</li>
+        <li>Verschlüsselte OPC-UA-Verbindungen brauchen Zertifikat und Schlüssel der Box und das Zertifikat der Steuerung.</li>
+        <li>Die Lagergeometrie wird aus dem Datenblatt übernommen, nie geschätzt.</li>
+        <li>Updates werden nur über https abgeholt.</li>
+      </ul>
+
+      <h3>Eigene Identität, nur ausgehend</h3>
+      <p>Jede Box hat eine eigene Identität. Ihr privater Schlüssel wird auf der Box selbst erzeugt und verlässt sie nie. Nach außen gibt sie nur eine Zertifikatsanfrage mit ihrer Gerätekennung. Aus dieser Anfrage stellen wir das Gerätezertifikat aus. Ein vorhandener Schlüssel wird nie überschrieben.</p>
+      <p>Die Übertragung läuft per MQTT über TLS ab Version 1.2, ausgehend auf Port 8883, bei gesperrtem Port über Port 443. Die Box öffnet keinen Port für eingehende Verbindungen. Der Broker erlaubt jeder Box nur Nachrichten unter ihrer eigenen Kennung. Welche Box zu welchem Kunden gehört, entscheidet allein die Plattform anhand ihres Geräteverzeichnisses. Zusätzlich prüft die Plattform, ob die Maschinenkennung in den Daten zur registrierten Maschine der Box passt, und verwirft abweichende Datensätze. Mehr dazu auf der Seite <a href="datensicherheit.html">Datensicherheit</a> und im Artikel <a href="blog-signierte-updates-geraetezertifikate.html">Signierte Updates und Gerätezertifikate</a>.</p>
+
+      <h2 id="updates-gesundheit">Updates und Gesundheitsmeldungen</h2>
+      <p>Die Box fragt in der Grundeinstellung alle sechs Stunden nach einem Update. Ein Update wird nur akzeptiert, wenn seine Beschreibung mit einem unserer hinterlegten Schlüssel signiert ist, sie noch gültig ist und die Version neuer ist als die höchste je akzeptierte. Ein Zurückstufen auf eine ältere Version ist damit ausgeschlossen, auch nach einem Neustart. Die heruntergeladene Datei muss Größe und Prüfsumme aus der signierten Beschreibung exakt treffen. Ist das alles erfüllt, legt die Box das Update bereit. Installiert wird es von einem getrennten Dienst, der vor der Installation noch einmal alles prüft. Ein abgelehntes Update meldet die Box mit Begründung.</p>
+      <p>Damit Sie und wir sehen, ob die Box selbst gesund ist, sendet sie in der Grundeinstellung jede Minute eine Gesundheitsmeldung. Sie enthält:</p>
+      <ul>
+        <li>die installierte Softwareversion,</li>
+        <li>ob die Verbindung zur Steuerung steht,</li>
+        <li>wie viele Datensätze im Puffer auf Versand warten und wie alt der älteste ist,</li>
+        <li>wie viele Tage das Gerätezertifikat noch gültig ist.</li>
+      </ul>
+      <p>Läuft das Zertifikat in weniger als 30 Tagen ab, meldet die Box das zusätzlich als Ereignis. Verbindungsabbrüche zur Steuerung, verworfene Pufferdaten und Updates erscheinen ebenfalls als Ereignisse. Ein wachsender Puffer bei bestehender Steuerungsverbindung zeigt zum Beispiel sofort, dass die Netzverbindung nach außen gestört ist.</p>
+
+      <h2 id="nie">Was die Box nie tut</h2>
+      <p>Für die Freigabe durch Ihre IT ist oft wichtiger, was ein Gerät nicht tut. Für unsere Box gilt:</p>
+      <ul>
+        <li>Sie schreibt nie in die Steuerung, startet keine Programme, ruft keine Methoden auf und ändert keine Parameter.</li>
+        <li>Sie nimmt keine eingehenden Verbindungen an.</li>
+        <li>Sie überträgt kein Rohsignal der Schwingung, nur Kennwerte.</li>
+        <li>Sie installiert keine unsignierten oder älteren Softwarestände.</li>
+        <li>Sie gibt ihren privaten Schlüssel nicht heraus.</li>
+        <li>Sie bewertet nicht selbst, ob eine Maschine auffällig ist. Diese Entscheidung trifft die Plattform mit der gelernten Normallage.</li>
+      </ul>
+      <p>Wie die Box bei Ihnen eingerichtet wird, beschreibt die Seite <a href="ablauf.html">Ablauf</a>. Ob Ihre Steuerung anbindbar ist, klären wir in einem <a href="kontakt.html">Erstgespräch</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Was passiert mit den Daten, wenn das Netzwerk ausfällt?</summary><p>Die Box misst weiter und speichert alle Datensätze in ihrem lokalen Puffer, mindestens sieben Tage lang, in der Grundeinstellung vierzehn. Steht die Verbindung wieder, sendet sie alles in der richtigen Reihenfolge nach. Gelöscht wird erst nach Bestätigung durch die Plattform, Duplikate werden dort erkannt.</p></details>
+        <details class="faq-item"><summary>Braucht die Edge-Box eine Portfreigabe in der Firewall?</summary><p>Keine eingehende. Die Box baut nur ausgehende Verbindungen auf, per MQTT über TLS auf Port 8883 oder, wenn dieser gesperrt ist, über Port 443. Zur Steuerung braucht sie eine OPC-UA-Verbindung im Maschinennetz.</p></details>
+        <details class="faq-item"><summary>Kann die Edge-Box etwas an der CNC-Steuerung verändern?</summary><p>Nein. Die Software enthält keine Schreibfunktionen, eine Positivliste blockiert alle Anfragen außer Lesen, Durchsuchen, Abonnieren und Sitzung, Tests prüfen das, und an der Steuerung wird ein Benutzer nur mit Leserechten eingerichtet.</p></details>
+        <details class="faq-item"><summary>Warum werden die Kennwerte auf der Box berechnet und nicht in der Cloud?</summary><p>Weil das Rohsignal für die Lagerdiagnose im Kilohertz-Bereich liegt und dauerhaft große Datenmengen erzeugen würde. Die Box rechnet Spektrum und Hüllkurve vor Ort und überträgt nur die Kennwerte. Das spart Bandbreite, hält den Puffer klein und lässt weniger Daten Ihr Netz verlassen.</p></details>
+        <details class="faq-item"><summary>Wie wird die Software der Edge-Box aktualisiert?</summary><p>Die Box holt Updates ausgehend über https ab und akzeptiert nur signierte Updates mit neuerer Version, gültiger Laufzeit sowie passender Größe und Prüfsumme. Ein getrennter Dienst installiert das geprüfte Update und prüft vorher noch einmal.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Unser System</span><a href="blog-gemischter-maschinenpark-siemens-heidenhain.html">Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht</a></li>
+<li><span class="label">Unser System</span><a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung: Was in unserem Dashboard steht und was der Instandhalter damit tut</a></li>
+<li><span class="label">Unser System</span><a href="blog-normallage-lernen-einlernphase.html">Normallage lernen: Was in der Einlernphase passiert und worauf Sie achten sollten</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

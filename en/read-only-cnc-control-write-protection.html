@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Read-only CNC control access: write protection in four layers · Forbach &amp; Partners</title>
+<meta name="description" content="How we rule out write access to the CNC control: four independent layers, an OPC UA service allowlist and a limited polling rate for SINUMERIK and HEIDENHAIN.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Read-only CNC control access: write protection in four layers · Forbach &amp; Partners">
+<meta property="og:description" content="How we rule out write access to the CNC control: four independent layers, an OPC UA service allowlist and a limited polling rate for SINUMERIK and HEIDENHAIN.">
+<meta property="og:url" content="https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Read-only: how we technically rule out write access to the CNC control", "description": "How we rule out write access to the CNC control: four independent layers, an OPC UA service allowlist and a limited polling rate for SINUMERIK and HEIDENHAIN.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html", "articleSection": "Security and compliance", "wordCount": 2012}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Read-only: how we technically rule out write access to the CNC control", "item": "https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can a monitoring system change parameters on the CNC control via OPC UA?", "acceptedAnswer": {"@type": "Answer", "text": "In principle, OPC UA offers write and method functions. Our system cannot use them: the software contains no write code, an allowlist blocks every request that would change something before it is sent, tests check this with every change, and the user on the control has read rights only."}}, {"@type": "Question", "name": "Which rights does the OPC UA user on SINUMERIK need?", "acceptedAnswer": {"@type": "Answer", "text": "For our system, read-only rights are sufficient; on SINUMERIK these are SinuReadAll and AlarmRead. Write or administrative rights are not needed and are not set up."}}, {"@type": "Question", "name": "Does polling put load on the control during machining?", "acceptedAnswer": {"@type": "Answer", "text": "By default the box reads all signals once per second in one combined request. The configuration does not allow intervals shorter than 0.1 seconds. Vibration is measured with a separate sensor and puts no load on the control."}}, {"@type": "Question", "name": "What happens if a software update contains a bug?", "acceptedAnswer": {"@type": "Answer", "text": "The allowlist still blocks every request that would change something, and the read-only user on the control would reject a write attempt. In addition, the write protection tests run before every release, including after updates of the libraries used."}}, {"@type": "Question", "name": "Does the works council have to approve a monitoring system on the machine?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on whether the system can monitor the behaviour or performance of employees. Our system records machine data on the condition of spindle and bearings, not operator data. The assessment in each individual case is made by you with your works council; we provide the information needed."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-nur-lesen-schreibschutz-cnc-steuerung.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Security and compliance</span></nav>
+      <h1>Read-only: how we technically rule out write access to the CNC control</h1>
+      <p class="lead">A monitoring system on the CNC control must not be able to change anything, not even through a software bug. That is why we enforce write protection in four mutually independent layers.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#why">Why a monitoring system must never write</a></li>
+<li><a href="#four-layers">Write protection for the CNC control in four layers</a></li>
+<li><a href="#opc-ua-services">Which OPC UA services are allowed and which are not</a></li>
+<li><a href="#polling-rate">A limited polling rate protects the CNC control</a></li>
+<li><a href="#connection">Encrypted connection and verified peer</a></li>
+<li><a href="#what-it-means">What “read-only” means for warranty, works council and IT</a></li>
+<li><a href="#verify">How to check the write protection yourself</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Anyone who connects a monitoring system to a CNC control opens a door to the most important component of the machine. Via OPC UA, SINUMERIK and HEIDENHAIN do not only allow values to be read. Depending on the configuration, the interface also offers functions for writing variables, calling methods and adding or deleting nodes. Condition monitoring of a spindle needs none of this. That is why, in our system, <strong>“read-only” is not a setting but a property of the software</strong>, enforced in four independent layers. This article shows how write protection for the CNC control is built technically and why it matters equally to the maintenance team, IT and the works council.</p>
+
+      <h2 id="why">Why a monitoring system must never write</h2>
+      <p>A single unintended write access can cause real damage on a machine tool: a changed parameter, a selected program number, an acknowledged alarm that the operator should still have seen. In the threat model of our system, the availability and safety of the machine therefore come first, ahead even of the protection of the measurement data.</p>
+      <p>The danger does not only come from outside. A software bug, a faulty library or an incorrect configuration could also trigger a request that changes something. A promise in the datasheet is not enough for this. The protection has to be built so that it holds even if one layer fails.</p>
+      <div class="callout">
+        <p class="label">Principle</p>
+        <p>Our system reads speed, load and alarms from the CNC control and measures vibration with its own sensor on the spindle housing. It does not change parameters, select programs, acknowledge alarms or transfer files to the control. These functions are not switched off. They do not exist.</p>
+      </div>
+
+      <h2 id="four-layers">Write protection for the CNC control in four layers</h2>
+      <p>The four layers work independently of each other. Each on its own would already prevent a write access. Together they also rule out errors that a single layer might miss.</p>
+      <figure>
+        <svg viewBox="0 0 680 230" role="img" aria-label="Four layers of write protection between software and CNC control">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="20" width="150" height="120" rx="2"/><rect x="180" y="20" width="150" height="120" rx="2"/>
+            <rect x="348" y="20" width="150" height="120" rx="2"/><rect x="516" y="20" width="150" height="120" rx="2"/>
+          </g>
+          <text x="87" y="50" text-anchor="middle" style="fill:var(--ink)">1 No write code</text>
+          <text x="87" y="76" text-anchor="middle">driver only knows</text><text x="87" y="94" text-anchor="middle">read and subscribe</text>
+          <text x="255" y="50" text-anchor="middle" style="fill:var(--ink)">2 Upstream barrier</text>
+          <text x="255" y="76" text-anchor="middle">allowlist checks</text><text x="255" y="94" text-anchor="middle">every request</text>
+          <text x="423" y="50" text-anchor="middle" style="fill:var(--ink)">3 Automated tests</text>
+          <text x="423" y="76" text-anchor="middle">source code scan</text><text x="423" y="94" text-anchor="middle">and simulator</text>
+          <text x="591" y="50" text-anchor="middle" style="fill:var(--ink)">4 Read-only user</text>
+          <text x="591" y="76" text-anchor="middle">read rights only</text><text x="591" y="94" text-anchor="middle">on the control</text>
+          <line x1="12" y1="172" x2="666" y2="172" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M650 166 l16 6 l-16 6" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="12" y="200" style="fill:var(--ink-2)">Box software</text>
+          <text x="666" y="200" text-anchor="end" style="fill:var(--ink-2)">CNC control</text>
+        </svg>
+        <figcaption>The first three layers are in our software, the fourth on the CNC control itself. For a write access to get through, all four would have to fail at the same time.</figcaption>
+      </figure>
+
+      <h3>Layer 1: there is no write code</h3>
+      <p>The interface through which our software talks to a CNC control knows exactly five functions: connect, disconnect, read configured signals, fetch received alarms and query the connection status. A function for writing, calling methods or controlling is deliberately not part of the interface. Every driver for a control family has to adhere to this interface. The rest of the box's code therefore cannot even formulate a write command.</p>
+
+      <h3>Layer 2: the upstream barrier with an allowlist</h3>
+      <p>Every OPC UA request from our software passes through a single point in the program before it goes onto the network. That is exactly where a barrier sits that checks every request against an <strong>allowlist</strong>. Only services that cannot change anything on the control get through. Everything else is rejected before a single byte is sent. The barrier is put in place before the connection to the control is even established.</p>
+      <p>The difference between an allowlist and a blocklist is important. A blocklist enumerates what is not permitted. It has a gap as soon as there is a request type nobody thought of, for example after an update of the OPC UA library. An allowlist reverses this: only what is explicitly approved is permitted. An unknown request type is blocked automatically. Our first draft did in fact use a blocklist. Our own tests exposed it as incomplete, which is why the allowlist is now the authoritative layer.</p>
+
+      <h3>Layer 3: automated tests with every change</h3>
+      <p>The third layer consists of tests that run with every change to the code. They check write protection from several angles:</p>
+      <ul>
+        <li>One test scans the entire source code of the box for calls that change something on an OPC UA server, such as writing values, calling methods or adding and deleting nodes. If it finds one, the check fails.</li>
+        <li>A further test ensures that this scan really does detect an injected write call. This means the check cannot silently become ineffective.</li>
+        <li>For every request type that changes something, the tests verify that the barrier blocks it and that none of them is on the allowlist.</li>
+        <li>A test against our control simulator shows that reading works, but a write attempt and a method call fail at the barrier. The simulator does not register a single method call.</li>
+      </ul>
+      <p>These tests also run after every update of the OPC UA library. If the library changes its internal structure in a way that stops the barrier from working, this is noticed immediately, before a new version is shipped.</p>
+
+      <h3>Layer 4: a user with minimal rights on the CNC control</h3>
+      <p>The last layer lies outside our software. A dedicated user for the box is created on the control with read rights only. On SINUMERIK these are the rights <code>SinuReadAll</code> and <code>AlarmRead</code>. On HEIDENHAIN, a role with read-only rights is assigned in the user administration; we agree the exact operating steps with you during commissioning. Even if layers 1 to 3 were all to fail, the control would then reject a write attempt itself. We check and document the set-up of this user on site. How the connection is set up in detail is described in the article <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+
+      <h2 id="opc-ua-services">Which OPC UA services are allowed and which are not</h2>
+      <p>OPC UA is organised into services. Every client request belongs to exactly one service. The allowlist in our system only lets through services that read data or manage the client's own session and its own subscriptions. Subscriptions and sessions are administrative data of our connection, not of the machine.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Allowlist of the box, as of this article</caption>
+          <thead><tr><th>Area</th><th>Allowed</th><th>Blocked</th></tr></thead>
+          <tbody>
+            <tr><td>Session and server</td><td>Create, activate, close session; query endpoints and servers</td><td>Register server (RegisterServer, RegisterServer2)</td></tr>
+            <tr><td>Data</td><td>Read, HistoryRead</td><td>Write, HistoryUpdate</td></tr>
+            <tr><td>Address space</td><td>Browse, BrowseNext, translate paths into node IDs, register and unregister read aliases</td><td>AddNodes, DeleteNodes, AddReferences, DeleteReferences</td></tr>
+            <tr><td>Methods</td><td>none</td><td>Call (any method call)</td></tr>
+            <tr><td>Subscriptions</td><td>Create, modify, delete subscriptions and monitored items; Publish, Republish</td><td>nothing beyond this</td></tr>
+            <tr><td>Everything else</td><td>nothing</td><td>any service not listed, including future ones</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The method call is worth noting. Controls offer functions such as program selection or file transfer via methods. Our system does not call a single method, not even one that seems harmless. The box receives alarms as events via a subscription, not via a method call.</p>
+
+      <h2 id="polling-rate">A limited polling rate protects the CNC control</h2>
+      <p>Write protection is only one part of not impairing the control. Reading too often can also put load on a control whose actual job is machining. Our system therefore reads <strong>once per second</strong> by default. Intervals shorter than <strong>0.1 seconds</strong> are already rejected when the configuration is checked. This lower limit is based on the minimum sampling time that Siemens specifies for SINUMERIK. All configured signals are read in one combined request, not individually.</p>
+      <p>This rate is sufficient for spindle monitoring. The control supplies speed and load as additional information. The actual high-sampling-rate vibration measurement comes from the sensor on the spindle housing and puts no load on the control at all. You can read more about the division of work between box, sensor and control in the article <a href="edge-box-condition-monitoring.html">How the edge box is built</a>.</p>
+      <div class="formula">Polling interval      default 1.0 s
+Lower limit           0.1 s (shorter values are rejected)
+Signals per request   all in one combined read request
+Vibration             own sensor, no load on the control</div>
+
+      <h2 id="connection">Encrypted connection and verified peer</h2>
+      <p>In addition to write protection, we also secure the connection itself. The normal case is an encrypted OPC UA connection with the security policy Basic256Sha256 in “Sign and Encrypt” mode. As soon as encryption is used, our configuration requires the control's certificate. Without this certificate the box would trust any peer that claims to be a control. The read-only user's password is never in the configuration file, only in an environment variable on the box. How the box in turn identifies itself is described in the article <a href="signed-updates-device-certificates.html">Device certificates and signed updates</a>.</p>
+
+      <h2 id="what-it-means">What “read-only” means for warranty, works council and IT</h2>
+      <p><strong>Maintenance and warranty:</strong> a common concern is that a third-party system on the CNC control might affect the warranty or the service contract with the machine builder. Our system changes neither machine data nor NC programs nor parameters. The question of whether a third party has adjusted something on the machine therefore does not arise. Please clarify the details of your contract with the machine builder. The evidence that the box only reads exists in the form of the four layers, and you can check it yourself on the control via the rights of the read-only user.</p>
+      <p><strong>Works council:</strong> the works council's main question is whether the system can monitor the behaviour or performance of employees. In Germany, technical equipment that is suitable for this is subject to co-determination under Section 87(1) No. 6 BetrVG (German Works Constitution Act). Our system records machine data and no data about operators. It is focused exclusively on the condition of the spindle and the spindle bearings. The fact that it also cannot change anything on the machine anticipates a second concern: nobody can intervene in the work at the machine through the system.</p>
+      <p><strong>IT and OT security:</strong> what counts for IT is that a compromised system does not become a tool against the machine. Thanks to the allowlist and the read-only user, the possible damage even in the worst case is limited to reading values. The box also accepts no connections from outside and only sends outbound. An overview of all measures is on the <a href="data-security.html">Data security</a> page.</p>
+
+      <h2 id="verify">How to check the write protection yourself</h2>
+      <p>You do not have to take our word for it; you can check. During commissioning, you or your control specialist create the read-only user yourselves and see which rights it has. The box's certificate is entered manually on the control as trusted, and the box displays the fingerprints for comparison. At the first appointment the box browses the control's address space read-only, through the same barrier as in later operation, and creates a table of the available signals from it. How this appointment works is described on the <a href="process.html">Process</a> page. We are happy to answer questions about approval within your company in the <a href="contact.html">introductory call</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Can a monitoring system change parameters on the CNC control via OPC UA?</summary><p>In principle, OPC UA offers write and method functions. Our system cannot use them: the software contains no write code, an allowlist blocks every request that would change something before it is sent, tests check this with every change, and the user on the control has read rights only.</p></details>
+        <details class="faq-item"><summary>Which rights does the OPC UA user on SINUMERIK need?</summary><p>For our system, read-only rights are sufficient; on SINUMERIK these are SinuReadAll and AlarmRead. Write or administrative rights are not needed and are not set up.</p></details>
+        <details class="faq-item"><summary>Does polling put load on the control during machining?</summary><p>By default the box reads all signals once per second in one combined request. The configuration does not allow intervals shorter than 0.1 seconds. Vibration is measured with a separate sensor and puts no load on the control.</p></details>
+        <details class="faq-item"><summary>What happens if a software update contains a bug?</summary><p>The allowlist still blocks every request that would change something, and the read-only user on the control would reject a write attempt. In addition, the write protection tests run before every release, including after updates of the libraries used.</p></details>
+        <details class="faq-item"><summary>Does the works council have to approve a monitoring system on the machine?</summary><p>That depends on whether the system can monitor the behaviour or performance of employees. Our system records machine data on the condition of spindle and bearings, not operator data. The assessment in each individual case is made by you with your works council; we provide the information needed.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Security and compliance</span><a href="cyber-resilience-act-condition-monitoring.html">Cyber Resilience Act and IEC 62443: what machine builders and operators of condition monitoring should know</a></li>
+<li><span class="label">Security and compliance</span><a href="signed-updates-device-certificates.html">Device certificates and signed updates: how the edge box identifies and protects itself</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

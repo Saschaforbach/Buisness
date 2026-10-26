@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gerätezertifikate und signierte Updates für die Edge-Box · Forbach &amp; Partners</title>
+<meta name="description" content="Gerätezertifikat je Box, Schlüssel auf der Box erzeugt, eigene Geräte-CA, gegenseitige TLS-Prüfung und signierte Updates: so sichern wir Identität und Software.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/signed-updates-device-certificates.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Gerätezertifikate und signierte Updates für die Edge-Box · Forbach &amp; Partners">
+<meta property="og:description" content="Gerätezertifikat je Box, Schlüssel auf der Box erzeugt, eigene Geräte-CA, gegenseitige TLS-Prüfung und signierte Updates: so sichern wir Identität und Software.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Gerätezertifikate und signierte Updates: Wie sich die Edge-Box ausweist und schützt", "description": "Gerätezertifikat je Box, Schlüssel auf der Box erzeugt, eigene Geräte-CA, gegenseitige TLS-Prüfung und signierte Updates: so sichern wir Identität und Software.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html", "articleSection": "Sicherheit und Compliance", "wordCount": 1679}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Gerätezertifikate und signierte Updates: Wie sich die Edge-Box ausweist und schützt", "item": "https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wo wird der private Schlüssel des Gerätezertifikats erzeugt?", "acceptedAnswer": {"@type": "Answer", "text": "Direkt auf der Box. Zu uns geht nur der Zertifikatsantrag mit dem öffentlichen Schlüssel. Der private Schlüssel verlässt die Box nie, auch nicht bei der Einrichtung."}}, {"@type": "Question", "name": "Wie lange ist ein Gerätezertifikat gültig?", "acceptedAnswer": {"@type": "Answer", "text": "Standardmäßig ein Jahr, höchstens zwei Jahre. Die Box meldet ab 30 Tagen vor Ablauf eine Warnung an die Plattform, damit das Zertifikat rechtzeitig erneuert wird."}}, {"@type": "Question", "name": "Was passiert, wenn ein Update manipuliert wurde?", "acceptedAnswer": {"@type": "Answer", "text": "Die Box erkennt das an der ungültigen Signatur oder an der abweichenden Prüfsumme, verwirft das Update und läuft mit der bisherigen Version weiter. Die Ablehnung wird mit Begründung an die Plattform gemeldet."}}, {"@type": "Question", "name": "Kann man eine verlorene Box sperren?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Die Box wird im Geräteverzeichnis ausgetragen, danach nimmt die Plattform keine Daten mehr von ihr an, und ihr Zugang am Broker wird entzogen. Weil jede Box ein eigenes Zertifikat hat, sind andere Boxen davon nicht betroffen."}}, {"@type": "Question", "name": "Braucht die Box für Updates eine eingehende Verbindung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Box lädt Updates ausschließlich ausgehend über https herunter. Sie nimmt keine Verbindungen von außen an."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/signed-updates-device-certificates.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Sicherheit und Compliance</span></nav>
+      <h1>Gerätezertifikate und signierte Updates: Wie sich die Edge-Box ausweist und schützt</h1>
+      <p class="lead">Jede Box hat ein eigenes Zertifikat, dessen Schlüssel die Box nie verlässt. Updates nimmt sie nur an, wenn die Signatur stimmt, die Version neuer ist und das Paket unverändert ankommt.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>8 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#identitaet">Warum jede Box eine eigene Identität braucht</a></li>
+<li><a href="#csr">Der private Schlüssel entsteht auf der Box</a></li>
+<li><a href="#geraete-ca">Eine eigene Geräte-CA mit strengen Regeln</a></li>
+<li><a href="#mtls">Gegenseitige TLS-Prüfung zwischen Box und Plattform</a></li>
+<li><a href="#sperren">Ein Gerät sperren</a></li>
+<li><a href="#signierte-updates">Signierte Updates: Was die Box prüft</a></li>
+<li><a href="#ungueltig">Was die Box bei einer ungültigen Signatur tut</a></li>
+<li><a href="#normen">Warum das für IEC 62443 und den Cyber Resilience Act zählt</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Ein Gerät, das in Ihrem Netz an einer Werkzeugmaschine hängt und Daten nach außen sendet, muss zwei Fragen sicher beantworten können: Wer bin ich, und ist die Software, die auf mir läuft, wirklich die vom Hersteller? Die erste Frage beantwortet ein <strong>Gerätezertifikat</strong>, die zweite beantworten <strong>signierte Updates</strong>. Beides gehört zu den Grundanforderungen, die IEC 62443 und der Cyber Resilience Act an vernetzte Komponenten stellen. Dieser Artikel zeigt, wie wir Gerätezertifikate und signierte Updates in unserer Edge-Box umgesetzt haben, welche Algorithmen wir verwenden und was heute noch offen ist.</p>
+
+      <h2 id="identitaet">Warum jede Box eine eigene Identität braucht</h2>
+      <p>Unsere Box sendet Kennwerte an die Plattform. Wer die Identität einer Box besitzt, kann Daten in ihrem Namen senden. Er könnte also falsche Messwerte einspielen oder einen echten Alarm überdecken. Im Bedrohungsmodell unseres Systems sind die Geräteschlüssel deshalb ein eigenes Schutzgut.</p>
+      <p>Ein gemeinsames Passwort für alle Boxen wäre der schlechteste Weg: Ist es einmal bekannt, sind alle Geräte betroffen. Wir arbeiten stattdessen ohne Passwort-Anmeldung. Jede Box hat ein <strong>eigenes Zertifikat</strong>, in dem ihre Geräte-ID steht. Wird ein Gerät kompromittiert, betrifft das genau dieses eine Gerät.</p>
+
+      <h2 id="csr">Der private Schlüssel entsteht auf der Box</h2>
+      <p>Die wichtigste Regel lautet: Der private Schlüssel einer Box verlässt die Box nie. Er wird nicht bei uns erzeugt und nicht per USB-Stick oder Laptop übertragen. Der Ablauf ist deshalb dreigeteilt:</p>
+      <ol>
+        <li><strong>Auf der Box:</strong> Ein Befehl erzeugt einen Schlüssel nach dem Verfahren EC P-256. Die Schlüsseldatei ist nur für den Box-Benutzer lesbar. Ein vorhandener Schlüssel wird nie überschrieben. Aus dem Schlüssel entsteht ein Zertifikatsantrag (CSR), in dem als Name die Geräte-ID steht.</li>
+        <li><strong>Bei Forbach:</strong> Nur dieser Antrag kommt zu uns. Er enthält den öffentlichen Schlüssel, aber nichts Geheimes. Wir signieren ihn mit unserer Geräte-CA.</li>
+        <li><strong>Zurück auf der Box:</strong> Das signierte Zertifikat wird auf der Box abgelegt. Ab jetzt kann sich die Box gegenüber unserem Broker ausweisen.</li>
+      </ol>
+      <figure>
+        <svg viewBox="0 0 680 170" role="img" aria-label="Ablauf von Schlüssel, Zertifikatsantrag und Zertifikat zwischen Box und Geräte-CA">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="30" width="200" height="90" rx="2"/><rect x="468" y="30" width="200" height="90" rx="2"/>
+          </g>
+          <text x="112" y="58" text-anchor="middle" style="fill:var(--ink)">Box beim Kunden</text>
+          <text x="112" y="82" text-anchor="middle">privater Schlüssel</text><text x="112" y="100" text-anchor="middle">bleibt hier</text>
+          <text x="568" y="58" text-anchor="middle" style="fill:var(--ink)">Geräte-CA bei Forbach</text>
+          <text x="568" y="82" text-anchor="middle">offline, mit</text><text x="568" y="100" text-anchor="middle">Passphrase geschützt</text>
+          <line x1="222" y1="55" x2="456" y2="55" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M448 50 l8 5 l-8 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="340" y="47" text-anchor="middle">Zertifikatsantrag (CSR)</text>
+          <line x1="222" y1="100" x2="456" y2="100" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M230 95 l-8 5 l8 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="340" y="92" text-anchor="middle">signiertes Gerätezertifikat</text>
+          <text x="340" y="150" text-anchor="middle" style="fill:var(--ink-2)">Über die Strecke geht nur Öffentliches, nie ein privater Schlüssel.</text>
+        </svg>
+        <figcaption>Der Zertifikatsantrag enthält nur den öffentlichen Schlüssel. Ein Angreifer, der ihn abfängt, kann damit nichts anfangen.</figcaption>
+      </figure>
+
+      <h2 id="geraete-ca">Eine eigene Geräte-CA mit strengen Regeln</h2>
+      <p>Die Zertifikate unserer Boxen stellt eine eigene Zertifizierungsstelle aus, die Geräte-CA. Sie läuft <strong>offline</strong> auf einem Rechner bei Forbach, nie auf einem öffentlich erreichbaren Server. Ihr Schlüssel ist ein EC-P-384-Schlüssel, geschützt mit einer Passphrase von mindestens zwölf Zeichen. Bevor die CA einen Antrag unterschreibt, prüft sie vier Dinge:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Prüfungen vor dem Ausstellen eines Gerätezertifikats</caption>
+          <thead><tr><th>Prüfung</th><th>Zweck</th></tr></thead>
+          <tbody>
+            <tr><td>Die Signatur des Antrags ist gültig</td><td>Der Antrag stammt vom Besitzer des Schlüssels und wurde unterwegs nicht verändert.</td></tr>
+            <tr><td>Der Name im Antrag ist exakt die Geräte-ID</td><td>Eine Box kann kein Zertifikat für eine andere Box beantragen.</td></tr>
+            <tr><td>Die Box ist auf der Plattform registriert</td><td>Unbekannte Geräte bekommen kein Zertifikat.</td></tr>
+            <tr><td>Laufzeit höchstens zwei Jahre, Standard ein Jahr</td><td>Ein Zertifikat wird regelmäßig erneuert und gilt nicht unbegrenzt.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Das ausgestellte Zertifikat darf ausschließlich zur Anmeldung als Client verwendet werden. Es kann weder andere Zertifikate unterschreiben noch einen Server ausweisen. Damit die Erneuerung nicht vergessen wird, prüft die Box regelmäßig die Restlaufzeit ihres Zertifikats und meldet ab 30 Tagen vor Ablauf eine Warnung an die Plattform.</p>
+
+      <h2 id="mtls">Gegenseitige TLS-Prüfung zwischen Box und Plattform</h2>
+      <p>Die Box sendet ihre Kennwerte per MQTT über TLS, mindestens in Version 1.2, und baut die Verbindung immer selbst von innen nach außen auf. Dabei prüfen sich beide Seiten:</p>
+      <ul>
+        <li><strong>Die Box prüft den Server.</strong> Sie vertraut nur dem Serverzertifikat, das zu der hinterlegten Zertifizierungsstelle passt. Eine Gegenstelle, die sich als unsere Plattform ausgibt, wird abgewiesen.</li>
+        <li><strong>Der Broker prüft die Box.</strong> Für Geräte vertraut er ausschließlich unserer Geräte-CA. Ein Zertifikat aus einer anderen Quelle genügt nicht.</li>
+      </ul>
+      <p>Darüber hinaus entscheidet allein die Plattform anhand ihres Geräteverzeichnisses, zu welchem Kunden eine Box gehört. Eine Box kann sich nicht selbst einem anderen Kunden zuordnen, und Daten für eine fremde Maschine werden verworfen. Mehr zur Übertragung selbst lesen Sie im Artikel <a href="blog-opc-ua-vs-mqtt-produktionsdaten.html">OPC UA oder MQTT für Produktionsdaten</a>.</p>
+      <p>Auch zur Steuerung hin hat die Box ein eigenes Zertifikat. Es wird ebenfalls auf der Box erzeugt und an der Steuerung von Hand als vertrauenswürdig eingetragen. Zum Abgleich zeigt die Box die Fingerabdrücke nach SHA-1 und SHA-256 an. Die Einzelheiten dazu stehen im Artikel <a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Schreibschutz für die CNC-Steuerung</a>.</p>
+
+      <h2 id="sperren">Ein Gerät sperren</h2>
+      <p>Geht eine Box verloren oder besteht der Verdacht, dass sie manipuliert wurde, muss sie sofort ausgeschlossen werden können. Heute geschieht das in zwei Schritten: Die Box wird im Geräteverzeichnis der Plattform ausgetragen, dann nimmt die Plattform keine Daten mehr von ihr an. Zusätzlich wird ihr Zugang am Broker entzogen. Weil jede Box ihr eigenes Zertifikat hat, betrifft eine Sperre nur dieses eine Gerät, alle anderen arbeiten weiter.</p>
+      <div class="callout">
+        <p class="label">Ehrlicher Stand</p>
+        <p>Eine Sperrliste für Zertifikate (CRL) und die automatische Erneuerung sind noch nicht umgesetzt. Die Erneuerung ist heute ein geplanter, manueller Ablauf: neuer Antrag, Signieren, Datei tauschen. Bei einer größeren Zahl von Boxen planen wir eine automatische Erneuerung. Auch die Zugriffsregeln am Produktivbroker prüfen wir noch gesondert, bevor die ersten Boxen in den Feldeinsatz gehen.</p>
+      </div>
+
+      <h2 id="signierte-updates">Signierte Updates: Was die Box prüft</h2>
+      <p>Jede Software braucht Updates, gerade aus Sicherheitsgründen. Ein Update ist aber auch ein Einfallstor: Wer ein manipuliertes Paket einschleusen kann, hat die Box übernommen. Deshalb nimmt unsere Box ein Update nur an, wenn es eine Kette von Prüfungen besteht.</p>
+      <p>Zu jedem Update gehört ein <strong>Manifest</strong>. Es nennt Version, Dateiname, SHA-256-Prüfsumme und Größe des Pakets, einen Gültigkeitszeitraum, die älteste Version, von der aus direkt aktualisiert werden darf, und ob es sich um ein Sicherheitsupdate handelt. Dieses Manifest wird mit einem <strong>Ed25519</strong>-Schlüssel signiert. Signiert werden die exakten Bytes, schon ein geändertes Zeichen macht die Signatur ungültig.</p>
+      <div class="formula">Prüfkette auf der Box
+1  Signatur des Manifests     mit fest hinterlegtem öffentlichem Schlüssel
+2  Inhalt des Manifests       Produkt, Format, Gültigkeitszeitraum
+3  Kein Rückschritt           Version muss neuer sein als jede je akzeptierte
+4  Mindest-Ausgangsversion    sonst erst Zwischenversion nötig
+5  Download nur über https    Abbruch, wenn mehr ankommt als angekündigt
+6  Größe und SHA-256          müssen exakt zum Manifest passen
+7  Erneute Prüfung            unmittelbar vor der Installation</div>
+      <p>Einige dieser Schritte verdienen eine Erklärung:</p>
+      <ul>
+        <li><strong>Fest hinterlegte Schlüssel:</strong> Die öffentlichen Schlüssel, denen die Box vertraut, liegen fest auf der Box. Es können mehrere sein, damit wir einen Schlüssel geplant wechseln können. Der private Signaturschlüssel liegt offline bei uns und ist mit einer Passphrase geschützt.</li>
+        <li><strong>Kein Rückschritt:</strong> Die Box merkt sich dauerhaft die höchste Version, die sie je akzeptiert hat. Ein altes, echt signiertes Manifest mit einer bekannten Schwachstelle lässt sich deshalb auch nach einem Neustart nicht wieder einspielen.</li>
+        <li><strong>Ablaufdatum:</strong> Ein Manifest gilt standardmäßig 30 Tage. Damit kann ein Angreifer der Box nicht dauerhaft ein altes Manifest vorspielen und neue Updates unterdrücken.</li>
+        <li><strong>Erneute Prüfung:</strong> Zwischen Herunterladen und Installieren kann Zeit vergehen. Deshalb wird das bereitgelegte Paket direkt vor der Installation noch einmal vollständig geprüft.</li>
+      </ul>
+
+      <h2 id="ungueltig">Was die Box bei einer ungültigen Signatur tut</h2>
+      <p>Schlägt eine der Prüfungen fehl, verwirft die Box das Update. Sie legt nichts bereit, installiert nichts und läuft mit ihrer bisherigen Version unverändert weiter. Gleichzeitig meldet sie die Ablehnung mit Begründung als Ereignis an die Plattform, zum Beispiel „Signatur ungültig“, „Version nicht neuer“ oder „Prüfsumme weicht ab“. So sehen wir sofort, wenn jemand versucht, ein manipuliertes Paket einzuspielen, oder wenn ein Download beschädigt ankommt.</p>
+      <p>Die Box selbst installiert grundsätzlich nichts. Sie lädt nur ausgehend herunter, prüft und legt bereit. Die eigentliche Installation übernimmt ein getrennter Dienst auf dem Rechner der Box, der nur geprüfte Pakete annimmt und vorher die erneute Prüfung aufruft. Diese Trennung sorgt dafür, dass die Software, die mit dem Internet spricht, keine Rechte zum Austausch von Programmen braucht.</p>
+      <div class="callout">
+        <p class="label">Ehrlicher Stand</p>
+        <p>Die Prüfung signierter Updates auf der Box ist umgesetzt und mit Tests für manipulierte Manifeste, fremde Schlüssel, abgelaufene Manifeste, Rückschritte und veränderte Pakete belegt. Das Installationsprogramm und der Server für die Update-Dateien hängen von der Wahl der Box-Hardware ab und folgen vor dem Serienbetrieb.</p>
+      </div>
+
+      <h2 id="normen">Warum das für IEC 62443 und den Cyber Resilience Act zählt</h2>
+      <p>Gerätezertifikate und signierte Updates sind keine Zusatzfunktionen, sondern ausdrücklich gefordert. IEC 62443-4-2 verlangt unter anderem, dass sich Geräte und Softwareprozesse eindeutig ausweisen, dass Zertifikate richtig geprüft werden und dass die Echtheit von Software nachweisbar ist. Für unsere Box streben wir die Sicherheitsstufe SL-C 2 an, also Schutz gegen gezielte Angriffe mit einfachen Mitteln. Der Cyber Resilience Act fordert in Anhang I Sicherheitsupdates, Schutz vor unbefugtem Zugriff, die Integrität von Programmen und Daten sowie Mechanismen, Updates sicher zu verteilen.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Anforderung</th><th>Umsetzung in unserem System</th></tr></thead>
+          <tbody>
+            <tr><td>IEC 62443-4-2 CR 1.2: Geräte eindeutig ausweisen</td><td>Eigenes Zertifikat je Box, Name gleich Geräte-ID</td></tr>
+            <tr><td>IEC 62443-4-2 CR 1.8 und 1.9: Zertifikate und Public-Key-Verfahren</td><td>Eigene Geräte-CA, gegenseitige TLS-Prüfung, begrenzte Laufzeit</td></tr>
+            <tr><td>IEC 62443-4-2 CR 3.4: Integrität und Echtheit von Software</td><td>Ed25519-signiertes Manifest, SHA-256-Prüfsumme, kein Rückschritt</td></tr>
+            <tr><td>CRA Anhang I Teil I (2b): Sicherheitsupdates</td><td>Signierte Updates mit Kennzeichen für Sicherheitsupdates</td></tr>
+            <tr><td>CRA Anhang I Teil I (2c): Schutz vor unbefugtem Zugriff</td><td>Anmeldung nur mit Gerätezertifikat, kein Passwort</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Welche Fragen Sie als Betreiber jedem Anbieter dazu stellen sollten, beschreibt der Artikel <a href="blog-cyber-resilience-act-zustandsueberwachung.html">Cyber Resilience Act und Zustandsüberwachung</a>. Eine Übersicht aller Schutzmaßnahmen finden Sie auf der Seite <a href="datensicherheit.html">Datensicherheit</a>. Wenn Ihre IT vor einem Pilotprojekt Fragen hat, sprechen Sie uns über die <a href="kontakt.html">Kontaktseite</a> an.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Wo wird der private Schlüssel des Gerätezertifikats erzeugt?</summary><p>Direkt auf der Box. Zu uns geht nur der Zertifikatsantrag mit dem öffentlichen Schlüssel. Der private Schlüssel verlässt die Box nie, auch nicht bei der Einrichtung.</p></details>
+        <details class="faq-item"><summary>Wie lange ist ein Gerätezertifikat gültig?</summary><p>Standardmäßig ein Jahr, höchstens zwei Jahre. Die Box meldet ab 30 Tagen vor Ablauf eine Warnung an die Plattform, damit das Zertifikat rechtzeitig erneuert wird.</p></details>
+        <details class="faq-item"><summary>Was passiert, wenn ein Update manipuliert wurde?</summary><p>Die Box erkennt das an der ungültigen Signatur oder an der abweichenden Prüfsumme, verwirft das Update und läuft mit der bisherigen Version weiter. Die Ablehnung wird mit Begründung an die Plattform gemeldet.</p></details>
+        <details class="faq-item"><summary>Kann man eine verlorene Box sperren?</summary><p>Ja. Die Box wird im Geräteverzeichnis ausgetragen, danach nimmt die Plattform keine Daten mehr von ihr an, und ihr Zugang am Broker wird entzogen. Weil jede Box ein eigenes Zertifikat hat, sind andere Boxen davon nicht betroffen.</p></details>
+        <details class="faq-item"><summary>Braucht die Box für Updates eine eingehende Verbindung?</summary><p>Nein. Die Box lädt Updates ausschließlich ausgehend über https herunter. Sie nimmt keine Verbindungen von außen an.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Sicherheit und Compliance</span><a href="blog-cyber-resilience-act-zustandsueberwachung.html">Cyber Resilience Act und IEC 62443: Was Betreiber von Zustandsüberwachung wissen sollten</a></li>
+<li><span class="label">Sicherheit und Compliance</span><a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen</a></li>
+<li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

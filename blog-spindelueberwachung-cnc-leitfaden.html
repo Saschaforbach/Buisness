@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden · Forbach &amp; Partners</title>
+<meta name="description" content="Spindelüberwachung an CNC-Bearbeitungszentren: Schadensbilder, Sensorik, Kennwerte, Normallage, Anbindung an SINUMERIK und HEIDENHAIN, Pilot und Grenzen.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden · Forbach &amp; Partners">
+<meta property="og:description" content="Spindelüberwachung an CNC-Bearbeitungszentren: Schadensbilder, Sensorik, Kennwerte, Normallage, Anbindung an SINUMERIK und HEIDENHAIN, Pilot und Grenzen.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden", "description": "Spindelüberwachung an CNC-Bearbeitungszentren: Schadensbilder, Sensorik, Kennwerte, Normallage, Anbindung an SINUMERIK und HEIDENHAIN, Pilot und Grenzen.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html", "articleSection": "Spindel und Lager", "wordCount": 2330}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden", "item": "https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was kostet eine Spindelüberwachung an einer CNC-Maschine?", "acceptedAnswer": {"@type": "Answer", "text": "Das Modell besteht aus einer Einrichtung und einer Monatslizenz je Maschine. Die konkrete Zahl hängt von Steuerung, Anzahl der Messstellen und Maschinenzahl ab und wird im Erstgespräch genannt. Ob sich die Überwachung rechnet, hängt vor allem davon ab, was ein ungeplanter Spindelausfall in Ihrem Betrieb kostet."}}, {"@type": "Question", "name": "Kann man Spindellager nur mit den Daten der CNC-Steuerung überwachen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Standard-Schnittstellen der Steuerungen liefern Werte deutlich unter 1 kHz. Lagerschäden zeigen sich im Kilohertz-Bereich. Dafür ist ein Schwingungssensor am Spindelgehäuse nötig. Die Steuerung liefert ergänzend Drehzahl, Last und Alarme."}}, {"@type": "Question", "name": "Welche Steuerungen lassen sich für die Spindelüberwachung anbinden?", "acceptedAnswer": {"@type": "Answer", "text": "Siemens SINUMERIK 840D sl, 828D und ONE sowie HEIDENHAIN TNC 640, TNC 620 und TNC7, jeweils per OPC UA und nur lesend. An iTNC 530 und TNC 320 funktioniert nur die Sensorik. FANUC ist geplant."}}, {"@type": "Question", "name": "Wie lange dauert es, bis die Überwachung zuverlässig meldet?", "acceptedAnswer": {"@type": "Answer", "text": "Zuerst muss das System die Normallage der Spindel lernen, getrennt nach Messstelle und Drehzahlbereich. Wie lange das dauert, hängt vom Teilespektrum und von den gefahrenen Drehzahlen ab. Danach werden die Schwellen im Pilotbetrieb mit Ihren Rückmeldungen kalibriert."}}, {"@type": "Question", "name": "Verliere ich die Gewährleistung, wenn ein Sensor an der Spindel montiert wird?", "acceptedAnswer": {"@type": "Answer", "text": "Die Steuerungsanbindung nutzt die vom Hersteller angebotene OPC-UA-Schnittstelle und schreibt nichts. Für die Sensormontage am Spindelgehäuse prüfen Sie bitte Ihren Wartungsvertrag. Behält er Eingriffe dem Maschinenhersteller vor, klären wir das vorab gemeinsam mit Ihnen."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/spindle-monitoring-cnc-guide.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Spindel und Lager</span></nav>
+      <h1>Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden</h1>
+      <p class="lead">Was eine Spindelüberwachung erkennen kann, welche Messtechnik sie braucht, wie aus Schwingungen eine begründete Meldung wird und wo die Grenzen liegen. Der Überblick mit Verweisen auf alle Vertiefungen.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>12 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#warum-spindel">Warum gerade die Spindel überwacht wird</a></li>
+<li><a href="#schadensbilder">Fünf Schadensbilder, die eine Spindelüberwachung erkennen muss</a></li>
+<li><a href="#messtechnik">Messtechnik und Anbindung: Sensor am Gehäuse, Drehzahl aus der Steuerung</a></li>
+<li><a href="#kennwerte">Kennwerte und Hüllkurve: Was aus der Schwingung berechnet wird</a></li>
+<li><a href="#normallage">Normallage, Stufen und Meldungen</a></li>
+<li><a href="#pilot">Ablauf eines Piloten</a></li>
+<li><a href="#grenzen">Was Spindelüberwachung nicht leistet</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Die Hauptspindel ist das Bauteil, an dem ein Bearbeitungszentrum hängt. Fällt sie aus, steht die Maschine, und eine Reparatur ist selten eine Sache von Stunden. Gleichzeitig kündigt sich ein Spindelschaden in den meisten Fällen an: Das Schwingungsbild verändert sich, lange bevor die Spindel hörbar anders läuft oder warm wird. <strong>Spindelüberwachung an CNC-Bearbeitungszentren</strong> bedeutet, diese Veränderung laufend zu messen, sie gegen den gesunden Zustand der eigenen Maschine zu bewerten und daraus eine Meldung zu machen, mit der ein Instandhalter etwas anfangen kann.</p>
+      <p>Dieser Leitfaden erklärt das Vorgehen von Anfang bis Ende. Er beschreibt, welche Schäden sich erkennen lassen, welche Messtechnik dafür nötig ist, welche Kennwerte ausgewertet werden, wie Stufen und Meldungen entstehen, wie die Anbindung an Steuerung und IT aussieht und was ein Pilot konkret umfasst. Am Ende steht, was eine Spindelüberwachung nicht leisten kann. Zu den meisten Abschnitten gibt es einen eigenen Fachartikel, der tiefer geht.</p>
+
+      <h2 id="warum-spindel">Warum gerade die Spindel überwacht wird</h2>
+      <p>Ein Bearbeitungszentrum hat viele Baugruppen, die verschleißen: Vorschubachsen, Werkzeugwechsler, Kühlmittelversorgung, Spannsysteme. Die Spindel unterscheidet sich von ihnen in drei Punkten.</p>
+      <ul>
+        <li><strong>Sie arbeitet ständig.</strong> Solange die Maschine zerspant, dreht die Spindel, oft über weite Drehzahlbereiche und unter wechselnder Last.</li>
+        <li><strong>Ihr Ausfall ist teuer und langwierig.</strong> Eine Spindelreparatur bedeutet meist Ausbau, Überholung beim Spindelservice und Wiedereinbau. Wie hoch der Schaden für Ihren Betrieb ist, hängt von Auslastung und Ersatzkapazität ab. Eine Rechenhilfe dazu finden Sie im Artikel <a href="blog-was-kostet-eine-stunde-maschinenstillstand.html">Was kostet eine Stunde Maschinenstillstand</a> und im <a href="index.html#rechner">Rechner auf der Startseite</a>.</li>
+        <li><strong>Ihr Schaden ist physikalisch gut messbar.</strong> Spindellager sind Wälzlager. Ein Defekt an einem Wälzlager erzeugt Stöße mit einer Wiederholrate, die sich aus Lagergeometrie und Drehzahl berechnen lässt. Das ist seit Jahrzehnten beschrieben und erprobt.</li>
+      </ul>
+      <p>Der dritte Punkt entscheidet. Bei anderen Baugruppen ist die Signallage schwieriger oder die Verfahren sind noch nicht so weit, dass wir sie mit gutem Gewissen anbieten. Deshalb konzentrieren wir uns auf die Spindel. Wie es bei den anderen Baugruppen aussieht, beschreiben die Artikel zu <a href="blog-vorschubachsen-cnc-verschleissmuster.html">Vorschubachsen</a>, <a href="blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html">Werkzeugwechslern</a> und zur <a href="blog-kuehlmittelueberwachung-cnc-fraeszentren.html">Kühlmittelüberwachung</a>. Den Einfluss von Stillständen auf die Gesamtanlageneffektivität behandelt der Artikel <a href="blog-oee-unter-75-prozent-hauptursachen.html">OEE unter 75 Prozent</a>.</p>
+
+      <h2 id="schadensbilder">Fünf Schadensbilder, die eine Spindelüberwachung erkennen muss</h2>
+      <p>Eine Spindelüberwachung sollte nicht nur melden, dass sich etwas verändert hat, sondern auch, wo. Dafür ordnet sie jede Veränderung einem Schadensbild zu. Unser System wertet heute fünf Schadensbilder aus:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Schadensbild</th><th>Woran es sich zeigt</th><th>Kennfrequenz</th></tr></thead>
+          <tbody>
+            <tr><td>Außenringschaden</td><td>Linie bei der Überrollfrequenz des Außenrings und ihren Vielfachen im Hüllkurvenspektrum</td><td class="m">BPFO</td></tr>
+            <tr><td>Innenringschaden</td><td>Linie bei der Überrollfrequenz des Innenrings, typischerweise mit Seitenbändern im Abstand der Drehfrequenz</td><td class="m">BPFI</td></tr>
+            <tr><td>Wälzkörperschaden</td><td>Linie bei der doppelten Wälzkörperdrehfrequenz, weil ein defekter Wälzkörper pro Umdrehung beide Laufbahnen berührt</td><td class="m">2 × BSF</td></tr>
+            <tr><td>Käfigschaden</td><td>Linie bei der Käfigfrequenz, oft auch als Modulation anderer Linien; häufig ein Hinweis auf Schmierungsprobleme</td><td class="m">FTF</td></tr>
+            <tr><td>Unwucht</td><td>Erhöhte Schwingung einmal pro Umdrehung, etwa durch verschmutzte Spannmittel oder schlecht gewuchtete Werkzeuge</td><td class="m">1 × Drehfrequenz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Die vier Lagerschäden folgen derselben Logik: Jeder Defekt erzeugt Stöße mit einer eigenen Wiederholrate. Wie man diese Frequenzen aus Wälzkörperzahl, Durchmessern und Kontaktwinkel berechnet und wie sie im Spektrum aussehen, steht ausführlich im Artikel <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen</a>.</p>
+      <p>Die Unwucht ist kein Lagerschaden, aber ein häufiger Grund für erhöhte Schwingung an der Spindel. Sie entsteht oft gar nicht in der Spindel selbst, sondern im Werkzeug oder in der Aufnahme. Das ist für den Instandhalter eine wichtige Unterscheidung: Eine Unwucht durch einen verschmutzten Kegel behebt man mit einem Lappen, einen Lagerschaden nicht. Welche weiteren Ursachen hinter auffälligen Spindelgeräuschen stecken können, beschreibt der Artikel <a href="blog-cnc-spindel-geraeusche-ursachen.html">Ungewöhnliche Spindelgeräusche</a>.</p>
+
+      <h2 id="messtechnik">Messtechnik und Anbindung: Sensor am Gehäuse, Drehzahl aus der Steuerung</h2>
+      <p>Spindelüberwachung braucht zwei Datenquellen: die Schwingung, gemessen direkt an der Spindel, und den Betriebszustand, gelesen aus der Steuerung. Keine der beiden reicht allein.</p>
+
+      <h3>Schwingungssensor am Spindelgehäuse</h3>
+      <p>Lagerstöße regen die Struktur rund um das Lager in einem hohen Frequenzbereich an, meist im Kilohertz-Bereich. Um sie zu erfassen, braucht man einen Beschleunigungssensor, der möglichst nah am Lager auf dem Spindelgehäuse sitzt, und eine Messkarte mit entsprechend hoher Abtastrate. Wo genau der Sensor sitzt, legen wir beim Termin vor Ort fest. Entscheidend ist ein kurzer, steifer Übertragungsweg vom Lager zum Sensor.</p>
+      <div class="callout">
+        <p class="label">Warum die Steuerung allein nicht reicht</p>
+        <p>Die Standard-Schnittstellen von CNC-Steuerungen liefern Werte mit deutlich unter 1 kHz. Für die Auswertung von Lagerschäden braucht man Signale im Kilohertz-Bereich. Ein Angebot, das Lagerdiagnose an Spindeln allein aus Steuerungsdaten verspricht, sollten Sie kritisch prüfen.</p>
+      </div>
+
+      <h3>Drehzahl, Last und Zustand aus der Steuerung</h3>
+      <p>Die Lagerfrequenzen sind proportional zur Drehzahl. Ohne die aktuelle Drehzahl weiß die Auswertung nicht, wo sie suchen muss. Zusätzlich lesen wir Spindellast, Temperaturen und Steuerungsalarme. Damit lässt sich jede Messung einem Betriebszustand zuordnen, und Messungen im Stillstand oder während eines Werkzeugwechsels lassen sich von Messungen unter Zerspanung trennen.</p>
+      <p>Die Anbindung läuft über OPC UA, die Schnittstelle, die Siemens und HEIDENHAIN selbst anbieten. Anbindbar sind SINUMERIK 840D sl, 828D und ONE sowie HEIDENHAIN TNC 640, TNC 620 und TNC7. An iTNC 530 und TNC 320 fehlt ein OPC UA NC Server; dort arbeiten wir nur mit der Sensorik. FANUC ist geplant. Was an der Steuerung freigeschaltet sein muss, steht im Artikel <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+      <p>Der Zugriff ist ausschließlich lesend und vierfach abgesichert: Die Software enthält keinen Schreibcode, eine vorgelagerte Sperre blockiert jede verändernde Anfrage, automatische Tests prüfen bei jeder Änderung, dass kein Schreibpfad entstanden ist, und an der Steuerung gibt es einen eigenen Benutzer mit reinen Leserechten. Die Box fragt standardmäßig einmal pro Sekunde ab, technisch begrenzt auf höchstens alle 0,1 Sekunden, damit die Steuerung nicht belastet wird.</p>
+
+      <h3>Rechnen vor Ort, Kennwerte nach Deutschland</h3>
+      <p>Die Box an der Maschine berechnet die Kennwerte selbst. Die rohen Schwingungssignale bleiben im Werk. Übertragen werden nur die berechneten Kennwerte und Zustandsgrößen, verschlüsselt per MQTT über TLS, ausschließlich als ausgehende Verbindung. Fällt das Netz aus, puffert die Box mindestens sieben Tage und sendet danach lückenlos nach. Die Daten liegen in Rechenzentren in Deutschland. Warum wir MQTT für den Transport und OPC UA für das Lesen nutzen, erklärt der Artikel <a href="blog-opc-ua-vs-mqtt-produktionsdaten.html">OPC UA oder MQTT</a>. Welche Firewall-Freigaben nötig sind, steht auf der Seite <a href="datensicherheit.html">Datensicherheit</a>.</p>
+
+      <h2 id="kennwerte">Kennwerte und Hüllkurve: Was aus der Schwingung berechnet wird</h2>
+      <p>Ein Rohsignal mit vielen tausend Werten pro Sekunde ist für eine Bewertung unbrauchbar. Die Box verdichtet jedes Messfenster zu wenigen Kennwerten, die jeweils eine bestimmte Frage beantworten:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Kennwert</th><th>Was er beschreibt</th><th>Wofür er taugt</th></tr></thead>
+          <tbody>
+            <tr><td>Effektivwert</td><td>Energie der Schwingung im Messfenster</td><td>Allgemeiner Zustand, steigt bei Lagerschäden aber meist erst spät</td></tr>
+            <tr><td>Scheitelfaktor</td><td>Verhältnis von Spitzenwert zu Effektivwert</td><td>Steigt, wenn kurze Stöße im Signal auftauchen</td></tr>
+            <tr><td>Kurtosis</td><td>Wie stark einzelne Ausschläge aus dem Signal herausragen</td><td>Empfindlich für impulshafte Signale, wie sie beginnende Lagerschäden erzeugen</td></tr>
+            <tr><td>Amplituden bei Lagerfrequenzen</td><td>Energie im Hüllkurvenspektrum bei BPFO, BPFI, 2 × BSF und FTF</td><td>Zeigt, welches Lagerbauteil betroffen ist</td></tr>
+            <tr><td>Amplitude bei 1 × Drehfrequenz</td><td>Schwingung einmal pro Umdrehung, per Ordnungsanalyse</td><td>Unwucht durch Werkzeug, Spannmittel oder Rotor</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Effektivwert, Scheitelfaktor und Kurtosis sind Zeitbereichskennwerte. Sie sind robust und einfach, sagen aber nicht, welches Bauteil sich verändert. Dafür braucht es die <strong>Hüllkurvenanalyse</strong>: Das Signal wird um den Resonanzbereich gefiltert, die Hüllkurve gebildet und deren Spektrum berechnet. Dort erscheinen die Wiederholraten der Lagerstöße als klare Linien. Eine Linie zählt bei uns nur dann als Befund, wenn die Grundfrequenz selbst sichtbar ist und nicht nur ein Vielfaches. Die Schritte und die typischen Muster je Schaden beschreibt der Artikel <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen</a>.</p>
+      <p>Für die Unwucht nutzen wir die Ordnungsanalyse. Sie rechnet die Frequenzachse in Vielfache der Drehfrequenz um. Ändert sich die Drehzahl während eines Programms, wird das Signal auf gleiche Drehwinkelschritte umgerechnet, damit die drehzahlgebundenen Anteile im Spektrum scharf bleiben.</p>
+      <p>Warum ein einzelner Gesamtpegel für Spindeln wenig aussagt und was die ISO-Normen zur Schwingungsbewertung tatsächlich regeln, steht im Artikel <a href="blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">Vibrationsanalyse an Werkzeugmaschinen und ISO-Grenzwerte</a>.</p>
+
+      <h2 id="normallage">Normallage, Stufen und Meldungen</h2>
+      <p>Ein Kennwert allein sagt nichts. Ob ein Effektivwert hoch ist, hängt von der Spindel ab: von Bauart, Einbau, Alter, Messstelle und Drehzahl. Deshalb bewertet unser System jeden Kennwert gegen die <strong>gelernte Normallage</strong> genau dieser Maschine, getrennt nach Messstelle und Drehzahlbereich. Verglichen wird nur Gleiches mit Gleichem.</p>
+      <p>In der Lernphase sammelt das System Messungen aus dem gesunden Betrieb und bestimmt für jeden Kennwert den Median und eine robuste Streuung. Robust heißt: Einzelne Ausreißer, etwa ein Stoß beim Werkzeugwechsel, verschieben die Normallage kaum. Jede neue Messung wird dann so bewertet:</p>
+      <div class="formula">Abweichung = (Messwert − Median der Normallage) / Streuung der Normallage
+
+Streuung: robust bestimmt, u. a. aus der medianen absoluten Abweichung vom Median (MAD)
+Gezählt werden nur Anstiege. Ein sinkender Kennwert löst nichts aus.</div>
+      <p>Aus der Abweichung ergibt sich eine von vier Stufen:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Stufe</th><th>Bedeutung</th><th>Empfohlene Reaktion</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td>Im Band der Normallage</td><td>Keine</td></tr>
+            <tr><td>Auffällig</td><td>Leichte Abweichung</td><td>Beobachten, keine Sofortmaßnahme nötig</td></tr>
+            <tr><td>Warnung</td><td>Deutliche Abweichung oder erkanntes Schadensbild</td><td>Prüfung bei nächster Gelegenheit einplanen</td></tr>
+            <tr><td>Alarm</td><td>Starke Abweichung</td><td>Zeitnah prüfen, erhöhtes Ausfallrisiko</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Zwei Regeln halten die Zahl der Fehlalarme klein. Erstens wird eine Stufe erst gemeldet, wenn sie über mehrere aufeinanderfolgende Messungen besteht. Ein einzelner Ausreißer reicht nicht. Zweitens sind die Schwellen zwischen den Stufen Startwerte. Sie stammen weder aus einer Norm noch vom Maschinenhersteller und werden mit echten Daten und Ihren Rückmeldungen kalibriert.</p>
+      <p>Jede Meldung trägt ihre Begründung: welcher Kennwert, an welcher Messstelle, bei welcher Drehzahl, wie weit über der Normallage, welches Schadensbild vermutet wird und was zu prüfen ist. Ein Beispiel für den Aufbau, nicht aus einem Kundenprojekt: „Lagerschaden Außenring vermutet (Spindellager). Linie bei BPFO deutlich über dem Rauschen, bestätigt über mehrere Messungen. Prüfen: Laufgeräusch, Lagertemperatur, Schmierung, Befund mit Spindelservice abklären.“</p>
+      <p>Das Verfahren ist bewusst nachvollziehbar. Maschinelles Lernen setzen wir erst ein, wenn es auf zurückgehaltenen Daten nachweislich besser ist. Warum wir eine gelernte Normallage festen Schwellen vorziehen und wo der Unterschied zu Black-Box-Verfahren liegt, steht im Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">feste Schwellen oder gelernte Normallage</a>. Wie sich Zustandsüberwachung von vorausschauender Instandhaltung abgrenzt, erklärt der Artikel <a href="blog-condition-monitoring-vs-predictive-maintenance.html">Condition Monitoring oder Predictive Maintenance</a>.</p>
+
+      <h2 id="pilot">Ablauf eines Piloten</h2>
+      <p>Ob eine Spindelüberwachung an Ihren Maschinen funktioniert, zeigt sich an Ihren Maschinen. Ein Pilot läuft bei uns in vier Schritten. Kein Schritt verändert etwas an der Maschine, und Sie können an jeder Stelle aufhören.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Ablauf eines Piloten in vier Schritten">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="156" y1="72" x2="176" y2="72"/><line x1="326" y1="72" x2="346" y2="72"/><line x1="496" y1="72" x2="516" y2="72"/>
+          </g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Erstgespräch</text><text x="82" y="86" text-anchor="middle" style="fill:var(--ink-2)">Steuerung, Optionen</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Vorabklärung</text><text x="252" y="86" text-anchor="middle" style="fill:var(--ink-2)">Datenblatt, Fotos, IT</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Termin vor Ort</text><text x="422" y="86" text-anchor="middle" style="fill:var(--ink-2)">Anbindung, Sensoren</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Pilotbetrieb</text><text x="595" y="86" text-anchor="middle" style="fill:var(--ink-2)">Normallage, Meldungen</text>
+          <text x="340" y="132" text-anchor="middle" style="fill:var(--ink-2)">Rückmeldung zu jeder Meldung, monatlicher Bericht je Maschine</text>
+        </svg>
+        <figcaption>Die vier Schritte eines Piloten. Die Schwellen werden im Pilotbetrieb anhand Ihrer Rückmeldungen kalibriert.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Erstgespräch:</strong> Wir klären per Telefon oder Video, ob Steuerung, Softwarestand und Optionen passen. Passt es nicht, sagen wir das in diesem Gespräch.</li>
+        <li><strong>Vorabklärung:</strong> Sie schicken je Maschine Hersteller, Typ, Baujahr und Steuerung sowie Fotos von Typenschild und Optionsbildschirm. Ihre IT gibt die ausgehenden Verbindungen frei.</li>
+        <li><strong>Termin vor Ort:</strong> Wir binden die Steuerung lesend an, dokumentieren die verfügbaren Signale und legen mit Ihnen die Messstellen am Spindelgehäuse fest. Benutzer und Zertifikate an der Steuerung richten wir nur mit Ihrer Freigabe ein. Die Produktion läuft dabei weiter.</li>
+        <li><strong>Pilotbetrieb:</strong> Das System lernt zuerst die Normallage. Wie lange das dauert, hängt davon ab, wie schnell die Spindel ihre üblichen Drehzahlbereiche im gesunden Betrieb durchläuft. Danach kommt jede Meldung mit Begründung, Sie melden zurück, ob sie zutraf, und einmal im Monat erhalten Sie einen Bericht je Maschine.</li>
+      </ol>
+      <p>Für den Lagerteil der Auswertung brauchen wir die Geometriedaten der Spindellager: Anzahl der Wälzkörper, Wälzkörperdurchmesser, Teilkreisdurchmesser und Kontaktwinkel. Sie stehen in der Dokumentation des Spindel- oder Lagerherstellers. Geschätzte Werte verschieben alle Lagerfrequenzen. Die Details zum Ablauf finden Sie auf der Seite <a href="ablauf.html">Ablauf und Voraussetzungen</a>, den Leistungsumfang auf der Seite <a href="cnc-fraeszentren.html">Spindelüberwachung für CNC-Bearbeitungszentren</a>.</p>
+
+      <h2 id="grenzen">Was Spindelüberwachung nicht leistet</h2>
+      <p>Eine ehrliche Beschreibung gehört zu jedem Leitfaden. Diese Punkte sollten Sie kennen, bevor Sie sich für ein System entscheiden, unseres eingeschlossen:</p>
+      <ul>
+        <li><strong>Keine Vorhersage auf den Tag.</strong> Wie viel Zeit zwischen der ersten Auffälligkeit und einem Ausfall liegt, hängt von Lagerbauart, Last, Drehzahl und Schmierung ab. Wir zeigen, wie weit eine Spindel von ihrer Normallage abweicht und welches Schadensbild dahintersteckt. Eine feste Restlaufzeit nennen wir nicht.</li>
+        <li><strong>Kein „null Stillstand“.</strong> Plötzliche Ereignisse wie eine Kollision kündigen sich nicht im Schwingungsbild an. Das kann kein Überwachungssystem verhindern.</li>
+        <li><strong>Keine Eingriffe in die Steuerung.</strong> Wir schreiben nichts, starten keine Programme und optimieren keine Parameter. Die Entscheidung, was mit einer Meldung passiert, bleibt bei Ihnen.</li>
+        <li><strong>Nicht jede Baugruppe.</strong> Vorschubachsen sind in Entwicklung; wir zeichnen ihre Signale im Pilot auf, bewerten sie aber noch nicht. Werkzeugwechsler und Kühlmittel stehen auf der Roadmap und sind heute nicht Teil des Angebots.</li>
+        <li><strong>Erst lernen, dann bewerten.</strong> Ohne Normallage gibt es keine belastbare Bewertung. Ist eine Spindel bei Einbau des Sensors bereits geschädigt, lernt das System diesen Zustand als Ausgangslage. Deshalb gehört ein Blick auf Alter, Historie und Laufgeräusch der Spindel zum Termin vor Ort.</li>
+        <li><strong>Ohne Steuerungsanbindung eingeschränkt.</strong> An Steuerungen ohne OPC UA funktioniert die Schwingungsmessung, aber Drehzahl und Last fehlen. Was das für die Auswertung Ihrer Maschine bedeutet, klären wir im Erstgespräch.</li>
+      </ul>
+      <p>Wenn Sie wissen wollen, ob Ihre Steuerung anbindbar ist und welche Spindeln sich für einen Piloten eignen, sprechen Sie uns über die <a href="kontakt.html">Kontaktseite</a> an.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Was kostet eine Spindelüberwachung an einer CNC-Maschine?</summary><p>Das Modell besteht aus einer Einrichtung und einer Monatslizenz je Maschine. Die konkrete Zahl hängt von Steuerung, Anzahl der Messstellen und Maschinenzahl ab und wird im Erstgespräch genannt. Ob sich die Überwachung rechnet, hängt vor allem davon ab, was ein ungeplanter Spindelausfall in Ihrem Betrieb kostet.</p></details>
+        <details class="faq-item"><summary>Kann man Spindellager nur mit den Daten der CNC-Steuerung überwachen?</summary><p>Nein. Die Standard-Schnittstellen der Steuerungen liefern Werte deutlich unter 1 kHz. Lagerschäden zeigen sich im Kilohertz-Bereich. Dafür ist ein Schwingungssensor am Spindelgehäuse nötig. Die Steuerung liefert ergänzend Drehzahl, Last und Alarme.</p></details>
+        <details class="faq-item"><summary>Welche Steuerungen lassen sich für die Spindelüberwachung anbinden?</summary><p>Siemens SINUMERIK 840D sl, 828D und ONE sowie HEIDENHAIN TNC 640, TNC 620 und TNC7, jeweils per OPC UA und nur lesend. An iTNC 530 und TNC 320 funktioniert nur die Sensorik. FANUC ist geplant.</p></details>
+        <details class="faq-item"><summary>Wie lange dauert es, bis die Überwachung zuverlässig meldet?</summary><p>Zuerst muss das System die Normallage der Spindel lernen, getrennt nach Messstelle und Drehzahlbereich. Wie lange das dauert, hängt vom Teilespektrum und von den gefahrenen Drehzahlen ab. Danach werden die Schwellen im Pilotbetrieb mit Ihren Rückmeldungen kalibriert.</p></details>
+        <details class="faq-item"><summary>Verliere ich die Gewährleistung, wenn ein Sensor an der Spindel montiert wird?</summary><p>Die Steuerungsanbindung nutzt die vom Hersteller angebotene OPC-UA-Schnittstelle und schreibt nichts. Für die Sensormontage am Spindelgehäuse prüfen Sie bitte Ihren Wartungsvertrag. Behält er Eingriffe dem Maschinenhersteller vor, klären wir das vorab gemeinsam mit Ihnen.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Spindel und Lager</span><a href="blog-cnc-spindel-geraeusche-ursachen.html">CNC-Spindel macht Geräusche: mögliche Ursachen und was Sie selbst prüfen können</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-ordnungsanalyse-unwucht-spindel.html">Ordnungsanalyse an der Spindel: Unwucht und Lagerfrequenzen in Vielfachen der Drehzahl</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen: Was Hüllkurve und Lagerfrequenzen verraten</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

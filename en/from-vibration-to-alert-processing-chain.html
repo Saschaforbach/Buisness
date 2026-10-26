@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>From Vibration to Alert: The Condition Monitoring Processing Chain · Forbach &amp; Partners</title>
+<meta name="description" content="How vibration data becomes an explained alert: measurement window, features, envelope, bearing frequencies, learned baseline, confirmation and advice.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="From Vibration to Alert: The Condition Monitoring Processing Chain · Forbach &amp; Partners">
+<meta property="og:description" content="How vibration data becomes an explained alert: measurement window, features, envelope, bearing frequencies, learned baseline, confirmation and advice.">
+<meta property="og:url" content="https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "From vibration to alert: our system's processing chain according to ISO 13374", "description": "How vibration data becomes an explained alert: measurement window, features, envelope, bearing frequencies, learned baseline, confirmation and advice.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html", "articleSection": "Our system", "wordCount": 2032}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "From vibration to alert: our system's processing chain according to ISO 13374", "item": "https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is an alarm generated in condition monitoring of a CNC spindle?", "acceptedAnswer": {"@type": "Answer", "text": "In our system, in five of the six stages of ISO 13374 (we deliberately make no day-exact prognosis): the edge box records vibration windows at constant speed, calculates features and searches the envelope spectrum for bearing frequencies. The platform compares the features with the machine's learned baseline. An alert is only raised when a level persists for three measurements in a row."}}, {"@type": "Question", "name": "Why does a single impact during a tool change not trigger an alarm?", "acceptedAnswer": {"@type": "Answer", "text": "Because a level is only reported once it has been reached in three consecutive measurements. A one-off outlier remains visible in the database but does not produce an alert."}}, {"@type": "Question", "name": "Are the alarm thresholds taken from a standard such as ISO 10816?", "acceptedAnswer": {"@type": "Answer", "text": "No. Standards such as ISO 10816 or ISO 20816 assess whole classes of machines and are too coarse for early bearing damage. Our thresholds refer to the deviation from the baseline of the individual spindle. The values 4, 8 and 15 are starting values that are calibrated on the test rig."}}, {"@type": "Question", "name": "Is raw vibration data transferred to the cloud?", "acceptedAnswer": {"@type": "Answer", "text": "No. The edge box calculates the features at the machine and transmits only these. Details on transmission and storage are on the page Data security ."}}, {"@type": "Question", "name": "Does the system predict when the spindle will fail?", "acceptedAnswer": {"@type": "Answer", "text": "No. The alert states the finding, the size of the deviation and an inspection recommendation with urgency. A remaining running time to the day cannot be credibly given without damage data for the specific spindle."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-von-der-schwingung-zur-meldung-verarbeitungskette.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>From vibration to alert: our system&#x27;s processing chain according to ISO 13374</h1>
+      <p class="lead">Between the raw signal on the spindle housing and the alert in the dashboard there are seven clearly separated steps. Each one is traceable, and every threshold is stated openly.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#iso-13374">Five stages according to ISO 13374</a></li>
+<li><a href="#measurement-window">Step 1: The measurement window at constant speed</a></li>
+<li><a href="#features">Steps 2 and 3: Features, orders and envelope</a></li>
+<li><a href="#bearing-frequencies">Step 3: Searching for the bearing frequencies</a></li>
+<li><a href="#baseline">Step 4: Assessment against the learned baseline</a></li>
+<li><a href="#persistence">Persistence: confirmed first, then reported</a></li>
+<li><a href="#recommendation">Step 5: From deviation to a plain-language recommendation</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>An alert such as "Outer race bearing damage suspected" is the end of a long calculation. If people are to trust it, they need to know how it comes about. This article describes the <strong>processing chain from vibration to alert</strong> in our system, step by step: from the measurement window through features, spectrum and envelope to the assessment against the learned baseline and the inspection recommendation in plain language. Along the way we state the starting values the system works with today and say which of them are still being calibrated on the test rig.</p>
+
+      <h2 id="iso-13374">Five stages according to ISO 13374</h2>
+      <p>The ISO 13374 series of standards describes how data is processed in condition monitoring. It divides the path into stages: data acquisition, data manipulation, state detection, health assessment, diagnosis and recommendation. We have adopted this structure because it enforces a clean separation. Each stage has a clear input, a clear output and a fixed location: either the edge box on the machine or the platform in the data centre in Germany.</p>
+      <figure>
+        <svg viewBox="0 0 700 200" role="img" aria-label="Processing chain in five stages from data acquisition to recommendation">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="6" y="40" width="120" height="76" rx="2"/><rect x="148" y="40" width="120" height="76" rx="2"/>
+            <rect x="290" y="40" width="120" height="76" rx="2"/><rect x="432" y="40" width="120" height="76" rx="2"/>
+            <rect x="574" y="40" width="120" height="76" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5" fill="none">
+            <path d="M128 78 l16 0 l-6 -5 m6 5 l-6 5"/><path d="M270 78 l16 0 l-6 -5 m6 5 l-6 5"/>
+            <path d="M412 78 l16 0 l-6 -5 m6 5 l-6 5"/><path d="M554 78 l16 0 l-6 -5 m6 5 l-6 5"/>
+          </g>
+          <text x="66" y="68" text-anchor="middle" style="fill:var(--ink)">1 Acquire</text><text x="66" y="88" text-anchor="middle">sensor and</text><text x="66" y="104" text-anchor="middle">speed</text>
+          <text x="208" y="68" text-anchor="middle" style="fill:var(--ink)">2 Prepare</text><text x="208" y="88" text-anchor="middle">window, filter,</text><text x="208" y="104" text-anchor="middle">envelope</text>
+          <text x="350" y="68" text-anchor="middle" style="fill:var(--ink)">3 Detect</text><text x="350" y="88" text-anchor="middle">features,</text><text x="350" y="104" text-anchor="middle">bearing lines</text>
+          <text x="492" y="68" text-anchor="middle" style="fill:var(--ink)">4 Assess</text><text x="492" y="88" text-anchor="middle">baseline,</text><text x="492" y="104" text-anchor="middle">confirmation</text>
+          <text x="634" y="68" text-anchor="middle" style="fill:var(--ink)">5 Advise</text><text x="634" y="88" text-anchor="middle">finding and</text><text x="634" y="104" text-anchor="middle">inspection</text>
+          <line x1="6" y1="140" x2="410" y2="140" stroke="var(--ink-2)"/><line x1="432" y1="140" x2="694" y2="140" stroke="var(--ink-2)"/>
+          <text x="208" y="162" text-anchor="middle">Edge box on the machine</text>
+          <text x="563" y="162" text-anchor="middle">Platform (Germany)</text>
+          <text x="350" y="188" text-anchor="middle">Only features are transmitted, no raw signal</text>
+        </svg>
+        <figcaption>The processing chain according to ISO 13374. The computationally intensive stages run on the machine; the assessment against the learned baseline runs on the platform.</figcaption>
+      </figure>
+      <p>This split is deliberate. A raw signal with sampling rates in the kilohertz range is large. Features are small. The edge box therefore calculates stages one to three itself and sends only the result. The platform, in turn, knows the history of every machine and can judge whether a value is unusual for exactly this spindle. How the edge box is built is described in the article <a href="edge-box-condition-monitoring.html">The edge box on the machine</a>.</p>
+
+      <h2 id="measurement-window">Step 1: The measurement window at constant speed</h2>
+      <p>The edge box records the signal from the vibration sensor on the spindle housing in short windows. By default, a window is one second long and one is recorded every ten seconds. Both can be set per measuring point. In parallel, the edge box reads the spindle speed from the CNC control, read-only via OPC UA.</p>
+      <p>Not every window is evaluated. The edge box checks the speed immediately before and after the window. Only if both values are above 300 rpm and differ by no more than 2 % does the window go into the calculation. Run-ups, braking and standstill are therefore excluded. The reason is simple: bearing frequencies are proportional to speed. If the speed changes during the measurement, the lines in the spectrum smear, and the window can no longer be compared cleanly with the baseline.</p>
+
+      <h2 id="features">Steps 2 and 3: Features, orders and envelope</h2>
+      <p>From every valid window, the edge box calculates a fixed set of features. The names of these features are part of our data contract and are versioned. This keeps it traceable which calculation produced a stored value.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Feature</th><th>Domain</th><th>What it represents</th></tr></thead>
+          <tbody>
+            <tr><td>RMS</td><td>Time domain</td><td>Total energy of the vibration</td></tr>
+            <tr><td>Peak value</td><td>Time domain</td><td>Largest excursion in the window</td></tr>
+            <tr><td>Crest factor</td><td>Time domain</td><td>Peak value divided by RMS, rises with impacts</td></tr>
+            <tr><td>Kurtosis</td><td>Time domain</td><td>Measure of impulsiveness</td></tr>
+            <tr><td>1st and 2nd order</td><td>Order spectrum</td><td>Vibration once and twice per revolution</td></tr>
+            <tr><td>Envelope amplitudes</td><td>Envelope spectrum</td><td>Energy at BPFO, BPFI, BSF and FTF</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The time-domain features are explained in detail in the article <a href="vibration-features-rms-crest-factor-kurtosis.html">RMS, crest factor and kurtosis</a>. For frequency analysis, the window is weighted with a Hann window and converted into an amplitude spectrum. The frequency axis is then divided by the rotational frequency. This produces the order spectrum: order 1 is the vibration once per revolution, typical of unbalance; order 2 often points to alignment or mounting problems. The search uses a tolerance of at least 0.05 orders. More on this in the article <a href="order-analysis-spindle-unbalance.html">Order analysis and unbalance</a>.</p>
+      <p>For the bearings we use envelope analysis. A band-pass filter cuts out the frequency range around a structural resonance, the Hilbert transform provides the envelope, and its spectrum shows how many times per second impacts occur. The band has to be determined for each measuring point, for example with a tap test. There is no standard band for all machines. The fundamentals are described in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+
+      <h2 id="bearing-frequencies">Step 3: Searching for the bearing frequencies</h2>
+      <p>From the bearing geometry given in the datasheet and the measured speed, the edge box calculates the four fault frequencies. It then searches the envelope spectrum for lines at these positions. Fixed rules apply:</p>
+      <ul>
+        <li><strong>Tolerance:</strong> real bearings slip. The search therefore covers a band of ±2 % around the calculated frequency, but at least 1.5 line spacings wide.</li>
+        <li><strong>Comparison with the noise floor:</strong> every line found is compared with the local noise floor. The noise floor is taken as the median of the amplitudes around the line. The median is insensitive to the very lines we are looking for.</li>
+        <li><strong>Fundamental and harmonics:</strong> the fundamental frequency and its multiples up to the third are checked. Damage only counts as seen when the fundamental itself is at least 10 dB above the noise floor and at least one harmonic is too. A multiple on its own is not enough, because multiples of different damage types can overlap.</li>
+        <li><strong>Rolling element at 2 × BSF:</strong> a defective rolling element touches both raceways once per rotation about its own axis. The clearer line is therefore usually at twice the rolling element frequency.</li>
+        <li><strong>Sidebands:</strong> for each fault frequency, the edge box checks whether there are lines next to it spaced at the rotational frequency. This is typical of inner race damage, which passes through the load zone with the shaft.</li>
+      </ul>
+      <p>The result is not an opaque overall score, but a series of findings of the kind "Outer race: line at the expected frequency, two multiples, so many dB above the noise floor". If there are several candidates, the one with the most multiples found and the greater distance from the noise floor wins. The 10 dB is a starting value, not a value from a standard. It is being calibrated with measurements on the test rig.</p>
+
+      <h2 id="baseline">Step 4: Assessment against the learned baseline</h2>
+      <p>Whether a feature is high depends on the spindle. Installation, age, sensor position and machining shape the base level. The platform therefore compares every new value with the <strong>learned baseline</strong>, i.e. the normal state of exactly this machine, at exactly this measuring point and in the same speed range. By default, the speed ranges are rounded to 100 rpm, so that only like is compared with like.</p>
+      <p>The baseline is built from at least 20 measurements in a known healthy condition. For each feature, the platform stores the median and a robust spread. The deviation of a new measurement is calculated as follows:</p>
+      <div class="formula">Deviation = (value − median) / spread      only increases count
+
+Spread = maximum of
+           1.4826 · MAD
+           (90th percentile − median) / 1.2816
+           5 % of the median</div>
+      <p>MAD is the median absolute deviation from the median. With the factor 1.4826 it corresponds to the standard deviation for normally distributed data, but is insensitive to individual outliers in the learning phase. The second formula handles skewed distributions, as are usual for spectral amplitudes. The lower bound of 5 % of the median prevents a very quiet machine from reporting the smallest changes as an alarm. Why we take this route rather than fixed thresholds is explained in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">3-sigma alarms or a learned baseline</a>. How the learning phase works in operation is described in <a href="learning-the-baseline.html">Learning the baseline</a>.</p>
+
+      <h2 id="persistence">Persistence: confirmed first, then reported</h2>
+      <p>The largest deviation across all features determines the level of a single measurement. The starting values are:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Starting values, not from a standard, calibrated on the test rig</caption>
+          <thead><tr><th>Level</th><th>Deviation from</th><th>Meaning in the alert</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td class="m">below 4</td><td>within the range of the baseline</td></tr>
+            <tr><td>Noticeable</td><td class="m">4</td><td>keep an eye on it, no immediate action needed</td></tr>
+            <tr><td>Warning</td><td class="m">8</td><td>schedule an inspection at the next opportunity</td></tr>
+            <tr><td>Alarm</td><td class="m">15</td><td>inspect promptly, increased risk of failure</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A single measurement, however, does not yet trigger anything. A level is only reported once it has been reached in <strong>three consecutive measurements</strong>. More precisely: the reported level is the lowest of the last three. An impact during a tool change or a knock during clamping therefore does not produce an alarm. In addition, a new alert is only raised when the confirmed level rises. If a spindle stays at "Warning", it is not reported again with every measurement.</p>
+      <div class="callout">
+        <p class="label">What the starting values mean</p>
+        <p>The thresholds 4, 8 and 15, the 10 dB for the bearing lines and the three confirmations come neither from a standard nor from a manufacturer. They are deliberately chosen starting values that can be set per installation. Synthetic signals have shown that the calculation is correct. How early real damage is detected will only be shown by the test rig and feedback from operation.</p>
+      </div>
+
+      <h2 id="recommendation">Step 5: From deviation to a plain-language recommendation</h2>
+      <p>The last stage translates numbers into an alert a maintenance engineer can work with. Every alert consists of five parts: title, location, urgency, inspection instruction and explanation. The title depends on the strongest finding. If the edge box has identified a bearing component in the envelope spectrum, or if an envelope amplitude has risen the most, it reads something like "Outer race bearing damage suspected (spindle bearing)". If the first order has risen the most, it says "Unbalance suspected". If crest factor or kurtosis have risen, the alert points to impulsive vibration and possible incipient bearing damage.</p>
+      <p>The location states machine, measuring point and speed. The inspection instruction says what to do on site, for example: check running noise, bearing temperature and lubrication, discuss the finding with the spindle service provider. If unbalance is suspected: check the tool and workholding for unbalance, contamination and seating. The explanation names up to three features with reading, normal value, factor and deviation, plus, where applicable, the distance of the bearing line from the noise floor in dB. It ends with the note that the finding has been confirmed over several measurements.</p>
+      <p>What the alert deliberately does not contain: an estimated remaining running time. Our rule for alert texts is to say what was measured and what to inspect. A figure in days would be invented without reliable damage data for your spindle. What the alert looks like in the dashboard is shown in the article <a href="explained-alerts-dashboard.html">Alerts with an explanation</a>. Which machines are suitable is set out on the page <a href="spindle-monitoring.html">Spindle monitoring for CNC machining centres</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How is an alarm generated in condition monitoring of a CNC spindle?</summary><p>In our system, in five of the six stages of ISO 13374 (we deliberately make no day-exact prognosis): the edge box records vibration windows at constant speed, calculates features and searches the envelope spectrum for bearing frequencies. The platform compares the features with the machine's learned baseline. An alert is only raised when a level persists for three measurements in a row.</p></details>
+        <details class="faq-item"><summary>Why does a single impact during a tool change not trigger an alarm?</summary><p>Because a level is only reported once it has been reached in three consecutive measurements. A one-off outlier remains visible in the database but does not produce an alert.</p></details>
+        <details class="faq-item"><summary>Are the alarm thresholds taken from a standard such as ISO 10816?</summary><p>No. Standards such as ISO 10816 or ISO 20816 assess whole classes of machines and are too coarse for early bearing damage. Our thresholds refer to the deviation from the baseline of the individual spindle. The values 4, 8 and 15 are starting values that are calibrated on the test rig.</p></details>
+        <details class="faq-item"><summary>Is raw vibration data transferred to the cloud?</summary><p>No. The edge box calculates the features at the machine and transmits only these. Details on transmission and storage are on the page <a href="data-security.html">Data security</a>.</p></details>
+        <details class="faq-item"><summary>Does the system predict when the spindle will fail?</summary><p>No. The alert states the finding, the size of the deviation and an inspection recommendation with urgency. A remaining running time to the day cannot be credibly given without damage data for the specific spindle.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li>
+<li><span class="label">Our system</span><a href="edge-box-condition-monitoring.html">The edge box for condition monitoring: design, tasks and behaviour during network outages</a></li>
+<li><span class="label">Our system</span><a href="explained-alerts-dashboard.html">Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

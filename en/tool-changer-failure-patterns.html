@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tool changers on CNC machines: failure patterns and early signs · Forbach &amp; Partners</title>
+<meta name="description" content="Automatic tool changers on CNC machining centres: design, typical failure patterns, change time and motor current as early signs, maintenance and alarm history.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/tool-changer-failure-patterns.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/tool-changer-failure-patterns.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Tool changers on CNC machines: failure patterns and early signs · Forbach &amp; Partners">
+<meta property="og:description" content="Automatic tool changers on CNC machining centres: design, typical failure patterns, change time and motor current as early signs, maintenance and alarm history.">
+<meta property="og:url" content="https://forbachandpartners.com/en/tool-changer-failure-patterns.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Tool changers on CNC machining centres: failure patterns and early signs", "description": "Automatic tool changers on CNC machining centres: design, typical failure patterns, change time and motor current as early signs, maintenance and alarm history.", "inLanguage": "en-GB", "datePublished": "2026-04-28", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/tool-changer-failure-patterns.html", "articleSection": "Other assemblies", "wordCount": 1968}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Tool changers on CNC machining centres: failure patterns and early signs", "item": "https://forbachandpartners.com/en/tool-changer-failure-patterns.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does the tool changer on my CNC machine get stuck?", "acceptedAnswer": {"@type": "Answer", "text": "Common causes are dirty or misadjusted limit switches, insufficient air or hydraulic pressure, lack of lubrication in the gearbox and play in the magazine or gripper. The CNC control's fault message usually names the step in which the change stops. That narrows the search considerably."}}, {"@type": "Question", "name": "How can I tell that the tool changer is about to fail?", "acceptedAnswer": {"@type": "Answer", "text": "Typical early signs are change times that get longer or fluctuate more, fault messages accumulating in the same step, new noises and rising drive load. Individual events say little. What is meaningful is the change over many tool changes."}}, {"@type": "Question", "name": "How often does a tool changer need to be lubricated?", "acceptedAnswer": {"@type": "Answer", "text": "The machine builder specifies this in the maintenance manual, depending on design and use. Follow these specifications and use the prescribed lubricants. With a high number of changes, a shorter interval can make sense. You should agree this with the manufacturer."}}, {"@type": "Question", "name": "Why is the tool not seated flat in the spindle after the change?", "acceptedAnswer": {"@type": "Answer", "text": "Often there are chips or dirt on the taper, the air blast is too weak or the taper and tool holder are damaged. Declining clamping force can also be the cause. A clamping force measurement and a check of the air blast will provide clarity."}}, {"@type": "Question", "name": "Does Forbach & Partners monitor the tool changer?", "acceptedAnswer": {"@type": "Answer", "text": "No, not today. Tool changer monitoring is planned, but is not part of our offer. Today we monitor the spindle and spindle bearings."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Other assemblies</span></nav>
+      <h1>Tool changers on CNC machining centres: failure patterns and early signs</h1>
+      <p class="lead">A tool changer often announces problems in advance: through longer or fluctuating change times, isolated fault messages and changed drive load. If you collect these signs, you usually find the cause before the machine stops.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#design">How the tool magazine and changer are built</a></li>
+<li><a href="#cycle">The change cycle step by step</a></li>
+<li><a href="#failure-patterns">Typical failure patterns on the tool changer</a></li>
+<li><a href="#change-time">Change time as a simple indicator</a></li>
+<li><a href="#motor-current">Motor current per change cycle as a principle</a></li>
+<li><a href="#maintenance">Maintenance, lubrication and alarm history</a></li>
+<li><a href="#status">What we offer today</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A tool changer works through the same sequence of movements thousands of times. When it fails, the machine stops, often in the middle of a program and not infrequently with a tool that is seated properly neither in the spindle nor in the gripper. Many failures, however, have a history: isolated fault messages that disappear after acknowledgement, a change time that slowly gets longer, a noise that was not there before. This article describes the design of <strong>automatic tool changers (ATC) on CNC machining centres</strong>, the typical failure patterns and the early signs you can observe with simple means.</p>
+
+      <div class="callout status">
+        <p class="label">Status of our system</p>
+        <p>Tool changer monitoring is planned with us. It is not part of our offer today, and we do not sell it as such. This article is a technical article. What we monitor today is the spindle and its bearings.</p>
+      </div>
+
+      <h2 id="design">How the tool magazine and changer are built</h2>
+      <p>The system consists of two parts that have to work together.</p>
+      <p>The <strong>tool magazine</strong> holds the tools ready. Common designs are disc or carousel magazines, chain magazines for larger numbers of tools, and rack or cassette magazines. A drive positions the required pocket at the transfer point. Depending on the design, a swivelling or tilting movement of the tool pocket is added.</p>
+      <p>The <strong>changer</strong> brings the tool from the magazine into the spindle. Two basic forms are common:</p>
+      <ul>
+        <li><strong>Double gripper:</strong> a gripper arm grips the old tool in the spindle and the new one at the transfer point at the same time, withdraws both, rotates through 180 degrees and inserts them again. The motion sequence is often generated by a cam mechanism driven by a motor. The cam defines stroke and rotation mechanically.</li>
+        <li><strong>Pick-up principle:</strong> the spindle itself moves to the magazine pocket, puts down the old tool and picks up the new one. There is no separate gripper arm; instead the axes and the magazine perform the movement.</li>
+      </ul>
+      <p>The drives vary by manufacturer and year of manufacture. There are changers with a servo motor, whose movement the CNC control regulates like an axis, variants with an induction or geared motor and limit switches, and pneumatically or hydraulically actuated movements. Which variant your machine has is stated in the machine builder's documentation. This determines which signals are available at all.</p>
+      <p>The <strong>spindle side</strong> is also part of the change: the clamping system in the spindle holds the tool by spring force, usually via a disc spring stack. To release it, a hydraulic or pneumatic release cylinder pushes against it. During the change, an air blast cleans the taper. Many machines then check via an air pressure sensor whether the tool is seated flat.</p>
+
+      <h2 id="cycle">The change cycle step by step</h2>
+      <p>For troubleshooting it helps to see the change as a chain of individual steps. Each step has a condition that must be met before the next one begins. The CNC control usually monitors this via limit switches, sensors and time limits.</p>
+      <figure>
+        <svg viewBox="0 0 680 190" role="img" aria-label="Sequence of a tool change with a double gripper in six steps">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="30" width="200" height="50" rx="2"/><rect x="240" y="30" width="200" height="50" rx="2"/><rect x="468" y="30" width="200" height="50" rx="2"/>
+            <rect x="12" y="110" width="200" height="50" rx="2"/><rect x="240" y="110" width="200" height="50" rx="2"/><rect x="468" y="110" width="200" height="50" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="212" y1="55" x2="240" y2="55"/><line x1="440" y1="55" x2="468" y2="55"/>
+            <line x1="568" y1="80" x2="568" y2="95"/><line x1="568" y1="95" x2="112" y2="95"/><line x1="112" y1="95" x2="112" y2="110"/>
+            <line x1="212" y1="135" x2="240" y2="135"/><line x1="440" y1="135" x2="468" y2="135"/>
+          </g>
+          <text x="112" y="52" text-anchor="middle" style="fill:var(--ink)">1 Magazine positions</text><text x="112" y="70" text-anchor="middle">pocket at transfer point</text>
+          <text x="340" y="52" text-anchor="middle" style="fill:var(--ink)">2 Spindle orients</text><text x="340" y="70" text-anchor="middle">change position, stopped</text>
+          <text x="568" y="52" text-anchor="middle" style="fill:var(--ink)">3 Gripper engages</text><text x="568" y="70" text-anchor="middle">both tools</text>
+          <text x="112" y="132" text-anchor="middle" style="fill:var(--ink)">4 Unclamp and pull</text><text x="112" y="150" text-anchor="middle">clamping system opens</text>
+          <text x="340" y="132" text-anchor="middle" style="fill:var(--ink)">5 Rotate and insert</text><text x="340" y="150" text-anchor="middle">air blast cleans taper</text>
+          <text x="568" y="132" text-anchor="middle" style="fill:var(--ink)">6 Clamp and check</text><text x="568" y="150" text-anchor="middle">flat seating, return</text>
+          <text x="340" y="182" text-anchor="middle">Each step has its own duration. A problem usually lengthens exactly one of them.</text>
+        </svg>
+        <figcaption>Simplified sequence of a tool change with a double gripper. The actual sequence of steps and how it is monitored are defined by the machine builder.</figcaption>
+      </figure>
+
+      <h2 id="failure-patterns">Typical failure patterns on the tool changer</h2>
+      <p>The following failure patterns are found on many designs. Your own fault history is the best guide to which ones are common on your machine.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Failure pattern</th><th>Possible causes</th><th>Early signs</th></tr></thead>
+          <tbody>
+            <tr><td>Tool is not gripped securely or is dropped</td><td>Wear of the gripper fingers, fatigued springs or locking mechanism, incorrect tool orientation</td><td>Occasional faults during gripping, visible marks on gripper or tool holder</td></tr>
+            <tr><td>Magazine does not find the pocket or repositions</td><td>Play in the drive, slack chain, dirty or misadjusted position switches</td><td>Positioning faults, repositioning, noises when stopping</td></tr>
+            <tr><td>Change gets stuck in one step</td><td>Limit switch dirty or misadjusted, broken cable, stiff mechanics</td><td>Isolated time-outs that do not recur after acknowledgement</td></tr>
+            <tr><td>Tool is not seated flat in the spindle</td><td>Chips on the taper, weak air blast, worn taper, declining clamping force</td><td>Messages from the face contact check, runout errors, poorer surfaces</td></tr>
+            <tr><td>Tool cannot be released</td><td>Pressure problem at the release cylinder, wear in the clamping set</td><td>Longer release and clamping times, pressure messages</td></tr>
+            <tr><td>Stiff or noisy change</td><td>Lack of lubrication in the cam mechanism, bearing wear, foreign bodies</td><td>New noise, rising drive load, longer movement time</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Strictly speaking, some of these failure patterns concern the spindle: clamping force, taper and face contact. In practice, however, they are reported as a "tool changer problem" because they become noticeable during the change. When looking for the cause, it is worth considering both sides.</p>
+
+      <h2 id="change-time">Change time as a simple indicator</h2>
+      <p>The simplest early sign is the duration. A healthy changer works very consistently, because the cam mechanism and the control sequence are fixed. If a step becomes stiff, a pressure takes longer to build up or a switch responds with a delay, the change takes longer. Often the duration also starts to fluctuate more before its mean value rises.</p>
+      <p>For meaningful observation you should separate two things:</p>
+      <ul>
+        <li><strong>Total chip-to-chip time:</strong> includes axis movements, spindle run-up and program logic. It is important for production, but too coarse for diagnosis.</li>
+        <li><strong>Time of the actual change:</strong> from the start to the end of the change movement, ideally per step. This is where a mechanical change shows most clearly.</li>
+      </ul>
+      <p>A comparison is only fair if the conditions are the same. Depending on the machine, heavy and long tools require a slower movement, and the travel in the magazine depends on which pocket is being fetched. It therefore makes sense to compare within comparable changes, for example separately by tool group or only for the change movement without the magazine search.</p>
+      <div class="formula">Comparison values per type of change:
+
+mean change time over the most recent changes
+spread of the change time over the most recent changes
+
+What is observed is the change relative to
+the changer's own initial state,
+not relative to a general target value.</div>
+      <p>The timestamps can be obtained in various ways: from signals of the machine's PLC, from the tool change command in the program sequence or from state changes that the CNC control reports via an interface. Which signals are available on your machine is best clarified with the machine builder or by looking at the interface documentation.</p>
+
+      <h2 id="motor-current">Motor current per change cycle as a principle</h2>
+      <p>If the changer is driven by a closed-loop controlled motor, its current during a change contains an image of the mechanics. The current is approximately proportional to the torque. If friction in the cam mechanism rises, for example due to a lack of lubrication, or if a movement jams, the motor needs more torque in that section.</p>
+      <p>The principle is simple: for each change, record the current profile over time or over the rotation angle of the drive and compare it with the profile of a healthy change. The peak values at start-up, the mean value in the uniform sections and the shape of the profile are meaningful. A change that builds up over many tool changes is an indication. A single outlier is not yet one.</p>
+      <p>In practice there are two hurdles. First, a change is short. Standard interfaces such as OPC UA supply values at intervals of tenths of a second to whole seconds. With these you capture a few points per change at best. For a real current profile you need the trace function of the CNC control or a separate measurement. Second, not every changer has a drive whose current the control knows. With pneumatics or simple motors with limit switches, times, pressures and switch states remain the available signals.</p>
+
+      <h2 id="maintenance">Maintenance, lubrication and alarm history</h2>
+      <p>Most changer problems can be prevented or found early with consistent maintenance. Intervals and lubricants are specified by the machine builder. Regardless of the design, these points have proven themselves:</p>
+      <ul>
+        <li><strong>Lubrication:</strong> lubricate the cam mechanism, gripper and magazine guides and chain drives as specified by the manufacturer. Check gearbox oil levels.</li>
+        <li><strong>Cleanliness:</strong> remove chips and coolant residue from grippers, magazine pockets and limit switches. Dirty switches are a frequent cause of sporadic faults.</li>
+        <li><strong>Gripper:</strong> visually inspect gripper fingers, springs and locking mechanisms for wear and play.</li>
+        <li><strong>Pneumatics and hydraulics:</strong> check supply pressure, air service unit, filters and leaks. Check that the air blast at the spindle taper works.</li>
+        <li><strong>Spindle clamping system:</strong> measure the clamping force regularly with a clamping force gauge and document the value. Keep the taper and tool holders clean and undamaged.</li>
+        <li><strong>Transfer position:</strong> after a collision or an intervention, have the alignment of spindle orientation and change position checked.</li>
+      </ul>
+      <p>An underrated source is the <strong>alarm history of the CNC control</strong>. Changer fault messages are often acknowledged and forgotten. If you evaluate them regularly, you see patterns: the same time-out in the same step, clustered at a particular magazine pocket or after the weekend. An alarm that rises from once a month to several times a week is an early sign, even if each individual one looks harmless. SINUMERIK and HEIDENHAIN TNC keep alarm and error logs for this, which can be viewed on the control and in some cases exported. Also note what was done after a fault. Only the combination of message and action makes the history useful.</p>
+
+      <h2 id="status">What we offer today</h2>
+      <p>The tool changer is on our list because the signals for it are in principle available in many cases: timestamps, states and fault messages from the CNC control, and with closed-loop drives also the load. However, we will only offer monitoring once we have shown on real machines that the assessment is reliable. Until then it is not part of our offer. In any case, our access to the control remains strictly read-only.</p>
+      <p>Today we monitor the spindle and its bearings. How we go about this is described in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>. How faults on individual assemblies affect availability is covered in the article on <a href="oee-cnc-machines-availability-losses.html">the main causes of low OEE</a>. The current scope of our service is described on the page <a href="spindle-monitoring.html">Spindle monitoring for CNC milling centres</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Why does the tool changer on my CNC machine get stuck?</summary><p>Common causes are dirty or misadjusted limit switches, insufficient air or hydraulic pressure, lack of lubrication in the gearbox and play in the magazine or gripper. The CNC control's fault message usually names the step in which the change stops. That narrows the search considerably.</p></details>
+        <details class="faq-item"><summary>How can I tell that the tool changer is about to fail?</summary><p>Typical early signs are change times that get longer or fluctuate more, fault messages accumulating in the same step, new noises and rising drive load. Individual events say little. What is meaningful is the change over many tool changes.</p></details>
+        <details class="faq-item"><summary>How often does a tool changer need to be lubricated?</summary><p>The machine builder specifies this in the maintenance manual, depending on design and use. Follow these specifications and use the prescribed lubricants. With a high number of changes, a shorter interval can make sense. You should agree this with the manufacturer.</p></details>
+        <details class="faq-item"><summary>Why is the tool not seated flat in the spindle after the change?</summary><p>Often there are chips or dirt on the taper, the air blast is too weak or the taper and tool holder are damaged. Declining clamping force can also be the cause. A clamping force measurement and a check of the air blast will provide clarity.</p></details>
+        <details class="faq-item"><summary>Does Forbach &amp; Partners monitor the tool changer?</summary><p>No, not today. Tool changer monitoring is planned, but is not part of our offer. Today we monitor the spindle and spindle bearings.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Other assemblies</span><a href="coolant-monitoring-cnc-milling.html">Coolant monitoring on CNC milling centres: metalworking fluid and spindle cooling</a></li>
+<li><span class="label">Other assemblies</span><a href="feed-axes-ball-screw-wear-patterns.html">Feed axes on CNC machining centres: wear patterns and their signals</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

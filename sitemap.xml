@@ -1,200 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://forbachandpartners.com/</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/ueber-uns.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/cnc-fraeszentren.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/kontakt.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/maschine-3d.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/impressum.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/datenschutz.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-seo-oder-google-ads-fertigungsbetriebe.html</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-von-der-anfrage-zum-auftrag-angebotsprozess.html</loc>
-    <lastmod>2026-07-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-was-technische-einkaeufer-wirklich-suchen.html</loc>
-    <lastmod>2026-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-website-fehler-fertigungsbetriebe.html</loc>
-    <lastmod>2026-07-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-google-ads-maschinenbau-lohnfertigung.html</loc>
-    <lastmod>2026-07-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-kundengewinnung-lohnfertiger-leitfaden.html</loc>
-    <lastmod>2026-07-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-was-kostet-eine-stunde-maschinenstillstand.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html</loc>
-    <lastmod>2026-06-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-condition-monitoring-vs-predictive-maintenance.html</loc>
-    <lastmod>2026-06-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-cnc-spindel-geraeusche-ursachen.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html</loc>
-    <lastmod>2026-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-oee-unter-75-prozent-hauptursachen.html</loc>
-    <lastmod>2026-05-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html</loc>
-    <lastmod>2026-05-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html</loc>
-    <lastmod>2026-04-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-fallstudie-5-achs-cnc-spindelausfall-verhindert.html</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-opc-ua-vs-mqtt-produktionsdaten.html</loc>
-    <lastmod>2026-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-roi-predictive-maintenance-berechnen.html</loc>
-    <lastmod>2026-04-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-kuehlmittelueberwachung-cnc-fraeszentren.html</loc>
-    <lastmod>2026-03-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://forbachandpartners.com/blog-edge-computing-vs-cloud-ki.html</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
+  <url><loc>https://forbachandpartners.com/ablauf.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-cnc-spindel-geraeusche-ursachen.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-condition-monitoring-vs-predictive-maintenance.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-kuehlmittelueberwachung-cnc-fraeszentren.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-meldung-mit-begruendung-dashboard.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-oee-unter-75-prozent-hauptursachen.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-opc-ua-vs-mqtt-produktionsdaten.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-sinumerik-heidenhain-opc-ua-anbinden.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-spindelueberwachung-cnc-leitfaden.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-was-kostet-eine-stunde-maschinenstillstand.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/cnc-fraeszentren.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/danke.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/datensicherheit.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/kontakt.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/stillstandsrechner.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/ueber-uns.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/blog.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/about.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/cnc-spindle-noise-causes.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/condition-monitoring-pilot-project.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/contact.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/coolant-monitoring-cnc-milling.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/data-security.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/downtime-calculator.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/edge-box-condition-monitoring.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/explained-alerts-dashboard.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/feed-axes-ball-screw-wear-patterns.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/learning-the-baseline.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/process.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/signed-updates-device-certificates.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/spindle-monitoring-cnc-guide.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/spindle-monitoring.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/tool-changer-failure-patterns.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://forbachandpartners.com/en/articles.html</loc><lastmod>2026-10-26</lastmod></url>
 </urlset>

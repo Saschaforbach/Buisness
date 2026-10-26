@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Effektivwert, Scheitelfaktor, Kurtosis: Kennwerte erklärt · Forbach &amp; Partners</title>
+<meta name="description" content="Schwingungskennwerte verständlich: Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis und Bandkennwerte mit Formeln, Stärken und Grenzen bei Lagerschäden.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Effektivwert, Scheitelfaktor, Kurtosis: Kennwerte erklärt · Forbach &amp; Partners">
+<meta property="og:description" content="Schwingungskennwerte verständlich: Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis und Bandkennwerte mit Formeln, Stärken und Grenzen bei Lagerschäden.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Effektivwert, Scheitelfaktor und Kurtosis: Schwingungskennwerte verständlich erklärt", "description": "Schwingungskennwerte verständlich: Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis und Bandkennwerte mit Formeln, Stärken und Grenzen bei Lagerschäden.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html", "articleSection": "Methode", "wordCount": 1494}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Effektivwert, Scheitelfaktor und Kurtosis: Schwingungskennwerte verständlich erklärt", "item": "https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was ist der Unterschied zwischen Effektivwert und Spitzenwert einer Schwingung?", "acceptedAnswer": {"@type": "Answer", "text": "Der Effektivwert ist die Wurzel aus dem Mittel der quadrierten Werte und beschreibt die mittlere Energie. Der Spitzenwert ist der größte Ausschlag im Messfenster. Ihr Verhältnis ist der Scheitelfaktor, der bei kurzen Stößen steigt."}}, {"@type": "Question", "name": "Welcher Scheitelfaktor ist bei einer Spindel normal?", "acceptedAnswer": {"@type": "Answer", "text": "Einen allgemeingültigen Wert gibt es nicht. Mathematisch hat ein reiner Sinus den Scheitelfaktor √2, also etwa 1,41. Das Grundniveau einer realen Spindel hängt von Einbau, Drehzahl und Bearbeitung ab. Aussagekräftig ist deshalb die Abweichung von der gelernten Normallage der jeweiligen Maschine."}}, {"@type": "Question", "name": "Warum sinkt der Scheitelfaktor bei einem schweren Lagerschaden wieder?", "acceptedAnswer": {"@type": "Answer", "text": "Im Endstadium breitet sich der Schaden aus, die Stöße werden zahlreicher und verschmieren. Der Effektivwert steigt, die einzelnen Spitzen ragen weniger heraus. Ein fallender Scheitelfaktor ist deshalb nur zusammen mit dem Effektivwert und den Lagerfrequenzen richtig zu deuten."}}, {"@type": "Question", "name": "Was bedeutet eine Kurtosis von 3?", "acceptedAnswer": {"@type": "Answer", "text": "Eine Kurtosis von 3 entspricht Gaußschem Rauschen, ein reiner Sinus hat 1,5. Werte deutlich über 3 zeigen ein impulshaltiges Signal, etwa durch Lagerstöße, aber auch durch Prozessstöße wie den unterbrochenen Schnitt."}}, {"@type": "Question", "name": "Reicht der Effektivwert zur Überwachung von Spindellagern?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Er steigt meist erst bei fortgeschrittenem Schaden. Für die Früherkennung braucht es zusätzlich Kennwerte für Impulshaltigkeit und vor allem die Amplituden bei den Lagerfrequenzen im Hüllkurvenspektrum."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/vibration-features-rms-crest-factor-kurtosis.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Methode</span></nav>
+      <h1>Effektivwert, Scheitelfaktor und Kurtosis: Schwingungskennwerte verständlich erklärt</h1>
+      <p class="lead">Jeder Schwingungskennwert beantwortet eine andere Frage, und jeder hat einen blinden Fleck. Wer weiß, wann ein Kennwert versagt, kombiniert sie richtig und bewertet sie gegen die Normallage der Maschine.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>7 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#grundlagen">Was ein Kennwert ist und was er nicht ist</a></li>
+<li><a href="#effektivwert">Effektivwert (RMS): die Energie der Schwingung</a></li>
+<li><a href="#spitzenwert-scheitelfaktor">Spitzenwert und Scheitelfaktor: wie stark die Stöße herausragen</a></li>
+<li><a href="#kurtosis">Kurtosis: das Maß für Impulshaltigkeit</a></li>
+<li><a href="#bandkennwerte">Bandkennwerte: Energie dort, wo der Schaden sitzt</a></li>
+<li><a href="#kombination">Warum wir mehrere Kennwerte kombinieren</a></li>
+<li><a href="#normallage">Warum wir gegen die Normallage bewerten und nicht gegen feste Grenzen</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Ein Schwingungssignal enthält in einer Sekunde Tausende Messpunkte. Für die Überwachung braucht man wenige Zahlen, die das Wesentliche zusammenfassen: die <strong>Schwingungskennwerte</strong>. Die bekanntesten sind Effektivwert, Scheitelfaktor und Kurtosis. Sie sind einfach zu berechnen, aber nicht einfach zu deuten. Ein Kennwert kann bei einem beginnenden Lagerschaden deutlich steigen und im Endstadium wieder fallen. Dieser Artikel erklärt jeden Kennwert mit Formel, zeigt, was er über Lagerschäden verrät, und wo er versagt.</p>
+
+      <h2 id="grundlagen">Was ein Kennwert ist und was er nicht ist</h2>
+      <p>Ein Kennwert verdichtet ein Messfenster auf eine Zahl. Dabei geht Information verloren, und zwar mit Absicht. Der Effektivwert sagt etwas über die Energie, aber nichts über die Form des Signals. Die Kurtosis sagt etwas über die Form, aber nichts über die Höhe. Kein einzelner Kennwert beschreibt den Zustand einer Spindel vollständig.</p>
+      <p>Alle Kennwerte in diesem Artikel beziehen sich auf ein Messfenster mit N Abtastwerten x<sub>1</sub> bis x<sub>N</sub>. Effektivwert und Spitzenwert haben die Einheit des Eingangssignals, bei einem Beschleunigungssensor also m/s² oder g. Scheitelfaktor und Kurtosis sind Verhältniszahlen ohne Einheit. Das ist ein praktischer Vorteil: Sie hängen nicht von der Verstärkung des Sensors ab.</p>
+
+      <h2 id="effektivwert">Effektivwert (RMS): die Energie der Schwingung</h2>
+      <p>Der Effektivwert, englisch Root Mean Square, ist die Wurzel aus dem Mittelwert der quadrierten Abtastwerte:</p>
+      <div class="formula">Effektivwert = √( (x₁² + x₂² + … + x_N²) / N )</div>
+      <p>Er misst die mittlere Energie der Schwingung im Fenster. Deshalb bewerten auch Normen wie ISO 10816 und ISO 20816 den Schwingungszustand ganzer Maschinenklassen über einen Effektivwert, dort der Schwinggeschwindigkeit. In unserer Berechnung enthält der Effektivwert einen eventuellen Gleichanteil des Signals mit.</p>
+      <p><strong>Stärke:</strong> Der Effektivwert ist stabil und reagiert zuverlässig auf alles, was die Schwingung insgesamt verstärkt: Unwucht, lose Teile, fortgeschrittenen Lagerverschleiß.</p>
+      <p><strong>Grenze:</strong> Ein beginnender Lagerschaden erzeugt kurze, schwache Stöße. Deren Energie ist im Vergleich zur Gesamtschwingung einer laufenden Spindel klein. Der Effektivwert ändert sich deshalb meist erst, wenn der Schaden fortgeschritten ist. Er ist ein guter Wächter für grobe Veränderungen, aber kein Frühwarnsystem für Lager. Mehr zu Normgrenzwerten im Artikel <a href="blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">Vibrationsanalyse an Werkzeugmaschinen und ISO-Grenzwerte</a>.</p>
+
+      <h2 id="spitzenwert-scheitelfaktor">Spitzenwert und Scheitelfaktor: wie stark die Stöße herausragen</h2>
+      <p>Der Spitzenwert ist der größte Betrag im Fenster. Allein ist er wenig aussagekräftig, weil ein einzelner Schlag beim Spannen oder beim Werkzeugwechsel ihn hochtreibt. Interessant wird er im Verhältnis zum Effektivwert. Dieses Verhältnis heißt Scheitelfaktor, englisch Crest Factor:</p>
+      <div class="formula">Spitzenwert     = max |xᵢ|
+Scheitelfaktor  = Spitzenwert / Effektivwert
+
+reiner Sinus:  Scheitelfaktor = √2 ≈ 1,41</div>
+      <p>Für einen reinen Sinus ist der Scheitelfaktor genau √2, also etwa 1,41. Je mehr kurze, hohe Spitzen ein Signal enthält, desto größer wird er. Genau das passiert bei einem frühen Lagerschaden: Jedes Überrollen der Schadstelle erzeugt einen Stoß, der deutlich über das übrige Signal hinausragt, während der Effektivwert sich kaum bewegt.</p>
+      <p><strong>Grenze:</strong> Der Scheitelfaktor sinkt im Endstadium eines Lagerschadens wieder. Wenn sich die Schadstelle ausbreitet, werden die Stöße zahlreicher und verschmieren. Die Gesamtschwingung und damit der Effektivwert steigen, die Spitzen ragen nicht mehr so deutlich heraus. Ein fallender Scheitelfaktor ist deshalb kein Entwarnungssignal. Er kann bedeuten, dass der Schaden fortgeschritten ist. Wer nur auf den Scheitelfaktor schaut, kann einen schweren Schaden mit einer Besserung verwechseln.</p>
+
+      <h2 id="kurtosis">Kurtosis: das Maß für Impulshaltigkeit</h2>
+      <p>Die Kurtosis beschreibt, wie stark eine Verteilung von seltenen, extremen Werten geprägt ist. Wir verwenden die Kurtosis nach Pearson, also ohne Abzug von 3:</p>
+      <div class="formula">x̄  = Mittelwert der xᵢ
+σ² = Mittelwert von (xᵢ − x̄)²
+Kurtosis = Mittelwert von (xᵢ − x̄)⁴ / σ⁴</div>
+      <p>Weil die Abweichungen in die vierte Potenz gehen, zählen seltene große Ausschläge sehr stark. Drei Bezugswerte helfen beim Lesen:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Mathematische Bezugswerte, keine Grenzwerte</caption>
+          <thead><tr><th>Signal</th><th>Kurtosis</th><th>Scheitelfaktor</th></tr></thead>
+          <tbody>
+            <tr><td>reiner Sinus</td><td class="m">1,5</td><td class="m">√2 ≈ 1,41</td></tr>
+            <tr><td>Gaußsches Rauschen</td><td class="m">3</td><td>abhängig von der Fensterlänge</td></tr>
+            <tr><td>Signal mit kurzen Stößen</td><td>deutlich über 3</td><td>deutlich über dem Grundniveau</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Die Schwingung einer gesunden Spindel unter Last ist eine Mischung aus drehzahlbezogenen Anteilen und breitbandigem Rauschen. Ihre Kurtosis liegt meist in der Nähe der Bezugswerte. Kommen Stöße eines Lagerschadens hinzu, steigt sie deutlich.</p>
+      <p><strong>Grenze:</strong> Die Kurtosis hat dieselbe Schwäche wie der Scheitelfaktor. Im Endstadium, wenn das Signal von vielen Stößen und breitbandigem Rauschen geprägt ist, nähert sie sich wieder dem Wert von Rauschen. Dazu kommt eine zweite Schwäche: Sie reagiert auf jede Art von Stoß, auch auf Prozessstöße beim unterbrochenen Schnitt, beim Ein- und Austritt des Werkzeugs oder beim Werkzeugwechsel. Eine erhöhte Kurtosis sagt also, dass Stöße da sind, aber nicht, woher sie kommen.</p>
+
+      <h2 id="bandkennwerte">Bandkennwerte: Energie dort, wo der Schaden sitzt</h2>
+      <p>Zeitbereichskennwerte sehen das ganze Signal. Bandkennwerte schauen gezielt auf einen Frequenzbereich oder eine einzelne Frequenz. Damit beantworten sie die Frage, die Effektivwert und Kurtosis offenlassen: Woher kommt die Veränderung?</p>
+      <p>In unserem System verwenden wir zwei Arten von Bandkennwerten:</p>
+      <ul>
+        <li><strong>Ordnungen:</strong> die Amplitude bei einmal und zweimal pro Umdrehung im Ordnungsspektrum. Die erste Ordnung steigt typischerweise bei Unwucht, die zweite häufig bei Ausrichtungs- oder Befestigungsproblemen. Siehe <a href="blog-ordnungsanalyse-unwucht-spindel.html">Ordnungsanalyse und Unwucht</a>.</li>
+        <li><strong>Hüllkurvenamplituden bei den Lagerfrequenzen:</strong> die Amplitude im Hüllkurvenspektrum bei der Schadensfrequenz von Außenring (BPFO), Innenring (BPFI), Käfig (FTF) und beim Doppelten der Wälzkörperfrequenz (BSF). Diese Kennwerte zeigen nicht nur, dass Stöße da sind, sondern auch, mit welcher Wiederholrate. Damit lassen sie sich einem Lagerbauteil zuordnen. Die Grundlagen stehen im Artikel <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen</a>.</li>
+      </ul>
+      <p><strong>Grenze:</strong> Bandkennwerte sind nur so gut wie die Angaben, auf denen sie beruhen. Die Lagerfrequenzen brauchen die richtige Geometrie aus dem Datenblatt und die aktuelle Drehzahl. Die Hüllkurve braucht ein passend gewähltes Frequenzband um eine Resonanz der Struktur. Und das Spektrum braucht eine ausreichende Frequenzauflösung, damit benachbarte Linien getrennt werden. Mehr dazu im Artikel <a href="blog-fft-spektrum-aufloesung-schwingungsanalyse.html">FFT, Spektrum und Auflösung</a>.</p>
+
+      <h2 id="kombination">Warum wir mehrere Kennwerte kombinieren</h2>
+      <p>Jeder Kennwert hat einen Bereich, in dem er stark ist, und einen, in dem er versagt. Gemeinsam decken sie den Verlauf eines Lagerschadens deutlich besser ab:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Typisches Verhalten, qualitativ</caption>
+          <thead><tr><th>Stadium</th><th>Hüllkurve bei Lagerfrequenz</th><th>Scheitelfaktor, Kurtosis</th><th>Effektivwert</th></tr></thead>
+          <tbody>
+            <tr><td>Beginnender Schaden</td><td>erste Linie sichtbar</td><td>können bereits steigen</td><td>unverändert</td></tr>
+            <tr><td>Ausbreitung</td><td>stärker, mit Vielfachen</td><td>steigen</td><td>leicht steigend</td></tr>
+            <tr><td>Fortgeschritten</td><td>Linien verschmieren</td><td>fallen wieder</td><td>steigt deutlich</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Daraus folgt eine einfache Regel: Ein Kennwert allein reicht nicht. Ein fallender Scheitelfaktor bei steigendem Effektivwert ist ein anderes Bild als ein fallender Scheitelfaktor bei gleichbleibendem Effektivwert. Erst die Kombination macht den Verlauf lesbar. Deshalb berechnet die Edge-Box in unserem System aus jedem Messfenster Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis, die erste und zweite Ordnung und die vier Hüllkurvenamplituden. Wie die Box das an der Maschine macht, beschreibt der Artikel <a href="blog-edge-box-zustandsueberwachung-aufbau.html">Die Edge-Box an der Maschine</a>.</p>
+
+      <h2 id="normallage">Warum wir gegen die Normallage bewerten und nicht gegen feste Grenzen</h2>
+      <p>Eine feste Grenze für die Kurtosis oder den Scheitelfaktor, die für alle Spindeln gilt, gibt es nicht. Einbau, Sensorposition, Drehzahl und Bearbeitung prägen das Grundniveau jeder Maschine. Eine Spindel, die beim Schruppen mit unterbrochenem Schnitt läuft, hat eine andere Kurtosis als eine, die schlichtet.</p>
+      <p>Unser System lernt deshalb für jeden Kennwert die <strong>Normallage</strong> der einzelnen Maschine, getrennt nach Messstelle und Drehzahlbereich, aus mindestens 20 Messungen im gesunden Zustand. Gespeichert werden Median und eine robuste Streuung. Jede neue Messung wird als Abweichung in Vielfachen dieser Streuung ausgedrückt, nur Anstiege zählen. Daraus ergeben sich die Stufen Normal, Auffällig, Warnung und Alarm. Gemeldet wird erst, wenn eine Stufe über mehrere Messungen in Folge besteht. So erzeugt ein einzelner Stoß beim Werkzeugwechsel keine Meldung, obwohl er Scheitelfaktor und Kurtosis dieses einen Fensters hochtreibt.</p>
+      <div class="callout">
+        <p class="label">Ein Beispiel für eine Begründung</p>
+        <p>Eine Meldung nennt den Kennwert, den Messwert, den normalen Wert dieser Spindel, den Faktor und die Abweichung. Steigen Kurtosis oder Scheitelfaktor am stärksten, lautet der Hinweis: stoßartige Schwingung, beginnender Lagerschaden möglich, Spindellager auf Laufgeräusch, Temperatur und Schmierung prüfen.</p>
+      </div>
+      <p>Die Grenzen der Stufen sind Startwerte, die wir mit Prüfstandsmessungen und Rückmeldungen aus dem Betrieb kalibrieren. Die ganze Kette vom Messfenster bis zur Meldung beschreibt der Artikel <a href="blog-von-der-schwingung-zur-meldung-verarbeitungskette.html">Von der Schwingung zur Meldung</a>, den Vergleich mit statistischen Festschwellen der Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">3-Sigma-Alarme oder gelernte Normallage</a>. Ob sich Ihre Maschinen eignen, sehen Sie auf der Seite <a href="cnc-fraeszentren.html">CNC-Fräszentren</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Was ist der Unterschied zwischen Effektivwert und Spitzenwert einer Schwingung?</summary><p>Der Effektivwert ist die Wurzel aus dem Mittel der quadrierten Werte und beschreibt die mittlere Energie. Der Spitzenwert ist der größte Ausschlag im Messfenster. Ihr Verhältnis ist der Scheitelfaktor, der bei kurzen Stößen steigt.</p></details>
+        <details class="faq-item"><summary>Welcher Scheitelfaktor ist bei einer Spindel normal?</summary><p>Einen allgemeingültigen Wert gibt es nicht. Mathematisch hat ein reiner Sinus den Scheitelfaktor √2, also etwa 1,41. Das Grundniveau einer realen Spindel hängt von Einbau, Drehzahl und Bearbeitung ab. Aussagekräftig ist deshalb die Abweichung von der gelernten Normallage der jeweiligen Maschine.</p></details>
+        <details class="faq-item"><summary>Warum sinkt der Scheitelfaktor bei einem schweren Lagerschaden wieder?</summary><p>Im Endstadium breitet sich der Schaden aus, die Stöße werden zahlreicher und verschmieren. Der Effektivwert steigt, die einzelnen Spitzen ragen weniger heraus. Ein fallender Scheitelfaktor ist deshalb nur zusammen mit dem Effektivwert und den Lagerfrequenzen richtig zu deuten.</p></details>
+        <details class="faq-item"><summary>Was bedeutet eine Kurtosis von 3?</summary><p>Eine Kurtosis von 3 entspricht Gaußschem Rauschen, ein reiner Sinus hat 1,5. Werte deutlich über 3 zeigen ein impulshaltiges Signal, etwa durch Lagerstöße, aber auch durch Prozessstöße wie den unterbrochenen Schnitt.</p></details>
+        <details class="faq-item"><summary>Reicht der Effektivwert zur Überwachung von Spindellagern?</summary><p>Nein. Er steigt meist erst bei fortgeschrittenem Schaden. Für die Früherkennung braucht es zusätzlich Kennwerte für Impulshaltigkeit und vor allem die Amplituden bei den Lagerfrequenzen im Hüllkurvenspektrum.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li>
+<li><span class="label">Methode</span><a href="blog-condition-monitoring-vs-predictive-maintenance.html">Condition Monitoring vs. Predictive Maintenance: Was der Unterschied ist und was eine Prognose leisten kann</a></li>
+<li><span class="label">Methode</span><a href="blog-fft-spektrum-aufloesung-schwingungsanalyse.html">FFT in der Schwingungsanalyse: Abtastrate, Auflösung und Fensterfunktion für Praktiker</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

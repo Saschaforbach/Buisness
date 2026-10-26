@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Normallage lernen: die Einlernphase in der Praxis · Forbach &amp; Partners</title>
+<meta name="description" content="Wie unser System die Normallage lernt: gesunder Zustand, getrennt je Maschine, Messstelle und Drehzahl, vorgeschädigte Spindel, Neu-Lernen nach Lagertausch.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/learning-the-baseline.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Normallage lernen: die Einlernphase in der Praxis · Forbach &amp; Partners">
+<meta property="og:description" content="Wie unser System die Normallage lernt: gesunder Zustand, getrennt je Maschine, Messstelle und Drehzahl, vorgeschädigte Spindel, Neu-Lernen nach Lagertausch.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Normallage lernen: Was in der Einlernphase passiert und worauf Sie achten sollten", "description": "Wie unser System die Normallage lernt: gesunder Zustand, getrennt je Maschine, Messstelle und Drehzahl, vorgeschädigte Spindel, Neu-Lernen nach Lagertausch.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html", "articleSection": "Unser System", "wordCount": 1755}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Normallage lernen: Was in der Einlernphase passiert und worauf Sie achten sollten", "item": "https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie lange dauert die Einlernphase bei der Schwingungsüberwachung?", "acceptedAnswer": {"@type": "Answer", "text": "Das System lernt aus mindestens 20 gültigen Messungen je Messstelle und Drehzahlklasse. Wie lange das dauert, hängt davon ab, wie oft und wie lange die Spindel mit gleichbleibender Drehzahl in der jeweiligen Klasse läuft. Eine feste Zahl an Tagen lässt sich deshalb nicht nennen."}}, {"@type": "Question", "name": "Was passiert, wenn die Spindel beim Einlernen schon einen Lagerschaden hat?", "acceptedAnswer": {"@type": "Answer", "text": "Dann lernt das System diesen Zustand als Normallage. Der vorhandene Schaden löst für sich keine Meldung aus, eine weitere Verschlechterung schon. Starten Sie die Einlernphase deshalb an einer Spindel, deren Zustand Sie kennen, idealerweise nach einer Überholung."}}, {"@type": "Question", "name": "Muss die Normallage nach einem Lagertausch neu gelernt werden?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Nach Lagertausch, Überholung oder Spindelwechsel schwingt die Spindel anders. Der Administrator Ihres Betriebs löst das Neu-Lernen aus, sobald die Spindel wieder im normalen Betrieb läuft. Der Vorgang wird protokolliert."}}, {"@type": "Question", "name": "Lernt die Normallage mit der Zeit dazu?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, aber geschützt. Es fließen nur Messungen ein, die selbst als normal bewertet wurden, und jede Messung wird zusätzlich mit der ursprünglichen Normallage verglichen. So kann sich das System an neue Betriebszustände anpassen, ohne einen langsam wachsenden Lagerschaden als normal zu lernen. Heute geschieht die Anpassung über ein bewusstes Neu-Lernen, das automatische geschützte Mitlernen bauen wir als nächsten Schritt aus."}}, {"@type": "Question", "name": "Gibt es während der Einlernphase schon Meldungen?", "acceptedAnswer": {"@type": "Answer", "text": "Nicht für die Messstellen und Drehzahlklassen, die noch lernen. Klassen, deren Normallage schon gelernt ist, werden bereits bewertet. Den Lernfortschritt sehen Sie im Dashboard."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/learning-the-baseline.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Unser System</span></nav>
+      <h1>Normallage lernen: Was in der Einlernphase passiert und worauf Sie achten sollten</h1>
+      <p class="lead">Jede Spindel schwingt anders. Deshalb lernt unser System zuerst, wie diese eine Spindel im gesunden Zustand schwingt, und bewertet erst danach. Was das in der Praxis bedeutet, steht hier.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#warum">Warum eine gelernte Normallage statt fester Grenzwerte</a></li>
+<li><a href="#gesund">Was „gesunder Zustand“ in der Einlernphase heißt</a></li>
+<li><a href="#getrennt">Getrennte Normallage je Maschine, Messstelle und Drehzahlbereich</a></li>
+<li><a href="#vorgeschaedigt">Was passiert, wenn die Spindel beim Einlernen schon vorgeschädigt ist</a></li>
+<li><a href="#neu-lernen">Neu lernen nach Lagertausch oder Spindelwechsel</a></li>
+<li><a href="#mitwandern">Mitlernen, ohne den Schaden mitzulernen</a></li>
+<li><a href="#ablauf">Die Einlernphase im Pilotprojekt</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Bevor unser System eine Spindel bewerten kann, muss es die <strong>Normallage lernen</strong>: Wie stark schwingt genau diese Spindel, an genau dieser Messstelle, bei dieser Drehzahl, wenn alles in Ordnung ist? Erst gegen diesen gelernten Zustand wird jede neue Messung verglichen. Die Einlernphase ist deshalb kein Vorspiel, sondern die Grundlage jeder späteren Meldung. Dieser Artikel erklärt, was „gesunder Zustand“ dabei heißt, warum die Normallage so fein unterteilt ist, was bei einer vorgeschädigten Spindel passiert, wie Sie nach einem Lagertausch vorgehen und warum die Normallage nicht von selbst mitwandert.</p>
+
+      <h2 id="warum">Warum eine gelernte Normallage statt fester Grenzwerte</h2>
+      <p>Feste Grenzwerte aus Normen wie ISO 10816 oder ISO 20816 gelten für ganze Maschinenklassen. Für die Gesamtschwingung einer Maschine sind sie nützlich, für frühe Lagerschäden an einer einzelnen Spindel sind sie zu grob. Zwei baugleiche Bearbeitungszentren schwingen wegen Aufstellung, Fundament, Alter und Bearbeitung unterschiedlich. Ein Wert, der an der einen Maschine normal ist, kann an der anderen schon auffällig sein. Die Hintergründe stehen im Artikel <a href="blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">Vibrationsanalyse an Werkzeugmaschinen und ISO-Grenzwerte</a>.</p>
+      <p>Hinzu kommt: Für Spindellager gibt es kaum Schadensdaten, aus denen man allgemeingültige Schwellen ableiten könnte. Die Frage „Ist das schon zu viel?“ lässt sich deshalb am sichersten so beantworten: „Mehr als bei dieser Spindel üblich?“ Genau das prüft die gelernte Normallage.</p>
+
+      <h2 id="gesund">Was „gesunder Zustand“ in der Einlernphase heißt</h2>
+      <p>Die Normallage wird aus Messungen im laufenden Betrieb gelernt. Dafür gilt eine klare Annahme: <strong>Die Maschine ist während der Einlernphase in Ordnung.</strong> Das System kann das nicht selbst prüfen. Es lernt, was es misst. Deshalb klären wir vor dem Start mit Ihrer Instandhaltung, ob die Spindel unauffällig läuft und wann zuletzt an ihr gearbeitet wurde.</p>
+      <p>Nicht jede Messung geht in die Normallage ein. Die Box wertet ein Messfenster nur aus, wenn die Drehzahl laut Steuerung vor und nach dem Fenster gleich ist, auf ±2 % genau, und über 300 U/min liegt. Hochlauf, Bremsen und Stillstand fallen damit heraus. Aus jedem gültigen Fenster berechnet die Box die Kennwerte: Effektivwert, Spitzenwert, Scheitelfaktor, Kurtosis, die Schwingung bei einfacher und doppelter Drehfrequenz und die Amplituden im Hüllkurvenspektrum bei den Lagerfrequenzen. Was diese Kennwerte aussagen, erklärt der Artikel <a href="blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">Effektivwert, Scheitelfaktor und Kurtosis</a>.</p>
+      <p>Für jeden Kennwert bestimmt die Plattform aus mindestens 20 solcher Messungen zwei Größen: den Median als typischen Wert und eine robuste Streuung als Maß dafür, wie stark der Wert normalerweise schwankt.</p>
+      <div class="formula">Streuung = größter der Werte
+           1,4826 · MAD
+           (90-%-Quantil − Median) / 1,2816
+           5 % des Medians
+
+Abweichung = (Messwert − Median) / Streuung    nur Anstiege zählen
+
+MAD = Median der absoluten Abstände zum Median</div>
+      <p>Die erste Zeile ist die klassische robuste Streuung. Einzelne Ausreißer, etwa ein Stoß beim Werkzeugwechsel, verschieben sie kaum. Die zweite Zeile schützt vor Kennwerten, die nach oben schief verteilt sind, wie Amplituden im Spektrum. Die dritte Zeile ist eine Untergrenze: Läuft eine Spindel in der Einlernphase extrem gleichmäßig, würde sonst schon eine winzige Änderung als große Abweichung zählen. Beide Faktoren machen die Streuung bei normalverteilten Daten mit der Standardabweichung vergleichbar.</p>
+
+      <h2 id="getrennt">Getrennte Normallage je Maschine, Messstelle und Drehzahlbereich</h2>
+      <p>Eine einzige Normallage pro Maschine wäre zu ungenau. Unser System lernt deshalb getrennt nach drei Merkmalen:</p>
+      <ul>
+        <li><strong>Maschine:</strong> Jede Maschine hat ihre eigene Normallage. Es wird nie eine Spindel mit einer anderen verglichen.</li>
+        <li><strong>Messstelle:</strong> Ein Sensor am vorderen Lager sieht ein anderes Signal als einer am hinteren. Jede Messstelle hat deshalb ihre eigene Normallage.</li>
+        <li><strong>Drehzahlbereich:</strong> Schwingung hängt stark von der Drehzahl ab. Die Plattform ordnet jede Messung einer Drehzahlklasse in Schritten von 100 U/min zu und vergleicht nur innerhalb derselben Klasse.</li>
+      </ul>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Beispiel, angenommene Maschine mit zwei Messstellen</caption>
+          <thead><tr><th>Maschine</th><th>Messstelle</th><th>Drehzahlklasse</th><th>Stand</th></tr></thead>
+          <tbody>
+            <tr><td>BAZ 3</td><td>spindel_vorne</td><td class="m">6000 U/min</td><td>gelernt, wird bewertet</td></tr>
+            <tr><td>BAZ 3</td><td>spindel_vorne</td><td class="m">12000 U/min</td><td>lernt, 14 von 20 Messungen</td></tr>
+            <tr><td>BAZ 3</td><td>spindel_hinten</td><td class="m">6000 U/min</td><td>gelernt, wird bewertet</td></tr>
+            <tr><td>BAZ 3</td><td>spindel_hinten</td><td class="m">12000 U/min</td><td>lernt, 14 von 20 Messungen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Jede Zeile ist eine eigene Normallage. Eine Drehzahlklasse, die erst nach Wochen zum ersten Mal gefahren wird, beginnt dann mit ihrer eigenen Einlernphase. Die anderen Klassen werden in der Zwischenzeit schon bewertet. Im Dashboard steht auf der Karte jeder Messstelle und Drehzahl, ob sie noch lernt und wie viele der 20 Messungen schon vorliegen.</p>
+
+      <h3 id="dauer">Wie lange die Einlernphase dauert</h3>
+      <p>Eine feste Dauer in Tagen gibt es nicht, weil das System nicht nach Zeit, sondern nach Messungen lernt. Wie schnell 20 gültige Messungen zusammenkommen, hängt ab von:</p>
+      <ul>
+        <li>wie oft die Spindel in der jeweiligen Drehzahlklasse läuft,</li>
+        <li>wie lange sie dort mit gleichbleibender Drehzahl läuft, denn nur solche Fenster zählen,</li>
+        <li>wie die Box für Ihre Maschine eingestellt ist, also wie oft sie ein Messfenster aufnimmt,</li>
+        <li>dem Schichtbetrieb, also ob die Maschine einschichtig oder rund um die Uhr läuft.</li>
+      </ul>
+      <p>Eine Spindel, die den ganzen Tag dieselbe Bearbeitung mit derselben Drehzahl fährt, hat ihre Hauptdrehzahl schnell gelernt. Eine Maschine mit vielen kleinen Losen und wechselnden Drehzahlen braucht für jede einzelne Klasse länger. Während eine Klasse lernt, löst sie keine Meldungen aus. Das ist bewusst so: Eine Bewertung gegen eine halb gelernte Normallage wäre unzuverlässig.</p>
+
+      <h2 id="vorgeschaedigt">Was passiert, wenn die Spindel beim Einlernen schon vorgeschädigt ist</h2>
+      <p>Das ist die wichtigste Grenze des Verfahrens, und wir sprechen sie offen an. Ist ein Lager bei der Einlernphase schon beschädigt, lernt das System diesen Zustand als Normallage. Die bereits vorhandene Schwingung bei der Schadensfrequenz gilt dann als normal und löst für sich keine Meldung aus.</p>
+      <p>Ganz blind ist das System trotzdem nicht. Ein Lagerschaden wächst in aller Regel weiter. Steigt die Schwingung über die gelernte Normallage hinaus, meldet das System den Anstieg wie bei jeder anderen Spindel. Zusätzlich sucht die Box in jedem Messfenster im Hüllkurvenspektrum nach den Lagerfrequenzen, unabhängig von der Normallage. Diese Befunde werden mit jeder Messung gespeichert. Für sich allein lösen sie heute aber keine Meldung aus.</p>
+      <div class="callout">
+        <p class="label">Unsere Empfehlung</p>
+        <p>Starten Sie die Einlernphase an einer Spindel, deren Zustand Sie kennen. Ist eine Spindel auffällig laut, warm oder wurde sie lange nicht gewartet, sprechen Sie uns vorher an. Manchmal ist es sinnvoller, zuerst den Spindelservice zu holen und danach einzulernen. Läuft ohnehin eine Überholung an, ist der Zeitpunkt direkt danach ideal.</p>
+      </div>
+
+      <h2 id="neu-lernen">Neu lernen nach Lagertausch oder Spindelwechsel</h2>
+      <p>Nach einem Lagertausch, einer Überholung oder einem Spindelwechsel schwingt die Spindel anders als vorher, meist ruhiger. Gegen die alte Normallage bewertet, würde das System dann einen großen Spielraum sehen, und ein neuer Schaden würde zu spät auffallen. Deshalb muss die Normallage nach solchen Eingriffen neu gelernt werden.</p>
+      <p>Das Neu-Lernen löst der Administrator Ihres Betriebs aus. Instandhalter und Benutzer mit Leserechten können es nicht. Dabei passiert Folgendes:</p>
+      <ol>
+        <li>Alle Normallagen dieser Maschine, also jede Messstelle und jede Drehzahlklasse, werden auf „lernt“ zurückgesetzt.</li>
+        <li>Der gemeldete Zustand der Maschine wird auf Normal zurückgesetzt.</li>
+        <li>Gelernt wird nur aus Messungen ab diesem Zeitpunkt. Ältere Messungen gehen nicht ein.</li>
+        <li>Der Vorgang wird mit Person und Zeitpunkt im Prüfprotokoll festgehalten.</li>
+      </ol>
+      <p>Die bisherigen Messungen und Meldungen bleiben gespeichert und sind über den Datenexport abrufbar. Lösen Sie das Neu-Lernen erst aus, wenn die Spindel nach dem Eingriff wieder im normalen Betrieb läuft, also nach dem Einlaufen und nicht während der Probeläufe. Auch wenn wir die Auswertung auf der Box erweitern und sich dadurch die Kennwerte ändern, muss neu gelernt werden. Eine Normallage aus alten Kennwerten passt dann nicht mehr zu den neuen Messungen.</p>
+
+      <h2 id="mitwandern">Mitlernen, ohne den Schaden mitzulernen</h2>
+      <p>Eine Spindel verändert sich auch ohne Schaden: neue Bearbeitungen, andere Drehzahlen, ein anderer Schichtbetrieb. Eine Normallage, die das nie berücksichtigt, wird mit der Zeit unpassend. Die naheliegende Lösung wäre, die Normallage laufend aus den jüngsten Messungen nachzuführen. Für die Lagerüberwachung ist genau das gefährlich. Ein Lagerschaden entwickelt sich langsam. Eine Normallage, die blind den letzten Messungen folgt, wandert mit dem Schaden mit. Die Abweichung bleibt klein, obwohl die Spindel immer schlechter wird.</p>
+      <p>Unser System lernt deshalb <strong>geschützt</strong> mit. Dafür gelten drei Regeln:</p>
+      <ol>
+        <li><strong>Nur gesunde Messungen zählen.</strong> In die Normallage fließen nur Messungen ein, die selbst als „Normal“ bewertet wurden. Was auffällig ist, wird nie zur neuen Normalität.</li>
+        <li><strong>Neue Betriebszustände werden ergänzt.</strong> Läuft die Spindel in einem Drehzahlbereich, den das System noch nicht kennt, lernt es diesen Bereich dazu. So werden mit der Zeit mehr Messungen auswertbar, und ein Schaden fällt früher auf.</li>
+        <li><strong>Die ursprüngliche Normallage bleibt als Bezug erhalten.</strong> Jede Messung wird zusätzlich mit der zuerst gelernten Normallage verglichen. Steigt ein Kennwert über lange Zeit schleichend an, meldet das System diesen Trend gesondert, auch wenn er von Messung zu Messung unauffällig ist.</li>
+      </ol>
+      <p>Heute bleibt die gelernte Normallage in unserem System fest und ändert sich nur durch ein bewusstes Neu-Lernen, das ein Mensch auslöst und das protokolliert wird. Neue Drehzahlbereiche werden bereits getrennt gelernt. Das geschützte Mitlernen nach den drei Regeln oben bauen wir als nächsten Schritt aus. Jede Meldung bleibt dabei nachvollziehbar: Sie nennt, gegen welche Normallage sie berechnet wurde. Wie das zu unserer Haltung gegenüber undurchsichtigen Verfahren passt, steht im Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">feste Schwellen oder gelernte Normallage</a>.</p>
+
+      <h2 id="ablauf">Die Einlernphase im Pilotprojekt</h2>
+      <p>Im Pilot läuft die Einlernphase nach dem Einbau von Box und Sensor an. In dieser Zeit sehen Sie im Dashboard bereits den Verlauf der Kennwerte und den Lernfortschritt je Messstelle und Drehzahl, aber noch keine Meldungen für die Klassen, die noch lernen. Danach beginnt die eigentliche Überwachung gegen die gelernte Normallage. Den Gesamtablauf beschreiben die Seiten <a href="ablauf.html">Ablauf und Voraussetzungen</a> und <a href="blog-pilotprojekt-zustandsueberwachung-ablauf.html">Pilotprojekt Zustandsüberwachung</a>. Wie eine Meldung danach aussieht, zeigt der Artikel <a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Wie lange dauert die Einlernphase bei der Schwingungsüberwachung?</summary><p>Das System lernt aus mindestens 20 gültigen Messungen je Messstelle und Drehzahlklasse. Wie lange das dauert, hängt davon ab, wie oft und wie lange die Spindel mit gleichbleibender Drehzahl in der jeweiligen Klasse läuft. Eine feste Zahl an Tagen lässt sich deshalb nicht nennen.</p></details>
+        <details class="faq-item"><summary>Was passiert, wenn die Spindel beim Einlernen schon einen Lagerschaden hat?</summary><p>Dann lernt das System diesen Zustand als Normallage. Der vorhandene Schaden löst für sich keine Meldung aus, eine weitere Verschlechterung schon. Starten Sie die Einlernphase deshalb an einer Spindel, deren Zustand Sie kennen, idealerweise nach einer Überholung.</p></details>
+        <details class="faq-item"><summary>Muss die Normallage nach einem Lagertausch neu gelernt werden?</summary><p>Ja. Nach Lagertausch, Überholung oder Spindelwechsel schwingt die Spindel anders. Der Administrator Ihres Betriebs löst das Neu-Lernen aus, sobald die Spindel wieder im normalen Betrieb läuft. Der Vorgang wird protokolliert.</p></details>
+        <details class="faq-item"><summary>Lernt die Normallage mit der Zeit dazu?</summary><p>Ja, aber geschützt. Es fließen nur Messungen ein, die selbst als normal bewertet wurden, und jede Messung wird zusätzlich mit der ursprünglichen Normallage verglichen. So kann sich das System an neue Betriebszustände anpassen, ohne einen langsam wachsenden Lagerschaden als normal zu lernen. Heute geschieht die Anpassung über ein bewusstes Neu-Lernen, das automatische geschützte Mitlernen bauen wir als nächsten Schritt aus.</p></details>
+        <details class="faq-item"><summary>Gibt es während der Einlernphase schon Meldungen?</summary><p>Nicht für die Messstellen und Drehzahlklassen, die noch lernen. Klassen, deren Normallage schon gelernt ist, werden bereits bewertet. Den Lernfortschritt sehen Sie im Dashboard.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Unser System</span><a href="blog-edge-box-zustandsueberwachung-aufbau.html">Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall</a></li>
+<li><span class="label">Unser System</span><a href="blog-gemischter-maschinenpark-siemens-heidenhain.html">Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht</a></li>
+<li><span class="label">Unser System</span><a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung: Was in unserem Dashboard steht und was der Instandhalter damit tut</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OPC UA vs MQTT for production data: which protocol goes where · Forbach &amp; Partners</title>
+<meta name="description" content="OPC UA vs MQTT for production data: client/server vs publish/subscribe, security, edge or cloud, and why our architecture uses both protocols together.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-opc-ua-vs-mqtt-produktionsdaten.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-opc-ua-vs-mqtt-produktionsdaten.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="OPC UA vs MQTT for production data: which protocol goes where · Forbach &amp; Partners">
+<meta property="og:description" content="OPC UA vs MQTT for production data: client/server vs publish/subscribe, security, edge or cloud, and why our architecture uses both protocols together.">
+<meta property="og:url" content="https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "OPC UA vs MQTT: which protocol belongs where for production data", "description": "OPC UA vs MQTT for production data: client/server vs publish/subscribe, security, edge or cloud, and why our architecture uses both protocols together.", "inLanguage": "en-GB", "datePublished": "2026-04-22", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html", "articleSection": "Integration and IT", "wordCount": 2033}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "OPC UA vs MQTT: which protocol belongs where for production data", "item": "https://forbachandpartners.com/en/opc-ua-vs-mqtt-production-data.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between OPC UA and MQTT?", "acceptedAnswer": {"@type": "Answer", "text": "OPC UA works on the client/server principle and includes an information model that describes the meaning of the data. MQTT works on the publish/subscribe principle via a broker and transports messages without a defined meaning. OPC UA is suited to reading the machine on the shop floor, MQTT to transmitting data across network boundaries."}}, {"@type": "Question", "name": "Is MQTT secure enough for production data?", "acceptedAnswer": {"@type": "Answer", "text": "MQTT itself does not encrypt. It becomes secure with TLS, client certificates per device and per-topic rights on the broker. In our system the connection runs over TLS 1.2 or higher, and every box has its own certificate whose key is generated on the box."}}, {"@type": "Question", "name": "Which ports do I need to open in the firewall?", "acceptedAnswer": {"@type": "Answer", "text": "Outbound from the box to the CNC control, port 4840 for OPC UA, and to the platform, port 8883 for MQTT over TLS, alternatively port 443. Inbound connections to the box are neither needed nor possible."}}, {"@type": "Question", "name": "Can the box change anything on the machine via OPC UA?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every OPC UA request passes through an allowlist that only permits read, browse, subscribe and session set-up. In addition, the box logs on with a user that has only read rights on the control."}}, {"@type": "Question", "name": "What happens if the internet connection fails?", "acceptedAnswer": {"@type": "Answer", "text": "The box keeps computing and stores the results in a local buffer for at least seven days. As soon as the connection is back, it sends everything in the correct order. The platform recognises batches sent twice and stores them only once."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-opc-ua-vs-mqtt-produktionsdaten.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Integration and IT</span></nav>
+      <h1>OPC UA vs MQTT: which protocol belongs where for production data</h1>
+      <p class="lead">OPC UA and MQTT solve different problems. OPC UA describes and reads the machine on the shop floor, MQTT carries condensed results securely and outbound-only to the platform. The computing happens in between, on the edge box.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#opc-ua">OPC UA: client/server with an information model</a></li>
+<li><a href="#mqtt">MQTT: publish/subscribe via a broker</a></li>
+<li><a href="#comparison">OPC UA and MQTT compared directly</a></li>
+<li><a href="#architecture">Our architecture: OPC UA on the shop floor, MQTT to the outside</a></li>
+<li><a href="#edge-cloud">Edge or cloud: why raw data does not go to the cloud</a></li>
+<li><a href="#buffer">Buffering and delivery: no gaps and no duplicates</a></li>
+<li><a href="#it-security">What the IT department needs to know</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Anyone who wants to get production data off the shop floor soon comes up against the question of <strong>OPC UA vs MQTT</strong>. It is often asked as if you had to choose one. In fact the two protocols solve different problems. OPC UA is built to describe a machine together with the meaning of its data and to query it selectively. MQTT is built to distribute messages reliably and with little overhead across untrusted networks. There is a second question that matters at least as much: where does the computing happen, at the machine or in the cloud? This article explains both protocols, compares them and uses our condition monitoring for CNC spindles to show what an architecture looks like that combines the two sensibly.</p>
+
+      <h2 id="opc-ua">OPC UA: client/server with an information model</h2>
+      <p>At its core, OPC UA (Open Platform Communications Unified Architecture) follows the client/server principle. The CNC control runs an OPC UA server; a client connects, browses the address space and reads values, once or repeatedly. The standard port is 4840.</p>
+      <p>The real difference from simple protocols is the <strong>information model</strong>. An OPC UA server does not just deliver numbers but nodes with type, unit, description and relationships to one another. A client can browse the address space and find values via browse paths instead of relying on hard-wired addresses.</p>
+      <p>For machine tools there is a dedicated Companion Specification, OPC 40501, known as <strong>umati</strong>. It defines where a machine provides states, overrides, program information and alarms in a uniform model. For condition monitoring this has a limit: according to our reading of the specification, continuous process values such as spindle speed or spindle load are not part of the base model. They come from manufacturer-specific parts of the address space.</p>
+      <p>Security is built into OPC UA. Client and server each have an application certificate that the other side must explicitly classify as trusted. The security mode determines whether messages are only signed or signed and encrypted (Sign, SignAndEncrypt). The security policy determines the algorithms, for example Basic256Sha256. In addition, the client logs on with a user whose rights are defined on the control.</p>
+
+      <h2 id="mqtt">MQTT: publish/subscribe via a broker</h2>
+      <p>MQTT works differently. There is no direct connection between data source and recipient. Both connect to a <strong>broker</strong>. The sender publishes messages under a topic; recipients subscribe to the topics they are interested in. The broker distributes them.</p>
+      <p>For reliability, MQTT has three Quality of Service levels:</p>
+      <ul>
+        <li><strong>QoS 0:</strong> at most once. The message is sent but not acknowledged.</li>
+        <li><strong>QoS 1:</strong> at least once. The message is repeated until it is acknowledged. Duplicate delivery is possible.</li>
+        <li><strong>QoS 2:</strong> exactly once, with a more elaborate handshake.</li>
+      </ul>
+      <p>For the IT department of a manufacturing company, one property is decisive: an MQTT client opens the connection to the broker <strong>itself and outbound</strong>. The box on the shop floor therefore does not need to be reachable from outside. The connection is secured with TLS; the standard port for this is 8883. With a client certificate, each device identifies itself to the broker without a password. Where port 8883 is blocked, MQTT can be run over secure WebSockets on port 443.</p>
+      <p>What MQTT does not provide is an information model. To the protocol, the content of a message is just a sequence of bytes. Which fields it has and what they mean must be defined by a separate data contract.</p>
+
+      <h2 id="comparison">OPC UA and MQTT compared directly</h2>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Characteristic</th><th>OPC UA</th><th>MQTT</th></tr></thead>
+          <tbody>
+            <tr><td>Basic principle</td><td>Client/server, selective reading and subscribing</td><td>Publish/subscribe via a broker</td></tr>
+            <tr><td>Meaning of the data</td><td>Contained in the information model, standardised for machine tools via umati</td><td>Not defined, separate data contract needed</td></tr>
+            <tr><td>Connection direction</td><td>Client connects to the server, here the CNC control</td><td>Every participant connects outbound to the broker</td></tr>
+            <tr><td>Security</td><td>Application certificates, Sign or SignAndEncrypt, user rights</td><td>TLS, client certificates, per-topic rights on the broker</td></tr>
+            <tr><td>Typical use</td><td>On the plant network, close to the machine</td><td>Across network boundaries, to the platform</td></tr>
+            <tr><td>Strength</td><td>Understanding the machine and reading it selectively</td><td>Many devices, intermittent connections, firewalls</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The outcome of the comparison is not an either-or decision. OPC UA is strong where you need to understand a machine. MQTT is strong where data has to cross a firewall to a central platform. A good architecture uses each protocol for the section it was built for.</p>
+
+      <h2 id="architecture">Our architecture: OPC UA on the shop floor, MQTT to the outside</h2>
+      <p>Our condition monitoring for CNC spindles is split into three sections. Each uses the protocol that fits:</p>
+      <figure>
+        <svg viewBox="0 0 680 190" role="img" aria-label="Data flow from CNC control and sensor via the edge box to the platform">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="20" width="150" height="56" rx="2"/><rect x="12" y="104" width="150" height="56" rx="2"/>
+            <rect x="262" y="40" width="160" height="100" rx="2"/><rect x="518" y="62" width="150" height="56" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="162" y1="48" x2="262" y2="70"/><line x1="162" y1="132" x2="262" y2="110"/><line x1="422" y1="90" x2="518" y2="90"/>
+          </g>
+          <text x="87" y="44" text-anchor="middle" style="fill:var(--ink)">CNC control</text><text x="87" y="62" text-anchor="middle">SINUMERIK, TNC</text>
+          <text x="87" y="128" text-anchor="middle" style="fill:var(--ink)">Vibration sensor</text><text x="87" y="146" text-anchor="middle">on spindle housing</text>
+          <text x="342" y="70" text-anchor="middle" style="fill:var(--ink)">Edge box</text><text x="342" y="90" text-anchor="middle">computes features</text><text x="342" y="108" text-anchor="middle">buffer ≥ 7 days</text>
+          <text x="593" y="86" text-anchor="middle" style="fill:var(--ink)">Platform</text><text x="593" y="104" text-anchor="middle">data centre, Germany</text>
+          <text x="212" y="30" text-anchor="middle">OPC UA, read-only</text>
+          <text x="470" y="80" text-anchor="middle">MQTT over TLS</text><text x="470" y="112" text-anchor="middle">outbound only</text>
+          <text x="340" y="178" text-anchor="middle">Plant network on the left, public network on the right. Raw signals stay on the box.</text>
+        </svg>
+        <figcaption>Data flow in three sections. OPC UA stays on the plant network; only computed features leave it, via MQTT.</figcaption>
+      </figure>
+      <h3>CNC control to box: OPC UA, read-only</h3>
+      <p>SINUMERIK and HEIDENHAIN TNC controls offer OPC UA as a manufacturer option. There, the box is a pure read client. It queries values such as speed, load, program and alarms once per second. Technically, querying is limited to at most every 0.1 seconds so that the control is not put under load. Every request passes through a single point with an allowlist: read, browse, subscribe and session set-up are permitted. Writes, method calls and adding or deleting nodes are blocked before they leave the box. The connection uses SignAndEncrypt and Basic256Sha256, and the control's certificate is explicitly stored during set-up. Signal paths are determined on site from the address space with a read tool and entered in the configuration, not guessed. Details in the article <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+      <h3>Sensor to box: our own measurement</h3>
+      <p>The CNC control is not enough for bearing diagnostics. Its standard interfaces deliver values well below 1 kHz, whereas envelope analysis needs signals in the kilohertz range. That is why a vibration sensor measures directly on the spindle housing. The article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a> explains why.</p>
+      <h3>Box to platform: MQTT over TLS, outbound only</h3>
+      <p>The box sends its results to the platform via MQTT over TLS 1.2 or higher, on port 8883, otherwise via port 443. It opens no inbound port and cannot be reached from outside.</p>
+
+      <h2 id="edge-cloud">Edge or cloud: why raw data does not go to the cloud</h2>
+      <p>The second fundamental question is where the computing happens. Our answer: signal analysis takes place on the box at the machine, evaluation over time on the platform. Raw signals do not leave the plant. There are three reasons for this.</p>
+      <p><strong>Bandwidth.</strong> A vibration signal for bearing diagnostics is recorded at a sampling rate in the kilohertz range. Suppose one channel is sampled at 25.6 kHz with 4 bytes per value: that is around 100 kilobytes per second and just under 9 gigabytes per day, for a single channel without compression. The computed features, by contrast, are a few numbers per measurement window. For a company internet line that has other jobs to do as well, that is a considerable difference.</p>
+      <p><strong>Data protection and know-how.</strong> A raw signal contains more than the bearing condition. From the tooth-passing frequencies you can draw conclusions about speeds, tools and cutting conditions. That is manufacturing know-how. The box therefore only transmits computed vibration features, speed, load, temperature, machine status and alarms. It does not read NC programs, tool offsets, drawings or operator data. A complete list is on the <a href="data-security.html">Data security</a> page.</p>
+      <p><strong>Latency and independence.</strong> Milliseconds do not matter for bearing diagnostics. Something else is decisive: a measurement window is only comparable if the spindle ran at constant speed during the measurement. The box therefore checks whether the speed reported by the control was the same before and after the window, within ±2 % and above 300 rpm. This linking of control data and vibration works most reliably where both signals are available at the same moment. In addition, the box keeps computing if the internet connection fails.</p>
+      <div class="callout">
+        <p class="label">Division of tasks</p>
+        <p>On the box: forming windows, filtering, envelope, RMS, crest factor, kurtosis and amplitudes at the bearing frequencies. On the platform: comparison with the learned baseline of the individual spindle, classification as Normal, Noticeable, Warning or Alarm, alert with explanation and long-term trend. Data is condensed close to the machine and compared centrally over weeks.</p>
+      </div>
+
+      <h2 id="buffer">Buffering and delivery: no gaps and no duplicates</h2>
+      <p>Networks fail, routers are restarted, firewall rules change. A condition monitoring system that loses data during these periods has gaps exactly when you need it. Our box therefore works on the store-and-forward principle:</p>
+      <ol>
+        <li><strong>Store:</strong> every computed record is first written to a local SQLite database and given a sequence number. The database is configured so that even a power cut does not lose stored data.</li>
+        <li><strong>Send:</strong> the box sends a batch and waits for the platform to confirm that it has arrived and been stored. Only then does the next one follow.</li>
+        <li><strong>Delete:</strong> only after this confirmation does the box delete the records from the buffer. If no confirmation arrives, it sends the batch again.</li>
+        <li><strong>Detect duplicates:</strong> using the sequence numbers, the platform recognises what it already has and ignores repeats.</li>
+      </ol>
+      <p>Why is MQTT with QoS 1 not simply enough? Because QoS 1 only covers the leg between box and broker. It does not tell the box whether the data actually ended up in the platform's database. Only the confirmation from the platform via a separate return channel closes this gap. Together with duplicate detection, this results in delivery without gaps and without duplicate values.</p>
+      <p>The buffer holds at least seven days. If the connection is down for longer, the oldest data is discarded and the loss is reported, rather than letting the disk fill up.</p>
+
+      <h2 id="it-security">What the IT department needs to know</h2>
+      <ul>
+        <li><strong>Firewall:</strong> box to CNC control on port 4840 (OPC UA), box to platform on port 8883, otherwise 443. From outside to the box: no connection.</li>
+        <li><strong>Device identity:</strong> every box has its own certificate. The private key is generated on the box and never leaves it. There is no password login.</li>
+        <li><strong>Tenant separation:</strong> each box may only publish to the broker under its own identifier. Which customer belongs to which box is decided by the platform alone.</li>
+        <li><strong>TLS inspection:</strong> if the firewall uses TLS inspection, the box needs an exception. Otherwise mutual certificate validation fails and nothing is transmitted.</li>
+        <li><strong>Updates and storage location:</strong> the box only installs signed updates. Processing and storage take place exclusively in data centres in Germany.</li>
+      </ul>
+      <p>The page <a href="process.html">Process</a> describes the steps from initial assessment to connection. For a technical conversation with your IT team, use <a href="contact.html">Contact</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What is the difference between OPC UA and MQTT?</summary><p>OPC UA works on the client/server principle and includes an information model that describes the meaning of the data. MQTT works on the publish/subscribe principle via a broker and transports messages without a defined meaning. OPC UA is suited to reading the machine on the shop floor, MQTT to transmitting data across network boundaries.</p></details>
+        <details class="faq-item"><summary>Is MQTT secure enough for production data?</summary><p>MQTT itself does not encrypt. It becomes secure with TLS, client certificates per device and per-topic rights on the broker. In our system the connection runs over TLS 1.2 or higher, and every box has its own certificate whose key is generated on the box.</p></details>
+        <details class="faq-item"><summary>Which ports do I need to open in the firewall?</summary><p>Outbound from the box to the CNC control, port 4840 for OPC UA, and to the platform, port 8883 for MQTT over TLS, alternatively port 443. Inbound connections to the box are neither needed nor possible.</p></details>
+        <details class="faq-item"><summary>Can the box change anything on the machine via OPC UA?</summary><p>No. Every OPC UA request passes through an allowlist that only permits read, browse, subscribe and session set-up. In addition, the box logs on with a user that has only read rights on the control.</p></details>
+        <details class="faq-item"><summary>What happens if the internet connection fails?</summary><p>The box keeps computing and stores the results in a local buffer for at least seven days. As soon as the connection is back, it sends everything in the correct order. The platform recognises batches sent twice and stores them only once.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Integration and IT</span><a href="connect-sinumerik-heidenhain-opc-ua.html">Reading SINUMERIK and HEIDENHAIN via OPC UA: prerequisites, options, security</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

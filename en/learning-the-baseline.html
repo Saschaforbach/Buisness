@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learning the Baseline: The Learning Phase in Vibration Monitoring · Forbach &amp; Partners</title>
+<meta name="description" content="How our system learns the baseline: healthy condition, separate per machine, measuring point and speed, pre-damaged spindles, relearning after bearing change.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/learning-the-baseline.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/learning-the-baseline.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-normallage-lernen-einlernphase.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Learning the Baseline: The Learning Phase in Vibration Monitoring · Forbach &amp; Partners">
+<meta property="og:description" content="How our system learns the baseline: healthy condition, separate per machine, measuring point and speed, pre-damaged spindles, relearning after bearing change.">
+<meta property="og:url" content="https://forbachandpartners.com/en/learning-the-baseline.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Learning the baseline: what happens during the learning phase and what to watch out for", "description": "How our system learns the baseline: healthy condition, separate per machine, measuring point and speed, pre-damaged spindles, relearning after bearing change.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/learning-the-baseline.html", "articleSection": "Our system", "wordCount": 1952}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Learning the baseline: what happens during the learning phase and what to watch out for", "item": "https://forbachandpartners.com/en/learning-the-baseline.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does the learning phase take in vibration monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "The system learns from at least 20 valid measurements per measuring point and speed class. How long that takes depends on how often and how long the spindle runs at a constant speed in each class. A fixed number of days can therefore not be given."}}, {"@type": "Question", "name": "What happens if the spindle already has bearing damage during learning?", "acceptedAnswer": {"@type": "Answer", "text": "Then the system learns that condition as the baseline. The existing damage does not trigger an alert on its own, but further deterioration does. Start the learning phase on a spindle whose condition you know, ideally after an overhaul."}}, {"@type": "Question", "name": "Does the baseline have to be relearned after a bearing change?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. After a bearing change, overhaul or spindle replacement, the spindle vibrates differently. Your plant's administrator triggers relearning as soon as the spindle is back in normal operation. The action is logged."}}, {"@type": "Question", "name": "Does the baseline keep learning over time?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, but in a guarded way. Only measurements that were themselves assessed as normal are included, and every measurement is also compared with the original baseline. This lets the system adapt to new operating states without learning slowly growing bearing damage as normal. Today, adaptation happens through a deliberate relearning; automatic guarded learning is the next step we are building."}}, {"@type": "Question", "name": "Are there any alerts during the learning phase?", "acceptedAnswer": {"@type": "Answer", "text": "Not for the measuring points and speed classes that are still learning. Classes whose baseline has already been learned are already being assessed. You can see the learning progress in the dashboard."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-normallage-lernen-einlernphase.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>Learning the baseline: what happens during the learning phase and what to watch out for</h1>
+      <p class="lead">Every spindle vibrates differently. That is why our system first learns how this one spindle vibrates when healthy, and only then starts assessing. Here is what that means in practice.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#why">Why a learned baseline instead of fixed limits</a></li>
+<li><a href="#healthy">What "healthy condition" means in the learning phase</a></li>
+<li><a href="#separate">Separate baselines per machine, measuring point and speed range</a></li>
+<li><a href="#pre-damaged">What happens if the spindle is already damaged during learning</a></li>
+<li><a href="#relearning">Relearning after a bearing change or spindle replacement</a></li>
+<li><a href="#guarded-learning">Learning along without learning the damage</a></li>
+<li><a href="#pilot">The learning phase in the pilot</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Before our system can assess a spindle, it has to <strong>learn the baseline</strong>, i.e. the normal state of this spindle: how strongly does exactly this spindle vibrate, at exactly this measuring point, at this speed, when everything is in order? Every new measurement is then compared against this learned state. The learning phase is therefore not a prelude but the foundation of every later alert. This article explains what "healthy condition" means here, why the baseline is divided so finely, what happens with a pre-damaged spindle, how to proceed after a bearing change and why the baseline does not simply drift along by itself.</p>
+
+      <h2 id="why">Why a learned baseline instead of fixed limits</h2>
+      <p>Fixed limits from standards such as ISO 10816 or ISO 20816 apply to whole classes of machines. They are useful for the overall vibration of a machine, but too coarse for early bearing damage on an individual spindle. Two identical machining centres vibrate differently because of installation, foundation, age and machining. A value that is normal on one machine may already be conspicuous on the other. The background is covered in the article <a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools and ISO limits</a>.</p>
+      <p>In addition, there is hardly any damage data for spindle bearings from which generally valid thresholds could be derived. The question "Is that already too much?" is therefore best answered as: "More than is usual for this spindle?" That is exactly what the learned baseline checks.</p>
+
+      <h2 id="healthy">What "healthy condition" means in the learning phase</h2>
+      <p>The baseline is learned from measurements taken during normal operation. This rests on one clear assumption: <strong>the machine is in good order during the learning phase.</strong> The system cannot check this itself. It learns what it measures. That is why, before starting, we clarify with your maintenance team whether the spindle is running normally and when work was last done on it.</p>
+      <p>Not every measurement goes into the baseline. The edge box only evaluates a measurement window if the speed reported by the CNC control is the same before and after the window, to within ±2 %, and above 300 rpm. Run-up, braking and standstill are therefore excluded. From each valid window, the edge box calculates the features: RMS, peak value, crest factor, kurtosis, the vibration at once and twice the rotational frequency and the amplitudes in the envelope spectrum at the bearing frequencies. What these features tell you is explained in the article <a href="vibration-features-rms-crest-factor-kurtosis.html">RMS, crest factor and kurtosis</a>.</p>
+      <p>For each feature, the platform determines two quantities from at least 20 such measurements: the median as the typical value and a robust spread as a measure of how much the value normally fluctuates.</p>
+      <div class="formula">Spread = largest of
+           1.4826 · MAD
+           (90th percentile − median) / 1.2816
+           5 % of the median
+
+Deviation = (reading − median) / spread    only increases count
+
+MAD = median of the absolute distances from the median</div>
+      <p>The first line is the classic robust spread. Individual outliers, such as an impact during a tool change, barely shift it. The second line protects against features that are skewed upwards, such as spectral amplitudes. The third line is a lower bound: if a spindle runs extremely smoothly during the learning phase, even a tiny change would otherwise count as a large deviation. Both factors make the spread comparable with the standard deviation for normally distributed data.</p>
+
+      <h2 id="separate">Separate baselines per machine, measuring point and speed range</h2>
+      <p>A single baseline per machine would be too imprecise. Our system therefore learns separately according to three attributes:</p>
+      <ul>
+        <li><strong>Machine:</strong> each machine has its own baseline. One spindle is never compared with another.</li>
+        <li><strong>Measuring point:</strong> a sensor on the front bearing sees a different signal from one on the rear bearing. Each measuring point therefore has its own baseline.</li>
+        <li><strong>Speed range:</strong> vibration depends strongly on speed. The platform assigns each measurement to a speed class in steps of 100 rpm and only compares within the same class.</li>
+      </ul>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Example, assumed machine with two measuring points</caption>
+          <thead><tr><th>Machine</th><th>Measuring point</th><th>Speed class</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>MC 3</td><td>spindle_front</td><td class="m">6,000 rpm</td><td>learned, being assessed</td></tr>
+            <tr><td>MC 3</td><td>spindle_front</td><td class="m">12,000 rpm</td><td>learning, 14 of 20 measurements</td></tr>
+            <tr><td>MC 3</td><td>spindle_rear</td><td class="m">6,000 rpm</td><td>learned, being assessed</td></tr>
+            <tr><td>MC 3</td><td>spindle_rear</td><td class="m">12,000 rpm</td><td>learning, 14 of 20 measurements</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Each row is a baseline of its own. A speed class that is run for the first time only after several weeks then starts its own learning phase. The other classes are already being assessed in the meantime. In the dashboard, the card for each measuring point and speed shows whether it is still learning and how many of the 20 measurements are already available.</p>
+
+      <h3 id="duration">How long the learning phase takes</h3>
+      <p>There is no fixed duration in days, because the system learns by measurements, not by time. How quickly 20 valid measurements come together depends on:</p>
+      <ul>
+        <li>how often the spindle runs in the speed class concerned,</li>
+        <li>how long it runs there at a constant speed, because only such windows count,</li>
+        <li>how the edge box is configured for your machine, i.e. how often it records a measurement window,</li>
+        <li>the shift pattern, i.e. whether the machine runs on one shift or around the clock.</li>
+      </ul>
+      <p>A spindle that runs the same operation at the same speed all day learns its main speed quickly. A machine with many small batches and changing speeds needs longer for each individual class. While a class is learning, it does not trigger any alerts. This is deliberate: an assessment against a half-learned baseline would be unreliable.</p>
+
+      <h2 id="pre-damaged">What happens if the spindle is already damaged during learning</h2>
+      <p>This is the most important limitation of the method, and we state it openly. If a bearing is already damaged during the learning phase, the system learns that condition as the baseline. The vibration already present at the damage frequency is then considered normal and does not trigger an alert on its own.</p>
+      <p>Even so, the system is not completely blind. Bearing damage usually continues to grow. If the vibration rises above the learned baseline, the system reports the increase as it would for any other spindle. In addition, the edge box searches the envelope spectrum for the bearing frequencies in every measurement window, independently of the baseline. These findings are stored with every measurement. On their own, however, they do not trigger an alert today.</p>
+      <div class="callout">
+        <p class="label">Our recommendation</p>
+        <p>Start the learning phase on a spindle whose condition you know. If a spindle is noticeably loud or warm, or has not been serviced for a long time, talk to us first. Sometimes it makes more sense to call in the spindle service provider first and learn the baseline afterwards. If an overhaul is due anyway, the time directly after it is ideal.</p>
+      </div>
+
+      <h2 id="relearning">Relearning after a bearing change or spindle replacement</h2>
+      <p>After a bearing change, an overhaul or a spindle replacement, the spindle vibrates differently from before, usually more quietly. Assessed against the old baseline, the system would then see a lot of headroom, and new damage would be noticed too late. The baseline therefore has to be relearned after such interventions.</p>
+      <p>Relearning is triggered by your plant's administrator. Maintenance engineers and users with read-only rights cannot do this. The following happens:</p>
+      <ol>
+        <li>All baselines of this machine, i.e. every measuring point and every speed class, are reset to "learning".</li>
+        <li>The reported condition of the machine is reset to Normal.</li>
+        <li>Learning uses only measurements from this point onwards. Older measurements are not included.</li>
+        <li>The action is recorded in the audit log with the person and the time.</li>
+      </ol>
+      <p>Previous measurements and alerts remain stored and can be retrieved via the data export. Only trigger relearning once the spindle is back in normal operation after the intervention, i.e. after running in and not during test runs. Relearning is also necessary if we extend the analysis on the edge box and the features change as a result. A baseline built from old features no longer fits the new measurements.</p>
+
+      <h2 id="guarded-learning">Learning along without learning the damage</h2>
+      <p>A spindle changes even without damage: new operations, different speeds, a different shift pattern. A baseline that never takes this into account becomes unsuitable over time. The obvious solution would be to keep updating the baseline from the most recent measurements. For bearing monitoring, that is precisely what is dangerous. Bearing damage develops slowly. A baseline that blindly follows the latest measurements drifts along with the damage. The deviation stays small even though the spindle keeps getting worse.</p>
+      <p>Our system therefore uses <strong>guarded learning</strong>. Three rules apply:</p>
+      <ol>
+        <li><strong>Only healthy measurements count.</strong> Only measurements that were themselves assessed as "Normal" feed into the baseline. Whatever is conspicuous never becomes the new normal.</li>
+        <li><strong>New operating states are added.</strong> If the spindle runs in a speed range the system does not yet know, it learns that range in addition. Over time, more measurements can be assessed and damage is noticed earlier.</li>
+        <li><strong>The original baseline is kept as a reference.</strong> Every measurement is also compared with the baseline that was learned first. If a feature creeps upwards over a long period, the system reports this trend separately, even if it is unremarkable from one measurement to the next.</li>
+      </ol>
+      <p>Today, the learned baseline in our system stays fixed and changes only through a deliberate relearning that a person triggers and that is logged. New speed ranges are already learned separately. Guarded learning according to the three rules above is the next step we are building. Every alert remains traceable: it states which baseline it was calculated against. How this fits with our stance on opaque methods is covered in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">fixed thresholds or a learned baseline</a>.</p>
+
+      <h2 id="pilot">The learning phase in the pilot</h2>
+      <p>In the pilot, the learning phase starts after the edge box and sensor have been installed. During this time you can already see the trend of the features and the learning progress for each measuring point and speed in the dashboard, but no alerts yet for the classes that are still learning. After that, actual monitoring against the learned baseline begins. The overall process is described on the pages <a href="process.html">Process and prerequisites</a> and <a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project</a>. What an alert looks like afterwards is shown in the article <a href="explained-alerts-dashboard.html">Alerts with an explanation</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How long does the learning phase take in vibration monitoring?</summary><p>The system learns from at least 20 valid measurements per measuring point and speed class. How long that takes depends on how often and how long the spindle runs at a constant speed in each class. A fixed number of days can therefore not be given.</p></details>
+        <details class="faq-item"><summary>What happens if the spindle already has bearing damage during learning?</summary><p>Then the system learns that condition as the baseline. The existing damage does not trigger an alert on its own, but further deterioration does. Start the learning phase on a spindle whose condition you know, ideally after an overhaul.</p></details>
+        <details class="faq-item"><summary>Does the baseline have to be relearned after a bearing change?</summary><p>Yes. After a bearing change, overhaul or spindle replacement, the spindle vibrates differently. Your plant's administrator triggers relearning as soon as the spindle is back in normal operation. The action is logged.</p></details>
+        <details class="faq-item"><summary>Does the baseline keep learning over time?</summary><p>Yes, but in a guarded way. Only measurements that were themselves assessed as normal are included, and every measurement is also compared with the original baseline. This lets the system adapt to new operating states without learning slowly growing bearing damage as normal. Today, adaptation happens through a deliberate relearning; automatic guarded learning is the next step we are building.</p></details>
+        <details class="faq-item"><summary>Are there any alerts during the learning phase?</summary><p>Not for the measuring points and speed classes that are still learning. Classes whose baseline has already been learned are already being assessed. You can see the learning progress in the dashboard.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li>
+<li><span class="label">Our system</span><a href="edge-box-condition-monitoring.html">The edge box for condition monitoring: design, tasks and behaviour during network outages</a></li>
+<li><span class="label">Our system</span><a href="explained-alerts-dashboard.html">Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

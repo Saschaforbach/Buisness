@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FFT in vibration analysis: sampling rate and resolution · Forbach &amp; Partners</title>
+<meta name="description" content="FFT in vibration analysis for practitioners: sampling rate, Nyquist, frequency resolution, Hann window, spectral leakage and amplitude scaling on CNC spindles.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="FFT in vibration analysis: sampling rate and resolution · Forbach &amp; Partners">
+<meta property="og:description" content="FFT in vibration analysis for practitioners: sampling rate, Nyquist, frequency resolution, Hann window, spectral leakage and amplitude scaling on CNC spindles.">
+<meta property="og:url" content="https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "FFT in vibration analysis: sampling rate, resolution and window function for practitioners", "description": "FFT in vibration analysis for practitioners: sampling rate, Nyquist, frequency resolution, Hann window, spectral leakage and amplitude scaling on CNC spindles.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html", "articleSection": "Method", "wordCount": 2018}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "FFT in vibration analysis: sampling rate, resolution and window function for practitioners", "item": "https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What sampling rate do you need for rolling bearing vibration analysis?", "acceptedAnswer": {"@type": "Answer", "text": "A sampling rate whose half value is well above the structural resonances excited by a bearing defect. These are usually in the kilohertz range. Our simulator works at 51.2 kHz. Which rate makes sense on a particular spindle depends on the data acquisition card, sensor and measurement point."}}, {"@type": "Question", "name": "How do you calculate the frequency resolution of an FFT?", "acceptedAnswer": {"@type": "Answer", "text": "Sampling rate divided by the number of samples in the window, or more simply: one divided by the window duration in seconds. A one-second window gives a resolution of 1 Hz, regardless of the sampling rate."}}, {"@type": "Question", "name": "Why use a Hann window for the FFT?", "acceptedAnswer": {"@type": "Answer", "text": "Because a signal rarely fits into the measurement window as a whole number of periods. Without a window, the energy of a line spreads to its neighbours: spectral leakage. The Hann window greatly reduces this effect and keeps lines well separated. The amplitude must then be corrected for the window loss."}}, {"@type": "Question", "name": "Is CNC control data enough for an FFT analysis of the spindle bearings?", "acceptedAnswer": {"@type": "Answer", "text": "No. The standard interfaces deliver well below 1 kHz, so the spectrum ends below 500 Hz. Bearing diagnostics needs signals in the kilohertz range and therefore a vibration sensor on the spindle housing. The control does, however, supply the speed, without which the bearing frequencies cannot be calculated."}}, {"@type": "Question", "name": "What does the amplitude in an FFT spectrum mean?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on the scaling. In our system, a pure sine wave appears with its peak value, corrected for the loss caused by the Hann window. Other systems show RMS values or power spectral densities. Before comparing two systems, you should clarify the scaling."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-fft-spektrum-aufloesung-schwingungsanalyse.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Method</span></nav>
+      <h1>FFT in vibration analysis: sampling rate, resolution and window function for practitioners</h1>
+      <p class="lead">A spectrum is only as good as the decisions made before it. Sampling rate, window length and window function determine whether two closely spaced bearing frequencies appear as two lines or as one blurred hump.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#sampling-rate">Sampling rate and Nyquist: what can be seen at all</a></li>
+<li><a href="#resolution">Frequency resolution: window length decides</a></li>
+<li><a href="#bearing-frequencies">Why resolution matters for bearing frequencies</a></li>
+<li><a href="#windows">Window functions and spectral leakage</a></li>
+<li><a href="#amplitude">Amplitude scaling: what the number in the spectrum means</a></li>
+<li><a href="#averaging">Averaging and noise</a></li>
+<li><a href="#cnc-control">Why control data below 1 kHz is not enough</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Almost every vibration diagnosis on machines starts with the same calculation: the fast Fourier transform, or <strong>FFT</strong>. It breaks a time signal down into its frequency components and turns a noisy trace into a spectrum with clear lines. The FFT itself is standard and is included in every maths library. Whether the result is usable, however, is decided beforehand: by the sampling rate, window length, window function and scaling. This article explains these FFT settings in vibration analysis for practitioners and shows how we use them in our system for CNC spindles.</p>
+
+      <h2 id="sampling-rate">Sampling rate and Nyquist: what can be seen at all</h2>
+      <p>A vibration sensor delivers a continuous signal. The data acquisition card samples it at fixed time intervals. The number of values per second is the <strong>sampling rate</strong> <code>f<sub>s</sub></code>. This gives the most important limit of the entire analysis: a spectrum extends at most to half the sampling rate, the <strong>Nyquist frequency</strong>.</p>
+      <div class="formula">f_Nyquist = f_s / 2
+
+Example (assumption): f_s = 51,200 Hz  →  spectrum up to 25,600 Hz
+                      f_s =  1,000 Hz  →  spectrum up to    500 Hz</div>
+      <p>Frequencies above this limit do not simply disappear. If they are not filtered out before sampling, they appear mirrored at a wrong, lower position in the spectrum. This effect is called <strong>aliasing</strong>. Data acquisition cards for vibration therefore have an analogue low-pass filter ahead of the converter. An aliasing error cannot be corrected afterwards.</p>
+      <p>In practice this means the sampling rate must match the frequencies you want to see. For rolling bearings, these are not only the defect frequencies themselves, but above all the structural resonances excited by the impacts of a bearing defect. These are usually in the kilohertz range. Our simulator provides vibration windows at 51.2 kHz, and the data acquisition interface of the edge box is designed for accelerometers up to this sampling rate.</p>
+
+      <h2 id="resolution">Frequency resolution: window length decides</h2>
+      <p>The FFT always processes a piece of signal of fixed length, the <strong>measurement window</strong>. This window produces a spectrum with lines at equal spacing. This spacing is the <strong>frequency resolution</strong>:</p>
+      <div class="formula">Δf = f_s / N = 1 / T
+
+N = number of samples in the window   T = window duration in seconds</div>
+      <p>So the resolution depends only on the duration of the window, not on the sampling rate alone. A high sampling rate extends the frequency range upwards. Finer resolution can only be achieved with a longer window.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Example values, assuming f_s = 51,200 Hz</caption>
+          <thead><tr><th>Window duration T</th><th>Samples N</th><th>Resolution Δf</th><th>Frequency range</th></tr></thead>
+          <tbody>
+            <tr><td class="m">0.25 s</td><td class="m">12,800</td><td class="m">4 Hz</td><td class="m">up to 25,600 Hz</td></tr>
+            <tr><td class="m">0.5 s</td><td class="m">25,600</td><td class="m">2 Hz</td><td class="m">up to 25,600 Hz</td></tr>
+            <tr><td class="m">1 s</td><td class="m">51,200</td><td class="m">1 Hz</td><td class="m">up to 25,600 Hz</td></tr>
+            <tr><td class="m">2 s</td><td class="m">102,400</td><td class="m">0.5 Hz</td><td class="m">up to 25,600 Hz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Longer windows come at a price, however. The speed must remain constant throughout the window, otherwise all speed-dependent lines smear. On a CNC spindle that changes speed with every tool, this is a real limit. Window length is therefore always a compromise between resolution and the time during which the machine runs steadily enough. In our edge box, the window duration can be set per measurement point. A window is only evaluated if the speed was almost the same before and after the measurement.</p>
+
+      <h2 id="bearing-frequencies">Why resolution matters for bearing frequencies</h2>
+      <p>Bearing diagnostics looks for lines in the spectrum at calculated positions: outer race (BPFO), inner race (BPFI), rolling element (BSF) and cage (FTF). The formulas are given in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>. Three situations require sufficiently fine resolution:</p>
+      <ul>
+        <li><strong>Sidebands:</strong> an inner race defect shows as a line at BPFI with sidebands spaced at the shaft frequency. If the resolution is too coarse, the main line and sidebands merge.</li>
+        <li><strong>Adjacent harmonics:</strong> harmonics of different defect types can lie close together. For the assumed bearing from the bearing article, 3 × BPFO is at around 1,936 Hz and 2 × BPFI at around 1,909 Hz, so at 6,000 rpm only about 27 Hz apart.</li>
+        <li><strong>Cage frequency:</strong> the FTF lies below the shaft frequency, at around 40 Hz in the example. In absolute terms, low frequencies need fine resolution to stand out from the DC component and the shaft frequency.</li>
+      </ul>
+      <p>Real bearings slip slightly, so the lines are not exactly at the calculated position. Our system therefore searches within a tolerance band around each expected frequency. The band is at least a few per cent of the frequency wide and never narrower than a few spectral lines. We have deliberately built two consequences of this into the analysis. First, a defect is only treated as detected if the <strong>fundamental frequency</strong> itself is visible, not just a harmonic. Second, the system checks whether an expected frequency and its harmonics are still below the Nyquist limit. If they are above it, they are not evaluated at all, rather than guessing a value.</p>
+
+      <h2 id="windows">Window functions and spectral leakage</h2>
+      <p>The FFT assumes that the measurement window repeats endlessly. If a vibration does not fit into the window as a whole number of periods, a discontinuity appears at the join. In the spectrum, the energy of the line is then spread over the neighbouring lines. This is called <strong>spectral leakage</strong>. A strong line can thus mask a weak neighbouring line, and the amplitude of the strong line is shown too low.</p>
+      <p>The remedy is a <strong>window function</strong>. It weights the signal so that it tapers smoothly to zero at the edges of the window. This removes the discontinuity, and the energy stays much more tightly concentrated at the actual line. There are many window functions with different strengths:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Window</th><th>Strength</th><th>Typical use</th></tr></thead>
+          <tbody>
+            <tr><td>Rectangular (no window)</td><td>sharpest line, but strong leakage</td><td>Impact measurements, signals that fit exactly into the window</td></tr>
+            <tr><td>Hann</td><td>good compromise between selectivity and low leakage</td><td>General vibration analysis on machines</td></tr>
+            <tr><td>Flat top</td><td>very accurate amplitude, but broad lines</td><td>Calibration, amplitude measurement of individual lines</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In our system we use the <strong>Hann window</strong>, both for the ordinary spectrum and for the envelope spectrum. For bearing diagnostics this is the usual choice: lines stay well separated, and weak bearing lines next to the strong shaft frequency are not lost in the leakage. The price is a slightly broader main line, which is absorbed by the tolerance band in the search.</p>
+
+      <h2 id="amplitude">Amplitude scaling: what the number in the spectrum means</h2>
+      <p>A spectrum shows an amplitude on the vertical axis. What exactly this number means is not self-evident. Spectra can be scaled as peak value, as RMS, as power or as power spectral density. Anyone comparing two spectra from different systems needs to know this, otherwise they are comparing apples with oranges.</p>
+      <p>Our system calculates a <strong>single-sided amplitude spectrum</strong>, i.e. positive frequencies only. The scaling is chosen so that a pure sine wave appears in the spectrum with its <strong>peak value</strong>. This involves two corrections:</p>
+      <ul>
+        <li><strong>Window correction:</strong> the Hann window attenuates the signal at the edges and so lowers the amplitude of all lines. The result is divided by the sum of the window weights so that the amplitude is correct again.</li>
+        <li><strong>Single-sided representation:</strong> the FFT splits the energy of a vibration between a positive and a negative frequency. For the single-sided representation the values are doubled. The DC component and the line exactly at the Nyquist frequency have no mirror image and are not doubled.</li>
+      </ul>
+      <p>Even so, the absolute height is not the yardstick for our assessment. It depends on the sensor, its mounting and the transmission path in the spindle housing. What is assessed is the deviation from the learned baseline, i.e. the normal state of the same measurement point. More on this in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds or learned baseline</a>.</p>
+
+      <h2 id="averaging">Averaging and noise</h2>
+      <p>A single spectrum contains random components. Conventional instruments therefore often average several spectra in succession, for example using Welch's method with overlapping sub-windows. The lines remain, the noise becomes smoother. The disadvantage is that averaging over sub-windows reduces the resolution for the same total duration.</p>
+      <p>Our system does not average within a measurement window. Each window produces exactly one spectrum at full resolution. Robustness against randomness comes in elsewhere:</p>
+      <ul>
+        <li><strong>Noise floor as median:</strong> whether a line at a bearing frequency stands out is measured by the system against the median of the amplitudes in a band around this frequency. The median is barely influenced by the peaks being searched for. The result is a margin in decibels above the noise.</li>
+        <li><strong>Learned baseline from many measurements:</strong> the learned baseline of a spindle is learned from many healthy measurements, using robust measures such as the median and the median absolute deviation instead of mean and standard deviation.</li>
+        <li><strong>Confirmation over several measurements:</strong> an alert is only raised if a deviation persists over several consecutive measurements.</li>
+      </ul>
+      <p>This division keeps each individual spectrum sharp and moves the statistical smoothing to where it does not blur the diagnosis.</p>
+
+      <h2 id="cnc-control">Why control data below 1 kHz is not enough</h2>
+      <p>Many plants rightly ask whether you could simply use the data the CNC control already provides. For speed, spindle load and operating state, the control is indeed the right source. For bearing diagnostics it is not enough. The standard interfaces of the controls deliver values at well below 1 kHz. According to the Nyquist rule, the spectrum then ends below 500 Hz. The structural resonances on which envelope analysis is based are far above this. At high spindle speeds, even the inner race defect frequencies are already above this limit.</p>
+      <div class="callout">
+        <p class="label">Two sources, two tasks</p>
+        <p>Our edge box reads the CNC control via OPC UA, read-only, by default once per second and never more often than every 0.1 s. This provides the speed, without which no bearing frequency can be calculated. The vibration signal in the kilohertz range comes from a sensor on the spindle housing. The FFT and envelope analysis run directly on the edge box. Only the features are transmitted.</p>
+      </div>
+      <p>For the envelope, the signal is first band-pass filtered around the resonance. We use a Butterworth filter for this, applied forwards and backwards so that it introduces no phase shift. The envelope is obtained via the Hilbert transform. The appropriate frequency band is set per measurement point. The path from raw signal to alert is described in the article <a href="from-vibration-to-alert-processing-chain.html">From vibration to alert</a>. How the edge box is built is covered under <a href="edge-box-condition-monitoring.html">Edge box for condition monitoring</a>, and how the data is protected under <a href="data-security.html">Data security</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What sampling rate do you need for rolling bearing vibration analysis?</summary><p>A sampling rate whose half value is well above the structural resonances excited by a bearing defect. These are usually in the kilohertz range. Our simulator works at 51.2 kHz. Which rate makes sense on a particular spindle depends on the data acquisition card, sensor and measurement point.</p></details>
+        <details class="faq-item"><summary>How do you calculate the frequency resolution of an FFT?</summary><p>Sampling rate divided by the number of samples in the window, or more simply: one divided by the window duration in seconds. A one-second window gives a resolution of 1 Hz, regardless of the sampling rate.</p></details>
+        <details class="faq-item"><summary>Why use a Hann window for the FFT?</summary><p>Because a signal rarely fits into the measurement window as a whole number of periods. Without a window, the energy of a line spreads to its neighbours: spectral leakage. The Hann window greatly reduces this effect and keeps lines well separated. The amplitude must then be corrected for the window loss.</p></details>
+        <details class="faq-item"><summary>Is CNC control data enough for an FFT analysis of the spindle bearings?</summary><p>No. The standard interfaces deliver well below 1 kHz, so the spectrum ends below 500 Hz. Bearing diagnostics needs signals in the kilohertz range and therefore a vibration sensor on the spindle housing. The control does, however, supply the speed, without which the bearing frequencies cannot be calculated.</p></details>
+        <details class="faq-item"><summary>What does the amplitude in an FFT spectrum mean?</summary><p>That depends on the scaling. In our system, a pure sine wave appears with its peak value, corrected for the loss caused by the Hann window. Other systems show RMS values or power spectral densities. Before comparing two systems, you should clarify the scaling.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Method</span><a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver</a></li>
+<li><span class="label">Method</span><a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered</a></li>
+<li><span class="label">Method</span><a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools: what ISO limits can do and where they stop</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

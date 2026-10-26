@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gemischter Maschinenpark: Siemens und Heidenhain in einer Ansicht · Forbach &amp; Partners</title>
+<meta name="description" content="Gemischter Maschinenpark: ein Datenvertrag für SINUMERIK und HEIDENHAIN, umati mit Browse-Pfaden, ältere Steuerungen wie iTNC 530 nur mit Sensorik.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Gemischter Maschinenpark: Siemens und Heidenhain in einer Ansicht · Forbach &amp; Partners">
+<meta property="og:description" content="Gemischter Maschinenpark: ein Datenvertrag für SINUMERIK und HEIDENHAIN, umati mit Browse-Pfaden, ältere Steuerungen wie iTNC 530 nur mit Sensorik.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht", "description": "Gemischter Maschinenpark: ein Datenvertrag für SINUMERIK und HEIDENHAIN, umati mit Browse-Pfaden, ältere Steuerungen wie iTNC 530 nur mit Sensorik.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html", "articleSection": "Unser System", "wordCount": 1641}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht", "item": "https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kann ich Siemens- und Heidenhain-Maschinen in einem System überwachen?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Box und Plattform übersetzen die Werte beider Steuerungen in einen gemeinsamen Datenvertrag mit herstellerneutralen Schlüsseln. Bewertung, Stufen und Meldungen sind für alle Maschinen gleich und erscheinen in einer gemeinsamen Ansicht."}}, {"@type": "Question", "name": "Reicht umati für die Zustandsüberwachung der Spindel?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. OPC 40501-1 liefert Zustände, Overrides, Programm und Meldungen, aber keine Spindeldrehzahl, keine Last und keine Schwingung. Für die Lagerdiagnose braucht es einen Schwingungssensor, Drehzahl und Last kommen aus den Herstellermodellen der Steuerung."}}, {"@type": "Question", "name": "Lässt sich eine iTNC 530 ohne OPC UA überwachen?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, mit Sensorik. Der Schwingungssensor am Spindelgehäuse liefert die Daten für die Lagerdiagnose. Werte aus der Steuerung wie Drehzahl, Last, Programm und Alarme fehlen dann. Wie die Drehzahl bestimmt wird, klären wir vor Ort."}}, {"@type": "Question", "name": "Welche Option braucht die Steuerung für OPC UA?", "acceptedAnswer": {"@type": "Answer", "text": "SINUMERIK und HEIDENHAIN brauchen jeweils eine freigeschaltete OPC-UA-Option. Bei HEIDENHAIN belegt jede verbundene Anwendung eine eigene Option. Welche Optionen an Ihrer Maschine vorhanden sind, prüfen wir vor der Zusage."}}, {"@type": "Question", "name": "Wann wird FANUC unterstützt?", "acceptedAnswer": {"@type": "Answer", "text": "FANUC ist geplant, die Anbindung über FOCAS ist vorgesehen. Einen Termin nennen wir erst, wenn die Anbindung an echten Steuerungen geprüft ist."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/mixed-machine-fleet-siemens-heidenhain.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Unser System</span></nav>
+      <h1>Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht</h1>
+      <p class="lead">Kaum ein Betrieb hat nur eine Steuerung. Wir zeigen, wie unser System SINUMERIK und HEIDENHAIN über einen gemeinsamen Datenvertrag zusammenführt und was an älteren Maschinen ohne OPC UA möglich ist.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>8 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#insel">Das Problem herstellerspezifischer Insellösungen</a></li>
+<li><a href="#datenvertrag">Ein Datenvertrag für alle Steuerungen</a></li>
+<li><a href="#signalquellen">Woher die Werte kommen: Herstellerpfade aus der Konfiguration</a></li>
+<li><a href="#umati">umati und OPC 40501: Browse-Pfade statt fester NodeIds</a></li>
+<li><a href="#steuerungen">Welche Steuerung was liefert</a></li>
+<li><a href="#ohne-opc-ua">Ältere Maschinen ohne OPC UA: nur Sensorik</a></li>
+<li><a href="#fanuc">FANUC: später, über eine eigene Anbindung</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>In einem typischen Lohnfertiger stehen nebeneinander ein neues Bearbeitungszentrum mit SINUMERIK ONE, zwei ältere mit SINUMERIK 840D sl, eine Fräsmaschine mit HEIDENHAIN TNC 640 und eine mit iTNC 530. Jede Steuerung spricht anders, jeder Hersteller bietet eigene Software für Datenerfassung an. Wer Zustandsüberwachung im <strong>gemischten Maschinenpark</strong> einführen will, steht schnell vor der Frage: Brauche ich für jede Marke ein eigenes System? In unserem System lautet die Antwort nein. Dieser Artikel zeigt, wie wir Siemens und Heidenhain, alte und neue Steuerungen in eine gemeinsame Ansicht bringen und wo die Grenzen liegen.</p>
+
+      <h2 id="insel">Das Problem herstellerspezifischer Insellösungen</h2>
+      <p>Steuerungshersteller und Maschinenbauer bieten eigene Lösungen für Datenerfassung und Zustandsüberwachung an. Jede für sich kann gut sein. Im gemischten Maschinenpark entstehen daraus aber Inseln:</p>
+      <ul>
+        <li><strong>Mehrere Oberflächen:</strong> Der Instandhalter muss für die Siemens-Maschinen in ein System schauen und für die Heidenhain-Maschinen in ein anderes.</li>
+        <li><strong>Nicht vergleichbare Werte:</strong> Jedes System hat eigene Kennwerte, eigene Stufen und eigene Begriffe. „Gelb“ im einen heißt nicht dasselbe wie „Warnung“ im anderen.</li>
+        <li><strong>Mehrere Verträge und Zugänge:</strong> Jede Insel braucht eigene Lizenzen, eigene Benutzer und eine eigene Freigabe durch die IT.</li>
+        <li><strong>Lücken bei älteren Maschinen:</strong> Für Steuerungen ohne moderne Schnittstelle gibt es oft gar kein Angebot.</li>
+      </ul>
+      <p>Für die Spindelüberwachung kommt ein grundsätzliches Problem hinzu: Die Standard-Schnittstellen der Steuerungen liefern Werte deutlich unter 1 kHz. Lagerschäden zeigen sich aber im Kilohertz-Bereich. Die eigentliche Diagnose kommt deshalb ohnehin vom Schwingungssensor am Spindelgehäuse, nicht von der Steuerung. Die Steuerung liefert den Zusammenhang: Drehzahl, Last, Programm, Alarme. Das ist eine gute Nachricht für den gemischten Maschinenpark, denn der Sensor ist bei jeder Marke derselbe.</p>
+
+      <h2 id="datenvertrag">Ein Datenvertrag für alle Steuerungen</h2>
+      <p>Kern unserer Lösung ist ein einheitlicher Datenvertrag zwischen der Box an der Maschine und unserer Plattform. Er legt fest, welche Nachrichten die Box schicken darf und wie sie aufgebaut sind, unabhängig davon, welche Steuerung an der Box hängt. Es gibt vier Arten von Datensätzen:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Datensatz</th><th>Inhalt</th></tr></thead>
+          <tbody>
+            <tr><td>Steuerungswerte</td><td>Momentaufnahme gelesener Werte unter unseren eigenen, herstellerneutralen Schlüsseln, etwa <code>spindle.speed</code>, <code>spindle.load</code>, <code>program.name</code></td></tr>
+            <tr><td>Kennwerte</td><td>Schwingungskennwerte eines Messfensters, auf der Box berechnet, mit Messstelle, Drehzahl, Version des Kennwertsatzes und gegebenenfalls dem Befund im Hüllkurvenspektrum</td></tr>
+            <tr><td>Ereignisse</td><td>Alarme der Steuerung, Verbindungswechsel, Pufferverluste, Updates</td></tr>
+            <tr><td>Gerätezustand</td><td>Softwarestand der Box, Verbindung zur Steuerung, Anzahl gepufferter Datensätze, Alter des ältesten ungesendeten Datensatzes, Restlaufzeit des Gerätezertifikats</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Der Vertrag ist streng. Unbekannte Felder werden abgelehnt, ungültige Zahlenwerte ebenso. Jeder Datensatz trägt eine fortlaufende Nummer aus dem Puffer der Box. Die Plattform speichert jede Nummer genau einmal und bestätigt den Empfang. Erst dann löscht die Box die Daten. So entstehen nach einer Netzunterbrechung weder Lücken noch Doppelte. Mehr zum Transportweg steht im Artikel <a href="blog-opc-ua-vs-mqtt-produktionsdaten.html">OPC UA oder MQTT für Produktionsdaten</a>.</p>
+      <p>Die Entscheidung für herstellerneutrale Schlüssel hat einen einfachen Grund: Box und Plattform werden unabhängig voneinander weiterentwickelt, und neue Datenquellen sollen hinzukommen können, ohne dass sich der Vertrag ändert. Ob die Drehzahl von einer SINUMERIK oder einer TNC kommt, sieht die Plattform nicht. Sie sieht <code>spindle.speed</code>. Bewertung, Stufen und Meldungen sind deshalb für alle Maschinen gleich. Ein „Alarm“ an der Heidenhain-Maschine bedeutet genau dasselbe wie an der Siemens-Maschine.</p>
+
+      <h2 id="signalquellen">Woher die Werte kommen: Herstellerpfade aus der Konfiguration</h2>
+      <p>Siemens und Heidenhain legen ihre Werte in OPC UA unterschiedlich ab. SINUMERIK nutzt die Pfade der NC-Variablen, HEIDENHAIN ein eigenes Informationsmodell. Welcher Knoten an einer bestimmten Maschine die Spindeldrehzahl enthält, hängt zudem von Softwarestand, Optionen und Maschinenbauer ab.</p>
+      <p>Wir erraten solche Pfade nicht und schreiben sie nicht fest in die Software. Die Zuordnung „dieser Knoten ist <code>spindle.speed</code>“ steht in der Konfiguration der Box, je Maschine. Beim Termin vor Ort liest ein Werkzeug der Box den Adressraum der Steuerung aus, nur lesend und mit derselben Sperre wie im Betrieb. Aus dieser Tabelle entstehen die Einträge. Jeder Pfad wird an der echten Steuerung geprüft, bevor er in Betrieb geht.</p>
+      <p>Die Anbindung selbst ist für alle Steuerungen gleich abgesichert: Die Box liest per OPC UA, im Normalfall einmal pro Sekunde und nie öfter als alle 0,1 Sekunden. Schreiben, Methodenaufrufe, Anlegen und Löschen sind technisch gesperrt, bevor eine Anfrage die Box verlässt. Details stehen in den Artikeln <a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Schreibschutz an der CNC-Steuerung</a> und <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+
+      <h2 id="umati">umati und OPC 40501: Browse-Pfade statt fester NodeIds</h2>
+      <p>Mit umati, technisch OPC UA for Machine Tools (OPC 40501-1), gibt es einen herstellerübergreifenden Standard für Werkzeugmaschinen. Er beschreibt Betriebsart, Zustand der Kanäle, Overrides, aktives Programm, Werkzeuge und Meldungen in einer einheitlichen Struktur. Für den Zusammenhang einer Messung ist das wertvoll: Läuft gerade ein Programm im Automatikbetrieb? Ist ein Testlauf aktiv?</p>
+      <div class="callout">
+        <p class="label">Was umati nicht liefert</p>
+        <p>In der aktuellen Fassung enthält OPC 40501-1 keine fortlaufenden Prozesswerte: keine Spindeldrehzahl, keine Spindellast, keine Achsdaten. Für die Spindel gibt es nur, ob sie dreht, den Override und ob sie als Achse genutzt wird. Für die Diagnose reicht umati deshalb allein nicht. Drehzahl und Last kommen aus den Herstellermodellen.</p>
+      </div>
+      <p>Wer umati liest, sollte das über Browse-Pfade tun, nicht über feste NodeIds. Die Gründe sind praktisch:</p>
+      <ul>
+        <li><strong>Namensraum-Indizes unterscheiden sich</strong> von Server zu Server. Die Box muss sie beim Verbinden über die Namensraum-URI auflösen.</li>
+        <li><strong>Kanäle und Spindeln tragen herstellerspezifische Namen</strong> im Namensraum der jeweiligen Maschine. Man findet sie, indem man den Knoten <code>Monitoring</code> durchsucht und nach Typ filtert, nicht über einen festen Pfad.</li>
+        <li><strong>Maschinen werden über den Ordner <code>Machines</code></strong> aus OPC 40001-1 gefunden und am Typ <code>MachineToolType</code> erkannt.</li>
+        <li><strong>Die NodeId ist keine Maschinenidentität.</strong> Als eindeutiger Schlüssel dient die Eigenschaft <code>ProductInstanceUri</code> aus der Identifikation der Maschine.</li>
+      </ul>
+      <p>Dazu gehört eine ehrliche Einordnung: Ein umati-Modell ist an den beiden großen Steuerungen nicht selbstverständlich. Bei SINUMERIK ist eine Maschine nur dann umati-fähig, wenn der Maschinenbauer oder ein Integrator ein entsprechendes Modell eingerichtet hat. Der OPC UA NC Server von HEIDENHAIN nutzt ein eigenes Modell, nicht umati. Die automatische Erkennung über umati ist in unserer Box-Software deshalb noch nicht umgesetzt. Heute arbeiten wir mit den geprüften Herstellerpfaden aus der Konfiguration, umati folgt als Ergänzung.</p>
+
+      <h2 id="steuerungen">Welche Steuerung was liefert</h2>
+      <p>Die folgende Übersicht fasst zusammen, was je Steuerung heute möglich ist. Der Schwingungssensor am Spindelgehäuse ist in allen Fällen nötig, denn nur er liefert die Signale für die Lagerdiagnose.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Steuerung → Anbindung → was verfügbar ist</caption>
+          <thead><tr><th>Steuerung</th><th>Anbindung</th><th>Was verfügbar ist</th></tr></thead>
+          <tbody>
+            <tr><td>SINUMERIK 840D sl, 828D, ONE</td><td>OPC UA, nur lesend, Option an der Steuerung nötig, plus Schwingungssensor</td><td>Schwingungskennwerte und Lagerdiagnose, dazu Drehzahl, Spindellast, Programm und Alarme aus den NC-Variablen. Kürzestes Abfrageintervall der Steuerung 100 ms.</td></tr>
+            <tr><td>HEIDENHAIN TNC 640, TNC 620, TNC7</td><td>OPC UA NC Server, nur lesend, Option an der Steuerung nötig, plus Schwingungssensor</td><td>Schwingungskennwerte und Lagerdiagnose, dazu Betriebsart, Overrides, Programm und Fehlermeldungen. Spindel- und Achsdaten erst in neueren TNC7-Softwareständen, an älteren Ständen prüfen wir die Drehzahlquelle vor Ort. Spindellast nicht im Standardmodell.</td></tr>
+            <tr><td>HEIDENHAIN iTNC 530, TNC 320</td><td>Kein OPC UA NC Server, nur Sensorik</td><td>Schwingungskennwerte und Lagerdiagnose. Drehzahl, Last, Programm und Alarme aus der Steuerung fehlen.</td></tr>
+            <tr><td>FANUC</td><td>Geplant</td><td>Noch nicht im Angebot. Anbindung über die FANUC-Schnittstelle FOCAS ist vorgesehen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Welche Werte eine konkrete Maschine liefert, hängt von Softwarestand, freigeschalteten Optionen und dem Maschinenbauer ab. Deshalb prüfen wir das an Ihrer Anlage, bevor wir etwas zusagen. Bei HEIDENHAIN gilt zusätzlich: Jede Anwendung, die sich mit dem OPC UA NC Server verbindet, braucht eine eigene Option. Nutzen Sie dort schon ein MES über OPC UA, kann eine weitere Option nötig sein.</p>
+
+      <h2 id="ohne-opc-ua">Ältere Maschinen ohne OPC UA: nur Sensorik</h2>
+      <p>Die iTNC 530 ist in vielen Betrieben noch im Einsatz, ebenso die TNC 320. Beide haben keinen OPC UA NC Server. An diesen Maschinen arbeiten wir nur mit der Sensorik. Das heißt konkret:</p>
+      <ul>
+        <li><strong>Was geht:</strong> Der Schwingungssensor misst am Spindelgehäuse, die Box berechnet die Kennwerte und sucht im Hüllkurvenspektrum nach Lagerfrequenzen. Bewertung gegen die Normallage, Stufen und Meldungen funktionieren wie an jeder anderen Maschine.</li>
+        <li><strong>Was fehlt:</strong> Drehzahl, Last, Programmname und Alarme aus der Steuerung. Ohne Programmname lässt sich eine Messung nicht einem Bearbeitungsprogramm zuordnen.</li>
+        <li><strong>Worauf es ankommt:</strong> Die Lagerfrequenzen sind proportional zur Drehzahl, und die Normallage wird je Drehzahlbereich gelernt. Wie die Drehzahl an einer solchen Maschine bestimmt wird, klären wir beim Termin vor Ort für die konkrete Maschine.</li>
+      </ul>
+      <p>Für den Instandhalter ändert sich in der Ansicht nichts. Die iTNC-Maschine steht in derselben Übersicht wie die SINUMERIK ONE, mit denselben Stufen und Meldungen. Wie die Box aufgebaut ist und was sie vor Ort rechnet, steht im Artikel <a href="blog-edge-box-zustandsueberwachung-aufbau.html">Aufbau der Edge-Box</a>.</p>
+
+      <h2 id="fanuc">FANUC: später, über eine eigene Anbindung</h2>
+      <p>Für FANUC-Steuerungen ist ein OPC UA Server in der Steuerung selbst nicht gesichert verfügbar. Der übliche Weg ist die FANUC-Schnittstelle FOCAS über Ethernet. Dafür entwickeln wir eine eigene Anbindung, die in dasselbe Datenformat schreibt wie die OPC-UA-Anbindung. Sobald sie fertig ist, erscheinen FANUC-Maschinen in derselben Ansicht. Bis dahin ist FANUC nicht im Angebot. Die Sensorik allein ließe sich auch dort einsetzen. Ob das an Ihrer Maschine sinnvoll ist, besprechen wir im <a href="kontakt.html">Erstgespräch</a>.</p>
+      <p>Einen Überblick über alle Leistungen für Fräszentren finden Sie auf der Seite <a href="cnc-fraeszentren.html">CNC-Fräszentren</a>. Was Sie für die Anbindung mitbringen müssen, steht unter <a href="ablauf.html">Ablauf und Voraussetzungen</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Kann ich Siemens- und Heidenhain-Maschinen in einem System überwachen?</summary><p>Ja. Box und Plattform übersetzen die Werte beider Steuerungen in einen gemeinsamen Datenvertrag mit herstellerneutralen Schlüsseln. Bewertung, Stufen und Meldungen sind für alle Maschinen gleich und erscheinen in einer gemeinsamen Ansicht.</p></details>
+        <details class="faq-item"><summary>Reicht umati für die Zustandsüberwachung der Spindel?</summary><p>Nein. OPC 40501-1 liefert Zustände, Overrides, Programm und Meldungen, aber keine Spindeldrehzahl, keine Last und keine Schwingung. Für die Lagerdiagnose braucht es einen Schwingungssensor, Drehzahl und Last kommen aus den Herstellermodellen der Steuerung.</p></details>
+        <details class="faq-item"><summary>Lässt sich eine iTNC 530 ohne OPC UA überwachen?</summary><p>Ja, mit Sensorik. Der Schwingungssensor am Spindelgehäuse liefert die Daten für die Lagerdiagnose. Werte aus der Steuerung wie Drehzahl, Last, Programm und Alarme fehlen dann. Wie die Drehzahl bestimmt wird, klären wir vor Ort.</p></details>
+        <details class="faq-item"><summary>Welche Option braucht die Steuerung für OPC UA?</summary><p>SINUMERIK und HEIDENHAIN brauchen jeweils eine freigeschaltete OPC-UA-Option. Bei HEIDENHAIN belegt jede verbundene Anwendung eine eigene Option. Welche Optionen an Ihrer Maschine vorhanden sind, prüfen wir vor der Zusage.</p></details>
+        <details class="faq-item"><summary>Wann wird FANUC unterstützt?</summary><p>FANUC ist geplant, die Anbindung über FOCAS ist vorgesehen. Einen Termin nennen wir erst, wenn die Anbindung an echten Steuerungen geprüft ist.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Unser System</span><a href="blog-edge-box-zustandsueberwachung-aufbau.html">Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall</a></li>
+<li><span class="label">Unser System</span><a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung: Was in unserem Dashboard steht und was der Instandhalter damit tut</a></li>
+<li><span class="label">Unser System</span><a href="blog-normallage-lernen-einlernphase.html">Normallage lernen: Was in der Einlernphase passiert und worauf Sie achten sollten</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Process and requirements · Forbach &amp; Partners</title>
+<meta name="description" content="From the introductory call to running monitoring in four steps. Which CNC controls and software options your machines need before we can connect them.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/process.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/ablauf.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/process.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/ablauf.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Process and requirements · Forbach &amp; Partners">
+<meta property="og:description" content="From the introductory call to running monitoring in four steps. Which CNC controls and software options your machines need before we can connect them.">
+<meta property="og:url" content="https://forbachandpartners.com/en/process.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html" aria-current="page">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../ablauf.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="label">Process and requirements</p>
+      <h1>We show you on your own machine.</h1>
+      <p class="lead">Every CNC control supplies different signals, depending on manufacturer, software version and enabled options. That is why we check what is actually available on your machines before we commit to anything.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Process</p>
+        <h2>Four steps to running monitoring.</h2>
+        <p>No step changes anything on your machine. You can stop at any point.</p>
+      </div>
+      <ol class="timeline">
+        <li><span class="y">1 · 20 min</span><div><b>Introductory call by phone or video</b><span>We establish whether your machine fleet is a fit. What matters is the CNC control, software version and options, not the size of your business. If it is not a fit, we say so in this call. Afterwards you have a datasheet to fill in for each machine and the IT security datasheet as a PDF.</span></div></li>
+        <li><span class="y">2 · Email</span><div><b>Preliminary check</b><span>For each machine you send us one line with manufacturer, model, year of manufacture and CNC control, plus photos of the nameplate and the options screen. That saves hours on site. In parallel, your IT team approves the outbound connections.</span></div></li>
+        <li><span class="y">3 · One day</span><div><b>On-site visit</b><span>We connect the CNC control read-only, document which signals it supplies and agree the measuring points on the spindle housing with you. We only set up users and certificates on the CNC control with your approval. The aim of the day is a solid foundation; production keeps running throughout.</span></div></li>
+        <li><span class="y">4 · Ongoing</span><div><b>Pilot</b><span>The system first learns the baseline of your spindles, i.e. their normal state. After that you receive every alert with its reasoning and give feedback on whether it was correct. Once a month you receive a report for each machine.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Requirements</p>
+        <h2>What your machines need.</h2>
+        <p>An honest preliminary check saves both sides a wasted visit. We clarify these points in the introductory call.</p>
+      </div>
+      <div class="grid3">
+        <div>
+          <p class="label">Siemens</p>
+          <h3 style="margin-top:12px">SINUMERIK 840D sl, 828D, ONE</h3>
+          <ul class="list">
+            <li>Option “Access MyMachine /OPC UA”</li>
+            <li>Read-only user with <code>SinuReadAll</code> and <code>AlarmRead</code></li>
+            <li>Network access to the CNC control (port 4840)</li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Heidenhain</p>
+          <h3 style="margin-top:12px">TNC 640, TNC 620, TNC7</h3>
+          <ul class="list">
+            <li>OPC UA NC Server (software options)</li>
+            <li>Each connected client uses one licence</li>
+            <li>Read-only role in user administration</li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">Exceptions</p>
+          <h3 style="margin-top:12px">Cannot be connected today</h3>
+          <ul class="list no">
+            <li>iTNC 530 and TNC 320 have no OPC UA NC Server</li>
+            <li>FANUC follows in a later phase</li>
+            <li>Other speed source: checked case by case</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <div>
+        <p class="label">Warranty</p>
+        <h2 style="margin-top:18px">Your service contract is not affected.</h2>
+      </div>
+      <div>
+        <p class="lead">The connection uses the OPC UA interface that Siemens and Heidenhain themselves offer and license. Nothing is modified and nothing is written to the CNC control.</p>
+        <p class="muted" style="margin-top:18px">Check your service contract all the same before we come. If it reserves interventions to the machine manufacturer, we will clarify this together with you in advance.</p>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

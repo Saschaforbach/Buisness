@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CNC spindle noise: possible causes and what you can check · Forbach &amp; Partners</title>
+<meta name="description" content="Unusual CNC spindle noise: bearing failure, unbalance, tool holders, lubrication, cooling, belts. What you can check and what measurement shows earlier.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/cnc-spindle-noise-causes.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-cnc-spindel-geraeusche-ursachen.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/cnc-spindle-noise-causes.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-cnc-spindel-geraeusche-ursachen.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="CNC spindle noise: possible causes and what you can check · Forbach &amp; Partners">
+<meta property="og:description" content="Unusual CNC spindle noise: bearing failure, unbalance, tool holders, lubrication, cooling, belts. What you can check and what measurement shows earlier.">
+<meta property="og:url" content="https://forbachandpartners.com/en/cnc-spindle-noise-causes.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "CNC spindle making noise: possible causes and what you can check yourself", "description": "Unusual CNC spindle noise: bearing failure, unbalance, tool holders, lubrication, cooling, belts. What you can check and what measurement shows earlier.", "inLanguage": "en-GB", "datePublished": "2026-05-20", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/cnc-spindle-noise-causes.html", "articleSection": "Spindle and bearings", "wordCount": 1832}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "CNC spindle making noise: possible causes and what you can check yourself", "item": "https://forbachandpartners.com/en/cnc-spindle-noise-causes.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How can I tell whether the spindle bearing is failing?", "acceptedAnswer": {"@type": "Answer", "text": "One indication is a noise that remains when idling without a tool and changes with speed, often together with increased temperature. It can only be established with certainty, and assigned to the affected bearing component, with a vibration measurement on the spindle housing."}}, {"@type": "Question", "name": "Can I keep working with a whining spindle?", "acceptedAnswer": {"@type": "Answer", "text": "That cannot be judged remotely. A steady whine can come from the drive and be harmless. If it is new, gets louder or is accompanied by rising temperature, you should narrow down the cause and, if in doubt, involve the spindle service provider."}}, {"@type": "Question", "name": "Why does my spindle only make noise with one particular tool?", "acceptedAnswer": {"@type": "Answer", "text": "Then the cause is very probably the tool, the holder or its balance, not the spindle bearing. Check taper and face contact for contamination, the tool for damage, and whether the holder is balanced for the speed being run."}}, {"@type": "Question", "name": "Is chatter during milling a sign of spindle damage?", "acceptedAnswer": {"@type": "Answer", "text": "No, chatter is a process vibration arising from tool, workpiece and machine and depends on the cutting parameters. It disappears when the tool is not in the cut. Over time, however, it puts additional load on the spindle bearings."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-cnc-spindel-geraeusche-ursachen.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Spindle and bearings</span></nav>
+      <h1>CNC spindle making noise: possible causes and what you can check yourself</h1>
+      <p class="lead">Not every new spindle noise is bearing damage. A systematic check narrows down the cause. And by the time the bearing becomes audible, the damage is usually already advanced.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#overview">Possible causes at a glance</a></li>
+<li><a href="#bearings">Spindle bearings: the cause you must not overlook</a></li>
+<li><a href="#unbalance">Unbalance, tool holders and tools</a></li>
+<li><a href="#lubrication-cooling">Lubrication and cooling</a></li>
+<li><a href="#drive">Belt, motor and rotary union</a></li>
+<li><a href="#self-check">What you can check yourself</a></li>
+<li><a href="#ear">Why the ear is late and what measurement shows earlier</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A spindle that sounds different from yesterday is a legitimate cause for concern. If the <strong>CNC spindle is making noises</strong> that were not there before, bearing damage may be behind it. It could just as well be a dirty tool taper, an unbalanced tool, a lubrication problem or a belt. These causes differ widely in what needs to be done. A dirty taper is fixed in minutes; bearing damage usually means a trip to the spindle service provider.</p>
+      <p>This article sorts the possible causes, describes what you can check on the machine yourself and explains why the ear is late in detecting spindle bearing problems. It deliberately does not offer remote diagnoses from a description of a noise. The differences between spindle designs are too great for that.</p>
+
+      <h2 id="overview">Possible causes at a glance</h2>
+      <p>The following table is a guide, not a diagnosis. The indications describe what is worth looking out for to make a cause more or less likely.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Possible cause</th><th>Typical indication</th><th>First check</th></tr></thead>
+          <tbody>
+            <tr><td>Spindle bearing</td><td>Noise even without a tool and without cutting, often changing with speed, possibly increased spindle temperature</td><td>Idle run without a tool at several speed steps</td></tr>
+            <tr><td>Unbalance from tool or tool holder</td><td>Noise depends on the tool, disappears with a different tool or without a tool</td><td>Change the tool, check taper and holder</td></tr>
+            <tr><td>Chatter in the process</td><td>Only while cutting, depends on cutting parameters, tool overhang and workpiece clamping</td><td>Run the same speed without the tool in the cut</td></tr>
+            <tr><td>Lubrication</td><td>Noise after a standstill, after regreasing or with messages from the lubrication unit</td><td>Check lubrication messages and levels</td></tr>
+            <tr><td>Spindle cooling</td><td>Anomaly together with increased spindle temperature or messages from the chiller</td><td>Check chiller, flow and temperature display</td></tr>
+            <tr><td>Belt</td><td>Only on belt-driven spindles; squealing when accelerating or braking, flapping</td><td>Check belt condition and tension according to the manufacturer's specification</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="bearings">Spindle bearings: the cause you must not overlook</h2>
+      <p>Spindle bearings are usually high-precision angular contact ball bearings installed with preload. They run at high speeds and are sensitive to lubrication, contamination, overload and collisions. Incipient bearing damage is a small defect on a raceway or a rolling element. Every time a rolling element rolls over it, a short impact is produced.</p>
+      <p>At first these impacts are weak and are lost in the operating noise. Only when the damage spreads do they become louder and more irregular. Then you hear a rushing, rumbling or clicking that follows the speed. Increased bearing temperature is often added. An important feature: a bearing noise remains when you run idle without a tool and without cutting. It belongs to the spindle, not to the process.</p>
+      <p>You cannot hear which bearing component is affected. That can only be measured. Outer race, inner race, rolling elements and cage each have their own impact frequency, which can be calculated from bearing geometry and speed. How this works is described in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+
+      <h2 id="unbalance">Unbalance, tool holders and tools</h2>
+      <p>A large group of noises does not originate in the spindle, but in what is clamped in it. Typical examples:</p>
+      <ul>
+        <li><strong>Dirty face contact or taper:</strong> chips or coolant residue between tool holder and spindle prevent the tool from seating cleanly. This causes runout errors and unbalance.</li>
+        <li><strong>Poorly balanced tools:</strong> at high speeds, unbalance has a greater effect. Tools and holders designed for low speeds can become clearly audible at high speeds.</li>
+        <li><strong>Damaged tools:</strong> a chipped cutting edge or a bent shank changes unbalance and cutting forces.</li>
+        <li><strong>Clamping system:</strong> a drawbar clamping set that no longer delivers full clamping force can leave a tool seated loosely. This is a safety issue and belongs in the hands of the spindle service provider.</li>
+      </ul>
+      <p>Unbalance shows up as vibration once per revolution. In measurement terms, this makes it easy to separate from bearing damage, whose frequencies are not integer multiples of the shaft frequency. For the practitioner there is a simple test: if the noise disappears with a different tool, the cause is very probably not in the bearing.</p>
+      <p>This must be distinguished from <strong>chatter</strong> during cutting. Chatter is a vibration arising from the interaction of tool, workpiece and machine. It depends on cutting parameters, tool overhang and workpiece clamping, and disappears as soon as the tool is no longer in the cut. Chatter is not spindle damage, but over time it can put additional load on the spindle bearings.</p>
+
+      <h2 id="lubrication-cooling">Lubrication and cooling</h2>
+      <p>Depending on the design, spindle bearings are grease-lubricated or supplied by oil-air or oil-mist lubrication. Both variants have their own sources of error.</p>
+      <p>On <strong>grease-lubricated spindles</strong>, the grease fill is designed for long operation. Many spindle manufacturers specify a run-in program with gradually increasing speed after a long standstill or an overhaul, so that the grease is distributed. If this is skipped, the spindle may sound unusual and run warm. Check your spindle documentation to see whether and how a run-in is specified.</p>
+      <p>With <strong>oil-air lubrication</strong>, supply depends on a separate unit with reservoir, pump, distributors and compressed air. An empty reservoir, contaminated compressed air or a blocked distributor leads to insufficient lubrication. Most systems report this via the CNC control. A look at the alarm history is therefore always worthwhile.</p>
+      <p><strong>Spindle cooling</strong> removes heat from the motor and bearings. If it fails or works poorly, the spindle temperature rises, the bearing preload changes and the running behaviour with it. Typical causes are a dirty heat exchanger, too little coolant in the cooling circuit or a faulty chiller. Here too, the temperature display and control messages help.</p>
+
+      <h2 id="drive">Belt, motor and rotary union</h2>
+      <p>Not every spindle is a motor spindle. On <strong>belt-driven spindles</strong> the motor sits next to the spindle and drives it via a belt. A worn, dirty or incorrectly tensioned belt makes itself noticed by squealing when accelerating and braking, or by flapping. Check belt tension and condition according to the machine builder's specifications. Excessive belt tension puts additional load on the spindle bearings.</p>
+      <p>On <strong>motor spindles</strong> the motor is integrated into the spindle. A steady, high-pitched whine that changes with speed can come from the drive inverter or the electrical control and is not automatically a fault. It is only suspicious if it is new.</p>
+      <p>Spindles with <strong>through-spindle coolant</strong> have a rotary union at the rear end. Its seals wear, and some designs cannot tolerate running dry for long. Whether your rotary union may run dry is stated in the manufacturer's documentation.</p>
+
+      <h2 id="self-check">What you can check yourself</h2>
+      <p>Before calling the spindle service provider, the cause can be narrowed down with a simple sequence. Follow the safety rules for your machine. Working with the spindle running and guards open is off limits.</p>
+      <ol>
+        <li><strong>Read the alarm history:</strong> were there messages about lubrication, cooling, temperature or the spindle drive? Was there a collision?</li>
+        <li><strong>Change the tool:</strong> does the noise only occur with a particular tool? Then check the tool, holder and balance condition.</li>
+        <li><strong>Clean taper and face contact:</strong> visual check for chips, scoring and coolant residue on the spindle and holder.</li>
+        <li><strong>Idle run without a tool:</strong> run several speed steps without cutting. If the noise remains and follows the speed, a cause in the spindle becomes more likely.</li>
+        <li><strong>Watch the temperature:</strong> compare the spindle temperature with what you know from this machine.</li>
+        <li><strong>Look at spindle load at idle:</strong> a higher idle load than usual at the same speed can indicate more friction.</li>
+        <li><strong>Check lubrication and cooling:</strong> levels, compressed air, chiller, and for belt drives the belt condition and tension.</li>
+      </ol>
+      <div class="callout">
+        <p class="label">When you should stop checking</p>
+        <p>With metallic knocking, rapidly rising temperature, smell or smoke, clearly perceptible vibration or after a collision: stop the spindle and involve the spindle service provider or the machine builder. Continuing to run can turn bearing damage into consequential damage to shaft and housing.</p>
+      </div>
+      <p>How you record your observations is almost as important as the check itself. Note the speed, tool, temperature and the time the noise was first noticed. For the spindle service provider this is more valuable than any description of the sound.</p>
+
+      <h2 id="ear">Why the ear is late and what measurement shows earlier</h2>
+      <p>Human hearing is a good detector of change, but not a good one for bearing damage in its early stages. There are three reasons for this.</p>
+      <ul>
+        <li><strong>The impacts are weak at first.</strong> Incipient raceway damage produces small impacts that are lost in the overall noise of the machine.</li>
+        <li><strong>The shop floor is loud.</strong> Coolant, chip conveyors, neighbouring machines and the cutting itself mask quiet noises. The spindle also sits behind panelling and a guard door.</li>
+        <li><strong>Habituation.</strong> A noise that changes slowly over weeks is hardly noticed. The ear compares with yesterday, not with the state three months ago.</li>
+      </ul>
+      <p>A measurement on the spindle housing does not have these problems. An accelerometer picks up the vibration directly on the structure that carries the bearing. <strong>Envelope analysis</strong> extracts the repetition rate of the impacts from this signal, i.e. exactly the frequency that belongs to the outer race, inner race, rolling element or cage. Features such as crest factor and kurtosis respond to impulsive signals before the overall level rises. And a comparison with the learned baseline, i.e. the normal state of this spindle, makes slow changes visible that the ear misses through habituation.</p>
+      <p>How much earlier a measurement shows damage than the ear cannot be stated in general terms. It depends on bearing design, load, speed and lubrication. The sequence, however, is always the same: a weak line appears in the spectrum first, and only later do overall level, noise and temperature rise. How continuous monitoring is set up is described in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>. Why a single vibration limit is of little help is explained in the article <a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis and ISO limits</a>. What our system currently evaluates on the spindle is described on the <a href="spindle-monitoring.html">service</a> page.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How can I tell whether the spindle bearing is failing?</summary><p>One indication is a noise that remains when idling without a tool and changes with speed, often together with increased temperature. It can only be established with certainty, and assigned to the affected bearing component, with a vibration measurement on the spindle housing.</p></details>
+        <details class="faq-item"><summary>Can I keep working with a whining spindle?</summary><p>That cannot be judged remotely. A steady whine can come from the drive and be harmless. If it is new, gets louder or is accompanied by rising temperature, you should narrow down the cause and, if in doubt, involve the spindle service provider.</p></details>
+        <details class="faq-item"><summary>Why does my spindle only make noise with one particular tool?</summary><p>Then the cause is very probably the tool, the holder or its balance, not the spindle bearing. Check taper and face contact for contamination, the tool for damage, and whether the holder is balanced for the speed being run.</p></details>
+        <details class="faq-item"><summary>Is chatter during milling a sign of spindle damage?</summary><p>No, chatter is a process vibration arising from tool, workpiece and machine and depends on the cutting parameters. It disappears when the tool is not in the cut. Over time, however, it puts additional load on the spindle bearings.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Spindle and bearings</span><a href="order-analysis-spindle-unbalance.html">Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed</a></li>
+<li><span class="label">Spindle and bearings</span><a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal</a></li>
+<li><span class="label">Spindle and bearings</span><a href="spindle-monitoring-cnc-guide.html">Spindle monitoring on CNC machining centres: the guide</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

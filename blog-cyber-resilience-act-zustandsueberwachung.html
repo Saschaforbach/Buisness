@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyber Resilience Act und IEC 62443 bei Zustandsüberwachung · Forbach &amp; Partners</title>
+<meta name="description" content="Was der Cyber Resilience Act und IEC 62443 für Zustandsüberwachung an Werkzeugmaschinen bedeuten: Fristen, SBOM, Meldeweg und Fragen an jeden Anbieter.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Cyber Resilience Act und IEC 62443 bei Zustandsüberwachung · Forbach &amp; Partners">
+<meta property="og:description" content="Was der Cyber Resilience Act und IEC 62443 für Zustandsüberwachung an Werkzeugmaschinen bedeuten: Fristen, SBOM, Meldeweg und Fragen an jeden Anbieter.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cyber Resilience Act und IEC 62443: Was Betreiber von Zustandsüberwachung wissen sollten", "description": "Was der Cyber Resilience Act und IEC 62443 für Zustandsüberwachung an Werkzeugmaschinen bedeuten: Fristen, SBOM, Meldeweg und Fragen an jeden Anbieter.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html", "articleSection": "Sicherheit und Compliance", "wordCount": 1560}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Cyber Resilience Act und IEC 62443: Was Betreiber von Zustandsüberwachung wissen sollten", "item": "https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Ab wann gilt der Cyber Resilience Act für Zustandsüberwachung an Maschinen?", "acceptedAnswer": {"@type": "Answer", "text": "Die Meldepflichten für aktiv ausgenutzte Schwachstellen und schwere Vorfälle gelten seit dem 11. September 2026, auch für Produkte, die schon im Markt sind. Die übrigen Pflichten, etwa die Sicherheitsanforderungen aus Anhang I und die CE-Kennzeichnung, gelten ab dem 11. Dezember 2027."}}, {"@type": "Question", "name": "Hat der Betreiber einer Maschine Pflichten aus dem CRA?", "acceptedAnswer": {"@type": "Answer", "text": "Der CRA richtet sich an Hersteller, Importeure und Händler von Produkten mit digitalen Elementen. Als Betreiber haben Sie daraus in der Regel keine eigenen Pflichten, können aber vom Anbieter verlangen, dass er sie erfüllt. Eigene Pflichten können sich aus anderen Regeln wie NIS2 ergeben. Die Einordnung im Einzelfall klären Sie bitte rechtlich."}}, {"@type": "Question", "name": "Was ist eine SBOM und muss der Anbieter sie herausgeben?", "acceptedAnswer": {"@type": "Answer", "text": "Eine SBOM ist eine maschinenlesbare Liste aller Softwarebestandteile eines Produkts. Der CRA verlangt, dass der Hersteller sie erstellt, aber nicht, dass sie öffentlich ist. Wir stellen unsere SBOM Kunden auf Anfrage zur Verfügung."}}, {"@type": "Question", "name": "Wie lange muss ein Anbieter Sicherheitsupdates liefern?", "acceptedAnswer": {"@type": "Answer", "text": "Nach dem CRA in der Regel mindestens fünf Jahre, sofern das Produkt nicht erwartbar kürzer genutzt wird. Das Ende des Unterstützungszeitraums muss beim Kauf angegeben werden."}}, {"@type": "Question", "name": "Ist eine Zertifizierung nach IEC 62443 Pflicht?", "acceptedAnswer": {"@type": "Answer", "text": "Der CRA schreibt keine Zertifizierung nach IEC 62443 vor. Die Norm ist aber ein anerkannter Maßstab für sichere Entwicklung und sichere Komponenten in der Industrieautomation. Fragen Sie den Anbieter, an welcher Sicherheitsstufe er sich ausrichtet und wie er das nachweist."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/cyber-resilience-act-condition-monitoring.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Sicherheit und Compliance</span></nav>
+      <h1>Cyber Resilience Act und IEC 62443: Was Betreiber von Zustandsüberwachung wissen sollten</h1>
+      <p class="lead">Der Cyber Resilience Act macht Hersteller vernetzter Produkte für deren Sicherheit verantwortlich. Als Betreiber sollten Sie wissen, welche Fragen Sie einem Anbieter von Zustandsüberwachung stellen und welche Antworten Sie erwarten dürfen.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>8 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#cra">Der Cyber Resilience Act in Kürze</a></li>
+<li><a href="#iec-62443">IEC 62443: Prozess und Komponente</a></li>
+<li><a href="#fragen">Fragen, die Sie jedem Anbieter von Zustandsüberwachung stellen sollten</a></li>
+<li><a href="#meldeweg">Der Meldeweg nach Artikel 14</a></li>
+<li><a href="#umsetzung">Wie wir den Cyber Resilience Act umsetzen</a></li>
+<li><a href="#betreiber">Was das für Ihre eigene Sicherheit bedeutet</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Ein System zur Zustandsüberwachung an Werkzeugmaschinen ist ein vernetztes Produkt: eine Box im Werksnetz, eine Verbindung zur Steuerung, eine Verbindung nach außen und eine Plattform, auf der ausgewertet wird. Für solche Produkte gilt in der EU der <strong>Cyber Resilience Act</strong> (CRA, Verordnung (EU) 2024/2847). Die Normenreihe <strong>IEC 62443</strong> beschreibt, wie sichere Komponenten für die Industrieautomation entwickelt werden. Dieser Artikel erklärt aus Sicht des Betreibers, was Cyber Resilience Act und IEC 62443 für Zustandsüberwachung bedeuten, welche Fragen Sie jedem Anbieter stellen sollten und wie wir sie für unser System beantworten.</p>
+      <div class="callout">
+        <p class="label">Keine Rechtsberatung</p>
+        <p>Dieser Artikel ist eine technische Einordnung auf Grundlage öffentlich zugänglicher Quellen, Stand Oktober 2026. Er ersetzt keine rechtliche Prüfung. Ob und wie die genannten Vorschriften auf Ihr Unternehmen oder ein bestimmtes Produkt anzuwenden sind, klären Sie bitte mit Ihrer Rechtsberatung.</p>
+      </div>
+
+      <h2 id="cra">Der Cyber Resilience Act in Kürze</h2>
+      <p>Der CRA verpflichtet <strong>Hersteller</strong> von Produkten mit digitalen Elementen. Darunter fällt auch Software, die über ein Netz mit anderen Geräten verbunden ist. Ein Abonnement als Geschäftsmodell ändert daran nichts. Für Betreiber entstehen aus dem CRA keine eigenen Pflichten, aber ein klarer Maßstab: Sie können von Ihrem Anbieter erwarten, dass er die Anforderungen erfüllt, und sollten danach fragen.</p>
+      <p>Für Zustandsüberwachung ist ein Punkt besonders wichtig. Nach unserer Einschätzung zählen Plattform und Dashboard als Datenfernverarbeitung zum Produkt, weil die Box ohne sie ihre Aufgabe nicht erfüllen kann. Box, Plattform und Dashboard sind dann zusammen ein Produkt im Sinne des CRA. Ein Anbieter kann sich also nicht darauf zurückziehen, dass nur die Box beim Kunden steht.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Zeitplan des CRA</caption>
+          <thead><tr><th>Datum</th><th>Was gilt</th></tr></thead>
+          <tbody>
+            <tr><td class="m">10.12.2024</td><td>Inkrafttreten der Verordnung</td></tr>
+            <tr><td class="m">11.09.2026</td><td>Meldepflichten nach Artikel 14 für aktiv ausgenutzte Schwachstellen und schwere Sicherheitsvorfälle, auch für Produkte, die schon im Markt sind</td></tr>
+            <tr><td class="m">11.12.2027</td><td>Alle übrigen Pflichten, unter anderem die Sicherheitsanforderungen aus Anhang I, Konformitätsbewertung und CE-Kennzeichnung</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Das bedeutet: Die Meldepflicht gilt bereits heute. Sobald eine einzige Box bei einem Kunden läuft, muss der Hersteller eine aktiv ausgenutzte Schwachstelle innerhalb von 24 Stunden als Frühwarnung melden können.</p>
+
+      <h2 id="iec-62443">IEC 62443: Prozess und Komponente</h2>
+      <p>Die Normenreihe IEC 62443 ist umfangreich. Für Anbieter von Überwachungssystemen sind zwei Teile maßgeblich:</p>
+      <ul>
+        <li><strong>IEC 62443-4-1</strong> beschreibt den sicheren Entwicklungsprozess: Sicherheitsanforderungen und Bedrohungsmodell, sicheres Design, Prüfungen, Umgang mit Schwachstellen, Update-Management und Sicherheitshinweise für den Kunden.</li>
+        <li><strong>IEC 62443-4-2</strong> beschreibt technische Anforderungen an einzelne Komponenten, gestuft nach Sicherheitsstufen. Stufe 2 bedeutet Schutz gegen gezielte Angriffe mit geringen Mitteln und allgemeinen Kenntnissen.</li>
+      </ul>
+      <p>Beide Teile passen gut zum CRA: Was IEC 62443 als Prozess und Komponenteneigenschaft verlangt, deckt einen großen Teil der Anforderungen aus Anhang I ab. Für unsere Box haben wir die Sicherheitsstufe SL-C 2 als Ziel festgelegt.</p>
+
+      <h2 id="fragen">Fragen, die Sie jedem Anbieter von Zustandsüberwachung stellen sollten</h2>
+      <p>Die folgenden Fragen leiten sich aus den Anforderungen des CRA ab. Sie eignen sich für jedes vernetzte System an Ihren Maschinen, nicht nur für Zustandsüberwachung. Ein seriöser Anbieter beantwortet sie schriftlich und ohne Ausweichen.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Frage an den Anbieter</th><th>Worauf Sie achten sollten</th></tr></thead>
+          <tbody>
+            <tr><td>Gibt es eine Software-Stückliste (SBOM)?</td><td>Maschinenlesbar, etwa im Format CycloneDX, je ausgelieferter Komponente. Der CRA verlangt mindestens die direkten Abhängigkeiten. Die SBOM muss nicht öffentlich sein, sollte Ihnen aber auf Anfrage vorliegen.</td></tr>
+            <tr><td>Wie werden Schwachstellen behandelt?</td><td>Ein beschriebener Ablauf von der Meldung über die Bewertung bis zur Behebung, mit Zielfristen und einer Prüfung der verwendeten Bibliotheken auf bekannte Lücken.</td></tr>
+            <tr><td>Wohin meldet man eine Schwachstelle?</td><td>Eine feste Kontaktadresse und eine veröffentlichte Richtlinie zur koordinierten Offenlegung. Beides fordert der CRA.</td></tr>
+            <tr><td>Gibt es eine security.txt?</td><td>Eine Datei unter <code>/.well-known/security.txt</code> nach RFC 9116 nennt Kontakt, Richtlinie und Ablaufdatum. Sie zeigt, ob der Anbieter erreichbar sein will.</td></tr>
+            <tr><td>Wie lange gibt es Sicherheitsupdates?</td><td>Der CRA sieht in der Regel mindestens fünf Jahre vor, sofern das Produkt nicht kürzer genutzt wird. Das Enddatum muss beim Kauf genannt werden. Lassen Sie es sich schriftlich geben.</td></tr>
+            <tr><td>Wie werden Updates verteilt?</td><td>Signiert und auf dem Gerät geprüft. Sicherheitsupdates müssen unverzüglich und kostenlos bereitgestellt werden.</td></tr>
+            <tr><td>Was passiert bei einem Vorfall?</td><td>Ein Meldeweg nach Artikel 14 über die Meldeplattform der ENISA und eine Zusage, wie schnell Sie als Kunde informiert werden.</td></tr>
+            <tr><td>Gibt es ein Bedrohungsmodell?</td><td>Eine dokumentierte Risikobewertung ist Pflicht. Gut ist, wenn sie offene Punkte ehrlich nennt.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Zwei weitere Fragen betreffen nicht den CRA direkt, aber die Sicherheit Ihrer Maschinen: Kann das System auf die Steuerung schreiben? Und braucht es eingehende Verbindungen in Ihr Netz? Beides sollte ein Überwachungssystem nicht brauchen.</p>
+
+      <h2 id="meldeweg">Der Meldeweg nach Artikel 14</h2>
+      <p>Die Meldepflicht des CRA greift bei zwei Auslösern: bei einer <strong>aktiv ausgenutzten Schwachstelle</strong> im Produkt und bei einem <strong>schweren Sicherheitsvorfall</strong>, der die Sicherheit des Produkts betrifft. Eine Lücke, die der Hersteller selbst findet und behebt, ohne dass sie ausgenutzt wurde, ist nicht meldepflichtig. Sie muss aber trotzdem behandelt werden.</p>
+      <figure>
+        <svg viewBox="0 0 680 160" role="img" aria-label="Fristen der Meldepflicht nach Artikel 14 CRA">
+          <line x1="40" y1="70" x2="650" y2="70" stroke="var(--rule)" stroke-width="1.5"/>
+          <path d="M642 65 l8 5 l-8 5" stroke="var(--rule)" stroke-width="1.5" fill="none"/>
+          <g fill="var(--gold)"><rect x="36" y="62" width="8" height="16"/><rect x="196" y="62" width="8" height="16"/><rect x="376" y="62" width="8" height="16"/><rect x="556" y="62" width="8" height="16"/></g>
+          <text x="40" y="45" text-anchor="middle" style="fill:var(--ink)">Kenntnis</text>
+          <text x="200" y="45" text-anchor="middle" style="fill:var(--ink)">24 Stunden</text>
+          <text x="380" y="45" text-anchor="middle" style="fill:var(--ink)">72 Stunden</text>
+          <text x="560" y="45" text-anchor="middle" style="fill:var(--ink)">Abschluss</text>
+          <text x="40" y="102" text-anchor="middle">Fristen laufen</text>
+          <text x="200" y="102" text-anchor="middle">Frühwarnung</text>
+          <text x="380" y="102" text-anchor="middle">Meldung</text>
+          <text x="560" y="102" text-anchor="middle">Abschlussbericht</text>
+          <text x="560" y="122" text-anchor="middle" style="fill:var(--ink-2)">14 Tage nach Korrektur</text>
+          <text x="560" y="140" text-anchor="middle" style="fill:var(--ink-2)">bzw. 1 Monat (Vorfall)</text>
+        </svg>
+        <figcaption>Fristen nach Artikel 14 CRA. Der Abschlussbericht ist bei Schwachstellen 14 Tage nach verfügbarer Korrektur fällig, bei schweren Vorfällen einen Monat nach der 72-Stunden-Meldung.</figcaption>
+      </figure>
+      <p>Gemeldet wird über die zentrale Meldeplattform der ENISA, die Single Reporting Platform. Empfänger ist das CSIRT des Mitgliedstaats, in dem der Hersteller seine Hauptniederlassung hat. Zusätzlich müssen die Nutzer über den Vorfall und mögliche Gegenmaßnahmen informiert werden. Für Sie als Betreiber heißt das: Fragen Sie, wie und wie schnell Sie im Ernstfall erfahren, was Sie selbst tun sollten.</p>
+
+      <h2 id="umsetzung">Wie wir den Cyber Resilience Act umsetzen</h2>
+      <p>Wir sind ein junges Unternehmen in der Markteinführung. Deshalb haben wir den Sicherheitsprozess von Anfang an mitentwickelt, statt ihn später nachzurüsten. Der folgende Stand ist ehrlich: Manches ist umgesetzt, manches liegt als Entwurf vor.</p>
+      <ul>
+        <li><strong>SBOM:</strong> Für jede ausgelieferte Komponente, also die Box und die Plattform, erzeugen wir eine Software-Stückliste im Format CycloneDX. Entwicklungswerkzeuge sind darin nicht enthalten, nur was tatsächlich ausgeliefert wird. Auf Anfrage stellen wir sie Ihnen zur Verfügung.</li>
+        <li><strong>Prüfung der Bibliotheken:</strong> Bei jeder Prüfung des Codes werden alle verwendeten Bibliotheken automatisch auf bekannte Sicherheitslücken geprüft. Die Versionen sind fest eingetragen und werden nur bewusst und mit vollständigem Testlauf aktualisiert. Eine gemeldete Lücke blockiert die Prüfung, bis sie behoben oder begründet als nicht zutreffend dokumentiert ist.</li>
+        <li><strong>Schwachstellenbehandlung:</strong> Jede Meldung bekommt eine Nummer und eine Eingangsbestätigung, wird nach CVSS 4.0 und im Kontext bewertet, mit einem Test behoben, der die Lücke nachweist, und als Sicherheitsupdate getrennt von Funktionsupdates ausgeliefert.</li>
+        <li><strong>Meldeweg:</strong> Der Ablauf nach Artikel 14 mit Frühwarnung, Meldung und Abschlussbericht ist beschrieben, mit festgelegter Verantwortung und einer Vorlage für die Information unserer Kunden. Empfänger ist für uns CSIRT-CY, weil die Forbach and Partners Ltd ihren Sitz in Zypern hat.</li>
+        <li><strong>Kontakt und security.txt:</strong> Eine Adresse für Sicherheitsmeldungen und eine security.txt nach RFC 9116 sind vorbereitet.</li>
+        <li><strong>Signierte Updates:</strong> Die Box prüft jedes Update auf Signatur, Version und Prüfsumme. Einzelheiten stehen im Artikel <a href="blog-signierte-updates-geraetezertifikate.html">Gerätezertifikate und signierte Updates</a>.</li>
+        <li><strong>Bedrohungsmodell:</strong> Für Box, Verbindungen, Plattform und Lieferkette gibt es eine Risikobewertung nach STRIDE. Zu jeder Gegenmaßnahme ist angegeben, mit welchem Test sie nachgewiesen ist, und am Ende steht eine Liste der offenen Punkte.</li>
+      </ul>
+      <p>Mehrere Anforderungen aus Anhang I erfüllt die Architektur selbst. Die Box liest die Steuerung <a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">nur lesend und vierfach abgesichert</a>, fragt höchstens alle 0,1 Sekunden ab und beeinträchtigt so keine anderen Geräte. Sie öffnet keine Ports und baut nur ausgehende Verbindungen auf, was die Angriffsfläche klein hält. Und sie überträgt nur Kennwerte statt Rohsignalen und keine Bedienerdaten, das entspricht dem Grundsatz der Datenminimierung. Eine Übersicht finden Sie auf der Seite <a href="datensicherheit.html">Datensicherheit</a>.</p>
+
+      <h2 id="betreiber">Was das für Ihre eigene Sicherheit bedeutet</h2>
+      <p>Viele Maschinenbauer und größere Fertiger sind selbst von NIS2 betroffen und müssen die Sicherheit ihrer Lieferkette steuern. Das heißt konkret: Sicherheitsfragebögen an Lieferanten, Sicherheitsklauseln in Verträgen und Nachweise zum Umgang mit Schwachstellen. Ein Anbieter, der SBOM, Schwachstellenprozess und Meldeweg bereits dokumentiert hat, macht Ihnen diese Arbeit deutlich leichter.</p>
+      <p>Prüfen Sie auch, was der Anbieter offen benennt. Ein Bedrohungsmodell ohne offene Punkte ist eher ein Warnsignal als ein Qualitätsmerkmal. Wir nennen unsere offenen Punkte im Gespräch, etwa dass Installationsprogramm und Update-Server noch mit der Box-Hardware festgelegt werden. Wie ein Pilotprojekt bei Ihnen abläuft, lesen Sie auf der Seite <a href="ablauf.html">Ablauf</a>. Für die Abstimmung mit Ihrer IT stellen wir ein Sicherheitsblatt bereit, sprechen Sie uns über die <a href="kontakt.html">Kontaktseite</a> an.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Ab wann gilt der Cyber Resilience Act für Zustandsüberwachung an Maschinen?</summary><p>Die Meldepflichten für aktiv ausgenutzte Schwachstellen und schwere Vorfälle gelten seit dem 11. September 2026, auch für Produkte, die schon im Markt sind. Die übrigen Pflichten, etwa die Sicherheitsanforderungen aus Anhang I und die CE-Kennzeichnung, gelten ab dem 11. Dezember 2027.</p></details>
+        <details class="faq-item"><summary>Hat der Betreiber einer Maschine Pflichten aus dem CRA?</summary><p>Der CRA richtet sich an Hersteller, Importeure und Händler von Produkten mit digitalen Elementen. Als Betreiber haben Sie daraus in der Regel keine eigenen Pflichten, können aber vom Anbieter verlangen, dass er sie erfüllt. Eigene Pflichten können sich aus anderen Regeln wie NIS2 ergeben. Die Einordnung im Einzelfall klären Sie bitte rechtlich.</p></details>
+        <details class="faq-item"><summary>Was ist eine SBOM und muss der Anbieter sie herausgeben?</summary><p>Eine SBOM ist eine maschinenlesbare Liste aller Softwarebestandteile eines Produkts. Der CRA verlangt, dass der Hersteller sie erstellt, aber nicht, dass sie öffentlich ist. Wir stellen unsere SBOM Kunden auf Anfrage zur Verfügung.</p></details>
+        <details class="faq-item"><summary>Wie lange muss ein Anbieter Sicherheitsupdates liefern?</summary><p>Nach dem CRA in der Regel mindestens fünf Jahre, sofern das Produkt nicht erwartbar kürzer genutzt wird. Das Ende des Unterstützungszeitraums muss beim Kauf angegeben werden.</p></details>
+        <details class="faq-item"><summary>Ist eine Zertifizierung nach IEC 62443 Pflicht?</summary><p>Der CRA schreibt keine Zertifizierung nach IEC 62443 vor. Die Norm ist aber ein anerkannter Maßstab für sichere Entwicklung und sichere Komponenten in der Industrieautomation. Fragen Sie den Anbieter, an welcher Sicherheitsstufe er sich ausrichtet und wie er das nachweist.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Sicherheit und Compliance</span><a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen</a></li>
+<li><span class="label">Sicherheit und Compliance</span><a href="blog-signierte-updates-geraetezertifikate.html">Gerätezertifikate und signierte Updates: Wie sich die Edge-Box ausweist und schützt</a></li>
+<li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forbach &amp; Partners · Condition monitoring for CNC spindles</title>
+<meta name="description" content="Vibration analysis on CNC spindle bearings, explainable and read-only. Siemens SINUMERIK and HEIDENHAIN TNC in one view. Data stored in Germany only.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Forbach &amp; Partners · Condition monitoring for CNC spindles">
+<meta property="og:description" content="Vibration analysis on CNC spindle bearings, explainable and read-only. Siemens SINUMERIK and HEIDENHAIN TNC in one view. Data stored in Germany only.">
+<meta property="og:url" content="https://forbachandpartners.com/en/">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Forbach and Partners Ltd", "alternateName": "Forbach & Partners", "url": "https://forbachandpartners.com/", "logo": "https://forbachandpartners.com/assets/favicon.svg", "email": "info@forbachandpartners.com", "telephone": "+49 211 90989962", "founder": {"@type": "Person", "name": "Sascha P. Forbach"}, "address": [{"@type": "PostalAddress", "streetAddress": "Agias Irinis 46", "postalCode": "8504", "addressLocality": "Paphos", "addressCountry": "CY"}, {"@type": "PostalAddress", "streetAddress": "Graf-Adolf-Straße 41", "postalCode": "40210", "addressLocality": "Düsseldorf", "addressCountry": "DE"}], "sameAs": ["https://www.linkedin.com/in/sascha-p-forbach-6aa52b396/", "https://www.xing.com/profile/Sascha_Forbach"], "description": "Zustandsüberwachung für CNC-Bearbeitungszentren: Schwingungsanalyse an Spindellagern, nur lesender Zugriff auf Siemens SINUMERIK und HEIDENHAIN TNC, Daten in Deutschland."}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../index.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="label">Condition monitoring for CNC spindles</p>
+        <h1 style="margin-top:22px">A spindle bearing does not fail overnight. <em>It gives warning.</em></h1>
+        <p class="lead">Long before a bearing becomes audible, its vibration pattern changes. We measure that change on every spindle, compare it with the machine's learned baseline, i.e. the normal state of this spindle, and tell you what has changed. Across manufacturers and without writing to your CNC control.</p>
+        <div class="hero-cta">
+          <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+          <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+        </div>
+      </div>
+
+      <figure style="margin:0">
+        <div class="instrument" role="group" aria-label="Envelope spectrum of a spindle, example data">
+          <div class="inst-head">
+            <span class="label">Envelope spectrum · Spindle MC-03</span>
+            <div class="seg" role="group" aria-label="Select condition">
+              <button type="button" id="st-normal" aria-pressed="false">Baseline</button>
+              <button type="button" id="st-defect" aria-pressed="true">Outer race damage</button>
+            </div>
+          </div>
+          <div class="plot"><canvas id="spec" aria-hidden="true"></canvas></div>
+          <div class="inst-foot">
+            <div><span class="label">Speed</span><b class="num">6,000 min⁻¹</b></div>
+            <div><span class="label">BPFO feature</span><b class="num" id="kv">–</b></div>
+            <div><span class="label">Assessment</span><b id="ev"><span class="state s-warn">Warning</span></b></div>
+          </div>
+        </div>
+        <figcaption class="caption">Simulated example data. Outer race damage produces peaks at the ball pass frequency of the outer race (BPFO) and its harmonics. The system recognises the pattern and names the affected bearing component.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="spec" aria-label="Key facts">
+    <div class="wrap">
+      <dl>
+        <div><dt class="label">CNC controls</dt><dd>SINUMERIK · TNC<small>Siemens and Heidenhain in one view. FANUC to follow.</small></dd></div>
+        <div><dt class="label">Access</dt><dd>Read-only<small>No write function in the code. Four independent safeguards.</small></dd></div>
+        <div><dt class="label">Damage types assessed</dt><dd>5 damage patterns<small>Outer race, inner race, rolling element, cage, unbalance.</small></dd></div>
+        <div><dt class="label">Data location</dt><dd>Germany<small>Processing and storage exclusively in data centres in Germany.</small></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="how-it-works">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">How it works</p>
+        <h2>Three steps. No intervention in your machine.</h2>
+        <p>In plain words for managing directors and plant managers. The technical details are under <a class="tel" href="spindle-monitoring.html">Product</a>.</p>
+      </div>
+      <div class="how">
+        <ol class="howsteps">
+          <li><b>Measure</b><span>A vibration sensor sits on the spindle housing, a small edge box on the machine. The box reads from the CNC control how fast the spindle is turning. It changes nothing on your machine.</span></li>
+          <li><b>Compare</b><span>The software learns how your healthy spindle vibrates and compares every new measurement with that. An incipient bearing defect changes the vibration pattern long before it becomes audible.</span></li>
+          <li><b>Alert</b><span>If something deviates, your maintenance team receives an alert in plain language: which component is affected, how urgent it is and what to check.</span></li>
+        </ol>
+        <figure class="shot">
+          <img src="../images/produkt/dashboard-meldung.jpg" alt="Alert in the dashboard: suspected outer race bearing damage, with urgency, recommended check and reasoning" width="800" height="538" loading="lazy">
+          <figcaption>The real interface of our dashboard, demo data from our CNC control simulator.</figcaption>
+        </figure>
+      </div>
+      <div class="grid3" style="margin-top:56px">
+        <div><h3>Plan instead of react</h3><p class="muted">The bearing replacement goes into the next maintenance window instead of landing in the middle of an order.</p></div>
+        <div><h3>Meet delivery dates</h3><p class="muted">Less unplanned downtime means fewer rescheduled jobs, rush orders and extra shifts.</p></div>
+        <div><h3>Avoid consequential damage</h3><p class="muted">Bearing damage detected early costs a bearing. Detected late, it can cost the spindle, the tool and the workpiece.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="scope">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Scope</p>
+        <h2>Today the spindle. The rest follows once it works.</h2>
+        <p>This page only describes what the system can do today. Anything still in development is marked as such. That way the pilot holds no surprises.</p>
+      </div>
+      <div class="scope">
+        <div class="bearing">
+          <svg viewBox="0 0 440 300" role="img" aria-label="Cross-section of an angular contact ball bearing with outer race, inner race and rolling elements">
+            <g id="brg" transform="translate(150 150)"></g>
+            <g stroke="var(--ink-3)" stroke-width="1" fill="none">
+              <path d="M262 64 H300"/><path d="M226 116 H300"/><path d="M200 168 H300"/><path d="M150 150 L196 150"/>
+            </g>
+            <text x="306" y="68">Outer race</text>
+            <text x="306" y="120">Rolling element</text>
+            <text x="306" y="172">Inner race</text>
+            <text x="306" y="224">Shaft, unbalance</text>
+            <path d="M150 150 L196 220 H300" stroke="var(--ink-3)" fill="none"/>
+            <circle cx="150" cy="150" r="3" fill="var(--brass)"/>
+          </svg>
+        </div>
+        <div class="rows">
+          <div class="row">
+            <h3>Spindle and spindle bearings</h3><span class="tag on">Available</span>
+            <p>Vibration measurement on the spindle housing, analysed with envelope analysis. This is the established method for early detection of rolling bearing damage. The comparison is always against the learned baseline of your spindle, not against someone else's average.</p>
+            <div class="damage"><span>Outer race</span><span>Inner race</span><span>Rolling element</span><span>Cage</span><span>Unbalance</span></div>
+          </div>
+          <div class="row">
+            <h3>Feed axes and ball screws</h3><span class="tag off">In development</span>
+            <p>Following error and load profiles to detect friction and backlash. Recorded during the pilot, but not yet assessed.</p>
+          </div>
+          <div class="row">
+            <h3>Automatic tool changer and coolant</h3><span class="tag off">Planned</span>
+            <p>On our roadmap. Not part of the offer today.</p>
+          </div>
+          <p style="margin-top:22px"><a class="tel" href="spindle-monitoring.html">Product and CNC controls in detail →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Method</p>
+        <h2>Explainable, not a black box.</h2>
+        <p>Maintenance engineers will not stop a machine because an algorithm has a bad feeling. They want to know which value has changed and how. That is why every alert shows its reasoning.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Measure</h3><p>A vibration sensor on the spindle housing, plus speed and, where available, load from the CNC control via OPC UA.</p></li>
+        <li><h3>Learn the baseline</h3><p>Every spindle vibrates differently. The system first learns how your machine sounds in a healthy state.</p></li>
+        <li><h3>Assess the deviation</h3><p>Features at the damage frequencies are checked against the learned baseline. What counts is the trend, not a single value.</p></li>
+        <li><h3>Alert with reasoning</h3><p>You see the feature, the damage pattern and the size of the deviation. With your feedback we calibrate the thresholds for your machine.</p></li>
+      </ol>
+      <div class="scale" aria-label="Assessment levels">
+        <div class="s-ok"><b>Normal</b><span>Within the baseline band.</span></div>
+        <div class="s-note"><b>Noticeable</b><span>Slight deviation, being monitored.</span></div>
+        <div class="s-warn"><b>Warning</b><span>Damage pattern detected. Schedule an inspection.</span></div>
+        <div class="s-alarm"><b>Alarm</b><span>Clear deviation. Act promptly.</span></div>
+      </div>
+      <p class="caption" style="margin-top:20px">We deliberately do not predict failure to the day. Nobody can do that credibly.</p>
+      <figure class="shot" style="margin-top:48px">
+        <img src="../images/produkt/dashboard-verlauf.jpg" alt="Trend of a measuring point in the dashboard: vibration at the outer race damage frequency rises clearly above the learned baseline" width="800" height="544" loading="lazy">
+        <figcaption>Trend against the learned baseline: vibration at the outer race damage frequency clearly separates from the baseline. Real interface, demo data from the simulator.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="it">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Data security</p>
+        <h2>Your IT can decide in ten minutes.</h2>
+        <p>We document which data leaves your plant, over which port and in which direction. The edge box does not capture NC programs, drawings or operator data.</p>
+      </div>
+      <div class="it">
+        <ul class="locks">
+          <li><i>A</i><div><b>No write function</b><span>The software contains no code that writes to a CNC control.</span></div></li>
+          <li><i>B</i><div><b>Upstream block</b><span>Any request that would change something is blocked before it reaches the CNC control.</span></div></li>
+          <li><i>C</i><div><b>Automated checks</b><span>Tests ensure with every change that no write path is introduced.</span></div></li>
+          <li><i>D</i><div><b>Read-only user</b><span>A dedicated user with read rights only, for SINUMERIK for example SinuReadAll and AlarmRead.</span></div></li>
+        </ul>
+        <div>
+          <div class="tablebox">
+            <table>
+              <caption class="label">Firewall rules</caption>
+              <thead><tr><th>Direction</th><th>Port</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>Box → CNC control</td><td class="m">4840 · OPC UA</td><td>Read, encrypted (Basic256Sha256)</td></tr>
+                <tr><td>Box → platform</td><td class="m">8883 · MQTT/TLS</td><td>Send features, otherwise 443</td></tr>
+                <tr><td>Box → update server</td><td class="m">443 · HTTPS</td><td>Fetch signed updates</td></tr>
+                <tr><td>Outside → box</td><td class="m">none</td><td>No inbound connection possible</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">If your firewall uses TLS inspection, the box needs an exception. Otherwise mutual certificate validation fails. Pass this sentence to your IT and the matter is settled.</p>
+          <p style="margin-top:22px"><a class="tel" href="data-security.html">Everything for your IT on one page →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="calculator">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Downtime calculator</p>
+        <h2>What does unplanned downtime cost you today?</h2>
+        <p>For management: in one minute you can see what unplanned spindle failures cost your business per year, per month and per working day. With your own figures; we do not insert a savings rate. <a class="tel" href="downtime-calculator.html">Open the calculator with explanations</a></p>
+      </div>
+      <div class="calc">
+        <form id="calc" onsubmit="return false">
+          <div class="field"><label for="c-m">Machining centres with spindle <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
+          <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="1500" step="25" value="400"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
+          <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="30"></div>
+          <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="2"></div>
+          <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="8000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
+          <div class="field"><label for="c-v">Share avoidable with early detection, your estimate <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
+        </form>
+        <div class="result" aria-live="polite">
+          <div><span class="label">What unplanned spindle failures cost you today</span><div class="big" id="r-loss" style="margin-top:10px">–</div><span class="muted" style="font-size:14px">per year</span></div>
+          <div class="pair">
+            <div><span class="label">Per month</span><b id="r-month">–</b></div>
+            <div><span class="label">Per working day</span><b id="r-day">–</b></div>
+          </div>
+          <div class="split" aria-hidden="true"><span id="r-bar-a"></span><span id="r-bar-b"></span></div>
+          <div class="legend"><span><i class="la"></i>Downtime <b id="r-a">–</b></span><span><i class="lb"></i>Repair and consequential damage <b id="r-b">–</b></span></div>
+          <div class="save"><span class="label">Avoidable by your estimate</span><b id="r-save">–</b><span class="muted" style="font-size:14px">per year</span></div>
+          <a class="btn solid" id="r-cta" href="contact.html?rechner=1">Discuss the result in a call <span class="arr">→</span></a>
+          <small>A calculation aid based on your own assumptions, not a promise. The sliders show example values. Per working day assumes 250 working days per year. How early the system warns on your machines is shown during the pilot.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="process">
+    <div class="wrap duo">
+      <div>
+        <p class="label">Process</p>
+        <h2 style="margin-top:18px">We show you on your own machine.</h2>
+        <ol class="flow">
+          <li><span class="label">20 minutes</span><div><b>Introductory call</b><span>We establish whether your CNC controls can be connected. If not, we tell you.</span></div></li>
+          <li><span class="label">By email</span><div><b>Preliminary check</b><span>Nameplate, software version and OPC UA options for each machine. Your IT receives the security datasheet.</span></div></li>
+          <li><span class="label">One day on site</span><div><b>Connection</b><span>Read-only access, measuring points on the spindle housing, connection test. Production keeps running.</span></div></li>
+          <li><span class="label">Ongoing</span><div><b>Pilot</b><span>Learning the baseline, alerts with reasoning, a monthly report for each machine.</span></div></li>
+        </ol>
+        <p style="margin-top:22px"><a class="tel" href="process.html">Process and requirements in detail →</a></p>
+      </div>
+      <div class="person">
+        <p class="label">Your contact</p>
+        <figure class="photo" style="margin-top:22px;aspect-ratio:4/3"><img src="../images/team/hangar-portrait.jpg" alt="Sascha P. Forbach in front of a hangar" width="1800" height="1127" loading="lazy" style="object-position:50% 35%"></figure>
+        <h3>Sascha P. Forbach</h3>
+        <p class="role">Founder, managing director and software architect · Düsseldorf</p>
+        <p class="q">“German industry does not win on price. It wins when its machines run when they have to.”</p>
+        <p class="t">We are at market launch and are taking on our first manufacturing customers. In the introductory call you speak to the founder, not a call centre.</p>
+        <p style="margin-top:22px"><a class="tel" href="about.html">More about us →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="related" style="padding-block:72px">
+    <div class="wrap">
+      <div class="head" style="margin-bottom:32px"><p class="label">Articles</p><h2>How spindle monitoring works. Explained by the person who built it.</h2></div>
+      <ul><li><span class="label">Spindle and bearings</span><a href="spindle-monitoring-cnc-guide.html">Spindle monitoring on CNC machining centres: the guide</a></li>
+<li><span class="label">Spindle and bearings</span><a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal</a></li>
+<li><span class="label">Integration and IT</span><a href="connect-sinumerik-heidenhain-opc-ua.html">Reading SINUMERIK and HEIDENHAIN via OPC UA: prerequisites, options, security</a></li></ul>
+      <p style="margin-top:32px"><a class="tel" href="articles.html">All articles →</a></p>
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

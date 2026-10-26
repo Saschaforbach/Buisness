@@ -1,287 +1,227 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles | Forbach &amp; Partners</title>
-<meta name="description" content="90% aller Wälzlagerschäden sind durch Vibrationsmessung 2–8 Wochen vor dem Ausfall erkennbar. Wir zeigen, welche Frequenzmuster auf welchen Schadenstyp hinweisen.">
-<meta name="keywords" content="Wälzlager, Lagerdiagnose, Vibrationsanalyse, FFT, Condition Monitoring">
-<meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wälzlagerschaden früh erkennen: Hüllkurve und Lagerfrequenzen · Forbach &amp; Partners</title>
+<meta name="description" content="Wie sich Schäden an Außenring, Innenring, Wälzkörper und Käfig im Hüllkurvenspektrum zeigen. Mit Formeln für BPFO, BPFI, BSF und FTF und einem Rechenbeispiel für Spindellager.">
+<meta name="theme-color" content="#16181a">
 <link rel="canonical" href="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
-
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
 <meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Forbach &amp; Partners">
-<meta property="og:title" content="Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles">
-<meta property="og:description" content="90% aller Wälzlagerschäden sind durch Vibrationsmessung 2–8 Wochen vor dem Ausfall erkennbar. Wir zeigen, welche Frequenzmuster auf welchen Schadenstyp hinweisen.">
+<meta property="og:title" content="Wälzlagerschaden früh erkennen: Hüllkurve und Lagerfrequenzen · Forbach &amp; Partners">
+<meta property="og:description" content="Wie sich Schäden an Außenring, Innenring, Wälzkörper und Käfig im Hüllkurvenspektrum zeigen. Mit Formeln für BPFO, BPFI, BSF und FTF und einem Rechenbeispiel für Spindellager.">
 <meta property="og:url" content="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
-<meta property="article:published_time" content="2026-05-05">
-<meta property="article:author" content="Sascha Forbach">
-<meta property="article:section" content="Technologie">
-<meta property="article:tag" content="Wälzlager">
-<meta property="article:tag" content="Lagerdiagnose">
-<meta property="article:tag" content="Vibrationsanalyse">
-<meta property="article:tag" content="FFT">
-<meta property="article:tag" content="Condition Monitoring">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles">
-<meta name="twitter:description" content="90% aller Wälzlagerschäden sind durch Vibrationsmessung 2–8 Wochen vor dem Ausfall erkennbar. Wir zeigen, welche Frequenzmuster auf welchen Schadenstyp hinweisen.">
-
-<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles",
-  "description": "90% aller Wälzlagerschäden sind durch Vibrationsmessung 2–8 Wochen vor dem Ausfall erkennbar. Wir zeigen, welche Frequenzmuster auf welchen Schadenstyp hinweisen.",
-  "datePublished": "2026-05-05",
-  "dateModified": "2026-05-05",
-  "inLanguage": "de",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "Sascha Forbach",
-    "url": "https://forbachandpartners.com/ueber-uns.html"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Forbach and Partners Ltd",
-    "url": "https://forbachandpartners.com"
-  },
-  "keywords": "Wälzlager, Lagerdiagnose, Vibrationsanalyse, FFT, Condition Monitoring",
-  "articleSection": "Technologie",
-  "url": "https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://forbachandpartners.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": "https://forbachandpartners.com/blog.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles",
-      "item": "https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html"
-    }
-  ]
-}
-</script>
-
-<style>
-:root {
-  --gold: #e4b15e; --gold-light: #f8dfa5; --gold-dark: #c49040;
-  --black: #000; --dark-2: #0e0e0e; --dark-3: #141414; --dark-card: #111;
-  --border: rgba(228,177,94,0.15); --border-strong: rgba(228,177,94,0.38);
-  --text: #fff; --text-dim: #a0a0a0; --text-muted: #555;
-  --font-d: 'Oswald', sans-serif; --font-b: 'Raleway', sans-serif; --font-m: 'JetBrains Mono', monospace;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--black); color: var(--text); font-family: var(--font-b); line-height: 1.6; overflow-x: hidden; }
-a { color: var(--gold); }
-
-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1.5rem;
-  padding: 1rem 2rem; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border); }
-.nav-logo { font-family: var(--font-d); font-size: 1.05rem; letter-spacing: 2px; color: var(--text);
-  text-decoration: none; margin-right: auto; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.5px; transition: color .2s; }
-.nav-link:hover, .nav-link.active { color: var(--gold); }
-.nav-cta { background: linear-gradient(135deg, #e4b15e, #c49040); color: #000; text-decoration: none;
-  font-size: 0.75rem; font-weight: 700; padding: 9px 18px; border-radius: 6px; white-space: nowrap; }
-@media (max-width: 760px) { .nav-link { display: none; } }
-
-.article-wrap { max-width: 800px; margin: 0 auto; padding: 3.5rem 1.5rem 4rem; }
-.back-link { display: inline-block; font-family: var(--font-m); font-size: 0.65rem; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 2rem; transition: color .2s; }
-.back-link:hover { color: var(--gold); }
-
-.detail-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.detail-cat { display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(228,177,94,0.1); border: 1px solid var(--border-strong);
-  border-radius: 5px; padding: 4px 12px;
-  font-family: var(--font-m); font-size: 0.58rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.detail-date, .detail-read-time { font-family: var(--font-m); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 1px; }
-
-h1.detail-title { font-family: var(--font-d); font-size: clamp(2rem, 5vw, 3.4rem);
-  letter-spacing: 1.5px; line-height: 1.05; margin-bottom: 1.5rem; }
-.detail-lead { font-size: 1.1rem; color: var(--text-dim); line-height: 1.8;
-  border-left: 3px solid var(--gold); padding-left: 1.25rem; margin-bottom: 2.5rem; }
-
-.detail-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.85; }
-.detail-body h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--text);
-  letter-spacing: 1px; margin: 2.5rem 0 0.85rem; }
-.detail-body h3 { font-family: var(--font-d); font-size: 1.3rem; color: var(--gold-light);
-  letter-spacing: 1px; margin: 1.75rem 0 0.6rem; }
-.detail-body p { margin-bottom: 1.25rem; }
-.detail-body ul, .detail-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
-.detail-body li { margin-bottom: 0.4rem; }
-.detail-body strong { color: var(--text); font-weight: 700; }
-.detail-body code { background: rgba(228,177,94,0.1); border: 1px solid var(--border);
-  border-radius: 4px; padding: 2px 7px; font-family: var(--font-m); font-size: 0.82em; color: var(--gold-light); }
-.detail-body pre { background: var(--dark-3); border: 1px solid var(--border);
-  border-radius: 10px; padding: 1.25rem; overflow-x: auto;
-  font-family: var(--font-m); font-size: 0.8rem; color: #a8e6cf; margin: 1.25rem 0; line-height: 1.6; }
-.detail-body blockquote { background: rgba(228,177,94,0.05); border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0; padding: 1rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: var(--text-dim); }
-.detail-body .highlight-box { background: linear-gradient(135deg, rgba(228,177,94,0.08), rgba(228,177,94,0.03));
-  border: 1px solid var(--border-strong); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-.detail-body .stat-highlight { font-family: var(--font-d); font-size: 2.5rem; color: var(--gold);
-  display: block; margin-bottom: 0.25rem; }
-
-.detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2.5rem 0 1rem; }
-.detail-tag { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted);
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px; padding: 3px 9px; letter-spacing: 0.8px; text-transform: uppercase; }
-.detail-author { background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; }
-.author-avatar { width: 48px; height: 48px; border-radius: 50%;
-  background: linear-gradient(135deg, #e4b15e, #c49040);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-d); font-size: 1.2rem; color: #000; flex-shrink: 0; }
-.author-name { font-weight: 700; font-size: 0.95rem; }
-.author-role { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-
-.related { margin-top: 3.5rem; border-top: 1px solid var(--border); padding-top: 2rem; }
-.related h2 { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 1.25rem; }
-.related-card { display: block; background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 1.1rem 1.35rem; margin-bottom: 0.8rem; text-decoration: none; transition: border-color .2s; }
-.related-card:hover { border-color: var(--border-strong); }
-.related-card .rc-cat { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.related-card .rc-title { color: var(--text); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
-
-.cta-box { margin-top: 3rem; background: linear-gradient(135deg, rgba(228,177,94,0.1), rgba(228,177,94,0.04));
-  border: 1px solid var(--border-strong); border-radius: 14px; padding: 1.75rem; text-align: center; }
-.cta-box h2 { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
-.cta-box p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem; }
-.cta-btn { display: inline-block; background: linear-gradient(135deg, #e4b15e, #c49040); color: #000;
-  text-decoration: none; font-weight: 700; font-size: 0.85rem; padding: 12px 26px; border-radius: 8px; }
-
-footer { background: var(--dark-2); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; text-align: center; }
-.f-logo { font-family: var(--font-d); font-size: 1.6rem; letter-spacing: 2px;
-  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.35rem; }
-.f-tag { font-family: var(--font-m); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-.f-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.f-link { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; font-family: var(--font-m); letter-spacing: 1px; transition: color 0.2s; }
-.f-link:hover { color: var(--gold); }
-.f-copy { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-m); border-top: 1px solid var(--border); padding-top: 1.25rem; }
-</style>
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Wälzlagerschaden früh erkennen: Was Hüllkurve und Lagerfrequenzen verraten", "description": "Wie sich Schäden an Außenring, Innenring, Wälzkörper und Käfig im Hüllkurvenspektrum zeigen. Mit Formeln für BPFO, BPFI, BSF und FTF und einem Rechenbeispiel für Spindellager.", "inLanguage": "de-DE", "datePublished": "2026-05-05", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html", "articleSection": "Spindel und Lager", "wordCount": 1304}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Wälzlagerschaden früh erkennen: Was Hüllkurve und Lagerfrequenzen verraten", "item": "https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kann man einen Lagerschaden am Effektivwert der Schwingung erkennen?", "acceptedAnswer": {"@type": "Answer", "text": "Erst spät. Der Effektivwert steigt meist erst, wenn der Schaden fortgeschritten ist. Frühe Schäden zeigen sich als schwache Linien bei den Lagerfrequenzen im Hüllkurvenspektrum, lange bevor sich der Gesamtpegel ändert."}}, {"@type": "Question", "name": "Woher bekomme ich die Geometriedaten meines Spindellagers?", "acceptedAnswer": {"@type": "Answer", "text": "Aus dem Datenblatt des Lagerherstellers oder aus der Dokumentation des Spindelherstellers. Benötigt werden Anzahl der Wälzkörper, Wälzkörperdurchmesser, Teilkreisdurchmesser und Kontaktwinkel. Geschätzte Werte führen zu falschen Frequenzen."}}, {"@type": "Question", "name": "Reichen die Daten der CNC-Steuerung für eine Lagerdiagnose?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Standard-Schnittstellen der Steuerungen liefern Werte deutlich unter 1 kHz. Die Hüllkurvenanalyse braucht Signale im Kilohertz-Bereich, deshalb ist ein Schwingungssensor am Spindelgehäuse nötig. Die Steuerung liefert aber die Drehzahl, ohne die sich die Lagerfrequenzen nicht berechnen lassen."}}, {"@type": "Question", "name": "Wie früh vor dem Ausfall wird ein Lagerschaden erkannt?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt von Lagerbauart, Last, Drehzahl und Schmierung ab und lässt sich nicht pauschal beziffern. Frequenzbezogene Verfahren zeigen den Schaden aber typischerweise deutlich früher als Gesamtpegel, Temperatur oder Geräusch."}}]}</script>
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="ueber-uns.html" class="nav-link">Über uns</a>
-  <a href="cnc-fraeszentren.html" class="nav-link">CNC-Anlagen</a>
-  <a href="blog.html" class="nav-link active">Blog</a>
-  <a href="kontakt.html" class="nav-link">Kontakt</a>
-  <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-</nav>
-
-<div class="article-wrap">
-  <a href="blog.html" class="back-link">← Alle Artikel</a>
-
-  <article itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="detail-eyebrow">
-      <span class="detail-cat">Technologie</span>
-      <span class="detail-date" itemprop="datePublished" content="2026-05-05">5. Mai 2026</span>
-      <span class="detail-read-time">· 5 Min. Lesezeit</span>
-    </div>
-    <h1 class="detail-title" itemprop="headline">Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles</h1>
-    <div class="detail-body" itemprop="articleBody">
-<p class="detail-lead">Wälzlager sprechen eine klare Sprache — in Frequenzen. Wer diese Sprache lesen kann, spart pro Maschinenausfall durchschnittlich 18.000 bis 85.000 Euro.</p>
-      <h2>Die vier charakteristischen Schadensfrequenzen</h2>
-      <p>Jeder Wälzlagerschaden erzeugt eine mathematisch berechenbare Schadensfrequenz, die vom normalen Betriebsrauschen unterschieden werden kann:</p>
-      <ul>
-        <li><strong>BPFO (Ball Pass Frequency Outer Race):</strong> Schaden am Außenring. Erkennbar durch impulsartige Erhöhung bei f = 0,4 × n × z (n = Drehzahl, z = Anzahl Wälzkörper). Häufigste Schadensform: 45%.</li>
-        <li><strong>BPFI (Ball Pass Frequency Inner Race):</strong> Schaden am Innenring. Tritt oft bei höher belasteten Lagern auf, z.B. Spindelfrontlager. Frequenz moduliert mit der Drehfrequenz.</li>
-        <li><strong>BSF (Ball Spin Frequency):</strong> Schaden am Wälzkörper selbst. Charakteristisch: Seitenfrequenzen ±BSF um die Grundfrequenz.</li>
-        <li><strong>FTF (Fundamental Train Frequency):</strong> Käfigschaden. Niederfrequent, oft schwer zu detektieren. Kündigt sich durch Amplitudenmodulation anderer Frequenzen an.</li>
-      </ul>
-      <h2>Vier Stufen des Lagerverschleißes</h2>
-      <p><strong>Stufe 1 (Ultraschall-Stadium, 8 Wochen vor Ausfall):</strong> Erste Oberflächenveränderungen im Bereich 250–350 kHz. Für konventionelle Sensoren unsichtbar.</p>
-      <p><strong>Stufe 2 (Hochfrequenz-Schwingungen, 4–6 Wochen):</strong> Schadensfrequenzen erscheinen im Spektrum. Noch kein hörbares Geräusch. Hier greift unser KI-System ein.</p>
-      <p><strong>Stufe 3 (Seitenfrequenzen, 1–3 Wochen):</strong> Harmonische und Seitenfrequenzen vermehren sich. Gesamtvibration beginnt zu steigen. Menschliches Ohr beginnt, ungewöhnliche Geräusche zu hören.</p>
-      <p><strong>Stufe 4 (Kritische Phase, Stunden bis Tage):</strong> Gesamtschwingungspegel > 3× Baseline. Breites Rauschen überdeckt Diskretfrequenzen. Totalversagen unmittelbar.</p>
-      <div class="highlight-box">
-        <strong>Unser System erkennt Stufe 2 zuverlässig</strong> — das gibt Ihnen 4–6 Wochen Planungsvorlauf für einen geplanten Lagertausch in der nächsten Wartungspause. Statt €45.000 Notfallreparatur: €1.200 geplanter Lagerwechsel.
-      </div>
-    </div>
-    <div class="detail-tags">
-      <span class="detail-tag">Wälzlager</span>
-      <span class="detail-tag">Lagerdiagnose</span>
-      <span class="detail-tag">Vibrationsanalyse</span>
-      <span class="detail-tag">FFT</span>
-      <span class="detail-tag">Condition Monitoring</span>
-    </div>
-    <div class="detail-author">
-      <div class="author-avatar">SF</div>
-      <div>
-        <div class="author-name" itemprop="author">Sascha Forbach</div>
-        <div class="author-role">Forbach &amp; Partners · Gründer &amp; Experte</div>
-      </div>
-    </div>
-  </article>
-
-  <div class="cta-box">
-    <h2>UNGEPLANTE STILLSTÄNDE VERMEIDEN?</h2>
-    <p>Wir überwachen Ihre CNC-Maschinen mit KI-gestützter Sensorik — und melden Schäden Tage vor dem Ausfall.</p>
-    <a href="kontakt.html" class="cta-btn">Kostenloses Erstgespräch →</a>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/rolling-bearing-damage-early-detection.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
   </div>
+</header>
 
-  <div class="related">
-    <h2>WEITERE ARTIKEL</h2>
-    <a class="related-card" href="blog-condition-monitoring-vs-predictive-maintenance.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">Condition Monitoring vs. Predictive Maintenance: Der Unterschied — und warum er über Ihren ROI entscheidet</div>
-    </a>
-    <a class="related-card" href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht</div>
-    </a>
-    <a class="related-card" href="blog-opc-ua-vs-mqtt-produktionsdaten.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">OPC UA vs. MQTT: Welches Protokoll für Ihre Produktionsdaten?</div>
-    </a>
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Spindel und Lager</span></nav>
+      <h1>Wälzlagerschaden früh erkennen: Was Hüllkurve und Lagerfrequenzen verraten</h1>
+      <p class="lead">Ein beginnender Lagerschaden erzeugt winzige Stöße mit fester Wiederholrate. Wer weiß, bei welcher Frequenz er suchen muss, findet sie im Hüllkurvenspektrum, lange bevor das Lager hörbar wird.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>7 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#stoesse">Warum ein Lagerschaden eine eigene Frequenz hat</a></li>
+<li><a href="#formeln">Die Formeln für BPFO, BPFI, BSF und FTF</a></li>
+<li><a href="#huellkurve">Hüllkurvenanalyse: So werden die Stöße sichtbar</a></li>
+<li><a href="#muster">Welches Muster zu welchem Schaden gehört</a></li>
+<li><a href="#verlauf">Wie sich ein Lagerschaden entwickelt</a></li>
+<li><a href="#praxis">So setzen wir das im System um</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Ein Wälzlager fällt selten plötzlich aus. Am Anfang steht fast immer ein kleiner Defekt auf einer Laufbahn oder einem Wälzkörper: ein Pitting, ein Riss, eine Stelle mit beschädigter Oberfläche. Jedes Mal, wenn ein Wälzkörper über diese Stelle rollt, entsteht ein kurzer Stoß. Diese Stöße sind anfangs so schwach, dass sie im Gesamtpegel der Schwingung untergehen. Ihre <strong>Wiederholrate</strong> aber ist genau bestimmt durch die Geometrie des Lagers und die Drehzahl. Darauf baut die Wälzlagerdiagnose auf.</p>
+
+      <h2 id="stoesse">Warum ein Lagerschaden eine eigene Frequenz hat</h2>
+      <p>Ein Lager besteht aus Außenring, Innenring, Wälzkörpern und Käfig. Bei laufender Spindel dreht der Innenring mit der Welle, der Außenring steht im Gehäuse, und die Wälzkörper rollen mit dem Käfig um. Daraus folgt für jedes Bauteil eine eigene Überrollfrequenz:</p>
+      <ul>
+        <li><strong>BPFO</strong> (Ball Pass Frequency Outer race): wie oft pro Sekunde ein Wälzkörper eine bestimmte Stelle des Außenrings überrollt.</li>
+        <li><strong>BPFI</strong> (Ball Pass Frequency Inner race): dasselbe für eine Stelle auf dem Innenring.</li>
+        <li><strong>BSF</strong> (Ball Spin Frequency): wie oft sich ein Wälzkörper um die eigene Achse dreht.</li>
+        <li><strong>FTF</strong> (Fundamental Train Frequency): die Umlauffrequenz des Käfigs.</li>
+      </ul>
+      <p>Sitzt der Defekt auf dem Außenring, wiederholen sich die Stöße mit BPFO. Sitzt er auf dem Innenring, mit BPFI. Die Diagnose fragt also nicht „Ist die Schwingung hoch?“, sondern „Gibt es Energie genau bei der Frequenz, die zu diesem Bauteil gehört?“. Das ist der Grund, warum eine frequenzbezogene Auswertung einen Schaden deutlich früher zeigt als ein Effektivwert.</p>
+
+      <h2 id="formeln">Die Formeln für BPFO, BPFI, BSF und FTF</h2>
+      <p>Die Schadensfrequenzen lassen sich aus vier Geometriewerten und der Wellendrehfrequenz <code>f<sub>r</sub></code> berechnen. Die Formeln gelten für Abrollen ohne Schlupf bei stehendem Außenring:</p>
+      <div class="formula">r    = d / D · cos(α)
+
+FTF  = f_r / 2 · (1 − r)
+BPFO = n · f_r / 2 · (1 − r)
+BPFI = n · f_r / 2 · (1 + r)
+BSF  = D / (2d) · f_r · (1 − r²)
+
+n = Anzahl Wälzkörper   d = Wälzkörperdurchmesser
+D = Teilkreisdurchmesser   α = Kontaktwinkel</div>
+      <p>Die Geometriewerte stehen im Datenblatt des Lagerherstellers. Man sollte sie <strong>nie schätzen</strong>: Schon eine falsche Wälzkörperzahl verschiebt alle Frequenzen, und die Diagnose sucht dann an der falschen Stelle. Spindellager sind meist Schrägkugellager. Deshalb geht der Kontaktwinkel α in die Rechnung ein, bei Rillenkugellagern ist er null.</p>
+
+      <h3>Rechenbeispiel</h3>
+      <p>Für ein angenommenes Schrägkugellager mit 16 Kugeln, einem Verhältnis d/D von 0,2 und 15° Kontaktwinkel bei 6.000 min⁻¹ (f<sub>r</sub> = 100 Hz) ergibt sich:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Beispiel, keine Herstellerangabe</caption>
+          <thead><tr><th>Kennfrequenz</th><th>Wert</th><th>Vielfaches der Drehfrequenz</th></tr></thead>
+          <tbody>
+            <tr><td>FTF, Käfig</td><td class="m">40,3 Hz</td><td class="m">0,40 ×</td></tr>
+            <tr><td>BSF, Wälzkörper</td><td class="m">240,7 Hz</td><td class="m">2,41 ×</td></tr>
+            <tr><td>BPFO, Außenring</td><td class="m">645,4 Hz</td><td class="m">6,45 ×</td></tr>
+            <tr><td>BPFI, Innenring</td><td class="m">954,6 Hz</td><td class="m">9,55 ×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Weil alle Werte proportional zur Drehzahl sind, gibt man sie oft als Vielfache der Drehfrequenz an. So bleibt die Kennzahl gleich, wenn die Spindel mit einer anderen Drehzahl läuft. Für die Diagnose muss die aktuelle Drehzahl trotzdem bekannt sein. An CNC-Maschinen liefert sie die Steuerung.</p>
+
+      <h2 id="huellkurve">Hüllkurvenanalyse: So werden die Stöße sichtbar</h2>
+      <p>Ein Stoß im Lager regt die Struktur um das Lager herum zum Schwingen an, meist bei einer hohen Eigenfrequenz im Kilohertz-Bereich. Im normalen Frequenzspektrum sieht man deshalb nicht die Schadensfrequenz selbst, sondern ein breites Hochfrequenz-Band, das im Takt der Stöße an- und abschwillt. Die Hüllkurvenanalyse holt diesen Takt heraus:</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Ablauf der Hüllkurvenanalyse in vier Schritten">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g fill="var(--gold)"><path d="M156 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M326 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M496 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/></g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Rohsignal</text><text x="82" y="86" text-anchor="middle">Beschleunigung</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Bandpass</text><text x="252" y="86" text-anchor="middle">um die Resonanz</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Hüllkurve</text><text x="422" y="86" text-anchor="middle">Demodulation</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Spektrum</text><text x="595" y="86" text-anchor="middle">der Hüllkurve</text>
+          <text x="340" y="132" text-anchor="middle">Ergebnis: Spitzen bei BPFO, BPFI, BSF oder FTF und ihren Vielfachen</text>
+        </svg>
+        <figcaption>Die vier Schritte der Hüllkurvenanalyse. Erst im letzten Schritt erscheint die Wiederholrate der Stöße als klare Linie im Spektrum.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Messen:</strong> Ein Beschleunigungssensor am Spindelgehäuse nimmt das Rohsignal mit hoher Abtastrate auf.</li>
+        <li><strong>Filtern:</strong> Ein Bandpass schneidet den Frequenzbereich heraus, in dem die Stöße die Struktur anregen. Drehfrequenz, Zahneingriffe und Bearbeitungskräfte liegen meist tiefer und fallen weg.</li>
+        <li><strong>Demodulieren:</strong> Aus dem gefilterten Signal wird die Hüllkurve gebildet, also der Verlauf der Amplitude über die Zeit.</li>
+        <li><strong>Transformieren:</strong> Das Spektrum der Hüllkurve zeigt, wie oft pro Sekunde die Stöße kommen. Hier erscheinen die Schadensfrequenzen als Linien.</li>
+      </ol>
+      <div class="callout">
+        <p class="label">Warum ein eigener Sensor nötig ist</p>
+        <p>Die Standard-Schnittstellen von CNC-Steuerungen liefern Werte mit deutlich unter 1 kHz. Für die Hüllkurvenanalyse braucht man Signale im Kilohertz-Bereich. Lagerdiagnose an Spindeln geht deshalb nur mit einem Schwingungssensor direkt am Spindelgehäuse. Drehzahl und Last kommen ergänzend aus der Steuerung.</p>
+      </div>
+
+      <h2 id="muster">Welches Muster zu welchem Schaden gehört</h2>
+      <p>Im Hüllkurvenspektrum hat jeder Schaden eine typische Handschrift. Diese Muster sind in der Schwingungsdiagnose seit Jahrzehnten beschrieben:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Schaden</th><th>Typisches Muster im Hüllkurvenspektrum</th></tr></thead>
+          <tbody>
+            <tr><td>Außenring</td><td>Linie bei BPFO und ihren Vielfachen. Weil der Außenring steht, bleibt die Lastzone gleich. Seitenbänder fehlen meist.</td></tr>
+            <tr><td>Innenring</td><td>Linie bei BPFI mit Seitenbändern im Abstand der Drehfrequenz. Der Defekt dreht mit der Welle durch die Lastzone, dadurch wird der Stoß im Takt der Umdrehung stärker und schwächer.</td></tr>
+            <tr><td>Wälzkörper</td><td>Oft deutlicher bei 2 × BSF als bei BSF, weil ein defekter Wälzkörper pro Umdrehung beide Laufbahnen berührt. Häufig mit Seitenbändern im Abstand der Käfigfrequenz.</td></tr>
+            <tr><td>Käfig</td><td>Linie bei FTF, oft auch als Modulation anderer Linien. Schwer zu erkennen und häufig ein Zeichen für Schmierungsprobleme.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Zwei praktische Fallstricke: Erstens schlupfen reale Lager um etwa ein bis zwei Prozent, die Linien liegen also nicht exakt an der berechneten Stelle. Die Suche braucht deshalb ein Toleranzband. Zweitens können Vielfache verschiedener Schadensarten fast zusammenfallen, etwa 3 × BPFO und 2 × BPFI bei manchen Lagern. Unser System wertet einen Schaden deshalb nur als erkannt, wenn die <strong>Grundfrequenz</strong> selbst sichtbar ist und nicht nur ein Vielfaches.</p>
+
+      <h2 id="verlauf">Wie sich ein Lagerschaden entwickelt</h2>
+      <p>Der Verlauf eines Lagerschadens folgt einem bekannten Muster, auch wenn die Dauer jedes Abschnitts stark von Last, Drehzahl, Schmierung und Lagerbauart abhängt:</p>
+      <ol>
+        <li><strong>Anfang:</strong> Erste Stöße. Im Hüllkurvenspektrum erscheint eine schwache Linie bei der Schadensfrequenz. Effektivwert und Geräusch sind unverändert. In dieser Phase lohnt sich die frequenzbezogene Überwachung am meisten.</li>
+        <li><strong>Ausbreitung:</strong> Die Linie wird stärker, Vielfache und Seitenbänder kommen hinzu. Kennwerte wie Scheitelfaktor und Kurtosis steigen, weil das Signal impulshaltiger wird.</li>
+        <li><strong>Fortgeschritten:</strong> Der Schaden vergrößert sich, die Stöße verschmieren. Der Gesamtpegel steigt, das Lager wird hörbar und warm.</li>
+        <li><strong>Endphase:</strong> Breitbandiges Rauschen überdeckt die klaren Linien. Der Ausfall steht bevor.</li>
+      </ol>
+      <p>Wie viel Zeit zwischen erster Linie und Ausfall liegt, kann niemand pauschal sagen. Seriöse Aussagen dazu gibt es nur für eine konkrete Maschine und erst nach einer Beobachtungszeit. Wer Ihnen eine feste Zahl an Wochen verspricht, kennt Ihre Spindel nicht.</p>
+
+      <h2 id="praxis">So setzen wir das im System um</h2>
+      <p>Die Lagerfrequenzen sind die Grundlage. Ob eine gefundene Linie aber wirklich auffällig ist, entscheidet in unserem System der Vergleich mit der <strong>gelernten Normallage</strong> genau dieser Spindel. Jede Spindel hat ihr eigenes Grundrauschen, abhängig von Einbau, Alter und Bearbeitung. Die Box berechnet die Kennwerte direkt an der Maschine und überträgt nur die Ergebnisse. Eine Meldung entsteht erst, wenn eine Abweichung über mehrere Messungen bestehen bleibt, damit ein einzelner Stoß beim Werkzeugwechsel keinen Alarm auslöst. Mehr dazu im Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">feste Schwellen oder gelernte Normallage</a>.</p>
+      <p>Jede Meldung nennt das vermutete Bauteil, die Frequenz und die Stärke der Abweichung. Der Instandhalter sieht also nicht nur eine rote Ampel, sondern den Grund: „Linie bei BPFO mit drei Vielfachen, deutlich über der Normallage“.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Kann man einen Lagerschaden am Effektivwert der Schwingung erkennen?</summary><p>Erst spät. Der Effektivwert steigt meist erst, wenn der Schaden fortgeschritten ist. Frühe Schäden zeigen sich als schwache Linien bei den Lagerfrequenzen im Hüllkurvenspektrum, lange bevor sich der Gesamtpegel ändert.</p></details>
+        <details class="faq-item"><summary>Woher bekomme ich die Geometriedaten meines Spindellagers?</summary><p>Aus dem Datenblatt des Lagerherstellers oder aus der Dokumentation des Spindelherstellers. Benötigt werden Anzahl der Wälzkörper, Wälzkörperdurchmesser, Teilkreisdurchmesser und Kontaktwinkel. Geschätzte Werte führen zu falschen Frequenzen.</p></details>
+        <details class="faq-item"><summary>Reichen die Daten der CNC-Steuerung für eine Lagerdiagnose?</summary><p>Nein. Die Standard-Schnittstellen der Steuerungen liefern Werte deutlich unter 1 kHz. Die Hüllkurvenanalyse braucht Signale im Kilohertz-Bereich, deshalb ist ein Schwingungssensor am Spindelgehäuse nötig. Die Steuerung liefert aber die Drehzahl, ohne die sich die Lagerfrequenzen nicht berechnen lassen.</p></details>
+        <details class="faq-item"><summary>Wie früh vor dem Ausfall wird ein Lagerschaden erkannt?</summary><p>Das hängt von Lagerbauart, Last, Drehzahl und Schmierung ab und lässt sich nicht pauschal beziffern. Frequenzbezogene Verfahren zeigen den Schaden aber typischerweise deutlich früher als Gesamtpegel, Temperatur oder Geräusch.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Spindel und Lager</span><a href="blog-cnc-spindel-geraeusche-ursachen.html">CNC-Spindel macht Geräusche: mögliche Ursachen und was Sie selbst prüfen können</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-ordnungsanalyse-unwucht-spindel.html">Ordnungsanalyse an der Spindel: Unwucht und Lagerfrequenzen in Vielfachen der Drehzahl</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-spindelueberwachung-cnc-leitfaden.html">Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
   </div>
 </div>
 
-<footer>
-  <div class="f-logo">FORBACH &amp; PARTNERS</div>
-  <div class="f-tag">Predictive Intelligence · CNC-Fräszentren · Industry 4.0</div>
-  <div class="f-links">
-    <a class="f-link" href="index.html">Home</a>
-    <a class="f-link" href="ueber-uns.html">Über uns</a>
-    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
-    <a class="f-link" href="blog.html">Blog</a>
-    <a class="f-link" href="kontakt.html">Kontakt</a>
-    <a class="f-link" href="impressum.html">Impressum</a>
-    <a class="f-link" href="datenschutz.html">Datenschutz</a>
-  </div>
-  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
-</footer>
-
+<script src="assets/site.js" defer></script>
 </body>
 </html>

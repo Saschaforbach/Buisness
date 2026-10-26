@@ -1,284 +1,245 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an | Forbach &amp; Partners</title>
-<meta name="description" content="Kugelgewindetrieb, Linearführung, Servomotor — die Vorschubachsen eines CNC-Zentrums sind die am häufigsten unterschätzte Verschleißquelle. Wir zeigen, welche Signale 2–4 Wochen vor dem Ausfall sichtbar werden.">
-<meta name="keywords" content="CNC, Vorschubachse, Kugelgewindetrieb, Linearführung, Predictive Maintenance">
-<meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vorschubachsen an CNC-Maschinen: Verschleißmuster erkennen · Forbach &amp; Partners</title>
+<meta name="description" content="Verschleißmuster an Vorschubachsen: Kugelgewindetrieb, Linearführung, Umkehrspiel, Reibung. Was Schleppfehler und Motorstrom zeigen, wie Sie Trends vergleichen.">
+<meta name="theme-color" content="#16181a">
 <link rel="canonical" href="https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html">
-
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/feed-axes-ball-screw-wear-patterns.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html">
 <meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Forbach &amp; Partners">
-<meta property="og:title" content="Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an">
-<meta property="og:description" content="Kugelgewindetrieb, Linearführung, Servomotor — die Vorschubachsen eines CNC-Zentrums sind die am häufigsten unterschätzte Verschleißquelle. Wir zeigen, welche Signale 2–4 Wochen vor dem Ausfall sichtbar werden.">
+<meta property="og:title" content="Vorschubachsen an CNC-Maschinen: Verschleißmuster erkennen · Forbach &amp; Partners">
+<meta property="og:description" content="Verschleißmuster an Vorschubachsen: Kugelgewindetrieb, Linearführung, Umkehrspiel, Reibung. Was Schleppfehler und Motorstrom zeigen, wie Sie Trends vergleichen.">
 <meta property="og:url" content="https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html">
-<meta property="article:published_time" content="2026-05-15">
-<meta property="article:author" content="Sascha Forbach">
-<meta property="article:section" content="CNC">
-<meta property="article:tag" content="CNC">
-<meta property="article:tag" content="Vorschubachse">
-<meta property="article:tag" content="Kugelgewindetrieb">
-<meta property="article:tag" content="Linearführung">
-<meta property="article:tag" content="Predictive Maintenance">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an">
-<meta name="twitter:description" content="Kugelgewindetrieb, Linearführung, Servomotor — die Vorschubachsen eines CNC-Zentrums sind die am häufigsten unterschätzte Verschleißquelle. Wir zeigen, welche Signale 2–4 Wochen vor dem Ausfall sichtbar werden.">
-
-<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an",
-  "description": "Kugelgewindetrieb, Linearführung, Servomotor — die Vorschubachsen eines CNC-Zentrums sind die am häufigsten unterschätzte Verschleißquelle. Wir zeigen, welche Signale 2–4 Wochen vor dem Ausfall sichtbar werden.",
-  "datePublished": "2026-05-15",
-  "dateModified": "2026-05-15",
-  "inLanguage": "de",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "Sascha Forbach",
-    "url": "https://forbachandpartners.com/ueber-uns.html"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Forbach and Partners Ltd",
-    "url": "https://forbachandpartners.com"
-  },
-  "keywords": "CNC, Vorschubachse, Kugelgewindetrieb, Linearführung, Predictive Maintenance",
-  "articleSection": "CNC",
-  "url": "https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://forbachandpartners.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": "https://forbachandpartners.com/blog.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an",
-      "item": "https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html"
-    }
-  ]
-}
-</script>
-
-<style>
-:root {
-  --gold: #e4b15e; --gold-light: #f8dfa5; --gold-dark: #c49040;
-  --black: #000; --dark-2: #0e0e0e; --dark-3: #141414; --dark-card: #111;
-  --border: rgba(228,177,94,0.15); --border-strong: rgba(228,177,94,0.38);
-  --text: #fff; --text-dim: #a0a0a0; --text-muted: #555;
-  --font-d: 'Oswald', sans-serif; --font-b: 'Raleway', sans-serif; --font-m: 'JetBrains Mono', monospace;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--black); color: var(--text); font-family: var(--font-b); line-height: 1.6; overflow-x: hidden; }
-a { color: var(--gold); }
-
-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1.5rem;
-  padding: 1rem 2rem; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border); }
-.nav-logo { font-family: var(--font-d); font-size: 1.05rem; letter-spacing: 2px; color: var(--text);
-  text-decoration: none; margin-right: auto; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.5px; transition: color .2s; }
-.nav-link:hover, .nav-link.active { color: var(--gold); }
-.nav-cta { background: linear-gradient(135deg, #e4b15e, #c49040); color: #000; text-decoration: none;
-  font-size: 0.75rem; font-weight: 700; padding: 9px 18px; border-radius: 6px; white-space: nowrap; }
-@media (max-width: 760px) { .nav-link { display: none; } }
-
-.article-wrap { max-width: 800px; margin: 0 auto; padding: 3.5rem 1.5rem 4rem; }
-.back-link { display: inline-block; font-family: var(--font-m); font-size: 0.65rem; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 2rem; transition: color .2s; }
-.back-link:hover { color: var(--gold); }
-
-.detail-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.detail-cat { display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(228,177,94,0.1); border: 1px solid var(--border-strong);
-  border-radius: 5px; padding: 4px 12px;
-  font-family: var(--font-m); font-size: 0.58rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.detail-date, .detail-read-time { font-family: var(--font-m); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 1px; }
-
-h1.detail-title { font-family: var(--font-d); font-size: clamp(2rem, 5vw, 3.4rem);
-  letter-spacing: 1.5px; line-height: 1.05; margin-bottom: 1.5rem; }
-.detail-lead { font-size: 1.1rem; color: var(--text-dim); line-height: 1.8;
-  border-left: 3px solid var(--gold); padding-left: 1.25rem; margin-bottom: 2.5rem; }
-
-.detail-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.85; }
-.detail-body h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--text);
-  letter-spacing: 1px; margin: 2.5rem 0 0.85rem; }
-.detail-body h3 { font-family: var(--font-d); font-size: 1.3rem; color: var(--gold-light);
-  letter-spacing: 1px; margin: 1.75rem 0 0.6rem; }
-.detail-body p { margin-bottom: 1.25rem; }
-.detail-body ul, .detail-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
-.detail-body li { margin-bottom: 0.4rem; }
-.detail-body strong { color: var(--text); font-weight: 700; }
-.detail-body code { background: rgba(228,177,94,0.1); border: 1px solid var(--border);
-  border-radius: 4px; padding: 2px 7px; font-family: var(--font-m); font-size: 0.82em; color: var(--gold-light); }
-.detail-body pre { background: var(--dark-3); border: 1px solid var(--border);
-  border-radius: 10px; padding: 1.25rem; overflow-x: auto;
-  font-family: var(--font-m); font-size: 0.8rem; color: #a8e6cf; margin: 1.25rem 0; line-height: 1.6; }
-.detail-body blockquote { background: rgba(228,177,94,0.05); border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0; padding: 1rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: var(--text-dim); }
-.detail-body .highlight-box { background: linear-gradient(135deg, rgba(228,177,94,0.08), rgba(228,177,94,0.03));
-  border: 1px solid var(--border-strong); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-.detail-body .stat-highlight { font-family: var(--font-d); font-size: 2.5rem; color: var(--gold);
-  display: block; margin-bottom: 0.25rem; }
-
-.detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2.5rem 0 1rem; }
-.detail-tag { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted);
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px; padding: 3px 9px; letter-spacing: 0.8px; text-transform: uppercase; }
-.detail-author { background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; }
-.author-avatar { width: 48px; height: 48px; border-radius: 50%;
-  background: linear-gradient(135deg, #e4b15e, #c49040);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-d); font-size: 1.2rem; color: #000; flex-shrink: 0; }
-.author-name { font-weight: 700; font-size: 0.95rem; }
-.author-role { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-
-.related { margin-top: 3.5rem; border-top: 1px solid var(--border); padding-top: 2rem; }
-.related h2 { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 1.25rem; }
-.related-card { display: block; background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 1.1rem 1.35rem; margin-bottom: 0.8rem; text-decoration: none; transition: border-color .2s; }
-.related-card:hover { border-color: var(--border-strong); }
-.related-card .rc-cat { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.related-card .rc-title { color: var(--text); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
-
-.cta-box { margin-top: 3rem; background: linear-gradient(135deg, rgba(228,177,94,0.1), rgba(228,177,94,0.04));
-  border: 1px solid var(--border-strong); border-radius: 14px; padding: 1.75rem; text-align: center; }
-.cta-box h2 { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
-.cta-box p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem; }
-.cta-btn { display: inline-block; background: linear-gradient(135deg, #e4b15e, #c49040); color: #000;
-  text-decoration: none; font-weight: 700; font-size: 0.85rem; padding: 12px 26px; border-radius: 8px; }
-
-footer { background: var(--dark-2); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; text-align: center; }
-.f-logo { font-family: var(--font-d); font-size: 1.6rem; letter-spacing: 2px;
-  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.35rem; }
-.f-tag { font-family: var(--font-m); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-.f-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.f-link { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; font-family: var(--font-m); letter-spacing: 1px; transition: color 0.2s; }
-.f-link:hover { color: var(--gold); }
-.f-copy { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-m); border-top: 1px solid var(--border); padding-top: 1.25rem; }
-</style>
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Vorschubachsen an CNC-Bearbeitungszentren: Verschleißmuster und ihre Signale", "description": "Verschleißmuster an Vorschubachsen: Kugelgewindetrieb, Linearführung, Umkehrspiel, Reibung. Was Schleppfehler und Motorstrom zeigen, wie Sie Trends vergleichen.", "inLanguage": "de-DE", "datePublished": "2026-05-15", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html", "articleSection": "Weitere Baugruppen", "wordCount": 1797}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Vorschubachsen an CNC-Bearbeitungszentren: Verschleißmuster und ihre Signale", "item": "https://forbachandpartners.com/blog-vorschubachsen-cnc-verschleissmuster.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie erkenne ich Verschleiß am Kugelgewindetrieb?", "acceptedAnswer": {"@type": "Answer", "text": "Typische Zeichen sind wachsendes Umkehrspiel, Formfehler an Kreisen bei Richtungswechseln, ungleichmäßiger Lauf und Geräusche an bestimmten Positionen. Messen lässt sich das mit Messuhr, Kreisformtest und Laserinterferometer. In den Steuerungsdaten zeigt es sich als veränderter Motorstrom oder Schleppfehler bei immer gleicher Vergleichsfahrt."}}, {"@type": "Question", "name": "Was bedeutet ein steigender Schleppfehler an einer CNC-Achse?", "acceptedAnswer": {"@type": "Answer", "text": "Bei gleicher Bewegung und unveränderten Reglereinstellungen deutet er auf mehr Reibung, mehr Spiel oder eine veränderte Last hin. Allein ist er kein Befund. Prüfen Sie zuerst, ob Programm, Vorschub, Reglerparameter und Temperatur vergleichbar waren."}}, {"@type": "Question", "name": "Reicht die Umkehrspielkompensation der Steuerung aus?", "acceptedAnswer": {"@type": "Answer", "text": "Sie gleicht einen festen Betrag aus und ist für ein konstantes, kleines Spiel gedacht. Wächst das Spiel durch Verschleiß oder ändert es sich über den Verfahrweg, stimmt der Wert nicht mehr. Ein häufig nachgestellter Kompensationswert ist ein Hinweis, die Mechanik zu prüfen."}}, {"@type": "Question", "name": "Kann man Linearführungen im Betrieb überwachen?", "acceptedAnswer": {"@type": "Answer", "text": "Grundsätzlich ja, über den Motorstrom bei gleicher Fahrt und über Schwingungs- oder Geräuschmessungen am Führungswagen. Entscheidend ist der Vergleich mit dem eigenen Ausgangszustand. Schmierung und Abstreifer zu prüfen, bleibt trotzdem die wichtigste vorbeugende Maßnahme."}}, {"@type": "Question", "name": "Überwacht Forbach & Partners Vorschubachsen?", "acceptedAnswer": {"@type": "Answer", "text": "Noch nicht. Die Achsüberwachung ist in Entwicklung. Im Pilot zeichnen wir Achssignale auf, bewerten sie aber noch nicht. Heute überwachen wir Spindel und Spindellager."}}]}</script>
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="ueber-uns.html" class="nav-link">Über uns</a>
-  <a href="cnc-fraeszentren.html" class="nav-link">CNC-Anlagen</a>
-  <a href="blog.html" class="nav-link active">Blog</a>
-  <a href="kontakt.html" class="nav-link">Kontakt</a>
-  <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-</nav>
-
-<div class="article-wrap">
-  <a href="blog.html" class="back-link">← Alle Artikel</a>
-
-  <article itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="detail-eyebrow">
-      <span class="detail-cat">CNC</span>
-      <span class="detail-date" itemprop="datePublished" content="2026-05-15">15. Mai 2026</span>
-      <span class="detail-read-time">· 6 Min. Lesezeit</span>
-    </div>
-    <h1 class="detail-title" itemprop="headline">Vorschubachsen an CNC-Bearbeitungszentren: Diese 5 Verschleißmuster kündigen den Ausfall an</h1>
-    <div class="detail-body" itemprop="articleBody">
-<p class="detail-lead">Eine verschlissene Vorschubachse kostet selten durch den plötzlichen Totalausfall — sondern durch schleichenden Genauigkeitsverlust, Ausschuss und die Notfall-Reparatur im ungünstigsten Moment.</p>
-      <h2>Die 5 Verschleißmuster und ihre KI-Signatur</h2>
-      <ul>
-        <li><strong>1. Kugelgewindetrieb-Verschleiß (Ballscrew):</strong> Das häufigste Verschleißbild. Der Vorschubfehler (Positionsabweichung) steigt langsam über Wochen. KI-Kennzeichen: steigende Schleppfehler-Varianz im Servoregler bei gleichem Vorschubprofil.</li>
-        <li><strong>2. Linearführungs-Reibungserhöhung:</strong> Wälzkörper in der Führung beginnen zu phasenweise zu klemmen. Erkennbar durch impulsartige Stromspitzen im Servomotor — typischerweise 3–8× pro Meter Vorschubweg.</li>
-        <li><strong>3. Spiel im Umkehrpunkt (Backlash):</strong> Zeigt sich zuerst bei Richtungswechseln. Maßtoleranzen am Werkstück beginnen zu schwanken. KI erkennt die charakteristische Totgang-Signatur im Schleppfehler-Verlauf 3–5 Wochen vor sichtbarem Ausschuss.</li>
-        <li><strong>4. Servomotor-Lagerdefekt:</strong> Gleiche BPFO/BPFI-Frequenzmuster wie bei Spindellagern — nur bei niedrigeren Frequenzen (Vorschubmotoren laufen mit 500–3.000 U/min). Erkennbar durch Kurtosis-Anstieg im Stromsignal.</li>
-        <li><strong>5. Thermische Drift durch Kugelgewindetrieb-Erwärmung:</strong> Lange Laufwege ohne Thermokompensation führen zu messbarem Längenversatz. Unsere KI korreliert Achstemperatur mit Positionsfehler-Trend und erkennt beginnende Thermokompensations-Defizite.</li>
-      </ul>
-      <div class="highlight-box">
-        <strong>Praxiswert:</strong> Bei einem 5-Achs-Bearbeitungszentrum (DMG MORI DMU 60) erkannten wir einen beginnenden Kugelgewindetrieb-Schaden an der Y-Achse durch ansteigende Schleppfehler-Varianz — 22 Tage vor dem ersten sichtbaren Maßfehler am Werkstück. Geplanter Tausch in der Betriebsurlaubs-Woche statt Notfall-Stillstand im laufenden Auftrag.
-      </div>
-      <h2>Was das für Ihre Planbarkeit bedeutet</h2>
-      <p>Der Unterschied zwischen "überraschter Notfallreparatur" und "geplantem Werkzeugwechsel" liegt bei CNC-Bearbeitungszentren typisch bei 8.000–25.000 Euro — allein durch den Unterschied zwischen Notfall-Serviceeinsatz und eingeplanter Wartungsschicht. Dazu kommt der Ausschuss in der Degradationsphase, der oft unbemerkt läuft.</p>
-    </div>
-    <div class="detail-tags">
-      <span class="detail-tag">CNC</span>
-      <span class="detail-tag">Vorschubachse</span>
-      <span class="detail-tag">Kugelgewindetrieb</span>
-      <span class="detail-tag">Linearführung</span>
-      <span class="detail-tag">Predictive Maintenance</span>
-    </div>
-    <div class="detail-author">
-      <div class="author-avatar">SF</div>
-      <div>
-        <div class="author-name" itemprop="author">Sascha Forbach</div>
-        <div class="author-role">Forbach &amp; Partners · Gründer &amp; Experte</div>
-      </div>
-    </div>
-  </article>
-
-  <div class="cta-box">
-    <h2>UNGEPLANTE STILLSTÄNDE VERMEIDEN?</h2>
-    <p>Wir überwachen Ihre CNC-Maschinen mit KI-gestützter Sensorik — und melden Schäden Tage vor dem Ausfall.</p>
-    <a href="kontakt.html" class="cta-btn">Kostenloses Erstgespräch →</a>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/feed-axes-ball-screw-wear-patterns.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
   </div>
+</header>
 
-  <div class="related">
-    <h2>WEITERE ARTIKEL</h2>
-    <a class="related-card" href="blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">
-      <span class="rc-cat">CNC</span>
-      <div class="rc-title">Vibrationsanalyse an Werkzeugmaschinen: ISO-Grenzwerte einfach erklärt</div>
-    </a>
-    <a class="related-card" href="blog-cnc-spindel-geraeusche-ursachen.html">
-      <span class="rc-cat">CNC</span>
-      <div class="rc-title">CNC-Spindel macht komische Geräusche — was steckt wirklich dahinter?</div>
-    </a>
-    <a class="related-card" href="blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html">
-      <span class="rc-cat">CNC</span>
-      <div class="rc-title">Werkzeugwechsler an CNC-Fräszentren: Wie Sie den Ausfall 2 Wochen früher erkennen</div>
-    </a>
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Weitere Baugruppen</span></nav>
+      <h1>Vorschubachsen an CNC-Bearbeitungszentren: Verschleißmuster und ihre Signale</h1>
+      <p class="lead">Verschleiß an Vorschubachsen zeigt sich zuerst als Genauigkeitsverlust, nicht als Ausfall. Umkehrspiel und Reibung sind die beiden Größen, die man verstehen und über Zeit vergleichen sollte.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#aufbau">Wie eine Vorschubachse aufgebaut ist</a></li>
+<li><a href="#verschleissmuster">Typische Verschleißmuster an Vorschubachsen</a></li>
+<li><a href="#umkehrspiel-reibung">Umkehrspiel und Reibung: die zwei Grundgrößen</a></li>
+<li><a href="#signale">Welche Steuerungssignale Verschleiß an Vorschubachsen zeigen können</a></li>
+<li><a href="#trend">Trends richtig vergleichen: gleiche Bewegung, gleiche Bedingungen</a></li>
+<li><a href="#selbst-pruefen">Was Instandhalter selbst prüfen und messen können</a></li>
+<li><a href="#stand">Was wir heute tun und was noch fehlt</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Eine Vorschubachse fällt selten auf einen Schlag aus. Meist verliert sie zuerst an Genauigkeit: Ein gefräster Kreis wird an den Quadrantenübergängen unrund, eine Bohrung sitzt nach einem Richtungswechsel einige Mikrometer daneben, bei langsamem Vorschub entstehen Marken auf der Oberfläche. Hinter diesen <strong>Verschleißmustern an Vorschubachsen</strong> stecken wenige Mechanismen an Kugelgewindetrieb, Linearführung und Lagerung. Dieser Artikel beschreibt, wie sie entstehen, woran Sie sie erkennen und welche Signale der Steuerung grundsätzlich Hinweise darauf geben.</p>
+
+      <div class="callout status">
+        <p class="label">Stand unseres Systems</p>
+        <p>Die Überwachung von Vorschubachsen ist bei uns in Entwicklung. Im Pilot zeichnen wir Achssignale aus der Steuerung mit auf, bewerten sie aber noch nicht. Es gibt dazu heute keine Meldungen und keine Zusagen. Überwacht wird heute die Spindel mit ihren Lagern.</p>
+      </div>
+
+      <h2 id="aufbau">Wie eine Vorschubachse aufgebaut ist</h2>
+      <p>Die meisten Linearachsen an Bearbeitungszentren folgen demselben Prinzip. Ein Servomotor treibt über eine Kupplung oder einen Riementrieb den Kugelgewindetrieb an. Die Gewindespindel ist an einem Ende im Festlager axial gehalten, am anderen Ende oft im Loslager geführt. Die Mutter wandelt die Drehung in eine Längsbewegung und schiebt den Schlitten. Der Schlitten läuft auf Profilschienenführungen, in deren Wagen Kugeln oder Rollen umlaufen.</p>
+      <p>Die Position misst entweder der Drehgeber im Motor (indirektes Messsystem) oder ein Längenmaßstab direkt am Schlitten (direktes Messsystem). Die Lageregelung in der Steuerung vergleicht Soll- und Istposition und stellt den Motorstrom so ein, dass der Schlitten der Bahn folgt.</p>
+      <figure>
+        <svg viewBox="0 0 680 170" role="img" aria-label="Schematischer Aufbau einer Vorschubachse vom Motor bis zum Messsystem">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="30" width="100" height="56" rx="2"/><rect x="132" y="30" width="90" height="56" rx="2"/>
+            <rect x="242" y="30" width="140" height="56" rx="2"/><rect x="402" y="30" width="120" height="56" rx="2"/>
+            <rect x="542" y="30" width="126" height="56" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="112" y1="58" x2="132" y2="58"/><line x1="222" y1="58" x2="242" y2="58"/>
+            <line x1="382" y1="58" x2="402" y2="58"/><line x1="522" y1="58" x2="542" y2="58"/>
+          </g>
+          <text x="62" y="54" text-anchor="middle" style="fill:var(--ink)">Servomotor</text><text x="62" y="72" text-anchor="middle">mit Drehgeber</text>
+          <text x="177" y="54" text-anchor="middle" style="fill:var(--ink)">Kupplung</text><text x="177" y="72" text-anchor="middle">oder Riemen</text>
+          <text x="312" y="54" text-anchor="middle" style="fill:var(--ink)">Kugelgewindetrieb</text><text x="312" y="72" text-anchor="middle">Fest- und Loslager</text>
+          <text x="462" y="54" text-anchor="middle" style="fill:var(--ink)">Schlitten</text><text x="462" y="72" text-anchor="middle">auf Linearführung</text>
+          <text x="605" y="54" text-anchor="middle" style="fill:var(--ink)">Längenmaßstab</text><text x="605" y="72" text-anchor="middle">falls vorhanden</text>
+          <line x1="12" y1="112" x2="668" y2="112" stroke="var(--rule)"/>
+          <text x="340" y="138" text-anchor="middle">Jedes Glied der Kette kann Spiel, Reibung oder Nachgiebigkeit beitragen.</text>
+          <text x="340" y="158" text-anchor="middle">Der Motorgeber sieht nur, was bis zum Motor passiert. Der Maßstab sieht den Schlitten.</text>
+        </svg>
+        <figcaption>Die Antriebskette einer typischen Linearachse. Wo gemessen wird, entscheidet, welche Fehler die Lageregelung überhaupt bemerkt.</figcaption>
+      </figure>
+
+      <h2 id="verschleissmuster">Typische Verschleißmuster an Vorschubachsen</h2>
+      <p>Die Schadensmechanismen sind seit Langem bekannt. Welcher davon an einer bestimmten Maschine dominiert, hängt von Bauart, Belastung, Schmierung und Einsatzbedingungen ab.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Bauteil</th><th>Mechanismus</th><th>Typische Auswirkung</th></tr></thead>
+          <tbody>
+            <tr><td>Kugelgewindetrieb, Mutter</td><td>Verschleiß der Laufbahnen, nachlassende Vorspannung</td><td>Umkehrspiel wächst, Steifigkeit sinkt, Formfehler nach Richtungswechseln</td></tr>
+            <tr><td>Kugelgewindetrieb, Laufbahn</td><td>Pittings, Riefen, Folgeschäden nach Kollision</td><td>Ungleichmäßiger Lauf, Geräusch, schwankender Motorstrom an bestimmten Positionen</td></tr>
+            <tr><td>Festlager der Gewindespindel</td><td>Lagerverschleiß, gelockerte Lagermutter</td><td>Axiales Spiel, das wie Umkehrspiel wirkt</td></tr>
+            <tr><td>Linearführung</td><td>Schmiermangel, verschlissene Abstreifer, eingedrungene Späne oder Kühlschmierstoff</td><td>Reibung steigt, oft ungleichmäßig über den Verfahrweg, Ruckgleiten bei kleinem Vorschub</td></tr>
+            <tr><td>Kupplung, Riementrieb</td><td>Lockerung, Verschleiß, nachlassende Riemenspannung</td><td>Spiel oder Nachgiebigkeit zwischen Motor und Gewindespindel</td></tr>
+            <tr><td>Gewindespindel, thermisch</td><td>Erwärmung durch Reibung in Mutter und Lagern</td><td>Längenänderung, die bei indirekter Messung als Positionsfehler am Werkstück ankommt</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Eine Kollision verdient besondere Aufmerksamkeit. Sie kann Kugelgewindetrieb, Festlager und Führungswagen schädigen, ohne dass die Achse sofort auffällt. Die Folgen zeigen sich oft erst Wochen später. Es lohnt sich, nach jedem Crash einen Vergleichswert aufzunehmen.</p>
+
+      <h2 id="umkehrspiel-reibung">Umkehrspiel und Reibung: die zwei Grundgrößen</h2>
+      <p>Fast alle Verschleißmuster lassen sich auf zwei Größen zurückführen.</p>
+      <p><strong>Umkehrspiel</strong> (auch Lose) ist der Weg, den der Antrieb bei einem Richtungswechsel zurücklegt, bevor sich der Schlitten bewegt. Es entsteht durch Spiel in Mutter, Festlager, Kupplung und durch elastische Verformung. Die Steuerung kann einen festen Betrag über die Umkehrspielkompensation ausgleichen. Das verdeckt das Problem aber nur, solange das Spiel konstant bleibt. Wächst es oder schwankt es über den Verfahrweg, passt der Kompensationswert nicht mehr. Die Folge sind Absätze an Kreisen und Konturen an den Stellen, an denen eine Achse ihre Richtung umkehrt.</p>
+      <p><strong>Reibung</strong> ist der Widerstand, den der Antrieb überwinden muss. Ein Teil davon ist gewollt, etwa durch die Vorspannung in Mutter und Führungswagen. Steigt die Reibung, braucht der Motor bei gleicher Bewegung mehr Strom. Wichtiger als der Mittelwert ist oft die Gleichmäßigkeit: Eine Stelle mit erhöhter Reibung auf einer Führungsschiene oder eine beschädigte Laufbahn im Gewinde zeigt sich als örtliche Erhöhung, die bei jeder Fahrt an derselben Position wiederkehrt. Nimmt die Vorspannung durch Verschleiß ab, kann die Reibung sogar sinken, während das Spiel steigt. Ein fallender Strom ist deshalb nicht automatisch ein gutes Zeichen.</p>
+
+      <h2 id="signale">Welche Steuerungssignale Verschleiß an Vorschubachsen zeigen können</h2>
+      <p>Die Steuerung kennt für jede Achse Größen, die sich grundsätzlich für eine Trendbeobachtung eignen. Welche davon an einer bestimmten Maschine über eine Schnittstelle lesbar sind, muss man je Steuerung und Konfiguration prüfen.</p>
+      <h3>Schleppfehler</h3>
+      <p>Der Schleppfehler ist die Differenz zwischen Soll- und Istposition während der Bewegung. Bei einer reinen Proportional-Lageregelung ohne Vorsteuerung gilt näherungsweise:</p>
+      <div class="formula">Schleppfehler Δs = v / K_v
+
+v   = Bahngeschwindigkeit der Achse
+K_v = Kreisverstärkung der Lageregelung
+
+Mit Vorsteuerung wird Δs im Normalfall sehr klein.
+Was bleibt, sind vor allem Abweichungen durch Störungen:
+Reibung, Spiel, Lastwechsel, Beschleunigungsphasen.</div>
+      <p>Für die Verschleißbeobachtung ist genau dieser Rest interessant. Bei eingeschalteter Vorsteuerung zeigen sich Reibungsänderungen und Spiel vor allem als kurze Spitzen im Schleppfehler bei Richtungswechseln und als veränderte Werte beim Anfahren. Der absolute Schleppfehler sagt wenig. Aussagekräftig ist sein Verlauf bei immer gleicher Bewegung über Wochen und Monate.</p>
+      <h3>Motorstrom, Last und Drehmoment</h3>
+      <p>Der Strom eines Servomotors ist näherungsweise proportional zum Drehmoment. Bei konstanter Geschwindigkeit ohne Bearbeitung besteht die Last im Wesentlichen aus Reibung und, bei vertikalen Achsen, aus dem Gewicht des Schlittens. Ein steigender Strom bei gleicher Fahrt deutet auf mehr Reibung hin. Ein Strom, der an bestimmten Positionen regelmäßig Spitzen zeigt, deutet auf eine örtliche Ursache an Führung oder Gewinde. Steuerungen stellen dafür je nach Typ Werte wie Strom, Last in Prozent oder Drehmoment bereit.</p>
+      <h3>Direktes und indirektes Messsystem</h3>
+      <p>Hat eine Achse sowohl Motorgeber als auch Längenmaßstab, ist die Differenz der beiden Positionen ein wertvolles Signal. Sie enthält das Spiel in der Antriebskette und die thermische Längenänderung der Gewindespindel. Verändert sich diese Differenz bei gleicher Fahrt über die Zeit, hat sich in der Mechanik zwischen Motor und Schlitten etwas verändert.</p>
+      <h3>Temperatur</h3>
+      <p>Motortemperaturen sind bei vielen Steuerungen auslesbar. Sie helfen vor allem, Messungen in einen Zusammenhang zu setzen: Eine kalte Achse hat andere Reibung als eine warme. Eine Temperatur an der Mutter oder am Festlager liefert die Steuerung in der Regel nicht. Dafür wäre ein eigener Sensor nötig.</p>
+      <div class="callout">
+        <p class="label">Grenzen der Steuerungsdaten</p>
+        <p>Über Standard-Schnittstellen wie OPC UA liefern Steuerungen Werte in Zeitabständen im Bereich von Zehntel- bis ganzen Sekunden. Das reicht für Trends über Wochen. Kurze Ereignisse wie die Schleppfehlerspitze bei einer Richtungsumkehr sind damit nur mit Glück erfasst. Für solche Details haben Steuerungen eigene Trace- oder Oszilloskopfunktionen mit deutlich höherer Auflösung. Wie Sie eine Steuerung lesend anbinden, beschreibt der Artikel <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+      </div>
+
+      <h2 id="trend">Trends richtig vergleichen: gleiche Bewegung, gleiche Bedingungen</h2>
+      <p>Achssignale im laufenden Betrieb sind schwer vergleichbar. Jedes Programm fährt andere Wege mit anderen Vorschüben, die Bearbeitungskräfte überlagern die Reibung, und die Temperatur ändert sich über die Schicht. Ein steigender Mittelwert des Stroms über eine Woche kann schlicht bedeuten, dass andere Teile gefertigt wurden.</p>
+      <p>Der sauberste Weg ist eine <strong>feste Vergleichsfahrt</strong>: ein kurzes NC-Programm, das jede Achse ohne Bearbeitung immer gleich bewegt. Nicht zu verwechseln mit der Referenzpunktfahrt beim Einschalten, die nur den Nullpunkt bestimmt. Bewährt haben sich diese Regeln:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Regel</th><th>Warum</th></tr></thead>
+          <tbody>
+            <tr><td>Gleiches Programm, gleiche Vorschübe, Override fest</td><td>Nur dann sind Strom und Schleppfehler direkt vergleichbar.</td></tr>
+            <tr><td>Möglichst ganzer Verfahrweg, beide Richtungen</td><td>Örtliche Schäden zeigen sich nur an ihrer Position, Spiel nur bei der Umkehr.</td></tr>
+            <tr><td>Mehrere Geschwindigkeiten, darunter eine langsame</td><td>Reibung und Ruckgleiten fallen bei kleinem Vorschub am stärksten auf.</td></tr>
+            <tr><td>Gleicher thermischer Zustand, etwa nach festem Warmlauf</td><td>Schmierstoff und Mechanik verhalten sich kalt anders als warm.</td></tr>
+            <tr><td>Werte nach Position und Richtung ablegen, nicht nur als Mittelwert</td><td>Ein Mittelwert verschmiert genau die örtlichen Auffälligkeiten.</td></tr>
+            <tr><td>Wartung und Eingriffe mit Datum notieren</td><td>Nach Schmierung oder Tausch beginnt ein neuer Vergleichsstand.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Wer diese Fahrt regelmäßig ausführt und die Ergebnisse übereinanderlegt, sieht Veränderungen, die im Produktionsbetrieb untergehen. Entscheidend ist der Vergleich mit dem eigenen Ausgangszustand der Achse, nicht mit einem allgemeinen Grenzwert. Das ist dasselbe Prinzip, das wir an der Spindel mit der gelernten Normallage verfolgen. Mehr dazu im Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">feste Schwellen oder gelernte Normallage</a>.</p>
+
+      <h2 id="selbst-pruefen">Was Instandhalter selbst prüfen und messen können</h2>
+      <p>Viele Verschleißmuster an Vorschubachsen lassen sich mit Bordmitteln und üblichen Messgeräten eingrenzen:</p>
+      <ul>
+        <li><strong>Umkehrspiel mit Messuhr:</strong> Achse in eine Richtung anfahren, Messuhr ansetzen, kleinen Weg in Gegenrichtung fahren und ablesen, wann sich der Schlitten bewegt. An mehreren Positionen wiederholen, weil sich Spiel über den Verfahrweg ändern kann.</li>
+        <li><strong>Kreisformtest:</strong> Mit einem Kreisformmessgerät (Ballbar) lassen sich Umkehrspitzen, Spiel und Abstimmungsfehler zweier Achsen sichtbar machen. Das Verfahren ist in ISO 230-4 beschrieben. Regelmäßig wiederholt, liefert es einen guten Trend.</li>
+        <li><strong>Positioniergenauigkeit:</strong> Mit einem Laserinterferometer nach ISO 230-2 lassen sich Positionierfehler und Wiederholbarkeit entlang der Achse messen. Das ist meist ein Dienstleistereinsatz, aber eine wertvolle Referenz.</li>
+        <li><strong>Schmierung:</strong> Füllstand und Funktion der Zentralschmierung prüfen, Leitungen zu Mutter und Führungswagen auf Bruch oder Verstopfung kontrollieren.</li>
+        <li><strong>Abstreifer und Abdeckungen:</strong> Beschädigte Abstreifer an den Führungswagen und undichte Teleskopabdeckungen lassen Späne und Kühlschmierstoff an die Laufbahnen.</li>
+        <li><strong>Geräusch und Gefühl:</strong> Bei langsamer Handfahrt auf ungleichmäßigen Lauf, Rattern oder Klopfen an bestimmten Positionen achten.</li>
+        <li><strong>Kompensationswerte:</strong> Wie haben sich Umkehrspielkompensation und Spindelsteigungsfehlerkompensation seit der Inbetriebnahme verändert? Ein mehrfach nachgestellter Wert ist selbst ein Trend.</li>
+      </ul>
+      <p>Die Maße am Werkstück sind ebenfalls ein Signal, oft das erste. Wenn die Qualitätssicherung Formfehler an Kreisen oder Versatz nach Richtungswechseln meldet, lohnt sich der Blick auf die Achse, bevor man das Programm ändert.</p>
+
+      <h2 id="stand">Was wir heute tun und was noch fehlt</h2>
+      <p>Im Pilot lesen wir Achssignale wie Last und Schleppfehler mit, soweit die Steuerung sie bereitstellt. Wir speichern sie, um zu verstehen, wie stabil sie im echten Betrieb sind und wie sich Vergleichsbedingungen automatisch erkennen lassen. Eine Bewertung und Meldungen gibt es dafür noch nicht. Wir werden sie erst anbieten, wenn wir an realen Maschinen gezeigt haben, dass die Aussagen belastbar sind. Am Zugriff ändert sich dabei nichts: Unser System liest nur und schreibt nichts in die Steuerung.</p>
+      <p>Heute überwachen wir die Spindel und ihre Lager mit einem eigenen Schwingungssensor und einer Bewertung gegen die gelernte Normallage. Wie das funktioniert, steht im <a href="blog-spindelueberwachung-cnc-leitfaden.html">Leitfaden zur Spindelüberwachung</a>. Den aktuellen Umfang finden Sie auf der Seite <a href="cnc-fraeszentren.html">Leistung für CNC-Fräszentren</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Wie erkenne ich Verschleiß am Kugelgewindetrieb?</summary><p>Typische Zeichen sind wachsendes Umkehrspiel, Formfehler an Kreisen bei Richtungswechseln, ungleichmäßiger Lauf und Geräusche an bestimmten Positionen. Messen lässt sich das mit Messuhr, Kreisformtest und Laserinterferometer. In den Steuerungsdaten zeigt es sich als veränderter Motorstrom oder Schleppfehler bei immer gleicher Vergleichsfahrt.</p></details>
+        <details class="faq-item"><summary>Was bedeutet ein steigender Schleppfehler an einer CNC-Achse?</summary><p>Bei gleicher Bewegung und unveränderten Reglereinstellungen deutet er auf mehr Reibung, mehr Spiel oder eine veränderte Last hin. Allein ist er kein Befund. Prüfen Sie zuerst, ob Programm, Vorschub, Reglerparameter und Temperatur vergleichbar waren.</p></details>
+        <details class="faq-item"><summary>Reicht die Umkehrspielkompensation der Steuerung aus?</summary><p>Sie gleicht einen festen Betrag aus und ist für ein konstantes, kleines Spiel gedacht. Wächst das Spiel durch Verschleiß oder ändert es sich über den Verfahrweg, stimmt der Wert nicht mehr. Ein häufig nachgestellter Kompensationswert ist ein Hinweis, die Mechanik zu prüfen.</p></details>
+        <details class="faq-item"><summary>Kann man Linearführungen im Betrieb überwachen?</summary><p>Grundsätzlich ja, über den Motorstrom bei gleicher Fahrt und über Schwingungs- oder Geräuschmessungen am Führungswagen. Entscheidend ist der Vergleich mit dem eigenen Ausgangszustand. Schmierung und Abstreifer zu prüfen, bleibt trotzdem die wichtigste vorbeugende Maßnahme.</p></details>
+        <details class="faq-item"><summary>Überwacht Forbach &amp; Partners Vorschubachsen?</summary><p>Noch nicht. Die Achsüberwachung ist in Entwicklung. Im Pilot zeichnen wir Achssignale auf, bewerten sie aber noch nicht. Heute überwachen wir Spindel und Spindellager.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Weitere Baugruppen</span><a href="blog-kuehlmittelueberwachung-cnc-fraeszentren.html">Kühlmittelüberwachung an CNC-Fräszentren: Kühlschmierstoff und Spindelkühlung</a></li>
+<li><span class="label">Weitere Baugruppen</span><a href="blog-werkzeugwechsler-cnc-ausfall-frueher-erkennen.html">Werkzeugwechsler an CNC-Bearbeitungszentren: Fehlerbilder und Frühzeichen</a></li>
+<li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
   </div>
 </div>
 
-<footer>
-  <div class="f-logo">FORBACH &amp; PARTNERS</div>
-  <div class="f-tag">Predictive Intelligence · CNC-Fräszentren · Industry 4.0</div>
-  <div class="f-links">
-    <a class="f-link" href="index.html">Home</a>
-    <a class="f-link" href="ueber-uns.html">Über uns</a>
-    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
-    <a class="f-link" href="blog.html">Blog</a>
-    <a class="f-link" href="kontakt.html">Kontakt</a>
-    <a class="f-link" href="impressum.html">Impressum</a>
-    <a class="f-link" href="datenschutz.html">Datenschutz</a>
-  </div>
-  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
-</footer>
-
+<script src="assets/site.js" defer></script>
 </body>
 </html>

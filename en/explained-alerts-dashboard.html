@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explained Alerts: How Maintenance Reads the Monitoring Dashboard · Forbach &amp; Partners</title>
+<meta name="description" content="What an explained alert looks like: level, component, feature, deviation from the learned baseline, inspection advice and feedback from maintenance.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/explained-alerts-dashboard.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-meldung-mit-begruendung-dashboard.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/explained-alerts-dashboard.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-meldung-mit-begruendung-dashboard.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Explained Alerts: How Maintenance Reads the Monitoring Dashboard · Forbach &amp; Partners">
+<meta property="og:description" content="What an explained alert looks like: level, component, feature, deviation from the learned baseline, inspection advice and feedback from maintenance.">
+<meta property="og:url" content="https://forbachandpartners.com/en/explained-alerts-dashboard.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it", "description": "What an explained alert looks like: level, component, feature, deviation from the learned baseline, inspection advice and feedback from maintenance.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/explained-alerts-dashboard.html", "articleSection": "Our system", "wordCount": 2126}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it", "item": "https://forbachandpartners.com/en/explained-alerts-dashboard.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does a condition monitoring alert contain?", "acceptedAnswer": {"@type": "Answer", "text": "The suspected damage pattern, machine, measuring point and speed, the level with its urgency, an inspection recommendation and the explanation. The explanation names the conspicuous feature in plain language and how much higher it is than in the learned baseline of this machine."}}, {"@type": "Question", "name": "How many false alarms should you expect from vibration monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on the machine, the machining and the thresholds and cannot be quantified across the board. Our system only reports a level after three measurements in a row and only lets it drop again after three measurements. This suppresses individual outliers. The thresholds are calibrated using the test rig and feedback."}}, {"@type": "Question", "name": "Does clicking \"False alarm\" adjust the thresholds automatically?", "acceptedAnswer": {"@type": "Answer", "text": "Not through a single click. Feedback is stored and analysed to calibrate the thresholds. Today we do this by hand. Automatic adjustment will be added. It will evaluate many pieces of feedback together and remain traceable, so that monitoring does not become insensitive without anyone noticing."}}, {"@type": "Question", "name": "Does the system say how long the spindle will last?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no estimate of remaining useful life, because the basis for one is missing. The alert says what was measured, how much it deviates and what to inspect."}}, {"@type": "Question", "name": "Who in the plant can assess alerts?", "acceptedAnswer": {"@type": "Answer", "text": "Maintenance engineers and the customer's administrator. Users with read-only rights can see alerts and assessments but cannot change anything. Every assessment is logged with the person and the time."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-meldung-mit-begruendung-dashboard.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</h1>
+      <p class="lead">A red light on its own helps nobody in maintenance. Our alerts say what stands out, where, by how much, how urgent it is and what to inspect. And they ask back whether they were right.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>11 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#structure">Structure of an alert with an explanation</a></li>
+<li><a href="#feature">Feature and size of the deviation in plain language</a></li>
+<li><a href="#levels">Level and urgency: what to do at which level</a></li>
+<li><a href="#dashboard">Where the alert appears in the dashboard</a></li>
+<li><a href="#feedback">Feedback: "That's right", "False alarm", "Not sure yet"</a></li>
+<li><a href="#thresholds">How feedback sharpens the thresholds</a></li>
+<li><a href="#forwarding">Forwarding, export and monthly report</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A monitoring system is only as good as the alert that finally reaches the maintenance engineer. "Spindle 1: alarm" is not useful information. Anyone who receives something like that first has to find out what was measured, whether it really is unusual and what to do now. That is why every alert in our system is an <strong>alert with an explanation</strong>. It names the suspected component, the conspicuous feature, the size of the deviation from the learned baseline, i.e. the normal state of this spindle, the urgency and an inspection recommendation in plain language. This article goes through it field by field: what it says, how it is produced and what the maintenance engineer should do with it.</p>
+
+      <h2 id="structure">Structure of an alert with an explanation</h2>
+      <p>An alert in the dashboard always has the same five parts. The order follows the questions a maintenance engineer asks when reading it:</p>
+      <ol>
+        <li><strong>What:</strong> a headline with the suspected damage pattern, for example "Outer race bearing damage suspected (spindle bearing)" or "Unbalance suspected (once-per-revolution vibration increased)".</li>
+        <li><strong>Where:</strong> machine, measuring point and the speed at which the deviation occurs, such as "MC 3, measuring point spindle_front, at 8,000 rpm".</li>
+        <li><strong>How urgent:</strong> the level Noticeable, Warning or Alarm, with a fixed sentence on what that level means.</li>
+        <li><strong>What to inspect:</strong> a specific inspection recommendation matching the damage pattern.</li>
+        <li><strong>Why we say this:</strong> the explanation with the feature, the comparison with the baseline and, if available, the finding in the envelope spectrum.</li>
+      </ol>
+      <p>Below that is the question "Is the alarm right?" with three buttons. More on this further down.</p>
+      <div class="callout">
+        <p class="label">Example, structured as in the system</p>
+        <p><strong>Warning.</strong> Outer race bearing damage suspected (spindle bearing). MC 3, measuring point spindle_front, at 8,000 rpm. <em>How urgent:</em> schedule an inspection at the next opportunity. <em>What to inspect:</em> inspect the spindle bearing (outer race): running noise, bearing temperature, lubrication. Discuss the finding with the spindle service provider. <em>Why:</em> the vibration at the outer race fault frequency is 3.4 times as high as in the learned baseline of this machine (Warning). Finding in the envelope spectrum: outer race, 16 dB above the noise floor. Confirmed over several consecutive measurements.</p>
+      </div>
+      <p>The figures in the example are assumed. The sentences, however, are exactly the building blocks from which the system assembles the alert. There are no freely worded texts and no estimate of remaining useful life. There is no sound basis for a credible remaining useful life, so we do not claim one.</p>
+
+      <h2 id="feature">Feature and size of the deviation in plain language</h2>
+      <p>Behind every alert are features that the edge box calculates from the vibration signal at the machine. In the data contract they have technical names such as <code>env_bpfo</code> or <code>crest_factor</code>. These names do not appear in the dashboard. Instead, it states what the feature means:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Feature</th><th>How it appears in the dashboard</th></tr></thead>
+          <tbody>
+            <tr><td>RMS</td><td>Vibration severity (RMS)</td></tr>
+            <tr><td>Peak value</td><td>Peak vibration value</td></tr>
+            <tr><td>Crest factor, kurtosis</td><td>Impulsiveness (crest factor) or impulsiveness (kurtosis)</td></tr>
+            <tr><td>1st and 2nd order</td><td>Vibration once or twice per revolution</td></tr>
+            <tr><td>Envelope at BPFO, BPFI, BSF</td><td>Vibration at the outer race, inner race or rolling element fault frequency</td></tr>
+            <tr><td>Envelope at FTF</td><td>Vibration at the cage frequency</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The size of the deviation is given as a factor relative to the baseline: "3.4 times as high as in the learned baseline of this machine". Anyone on the shop floor can understand that. Internally, the system calculates a robust deviation, i.e. the distance from the median divided by the learned spread. Only increases count. Exactly how this works is described in the article <a href="learning-the-baseline.html">Learning the baseline: the learning phase in practice</a>. The explanation names at most the two largest deviations, so that the alert stays readable.</p>
+      <p>If there is also a finding in the envelope spectrum, it is shown alongside, with its distance from the noise floor in decibels. The system only considers bearing damage as seen when its fundamental frequency and at least one harmonic are clearly above the noise floor. How these frequencies arise is explained in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+
+      <h2 id="levels">Level and urgency: what to do at which level</h2>
+      <p>The system has four levels. Which level applies depends on how far the most conspicuous feature lies above the baseline. The thresholds are starting values. They do not come from a standard or from the manufacturer, but are calibrated on the test rig and with feedback from operation.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Level → what to do</caption>
+          <thead><tr><th>Level</th><th>Deviation (starting value)</th><th>Text in the system</th><th>What the maintenance engineer does</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td class="m">below 4</td><td>no alert</td><td>Nothing. The machine is running within the band of its baseline.</td></tr>
+            <tr><td>Noticeable</td><td class="m">from 4</td><td>keep an eye on it, no immediate action needed</td><td>Keep an eye on the trend in the dashboard. Listen for noise and check temperature on the next walk-round.</td></tr>
+            <tr><td>Warning</td><td class="m">from 8</td><td>schedule an inspection at the next opportunity</td><td>Schedule the recommended inspection for the next planned downtime. Clarify spare parts and service.</td></tr>
+            <tr><td>Alarm</td><td class="m">from 15</td><td>inspect promptly, increased risk of failure</td><td>Carry out the inspection promptly. Agree with production whether the machine should keep running until then.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Two rules keep the levels steady. First, a level only applies once it has been reached in <strong>three measurements in a row</strong>. A single impact, for example during a tool change, therefore triggers nothing. Second, the same rule applies downwards: a level only drops once three measurements in a row are below it. A value hovering just around a threshold therefore does not make the display flicker. A new alert is only raised when the level rises. If a warning persists, the maintenance engineer does not receive the same alert again with every measurement.</p>
+
+      <h3 id="inspection-advice">The inspection recommendation: what to inspect</h3>
+      <p>The inspection recommendation depends on the damage pattern. It is deliberately practical and refers to the spindle service provider where an inspection without dismantling cannot go any further:</p>
+      <ul>
+        <li><strong>Outer race, inner race, rolling element:</strong> inspect the spindle bearing: running noise, bearing temperature, lubrication. Discuss the finding with the spindle service provider.</li>
+        <li><strong>Cage:</strong> inspect the spindle bearing: running noise, lubrication.</li>
+        <li><strong>Unbalance (once per revolution):</strong> check the tool and workholding for unbalance, contamination and seating, check the balance condition.</li>
+        <li><strong>Twice per revolution:</strong> check alignment and mounting, i.e. loose parts and distortion.</li>
+        <li><strong>Increased impulsiveness:</strong> indication of possible incipient bearing damage. Inspect the spindle bearing: running noise, temperature, lubrication.</li>
+        <li><strong>Generally increased vibration severity:</strong> check the tool, workholding, mounting and spindle bearing.</li>
+      </ul>
+      <p>The recommendation does not replace a diagnosis by a specialist. It says where to look first. With unbalance in particular, the cause often lies not in the spindle but in the tool or the workholding. That is cheaper to check and fix than any bearing change. More on this in the article <a href="order-analysis-spindle-unbalance.html">Order analysis and spindle unbalance</a>.</p>
+
+      <h2 id="dashboard">Where the alert appears in the dashboard</h2>
+      <p>The dashboard is deliberately calm. The home page opens with one sentence on the overall situation, for example "2 of 9 machines need attention." or "All machines are running within their usual range." Below that come the machines, sorted by level, with the most conspicuous at the top. Each machine shows the headline of its most recent open alert.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Path from the overview to a single alert across three levels">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="196" height="64" rx="2"/><rect x="242" y="40" width="196" height="64" rx="2"/><rect x="472" y="40" width="196" height="64" rx="2"/>
+          </g>
+          <path d="M212 72 l24 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <path d="M442 72 l24 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="110" y="68" text-anchor="middle" style="fill:var(--ink)">1 Overview</text><text x="110" y="86" text-anchor="middle">Machines by level</text>
+          <text x="340" y="68" text-anchor="middle" style="fill:var(--ink)">2 Machine</text><text x="340" y="86" text-anchor="middle">Trend per measuring point</text>
+          <text x="570" y="68" text-anchor="middle" style="fill:var(--ink)">3 Alert</text><text x="570" y="86" text-anchor="middle">What, where, why</text>
+          <text x="340" y="132" text-anchor="middle">Feedback "Is the alarm right?" directly in the alert</text>
+        </svg>
+        <figcaption>Three levels: overview of all machines, trend per measuring point and speed, single alert with explanation.</figcaption>
+      </figure>
+      <p>On a machine's page there is a separate card for each measuring point and speed range. It shows the current level and the trend of the currently most conspicuous feature over the last measurements, plotted against the band of the baseline. The maintenance engineer can therefore see whether a value has suddenly jumped or has been rising slowly for days. Below that are the latest alerts for this machine with their feedback. A separate list shows all alerts, or on request only the open ones, i.e. those without feedback.</p>
+      <p>The dashboard runs in the browser, and on a mobile phone with large buttons. Login requires a password and a second factor from an authenticator app. What else we secure is described on the page <a href="data-security.html">Data security</a>.</p>
+
+      <h2 id="feedback">Feedback: "That's right", "False alarm", "Not sure yet"</h2>
+      <p>Below every alert is the question "Is the alarm right?". The maintenance engineer has three answers (German UI: "Das stimmt", "Fehlalarm", "Weiß ich noch nicht"):</p>
+      <ul>
+        <li><strong>That's right:</strong> the inspection confirmed the finding, for example a bearing with running noise or a tool with unbalance.</li>
+        <li><strong>False alarm:</strong> the inspection found nothing, and there is no other reason for the deviation either.</li>
+        <li><strong>Not sure yet:</strong> the inspection is still pending or the result is unclear, for example because the spindle service provider has not yet been.</li>
+      </ul>
+      <p>Maintenance engineers and the customer's administrator can give feedback. Users with read-only rights can see the feedback but cannot set it. Every piece of feedback is recorded in the audit log with the person and the time. An alert without feedback counts as open and stays in the list of open alerts until someone assesses it.</p>
+
+      <h2 id="thresholds">How feedback sharpens the thresholds</h2>
+      <p>The thresholds 4, 8 and 15 are starting values. Whether they are too sensitive or too sluggish for a particular spindle type only becomes clear in operation. That is exactly what the feedback is for. For each alert, the level, features, deviation and the maintenance engineer's assessment are available together. From this you can see for which features and deviations the alerts are accurate and where false alarms cluster. We calibrate the thresholds using this data and the results from the test rig.</p>
+      <p>It is important what does not happen: a single click on "False alarm" does not automatically adjust a threshold. That would be dangerous. A maintenance engineer under time pressure who presses "False alarm" three times could otherwise switch off the monitoring of their own spindle without noticing. We change thresholds transparently and for stated reasons, not in the background. Why we rely on a transparent method rather than opaque automation is explained in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">fixed thresholds or a learned baseline</a>.</p>
+      <p>For you as a customer, this means: the more carefully the feedback is given, the better the thresholds fit your machines. "Not sure yet" is an honest answer and better than a guessed "False alarm". The assessment can be changed later once the inspection result is available.</p>
+
+      <h2 id="forwarding">Forwarding, export and monthly report</h2>
+      <p>The platform also forwards alerts from the Warning level upwards to our service portal. The level from which this happens is configurable. This way we also see when something serious shows up on one of your machines and can help to interpret it. Notification by email or push message is planned; today, alerts appear in the dashboard and in the service portal.</p>
+      <p>The customer's administrator can export all data at any time: machines, features, baselines and alerts with feedback. A monthly PDF report per customer is planned. It is intended to summarise which alerts there were, how they were assessed and how the machines developed over the month. Today it is not yet part of the system, so we do not promise it as a finished feature. How a pilot runs and when which feature will be available is something we discuss in the <a href="contact.html">introductory call</a>. You will find the overall process under <a href="process.html">Process and prerequisites</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What does a condition monitoring alert contain?</summary><p>The suspected damage pattern, machine, measuring point and speed, the level with its urgency, an inspection recommendation and the explanation. The explanation names the conspicuous feature in plain language and how much higher it is than in the learned baseline of this machine.</p></details>
+        <details class="faq-item"><summary>How many false alarms should you expect from vibration monitoring?</summary><p>That depends on the machine, the machining and the thresholds and cannot be quantified across the board. Our system only reports a level after three measurements in a row and only lets it drop again after three measurements. This suppresses individual outliers. The thresholds are calibrated using the test rig and feedback.</p></details>
+        <details class="faq-item"><summary>Does clicking "False alarm" adjust the thresholds automatically?</summary><p>Not through a single click. Feedback is stored and analysed to calibrate the thresholds. Today we do this by hand. Automatic adjustment will be added. It will evaluate many pieces of feedback together and remain traceable, so that monitoring does not become insensitive without anyone noticing.</p></details>
+        <details class="faq-item"><summary>Does the system say how long the spindle will last?</summary><p>No. There is no estimate of remaining useful life, because the basis for one is missing. The alert says what was measured, how much it deviates and what to inspect.</p></details>
+        <details class="faq-item"><summary>Who in the plant can assess alerts?</summary><p>Maintenance engineers and the customer's administrator. Users with read-only rights can see alerts and assessments but cannot change anything. Every assessment is logged with the person and the time.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li>
+<li><span class="label">Our system</span><a href="edge-box-condition-monitoring.html">The edge box for condition monitoring: design, tasks and behaviour during network outages</a></li>
+<li><span class="label">Our system</span><a href="from-vibration-to-alert-processing-chain.html">From vibration to alert: our system&#x27;s processing chain according to ISO 13374</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

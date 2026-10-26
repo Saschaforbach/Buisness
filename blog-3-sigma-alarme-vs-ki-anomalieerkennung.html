@@ -1,335 +1,259 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht | Forbach &amp; Partners</title>
-<meta name="description" content="Die klassische Schwellenwert-Überwachung meldet Alarme erst, wenn es schon fast zu spät ist. Wie Isolation Forest und LSTM-Netzwerke Muster erkennen, die kein Mensch und kein einfacher Schwellenwert sieht.">
-<meta name="keywords" content="Isolation Forest, LSTM, 3-Sigma, Anomalieerkennung, Vibration">
-<meta name="author" content="Sascha Forbach, Forbach and Partners Ltd">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3 Sigma, feste Schwellen oder Normallage: Alarme in der Zustandsüberwachung · Forbach &amp; Partners</title>
+<meta name="description" content="Warum feste Grenzwerte und 3-Sigma-Alarme in der Zustandsüberwachung oft Fehlalarme erzeugen und wie Median, MAD und Persistenz das an CNC-Spindeln lösen.">
+<meta name="theme-color" content="#16181a">
 <link rel="canonical" href="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
-
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
 <meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Forbach &amp; Partners">
-<meta property="og:title" content="Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht">
-<meta property="og:description" content="Die klassische Schwellenwert-Überwachung meldet Alarme erst, wenn es schon fast zu spät ist. Wie Isolation Forest und LSTM-Netzwerke Muster erkennen, die kein Mensch und kein einfacher Schwellenwert sieht.">
+<meta property="og:title" content="3 Sigma, feste Schwellen oder Normallage: Alarme in der Zustandsüberwachung · Forbach &amp; Partners">
+<meta property="og:description" content="Warum feste Grenzwerte und 3-Sigma-Alarme in der Zustandsüberwachung oft Fehlalarme erzeugen und wie Median, MAD und Persistenz das an CNC-Spindeln lösen.">
 <meta property="og:url" content="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
-<meta property="article:published_time" content="2026-05-20">
-<meta property="article:author" content="Sascha Forbach">
-<meta property="article:section" content="Technologie">
-<meta property="article:tag" content="Isolation Forest">
-<meta property="article:tag" content="LSTM">
-<meta property="article:tag" content="3-Sigma">
-<meta property="article:tag" content="Anomalieerkennung">
-<meta property="article:tag" content="Vibration">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht">
-<meta name="twitter:description" content="Die klassische Schwellenwert-Überwachung meldet Alarme erst, wenn es schon fast zu spät ist. Wie Isolation Forest und LSTM-Netzwerke Muster erkennen, die kein Mensch und kein einfacher Schwellenwert sieht.">
-
-<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht",
-  "description": "Die klassische Schwellenwert-Überwachung meldet Alarme erst, wenn es schon fast zu spät ist. Wie Isolation Forest und LSTM-Netzwerke Muster erkennen, die kein Mensch und kein einfacher Schwellenwert sieht.",
-  "datePublished": "2026-05-20",
-  "dateModified": "2026-05-20",
-  "inLanguage": "de",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "Sascha Forbach",
-    "url": "https://forbachandpartners.com/ueber-uns.html"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Forbach and Partners Ltd",
-    "url": "https://forbachandpartners.com"
-  },
-  "keywords": "Isolation Forest, LSTM, 3-Sigma, Anomalieerkennung, Vibration",
-  "articleSection": "Technologie",
-  "url": "https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://forbachandpartners.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": "https://forbachandpartners.com/blog.html"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht",
-      "item": "https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html"
-    }
-  ]
-}
-</script>
-
-<style>
-:root {
-  --gold: #e4b15e; --gold-light: #f8dfa5; --gold-dark: #c49040;
-  --black: #000; --dark-2: #0e0e0e; --dark-3: #141414; --dark-card: #111;
-  --border: rgba(228,177,94,0.15); --border-strong: rgba(228,177,94,0.38);
-  --text: #fff; --text-dim: #a0a0a0; --text-muted: #555;
-  --font-d: 'Oswald', sans-serif; --font-b: 'Raleway', sans-serif; --font-m: 'JetBrains Mono', monospace;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--black); color: var(--text); font-family: var(--font-b); line-height: 1.6; overflow-x: hidden; }
-a { color: var(--gold); }
-
-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1.5rem;
-  padding: 1rem 2rem; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border); }
-.nav-logo { font-family: var(--font-d); font-size: 1.05rem; letter-spacing: 2px; color: var(--text);
-  text-decoration: none; margin-right: auto; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.5px; transition: color .2s; }
-.nav-link:hover, .nav-link.active { color: var(--gold); }
-.nav-cta { background: linear-gradient(135deg, #e4b15e, #c49040); color: #000; text-decoration: none;
-  font-size: 0.75rem; font-weight: 700; padding: 9px 18px; border-radius: 6px; white-space: nowrap; }
-@media (max-width: 760px) { .nav-link { display: none; } }
-
-.article-wrap { max-width: 800px; margin: 0 auto; padding: 3.5rem 1.5rem 4rem; }
-.back-link { display: inline-block; font-family: var(--font-m); font-size: 0.65rem; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 2rem; transition: color .2s; }
-.back-link:hover { color: var(--gold); }
-
-.detail-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.detail-cat { display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(228,177,94,0.1); border: 1px solid var(--border-strong);
-  border-radius: 5px; padding: 4px 12px;
-  font-family: var(--font-m); font-size: 0.58rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.detail-date, .detail-read-time { font-family: var(--font-m); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 1px; }
-
-h1.detail-title { font-family: var(--font-d); font-size: clamp(2rem, 5vw, 3.4rem);
-  letter-spacing: 1.5px; line-height: 1.05; margin-bottom: 1.5rem; }
-.detail-lead { font-size: 1.1rem; color: var(--text-dim); line-height: 1.8;
-  border-left: 3px solid var(--gold); padding-left: 1.25rem; margin-bottom: 2.5rem; }
-
-.detail-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.85; }
-.detail-body h2 { font-family: var(--font-d); font-size: 1.8rem; color: var(--text);
-  letter-spacing: 1px; margin: 2.5rem 0 0.85rem; }
-.detail-body h3 { font-family: var(--font-d); font-size: 1.3rem; color: var(--gold-light);
-  letter-spacing: 1px; margin: 1.75rem 0 0.6rem; }
-.detail-body p { margin-bottom: 1.25rem; }
-.detail-body ul, .detail-body ol { margin: 0.5rem 0 1.25rem 1.5rem; }
-.detail-body li { margin-bottom: 0.4rem; }
-.detail-body strong { color: var(--text); font-weight: 700; }
-.detail-body code { background: rgba(228,177,94,0.1); border: 1px solid var(--border);
-  border-radius: 4px; padding: 2px 7px; font-family: var(--font-m); font-size: 0.82em; color: var(--gold-light); }
-.detail-body pre { background: var(--dark-3); border: 1px solid var(--border);
-  border-radius: 10px; padding: 1.25rem; overflow-x: auto;
-  font-family: var(--font-m); font-size: 0.8rem; color: #a8e6cf; margin: 1.25rem 0; line-height: 1.6; }
-.detail-body blockquote { background: rgba(228,177,94,0.05); border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0; padding: 1rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: var(--text-dim); }
-.detail-body .highlight-box { background: linear-gradient(135deg, rgba(228,177,94,0.08), rgba(228,177,94,0.03));
-  border: 1px solid var(--border-strong); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
-.detail-body .stat-highlight { font-family: var(--font-d); font-size: 2.5rem; color: var(--gold);
-  display: block; margin-bottom: 0.25rem; }
-
-.detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2.5rem 0 1rem; }
-.detail-tag { font-family: var(--font-m); font-size: 0.55rem; color: var(--text-muted);
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px; padding: 3px 9px; letter-spacing: 0.8px; text-transform: uppercase; }
-.detail-author { background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 2.5rem; }
-.author-avatar { width: 48px; height: 48px; border-radius: 50%;
-  background: linear-gradient(135deg, #e4b15e, #c49040);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-d); font-size: 1.2rem; color: #000; flex-shrink: 0; }
-.author-name { font-weight: 700; font-size: 0.95rem; }
-.author-role { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-
-.related { margin-top: 3.5rem; border-top: 1px solid var(--border); padding-top: 2rem; }
-.related h2 { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 1.25rem; }
-.related-card { display: block; background: var(--dark-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 1.1rem 1.35rem; margin-bottom: 0.8rem; text-decoration: none; transition: border-color .2s; }
-.related-card:hover { border-color: var(--border-strong); }
-.related-card .rc-cat { font-family: var(--font-m); font-size: 0.55rem; color: var(--gold);
-  letter-spacing: 1.5px; text-transform: uppercase; }
-.related-card .rc-title { color: var(--text); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
-
-.cta-box { margin-top: 3rem; background: linear-gradient(135deg, rgba(228,177,94,0.1), rgba(228,177,94,0.04));
-  border: 1px solid var(--border-strong); border-radius: 14px; padding: 1.75rem; text-align: center; }
-.cta-box h2 { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 0.5rem; }
-.cta-box p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem; }
-.cta-btn { display: inline-block; background: linear-gradient(135deg, #e4b15e, #c49040); color: #000;
-  text-decoration: none; font-weight: 700; font-size: 0.85rem; padding: 12px 26px; border-radius: 8px; }
-
-footer { background: var(--dark-2); border-top: 1px solid var(--border); padding: 3rem 2rem 2rem; text-align: center; }
-.f-logo { font-family: var(--font-d); font-size: 1.6rem; letter-spacing: 2px;
-  background: linear-gradient(135deg, #e4b15e, #f8dfa5, #e4b15e);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.35rem; }
-.f-tag { font-family: var(--font-m); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-.f-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.f-link { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; font-family: var(--font-m); letter-spacing: 1px; transition: color 0.2s; }
-.f-link:hover { color: var(--gold); }
-.f-copy { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-m); border-top: 1px solid var(--border); padding-top: 1.25rem; }
-</style>
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen", "description": "Warum feste Grenzwerte und 3-Sigma-Alarme in der Zustandsüberwachung oft Fehlalarme erzeugen und wie Median, MAD und Persistenz das an CNC-Spindeln lösen.", "inLanguage": "de-DE", "datePublished": "2026-05-20", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html", "articleSection": "Methode", "wordCount": 2034}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen", "item": "https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was bedeutet 3 Sigma bei der Schwingungsüberwachung?", "acceptedAnswer": {"@type": "Answer", "text": "Ein Alarm wird ausgelöst, wenn ein Kennwert mehr als drei Standardabweichungen über dem Mittelwert einer Lernphase liegt. Bei normalverteilten Daten trifft das auf etwa 0,13 Prozent der Werte zu. Schwingungskennwerte sind aber oft schief verteilt und enthalten Ausreißer, deshalb funktioniert die Regel in der Praxis schlechter als in der Theorie."}}, {"@type": "Question", "name": "Warum hat meine Zustandsüberwachung so viele Fehlalarme?", "acceptedAnswer": {"@type": "Answer", "text": "Häufige Ursachen sind feste Grenzwerte, die nicht zur einzelnen Maschine passen, Lernphasen mit Ausreißern, eine fehlende Trennung nach Drehzahl und Alarme auf Einzelmessungen. Abhilfe schaffen robuste Statistik, eine Normallage je Drehzahlklasse und eine Meldung erst nach mehreren auffälligen Messungen in Folge."}}, {"@type": "Question", "name": "Was ist der Unterschied zwischen MAD und Standardabweichung?", "acceptedAnswer": {"@type": "Answer", "text": "Die Standardabweichung quadriert die Abstände zum Mittelwert, ein einzelner Ausreißer wirkt deshalb stark. Die MAD ist der Median der absoluten Abstände zum Median und wird von Ausreißern kaum beeinflusst. Mit dem Faktor 1,4826 entspricht sie bei normalverteilten Daten der Standardabweichung."}}, {"@type": "Question", "name": "Wie lange dauert es, bis die Normallage einer Spindel gelernt ist?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt davon ab, wie oft die Spindel in den jeweiligen Drehzahlbereichen läuft. Je Kombination aus Messstelle und Drehzahlklasse braucht das System mindestens 20 Messungen aus dem gesunden Betrieb. Häufig genutzte Drehzahlen sind deshalb früher bewertet als selten genutzte."}}, {"@type": "Question", "name": "Ist KI-Anomalieerkennung besser als statistische Grenzwerte?", "acceptedAnswer": {"@type": "Answer", "text": "Nicht automatisch. Modelle können Muster über viele Kennwerte hinweg finden, sind aber schwerer zu erklären und brauchen einen Nachweis auf Daten, die sie beim Lernen nicht gesehen haben. Ohne diesen Nachweis ist eine robuste, nachvollziehbare Statistik die verlässlichere Grundlage."}}]}</script>
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-logo">FORBACH &amp; PARTNERS</a>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="ueber-uns.html" class="nav-link">Über uns</a>
-  <a href="cnc-fraeszentren.html" class="nav-link">CNC-Anlagen</a>
-  <a href="blog.html" class="nav-link active">Blog</a>
-  <a href="kontakt.html" class="nav-link">Kontakt</a>
-  <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-</nav>
-
-<div class="article-wrap">
-  <a href="blog.html" class="back-link">← Alle Artikel</a>
-
-  <article itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="detail-eyebrow">
-      <span class="detail-cat">Technologie</span>
-      <span class="detail-date" itemprop="datePublished" content="2026-05-20">20. Mai 2026</span>
-      <span class="detail-read-time">· 7 Min. Lesezeit</span>
-    </div>
-    <h1 class="detail-title" itemprop="headline">Warum 3-Sigma-Alarme allein nicht ausreichen — und was KI besser macht</h1>
-    <div class="detail-body" itemprop="articleBody">
-<p class="detail-lead">
-        Die meisten Industriebetriebe überwachen ihre Maschinen heute noch mit starren Schwellenwerten: Sobald die Temperatur über 80 °C steigt oder die Vibration einen bestimmten mm/s-Wert überschreitet, schlägt das System Alarm. Das Problem: Zu diesem Zeitpunkt hat der Schaden meistens schon begonnen.
-      </p>
-
-      <h2>Das Problem mit klassischen Grenzwerten</h2>
-      <p>
-        Starre Schwellenwerte sind blind gegenüber dem <strong>Kontext</strong>. Eine Vibration von 4,2 mm/s bei einer frisch gewarteten Maschine bedeutet etwas völlig anderes als dieselbe Vibration nach 12.000 Betriebsstunden. Der klassische Alarm meldet beides gleich — oder gar nichts, weil der Wert gerade noch unterhalb der Grenze liegt.
-      </p>
-      <p>
-        Die Folge: entweder zu viele Fehlalarme (die Mitarbeiter ignorieren irgendwann) oder zu wenige Warnungen (der Ausfall kommt dann trotzdem).
-      </p>
-
-      <h2>Die 3-Sigma-Regel: besser, aber noch nicht gut genug</h2>
-      <p>
-        Unsere Basisalarmierung setzt auf die <strong>gleitende 3σ-Regel</strong>: Das System lernt kontinuierlich den Normalzustand der Maschine (Mittelwert μ und Standardabweichung σ) und schlägt Alarm, wenn der aktuelle RMS-Wert für mehr als 10 Sekunden über μ + 3σ liegt.
-      </p>
-      <div class="highlight-box">
-        <strong>Alarm-Formel:</strong><br>
-        <code>Schwellenwert = μ + 3 × σ</code><br><br>
-        Status wechselt von GRÜN → GELB nach der ersten Überschreitung,<br>
-        GELB → ROT nach 10 Sekunden anhaltender Überschreitung.
-      </div>
-      <p>
-        Das ist deutlich besser als feste Grenzwerte — aber es erkennt nur <em>Amplitudenanomalien</em>. Veränderungen im Frequenzmuster, im Crest-Faktor oder in der Kurtosis (Stoßhaftigkeit) bleiben unsichtbar.
-      </p>
-
-      <h2>Was Isolation Forest anders macht</h2>
-      <p>
-        Der Isolation Forest arbeitet mit einem <strong>6-dimensionalen Feature-Vektor</strong> pro Zeitfenster:
-      </p>
-      <ul>
-        <li><strong>RMS</strong> — Effektivwert (Gesamtenergie)</li>
-        <li><strong>Peak</strong> — Maximalamplitude</li>
-        <li><strong>Crest-Faktor</strong> — Peak/RMS (erkennt Impulse)</li>
-        <li><strong>Standardabweichung</strong></li>
-        <li><strong>Kurtosis</strong> — Stoßhaftigkeit (Lagerschäden!)</li>
-        <li><strong>Skewness</strong> — Asymmetrie des Signals</li>
-      </ul>
-      <p>
-        Aus diesen 6 Merkmalen lernt das Modell, was "normal" für genau diese Maschine ist. Datenpunkte, die schwer zu isolieren sind (weil sie wie alle anderen Punkte liegen), sind normal. Punkte, die sich leicht isolieren lassen, sind anomal.
-      </p>
-
-      <blockquote>
-        "Eine Kurtosis von 8,5 bei 2.000 Betriebsstunden ist ein früher Hinweis auf beginnenden Lagerschaden — Wochen bevor der Schaden messbar groß wird. Die 3-Sigma-Regel sieht das nicht. Der Isolation Forest schon."
-      </blockquote>
-
-      <h2>Fallbeispiel: CNC-Fräszentrum, Lager Achse B</h2>
-      <p>
-        Bei einem unserer Kunden zeigte das Lager der B-Achse über 18 Tage eine langsam steigende Kurtosis — von 3,2 auf 7,8 — während der RMS-Wert völlig stabil blieb. Der Isolation-Forest-Score stieg von 0,12 auf 0,71. Am Tag 19 löste das System einen AMBER-Alarm aus.
-      </p>
-      <div class="highlight-box">
-        <span class="stat-highlight">18 Tage</span>
-        Vorwarnzeit vor dem Lagerschaden
-        <br><br>
-        <span class="stat-highlight">€ 34.000</span>
-        Vermiedene Ausfallkosten (2 Schichten + Notfall-Reparatur)
-      </div>
-      <p>
-        Die Maschine wurde planmäßig nach der Frühschicht gewartet. Kein ungeplanter Stillstand, kein Folgeschaden an der Spindel.
-      </p>
-
-      <h2>Fazit: Die Kombination macht den Unterschied</h2>
-      <p>
-        Unser System setzt beide Methoden parallel ein: die 3σ-Regel als schnellen, reaktiven Layer — und den Isolation Forest als prädiktiven Layer für schleichende Veränderungen. Erst die Kombination ergibt die <strong>95,2% Prognose-Konfidenz</strong>, die wir unseren Kunden garantieren.
-      </p>
-    </div>
-    <div class="detail-tags">
-      <span class="detail-tag">Isolation Forest</span>
-      <span class="detail-tag">LSTM</span>
-      <span class="detail-tag">3-Sigma</span>
-      <span class="detail-tag">Anomalieerkennung</span>
-      <span class="detail-tag">Vibration</span>
-    </div>
-    <div class="detail-author">
-      <div class="author-avatar">SF</div>
-      <div>
-        <div class="author-name" itemprop="author">Sascha Forbach</div>
-        <div class="author-role">Forbach &amp; Partners · Gründer &amp; Experte</div>
-      </div>
-    </div>
-  </article>
-
-  <div class="cta-box">
-    <h2>UNGEPLANTE STILLSTÄNDE VERMEIDEN?</h2>
-    <p>Wir überwachen Ihre CNC-Maschinen mit KI-gestützter Sensorik — und melden Schäden Tage vor dem Ausfall.</p>
-    <a href="kontakt.html" class="cta-btn">Kostenloses Erstgespräch →</a>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/fixed-thresholds-3-sigma-vs-learned-baseline.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
   </div>
+</header>
 
-  <div class="related">
-    <h2>WEITERE ARTIKEL</h2>
-    <a class="related-card" href="blog-condition-monitoring-vs-predictive-maintenance.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">Condition Monitoring vs. Predictive Maintenance: Der Unterschied — und warum er über Ihren ROI entscheidet</div>
-    </a>
-    <a class="related-card" href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">Wälzlagerschaden früh erkennen: Diese Vibrationsmuster verraten alles</div>
-    </a>
-    <a class="related-card" href="blog-opc-ua-vs-mqtt-produktionsdaten.html">
-      <span class="rc-cat">Technologie</span>
-      <div class="rc-title">OPC UA vs. MQTT: Welches Protokoll für Ihre Produktionsdaten?</div>
-    </a>
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Methode</span></nav>
+      <h1>Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</h1>
+      <p class="lead">Ein Alarm ist nur so gut wie die Regel, die ihn auslöst. Wir vergleichen feste Grenzwerte, die 3-Sigma-Regel und eine robust gelernte Normallage und zeigen, wo maschinelles Lernen hilft und wo nicht.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>10 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#grenzwerte">Feste Grenzwerte: einfach, aber blind für die einzelne Maschine</a></li>
+<li><a href="#drei-sigma">Die 3-Sigma-Regel und ihre Fallstricke</a></li>
+<li><a href="#robuste-statistik">Robuste Statistik: Median, MAD und oberes Quantil</a></li>
+<li><a href="#normallage">Normallage je Maschine, Messstelle und Drehzahlbereich</a></li>
+<li><a href="#stufen-persistenz">Vier Stufen und Persistenz über mehrere Messungen</a></li>
+<li><a href="#begruendung">Begründung und Rückmeldung der Instandhaltung</a></li>
+<li><a href="#maschinelles-lernen">Wo maschinelles Lernen passt und wo nicht</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Jedes System zur Zustandsüberwachung muss am Ende eine einfache Frage beantworten: Ist dieser Messwert noch normal? Die Antwort entscheidet, ob der Instandhalter eine Meldung bekommt. Zu streng eingestellt, kommen so viele Fehlalarme, dass niemand mehr hinsieht. Zu locker, und der Lagerschaden wird erst gemeldet, wenn er ohnehin hörbar ist. In diesem Artikel geht es darum, <strong>wie Alarme in der Zustandsüberwachung entstehen</strong>: mit festen Grenzwerten, mit der bekannten <strong>3-Sigma-Regel</strong> oder mit einer gelernten Normallage je Maschine. Am Ende steht die Frage, wann maschinelles Lernen die bessere Wahl ist.</p>
+
+      <h2 id="grenzwerte">Feste Grenzwerte: einfach, aber blind für die einzelne Maschine</h2>
+      <p>Der einfachste Ansatz ist ein fester Grenzwert: Liegt der Effektivwert der Schwingungsgeschwindigkeit über einer Schwelle, gibt es einen Alarm. Solche Werte stammen aus Normen wie der ISO-20816-Reihe, aus Herstellerangaben oder aus Erfahrung. Sie haben echte Vorteile. Jeder versteht sie, sie brauchen keine Lernphase, und sie sind für eine erste Einordnung der Maschine nützlich. Mehr dazu im Artikel über <a href="blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">ISO-Grenzwerte für Werkzeugmaschinen</a>.</p>
+      <p>Für die Früherkennung an Spindeln reichen sie aber nicht. Zwei Spindeln gleicher Bauart schwingen unterschiedlich stark, je nach Einbau, Alter, Werkzeug und Drehzahl. Ein Grenzwert, der für die ruhigere Spindel passt, löst bei der lauteren ständig aus. Ein Grenzwert, der für die lautere passt, sieht bei der ruhigeren einen Schaden erst, wenn sich ihr Pegel vervielfacht hat. Dazu kommt, dass ein beginnender Lagerschaden den Gesamtpegel kaum verändert. Er zeigt sich zuerst als schwache Linie bei einer Lagerfrequenz, wie im Artikel über <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Hüllkurve und Lagerfrequenzen</a> beschrieben. Ein fester Grenzwert für diese Linie lässt sich ohne Kenntnis der einzelnen Maschine nicht sinnvoll festlegen.</p>
+
+      <h2 id="drei-sigma">Die 3-Sigma-Regel und ihre Fallstricke</h2>
+      <p>Der naheliegende nächste Schritt: Man misst eine Zeit lang an der gesunden Maschine, berechnet Mittelwert μ und Standardabweichung σ und meldet alles, was über μ + 3σ liegt. Die Regel stammt aus der statistischen Prozesskontrolle. Bei normalverteilten Daten liegt nur etwa 0,13 Prozent der Werte oberhalb dieser Grenze. Das klingt nach einem sauberen Kriterium und ist für viele Kennwerte ein guter Anfang. In der Praxis der Schwingungsüberwachung stößt die Regel aber an vier Grenzen.</p>
+      <div class="formula">Grenze = μ + 3 · σ
+
+μ = Mittelwert der Lernphase
+σ = Standardabweichung der Lernphase</div>
+      <ul>
+        <li><strong>Ausreißer in der Lernphase:</strong> Ein einziger Stoß beim Werkzeugwechsel oder ein Anfahrvorgang zieht Mittelwert und Standardabweichung nach oben. Die Grenze wird so weit, dass ein echter Schaden lange darunter bleibt.</li>
+        <li><strong>Schiefe Verteilungen:</strong> Schwingungskennwerte sind nie negativ. Amplituden im Spektrum, Kurtosis und Scheitelfaktor sind meist rechtsschief verteilt: viele Werte nahe dem typischen Niveau, einzelne deutlich darüber. Die Annahme der Normalverteilung, auf der die 0,13 Prozent beruhen, stimmt dann nicht.</li>
+        <li><strong>Drehzahlabhängigkeit:</strong> Bei 12.000 min⁻¹ schwingt eine Spindel anders als bei 3.000 min⁻¹. Wer alle Drehzahlen in einen Topf wirft, bekommt eine riesige Streuung und damit eine Grenze, die nichts mehr erkennt.</li>
+        <li><strong>Viele Prüfungen addieren sich:</strong> Die 0,13 Prozent gelten für eine einzelne Prüfung. Ein System prüft aber viele Kennwerte bei jeder Messung.</li>
+      </ul>
+      <p>Der letzte Punkt wird oft unterschätzt. Eine einfache Rechnung mit angenommenen Werten: Werden zehn Kennwerte alle zehn Minuten geprüft, sind das 1.440 Prüfungen am Tag. Selbst bei perfekt normalverteilten Daten ergibt das im Mittel knapp zwei Überschreitungen täglich, ohne dass sich an der Maschine etwas geändert hat. Ohne weitere Maßnahmen wird aus der 3-Sigma-Regel so ein System, das jeden Tag Fehlalarme meldet.</p>
+
+      <h2 id="robuste-statistik">Robuste Statistik: Median, MAD und oberes Quantil</h2>
+      <p>Die ersten beiden Probleme löst man, indem man Mittelwert und Standardabweichung durch robuste Größen ersetzt. Robust heißt: Einzelne Ausreißer verschieben das Ergebnis kaum. Unser System bewertet jeden Kennwert mit einer Abweichungszahl, die genau so aufgebaut ist:</p>
+      <div class="formula">Abweichung = (Wert − Median) / Streuung      (nur Anstiege zählen)
+
+Streuung = Maximum aus
+  1,4826 · MAD
+  (Q90 − Median) / 1,2816
+  0,05 · |Median|
+
+MAD = Median der Beträge |Wert − Median|
+Q90 = 90-Prozent-Quantil der Lernphase</div>
+      <p>Die einzelnen Bausteine haben jeweils einen klaren Zweck:</p>
+      <ul>
+        <li><strong>Median statt Mittelwert:</strong> Der Median ist der mittlere Wert der sortierten Messreihe. Ein einzelner Ausreißer ändert ihn praktisch nicht.</li>
+        <li><strong>MAD statt Standardabweichung:</strong> Der Median der absoluten Abweichungen vom Median (MAD) ist ebenso unempfindlich gegen Ausreißer. Der Faktor 1,4826 macht sie bei normalverteilten Daten genau so groß wie die Standardabweichung. Damit bleibt eine Abweichungszahl von 3 vergleichbar mit „3 Sigma“.</li>
+        <li><strong>Oberes Quantil:</strong> Bei rechtsschiefen Kennwerten unterschätzt die MAD die Streuung nach oben. Deshalb prüfen wir zusätzlich den Abstand des 90-Prozent-Quantils zum Median. Der Teiler 1,2816 ist das 90-Prozent-Quantil der Standardnormalverteilung. Auch dieser Wert entspricht bei Normalverteilung also der Standardabweichung.</li>
+        <li><strong>Untergrenze:</strong> Ist eine Spindel in der Lernphase extrem ruhig, wäre die Streuung winzig, und kleinste Änderungen würden zu großen Abweichungszahlen. Deshalb setzen wir die Streuung auf mindestens 5 Prozent des Medians.</li>
+      </ul>
+      <p>Nur Anstiege zählen, weil ein Lagerschaden Kennwerte erhöht. Ein Absinken unter die Normallage ist für diese Bewertung kein Schadenshinweis.</p>
+
+      <h3>Rechenbeispiel</h3>
+      <p>Wie groß der Unterschied ist, zeigt ein vereinfachtes Beispiel. Zur Veranschaulichung verwenden wir nur 13 Werte, das System verlangt für eine Normallage mindestens 20. Zwölf Messungen eines Kennwerts liegen zwischen 0,90 und 1,20. Eine dreizehnte Messung fiel mit einem Stoß zusammen und ergab 5,0. Danach kommt ein neuer Wert von 2,0, also etwa doppelt so hoch wie normal.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Beispiel mit angenommenen Werten, keine Messdaten</caption>
+          <thead><tr><th>Größe</th><th>Mittelwert und σ</th><th>Median und robuste Streuung</th></tr></thead>
+          <tbody>
+            <tr><td>Lage</td><td class="m">1,32</td><td class="m">1,00</td></tr>
+            <tr><td>Streuung</td><td class="m">1,11</td><td class="m">0,14</td></tr>
+            <tr><td>Bewertung des neuen Werts 2,0</td><td class="m">0,6 σ, unauffällig</td><td class="m">Abweichung 7,1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Der eine Ausreißer bläht die Standardabweichung auf mehr als das Zehnfache dessen auf, was die übrigen zwölf Werte zeigen. Die 3-Sigma-Grenze liegt dann bei 4,65. Eine Verdopplung des Kennwerts bleibt unsichtbar. Die robuste Bewertung erkennt sie dagegen deutlich. Das ist kein Sonderfall: Stöße beim Werkzeugwechsel, beim Anfahren oder durch Späne kommen an jedem Bearbeitungszentrum vor.</p>
+
+      <h2 id="normallage">Normallage je Maschine, Messstelle und Drehzahlbereich</h2>
+      <p>Das dritte Problem, die Drehzahlabhängigkeit, löst keine Formel. Es löst die richtige Einteilung der Daten. Unser System lernt die Normallage nicht für eine Maschine als Ganzes, sondern getrennt nach drei Merkmalen:</p>
+      <ol>
+        <li><strong>Maschine:</strong> Jede Spindel bekommt ihre eigene Normallage. Ein Vergleich mit einem Durchschnitt anderer Maschinen findet nicht statt.</li>
+        <li><strong>Messstelle:</strong> Ein Sensor vorne am Spindelgehäuse sieht andere Pegel als einer hinten. Jede Messstelle wird getrennt bewertet.</li>
+        <li><strong>Drehzahlklasse:</strong> Die Drehzahl kommt aus der Steuerung. Messungen werden in Drehzahlklassen eingeteilt, und jede Klasse hat ihre eigene Normallage. So wird eine Messung bei 8.000 min⁻¹ nur mit früheren Messungen bei 8.000 min⁻¹ verglichen.</li>
+      </ol>
+      <p>Für jede dieser Kombinationen sammelt das System zunächst Messungen aus dem gesunden Betrieb. Solange nicht genug Messungen vorliegen, steht die Kombination auf „lernend“ und erzeugt keine Meldungen. Messfenster während des Hochlaufs, also bei sich ändernder Drehzahl, und bei sehr niedriger Drehzahl werden gar nicht erst bewertet. Das kostet am Anfang etwas Geduld, verhindert aber, dass Äpfel mit Birnen verglichen werden.</p>
+      <div class="callout">
+        <p class="label">Voraussetzung: gesunde Lernphase</p>
+        <p>Eine Normallage beschreibt den Zustand, in dem gelernt wurde. Hat ein Lager zu Beginn schon einen Schaden, lernt das System diesen Schaden als normal. Deshalb fragen wir vor dem Start nach der Vorgeschichte der Spindel. Außerdem sucht die Box die Lagerfrequenzen im Hüllkurvenspektrum und vergleicht sie mit dem Rauschen des Spektrums, also unabhängig von der Normallage. Ein deutlicher Befund schon in der Lernphase ist ein Grund, diese Normallage nicht ungeprüft zu übernehmen.</p>
+      </div>
+
+      <h2 id="stufen-persistenz">Vier Stufen und Persistenz über mehrere Messungen</h2>
+      <p>Aus der Abweichungszahl wird eine von vier Stufen. Die Schwellen dazwischen sind Startwerte, keine Werte aus einer Norm oder vom Lagerhersteller. Sie werden auf dem Prüfstand und mit den Rückmeldungen aus dem Betrieb kalibriert.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Startwerte, werden je Anwendung kalibriert</caption>
+          <thead><tr><th>Stufe</th><th>Abweichung ab</th><th>Bedeutung für die Instandhaltung</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td class="m">unter 4</td><td>Im Band der gelernten Normallage.</td></tr>
+            <tr><td>Auffällig</td><td class="m">4</td><td>Beobachten, keine Sofortmaßnahme nötig.</td></tr>
+            <tr><td>Warnung</td><td class="m">8</td><td>Prüfung bei nächster Gelegenheit einplanen.</td></tr>
+            <tr><td>Alarm</td><td class="m">15</td><td>Zeitnah prüfen, erhöhtes Ausfallrisiko.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Die Schwellen liegen bewusst deutlich über 3. Das ist die Antwort auf das Problem der vielen Prüfungen. Die zweite Antwort ist die <strong>Persistenz</strong>: Eine Stufe wird erst gemeldet, wenn sie über mehrere aufeinanderfolgende Messungen bestanden hat. In der Grundeinstellung sind das drei. Gemeldet wird dabei die niedrigste Stufe dieser letzten Messungen. Liegen also zwei Messungen im Bereich „Alarm“ und eine im Bereich „Warnung“, lautet die Meldung „Warnung“.</p>
+      <figure>
+        <svg viewBox="0 0 680 220" role="img" aria-label="Abweichungszahlen über zehn Messungen mit Schwelle und Persistenzregel">
+          <line x1="40" y1="180" x2="660" y2="180" stroke="var(--rule)"/>
+          <line x1="40" y1="20" x2="40" y2="180" stroke="var(--rule)"/>
+          <line x1="40" y1="116" x2="660" y2="116" stroke="var(--gold)" stroke-dasharray="6 4"/>
+          <text x="656" y="108" text-anchor="end">Schwelle „Auffällig“</text>
+          <g fill="var(--ink-2)">
+            <rect x="60" y="164" width="36" height="16"/>
+            <rect x="120" y="160" width="36" height="20"/>
+            <rect x="180" y="84" width="36" height="96"/>
+            <rect x="240" y="162" width="36" height="18"/>
+            <rect x="300" y="158" width="36" height="22"/>
+          </g>
+          <g fill="var(--gold)">
+            <rect x="360" y="104" width="36" height="76"/>
+            <rect x="420" y="96" width="36" height="84"/>
+            <rect x="480" y="88" width="36" height="92"/>
+            <rect x="540" y="82" width="36" height="98"/>
+            <rect x="600" y="76" width="36" height="104"/>
+          </g>
+          <text x="198" y="74" text-anchor="middle">Einzelner Stoß</text>
+          <text x="198" y="200" text-anchor="middle">keine Meldung</text>
+          <text x="498" y="200" text-anchor="middle">ab der dritten Messung in Folge: Meldung</text>
+        </svg>
+        <figcaption>Schematische Darstellung, keine Messdaten. Ein einzelner Stoß überschreitet die Schwelle nur einmal und bleibt ohne Meldung. Eine anhaltende Abweichung wird gemeldet, sobald sie drei Messungen in Folge besteht.</figcaption>
+      </figure>
+      <p>Persistenz kostet ein wenig Zeit, denn eine echte Veränderung wird erst nach der dritten Messung gemeldet. Bei einem Lagerschaden, der sich über viel längere Zeiträume entwickelt, spielt das keine Rolle. Ein Fehlalarm, der um drei Uhr nachts das Handy des Schichtleiters klingeln lässt, spielt dagegen eine große Rolle für das Vertrauen in das System.</p>
+
+      <h2 id="begruendung">Begründung und Rückmeldung der Instandhaltung</h2>
+      <p>Eine Abweichungszahl allein hilft niemandem an der Maschine. Jede Meldung nennt deshalb den Ort (Maschine, Messstelle, Drehzahlklasse), die Dringlichkeit, einen konkreten Prüfhinweis und die Begründung. Die Begründung zeigt die auffälligsten Kennwerte mit Messwert, Normallage, Faktor und Abweichung. Ein Beispiel mit angenommenen Zahlen:</p>
+      <div class="formula">Kurtosis = 6,2 (normal 3,1 ± 0,3, 2,0-fach, Abweichung 10,3) → Warnung
+Befund im Hüllkurvenspektrum: Außenring
+Bestätigt über mehrere aufeinanderfolgende Messungen.</div>
+      <p>Daraus folgt ein Prüfhinweis in Worten der Instandhaltung, etwa: Spindellager prüfen, Laufgeräusch, Lagertemperatur und Schmierung kontrollieren, Befund mit dem Spindelservice abklären. Der Instandhalter sieht also, was sich geändert hat und gegenüber welcher Normallage. Er muss dem System nicht blind glauben.</p>
+      <p>Zu jeder Meldung kann die Instandhaltung eine Rückmeldung geben: <strong>stimmt</strong>, <strong>Fehlalarm</strong> oder <strong>unklar</strong>. Diese Rückmeldungen sind die wichtigste Grundlage, um die Startwerte der Schwellen für eine Maschine oder einen Maschinentyp zu kalibrieren. Ein System, das nie erfährt, ob seine Meldungen stimmten, kann auch nicht besser werden.</p>
+
+      <h2 id="maschinelles-lernen">Wo maschinelles Lernen passt und wo nicht</h2>
+      <p>Verfahren wie Isolation Forest, Autoencoder oder andere Modelle zur Anomalieerkennung können viele Kennwerte gemeinsam betrachten. Sie erkennen etwa, dass eine bestimmte Kombination aus Kurtosis und Effektivwert ungewöhnlich ist, obwohl jeder Wert für sich unauffällig bleibt. Das ist ein echter Vorteil. Ihm stehen drei Nachteile gegenüber, die an Spindeln besonders schwer wiegen.</p>
+      <ul>
+        <li><strong>Wenige Schadensfälle:</strong> Eine einzelne Spindel hat in ihrem Leben nur wenige Lagerschäden. Ein Modell, das daraus lernen soll, Schäden zu unterscheiden, hat kaum Beispiele.</li>
+        <li><strong>Erklärbarkeit:</strong> Ein Anomaliewert von 0,7 sagt dem Instandhalter nicht, ob er nach dem Außenring, dem Werkzeug oder der Aufspannung sehen soll.</li>
+        <li><strong>Scheinbare Genauigkeit:</strong> Ein Modell, das auf denselben Daten geprüft wird, auf denen es gelernt hat, sieht immer gut aus. Das sagt nichts darüber, wie es sich an der nächsten Maschine verhält.</li>
+      </ul>
+      <p>Wir setzen deshalb zuerst auf nachvollziehbare Verfahren: physikalisch begründete Kennwerte, Hüllkurvenanalyse, Lagerfrequenzen und die robuste Normallage. Maschinelles Lernen kommt nur dort hinzu, wo es nachweislich besser ist. Nachweislich heißt: geprüft auf <strong>zurückgehaltenen Daten</strong>, also auf Maschinen oder Zeiträumen, die das Modell beim Lernen nie gesehen hat, und im direkten Vergleich mit dem robusten Verfahren. Sinnvolle Einsatzfelder sehen wir bei vielen gleichartigen Maschinen und bei der Einordnung von Befunden, sobald genug Rückmeldungen der Instandhaltung als Bewertungsgrundlage vorliegen. Den Unterschied zwischen Zustandserkennung und Vorhersage beschreibt der Artikel <a href="blog-condition-monitoring-vs-predictive-maintenance.html">Condition Monitoring oder Predictive Maintenance</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Was bedeutet 3 Sigma bei der Schwingungsüberwachung?</summary><p>Ein Alarm wird ausgelöst, wenn ein Kennwert mehr als drei Standardabweichungen über dem Mittelwert einer Lernphase liegt. Bei normalverteilten Daten trifft das auf etwa 0,13 Prozent der Werte zu. Schwingungskennwerte sind aber oft schief verteilt und enthalten Ausreißer, deshalb funktioniert die Regel in der Praxis schlechter als in der Theorie.</p></details>
+        <details class="faq-item"><summary>Warum hat meine Zustandsüberwachung so viele Fehlalarme?</summary><p>Häufige Ursachen sind feste Grenzwerte, die nicht zur einzelnen Maschine passen, Lernphasen mit Ausreißern, eine fehlende Trennung nach Drehzahl und Alarme auf Einzelmessungen. Abhilfe schaffen robuste Statistik, eine Normallage je Drehzahlklasse und eine Meldung erst nach mehreren auffälligen Messungen in Folge.</p></details>
+        <details class="faq-item"><summary>Was ist der Unterschied zwischen MAD und Standardabweichung?</summary><p>Die Standardabweichung quadriert die Abstände zum Mittelwert, ein einzelner Ausreißer wirkt deshalb stark. Die MAD ist der Median der absoluten Abstände zum Median und wird von Ausreißern kaum beeinflusst. Mit dem Faktor 1,4826 entspricht sie bei normalverteilten Daten der Standardabweichung.</p></details>
+        <details class="faq-item"><summary>Wie lange dauert es, bis die Normallage einer Spindel gelernt ist?</summary><p>Das hängt davon ab, wie oft die Spindel in den jeweiligen Drehzahlbereichen läuft. Je Kombination aus Messstelle und Drehzahlklasse braucht das System mindestens 20 Messungen aus dem gesunden Betrieb. Häufig genutzte Drehzahlen sind deshalb früher bewertet als selten genutzte.</p></details>
+        <details class="faq-item"><summary>Ist KI-Anomalieerkennung besser als statistische Grenzwerte?</summary><p>Nicht automatisch. Modelle können Muster über viele Kennwerte hinweg finden, sind aber schwerer zu erklären und brauchen einen Nachweis auf Daten, die sie beim Lernen nicht gesehen haben. Ohne diesen Nachweis ist eine robuste, nachvollziehbare Statistik die verlässlichere Grundlage.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Methode</span><a href="blog-condition-monitoring-vs-predictive-maintenance.html">Condition Monitoring vs. Predictive Maintenance: Was der Unterschied ist und was eine Prognose leisten kann</a></li>
+<li><span class="label">Methode</span><a href="blog-fft-spektrum-aufloesung-schwingungsanalyse.html">FFT in der Schwingungsanalyse: Abtastrate, Auflösung und Fensterfunktion für Praktiker</a></li>
+<li><span class="label">Methode</span><a href="blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">Effektivwert, Scheitelfaktor und Kurtosis: Schwingungskennwerte verständlich erklärt</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
   </div>
 </div>
 
-<footer>
-  <div class="f-logo">FORBACH &amp; PARTNERS</div>
-  <div class="f-tag">Predictive Intelligence · CNC-Fräszentren · Industry 4.0</div>
-  <div class="f-links">
-    <a class="f-link" href="index.html">Home</a>
-    <a class="f-link" href="ueber-uns.html">Über uns</a>
-    <a class="f-link" href="cnc-fraeszentren.html">CNC-Anlagen</a>
-    <a class="f-link" href="blog.html">Blog</a>
-    <a class="f-link" href="kontakt.html">Kontakt</a>
-    <a class="f-link" href="impressum.html">Impressum</a>
-    <a class="f-link" href="datenschutz.html">Datenschutz</a>
-  </div>
-  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
-</footer>
-
+<script src="assets/site.js" defer></script>
 </body>
 </html>

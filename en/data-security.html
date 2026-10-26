@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data security and IT integration · Forbach &amp; Partners</title>
+<meta name="description" content="Which data leaves your plant, over which port and in which direction. Read-only access to the CNC control, outbound connections only, data in Germany only.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/data-security.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/datensicherheit.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/data-security.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/datensicherheit.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Data security and IT integration · Forbach &amp; Partners">
+<meta property="og:description" content="Which data leaves your plant, over which port and in which direction. Read-only access to the CNC control, outbound connections only, data in Germany only.">
+<meta property="og:url" content="https://forbachandpartners.com/en/data-security.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html" aria-current="page">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../datensicherheit.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="label">For your IT department</p>
+      <h1>What leaves your plant. And what does not.</h1>
+      <p class="lead">We document which data is transmitted, over which port, in which direction and where it is stored. Your IT can then decide in ten minutes instead of asking questions for two weeks.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Data scope</p>
+        <h2>Your know-how stays in-house.</h2>
+        <p>The edge box reads condition variables, not production content. What makes up your competitive advantage, it never sees.</p>
+      </div>
+      <div class="grid2">
+        <div class="panel">
+          <p class="label">Stays with you</p>
+          <ul class="list no">
+            <li>NC programs and tool offsets</li>
+            <li>Drawings, CAD and CAM data</li>
+            <li>Workpiece geometry and part dimensions</li>
+            <li>Order, customer and costing data</li>
+            <li>Operator and shift data</li>
+            <li>Raw vibration signals</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <p class="label">Transmitted encrypted</p>
+          <ul class="list">
+            <li>Calculated vibration features of the spindle</li>
+            <li>Speed and load values from the CNC control</li>
+            <li>Machine status and CNC control alarms</li>
+            <li>Timestamps and machine identifier</li>
+          </ul>
+          <p class="muted" style="margin-top:16px;font-size:15px">The box calculates the features on site and transmits only the result. No production content can be reconstructed from these values.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Protection against intervention</p>
+        <h2>Read-only. Four independent safeguards.</h2>
+        <p>The most common question from maintenance teams is: can the device change settings on my machine? No. Four mutually independent safeguards make sure of that.</p>
+      </div>
+      <ul class="locks">
+        <li><i>A</i><div><b>No write function</b><span>The software contains no code that writes to a CNC control. What does not exist cannot be triggered.</span></div></li>
+        <li><i>B</i><div><b>Upstream block</b><span>A dedicated protective layer blocks any request that would change something before it reaches the CNC control.</span></div></li>
+        <li><i>C</i><div><b>Automated checks</b><span>With every change to the software, automated tests verify that no write path has been introduced.</span></div></li>
+        <li><i>D</i><div><b>Read-only user on the CNC control</b><span>A dedicated user with read rights only, for SINUMERIK for example only <code>SinuReadAll</code> and <code>AlarmRead</code>.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Network</p>
+        <h2>Four lines for your firewall.</h2>
+        <p>No further rules are needed. The box cannot be reached from outside; it accepts no inbound connections.</p>
+      </div>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Firewall rules</caption>
+          <thead><tr><th>Direction</th><th>Destination</th><th>Port</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Box → CNC control</td><td>IP of the CNC control</td><td class="m">4840 · OPC UA</td><td>Read only</td></tr>
+            <tr><td>Box → platform</td><td>Provided at project start</td><td class="m">8883 · MQTT/TLS<br>otherwise 443</td><td>Send features</td></tr>
+            <tr><td>Box → update server</td><td>Provided at project start</td><td class="m">443 · HTTPS</td><td>Fetch signed updates</td></tr>
+            <tr><td>Outside → box</td><td>–</td><td class="m">none</td><td>No connection possible</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">If your firewall uses TLS inspection, the box needs an exception. Otherwise mutual certificate validation fails and nothing is transmitted. That is intentional: the box really does validate certificates.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Encryption and operation</p>
+        <h2>No segment runs in plain text.</h2>
+      </div>
+      <div class="spec" style="border:0">
+        <dl>
+          <div><dt class="label">CNC control → box</dt><dd>OPC UA, signed and encrypted<small>Security policy Basic256Sha256. Certificates are explicitly trusted on both sides.</small></dd></div>
+          <div><dt class="label">Box → platform</dt><dd>TLS 1.2 or higher<small>Every box has its own certificate. The private key is generated on the box and never leaves it.</small></dd></div>
+          <div><dt class="label">Polling rate</dt><dd>Once per second<small>Technically limited to at most every 0.1 s so that the CNC control is not loaded.</small></dd></div>
+          <div><dt class="label">Network outage</dt><dd>At least 7 days of buffer<small>The box stores data locally and sends it on without gaps as soon as the connection is restored.</small></dd></div>
+        </dl>
+      </div>
+      <div class="grid3" style="margin-top:56px">
+        <div><h3>Data stored in Germany</h3><p class="muted">Processing and storage exclusively in data centres in Germany.</p></div>
+        <div><h3>Signed updates</h3><p class="muted">The box only installs software updates with a valid digital signature.</p></div>
+        <div><h3>Your data belongs to you</h3><p class="muted">You can export your data at any time. When the contract ends, we delete it verifiably.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <div>
+        <p class="label">Security datasheet</p>
+        <h2 style="margin-top:18px">Send us your IT.</h2>
+      </div>
+      <div>
+        <p class="lead">We go through the security datasheet with your IT lead in 20 minutes, technically and without a sales pitch. You receive the document in advance as a PDF.</p>
+        <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center"><a class="btn solid" href="contact.html?thema=it">Request a technical call <span class="arr">→</span></a><a class="tel" href="../downloads/forbach-it-sicherheitsblatt-en.pdf">IT security sheet as PDF (2 pages)</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

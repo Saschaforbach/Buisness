@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SINUMERIK and HEIDENHAIN OPC UA: options, read-only user, security · Forbach &amp; Partners</title>
+<meta name="description" content="Reading SINUMERIK and HEIDENHAIN via OPC UA: required options, read-only user, Basic256Sha256, certificates, port 4840, sampling rate, umati and limits.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-sinumerik-heidenhain-opc-ua-anbinden.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-sinumerik-heidenhain-opc-ua-anbinden.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="SINUMERIK and HEIDENHAIN OPC UA: options, read-only user, security · Forbach &amp; Partners">
+<meta property="og:description" content="Reading SINUMERIK and HEIDENHAIN via OPC UA: required options, read-only user, Basic256Sha256, certificates, port 4840, sampling rate, umati and limits.">
+<meta property="og:url" content="https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Reading SINUMERIK and HEIDENHAIN via OPC UA: prerequisites, options, security", "description": "Reading SINUMERIK and HEIDENHAIN via OPC UA: required options, read-only user, Basic256Sha256, certificates, port 4840, sampling rate, umati and limits.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html", "articleSection": "Integration and IT", "wordCount": 2230}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Reading SINUMERIK and HEIDENHAIN via OPC UA: prerequisites, options, security", "item": "https://forbachandpartners.com/en/connect-sinumerik-heidenhain-opc-ua.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which option is needed for OPC UA on a SINUMERIK 840D sl?", "acceptedAnswer": {"@type": "Answer", "text": "The software option “SINUMERIK Access MyMachine /OPC UA” with order number 6FC5800-0AP67-0YB0, electronic 6FC5800-0AP67-0YH0. It requires SINUMERIK Operate. SINUMERIK ONE has its own licence."}}, {"@type": "Question", "name": "Which rights does a read-only OPC UA user on SINUMERIK need?", "acceptedAnswer": {"@type": "Answer", "text": "For condition monitoring, SinuReadAll and AlarmRead are sufficient. Rights with “Write” in their name and ApWrite for program selection should not be granted."}}, {"@type": "Question", "name": "Does the HEIDENHAIN iTNC 530 have an OPC UA interface?", "acceptedAnswer": {"@type": "Answer", "text": "No. The OPC UA NC Server is available for TNC7, TNC 640 and TNC 620, as software options 56 to 61. The iTNC 530 and TNC 320 do not have it."}}, {"@type": "Question", "name": "Which port does OPC UA use on CNC controls?", "acceptedAnswer": {"@type": "Answer", "text": "TCP port 4840 by default. The port may differ from machine to machine. The connection is opened from the edge box to the control; no inbound connections to the box are needed."}}, {"@type": "Question", "name": "Is OPC UA enough to detect bearing damage?", "acceptedAnswer": {"@type": "Answer", "text": "No. Via OPC UA the control delivers at most about ten values per second, while bearing damage shows up at frequencies in the kilohertz range. That requires a vibration sensor on the spindle housing. OPC UA provides the speed and further context."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-sinumerik-heidenhain-opc-ua-anbinden.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Integration and IT</span></nav>
+      <h1>Reading SINUMERIK and HEIDENHAIN via OPC UA: prerequisites, options, security</h1>
+      <p class="lead">Which CNC control needs which option, what a read-only user looks like and why OPC UA is not enough for bearing diagnostics. A guide for maintenance and IT teams, based on the manufacturers&#x27; manuals.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>11 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#controls-options">Which CNC controls need which option</a></li>
+<li><a href="#read-only-user">The read-only user: only SinuReadAll and AlarmRead</a></li>
+<li><a href="#security">Basic256Sha256, certificates and port 4840</a></li>
+<li><a href="#sampling-rate">Sampling rate: once per second, never more often than every 0.1 seconds</a></li>
+<li><a href="#umati">umati, OPC 40501 and browse paths instead of fixed NodeIds</a></li>
+<li><a href="#limits">Limits: sampling rate, older controls, FANUC</a></li>
+<li><a href="#warranty">Warranty and service contract</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Anyone who wants to read data from a CNC control today almost always ends up with OPC UA. Siemens offers an OPC UA server for SINUMERIK as an option, HEIDENHAIN offers the OPC UA NC Server. Both are mature, but both need preparation: a licence, a suitable user, a certificate exchange and a sampling rate that does not put load on the control. This article shows how to <strong>read SINUMERIK and HEIDENHAIN via OPC UA</strong>, which options are required, how the connection is secured and where the limits of the interface lie. The information comes from the manufacturers' configuration manuals and product pages. What a specific machine delivers depends on the software version and on the work of the machine builder, and can only be established at the machine itself.</p>
+
+      <h2 id="controls-options">Which CNC controls need which option</h2>
+      <p>On none of the common controls is OPC UA simply switched on. It is a licensed software option that has to be ordered and enabled.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Based on manufacturer documentation, research as of autumn 2026</caption>
+          <thead><tr><th>CNC control</th><th>Required option</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>SINUMERIK 840D sl, 828D</td><td>“SINUMERIK Access MyMachine /OPC UA”, order number 6FC5800-0AP67-0YB0 (electronic 6FC5800-0AP67-0YH0)</td><td>Requires SINUMERIK Operate. On 828D PU.5, the “OPC UA Eco” licence is also needed.</td></tr>
+            <tr><td>SINUMERIK ONE</td><td>Electronic licence 6FC5800-0BP67-0Yx0</td><td>Check supported CNC software versions in the configuration manual.</td></tr>
+            <tr><td>HEIDENHAIN TNC7, TNC 640, TNC 620</td><td>OPC UA NC Server, software options 56 to 61</td><td>One option per connected application, six at most. Observe the minimum software version for each control.</td></tr>
+            <tr><td>HEIDENHAIN iTNC 530, TNC 320</td><td>No OPC UA NC Server</td><td>Cannot be connected via OPC UA.</td></tr>
+            <tr><td>FANUC</td><td>No OPC UA server in the CNC confirmed</td><td>Access via FOCAS, planned by us for a later phase.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>With HEIDENHAIN it is worth looking closely at the number of options. Every application that connects to the OPC UA NC Server occupies one option. If your plant already uses StateMonitor, an MES or the machine builder's remote service via OPC UA, an additional option may be needed for a further system. Even a laptop that reads the address space during commissioning occupies one for as long as it is connected.</p>
+      <p>HEIDENHAIN has also announced that TNC 640 and TNC 620 will not be developed further. New functions of the OPC UA NC Server will only appear for the TNC7. List prices for the options of both manufacturers are not public. Ask your machine builder or dealer.</p>
+      <p>The quickest way to clarity: a photo of the version screen and the options screen. On SINUMERIK you will find both under Diagnostics, on HEIDENHAIN in the options or SIK menu. From these we can see before the appointment whether the option is present and the software version fits. The whole process is described on the page <a href="process.html">Process and prerequisites</a>.</p>
+
+      <h2 id="read-only-user">The read-only user: only SinuReadAll and AlarmRead</h2>
+      <p>OPC UA servers on CNC controls can do more than read. SINUMERIK has methods for program selection, file transfer and tool management. The HEIDENHAIN OPC UA NC Server offers, among other things, a writable operating mode and methods for program selection and for clearing error messages. None of this is needed for condition monitoring. That is why every connection includes a dedicated user with read-only rights.</p>
+      <p>SINUMERIK grants rights in areas. According to the manual there are read-only areas such as <code>StateRead</code>, <code>ToolRead</code>, <code>DriveRead</code>, <code>PlcRead</code>, <code>AlarmRead</code> and <code>SinuReadAll</code>. Our recommendation for a read-only user, for example named <code>forbach_ro</code>:</p>
+      <ul>
+        <li><strong>Grant:</strong> <code>SinuReadAll</code> and <code>AlarmRead</code>.</li>
+        <li><strong>Do not grant:</strong> any area with “Write” in its name, and <code>ApWrite</code>, which allows program selection.</li>
+        <li><strong>Do not use anonymous access:</strong> Siemens recommends it for commissioning only.</li>
+      </ul>
+      <p>On HEIDENHAIN, a role with read-only rights is created in the control's user administration. The exact name and the operating steps depend on the software version. We work them out on the day together with your operator.</p>
+      <p>In our system the read-only user is the last of four barriers. The software contains no code that writes to a CNC control. An upstream protection layer only lets through services that cannot change anything: read, browse, subscribe. Writes, method calls and any unknown service are blocked before a single byte reaches the control. Automated tests check with every change that no write path has been introduced. Even if all three layers were to fail, the user would have no write rights on the control. More on this on the page <a href="data-security.html">Data security and IT integration</a>.</p>
+
+      <h2 id="security">Basic256Sha256, certificates and port 4840</h2>
+      <p>OPC UA comes with its own security mechanisms. According to the manual, SINUMERIK offers the security policy Basic256Sha256 in the modes “Sign” and “SignAndEncrypt”. By default we connect using <strong>Basic256Sha256 and SignAndEncrypt</strong>: every message is signed and encrypted.</p>
+      <p>The basis is a mutual certificate exchange. Both sides must explicitly trust each other:</p>
+      <ol>
+        <li><strong>Server certificate of the CNC control:</strong> SINUMERIK generates it itself on first start-up. It is exported via the certificate dialogue and stored in the configuration of our edge box. Without this certificate the box refuses an encrypted connection. This means no other device can pose as the control.</li>
+        <li><strong>Client certificate of the edge box:</strong> we generate it before the appointment. On the control it is marked as trusted manually, not via automatic trust for all clients. We compare its fingerprint against a printout.</li>
+        <li><strong>Time:</strong> on SINUMERIK, the clock of the operator interface must be correct, otherwise certificate validation fails.</li>
+      </ol>
+      <p>HEIDENHAIN also uses X.509 certificates by default and provides a wizard in the control that guides you through the exchange.</p>
+      <p>On the network side the connection is simple. The OPC UA server listens on <strong>TCP port 4840</strong> by default; the port may differ from machine to machine. The edge box opens the connection to the control; the control never has to connect to the box. The read-only user's password is held on the box only as an environment variable, never in a configuration file. Towards the platform, too, there are only outbound connections via MQTT over TLS; the box accepts no inbound connections. The two protocols are compared in the article <a href="opc-ua-vs-mqtt-production-data.html">OPC UA or MQTT</a>.</p>
+
+      <h2 id="sampling-rate">Sampling rate: once per second, never more often than every 0.1 seconds</h2>
+      <p>An OPC UA server runs on the same hardware as the operator interface. Every request costs computing time. The Siemens manuals state clear limits:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">According to Siemens configuration manuals</caption>
+          <thead><tr><th>Limit</th><th>840D sl</th><th>SINUMERIK ONE</th><th>828D PU.5</th></tr></thead>
+          <tbody>
+            <tr><td>Shortest sampling and publishing interval</td><td class="m">100 ms</td><td class="m">100 ms</td><td class="m">100 ms</td></tr>
+            <tr><td>Concurrent sessions</td><td class="m">10</td><td class="m">10</td><td class="m">5</td></tr>
+            <tr><td>Monitored items at 100 ms</td><td class="m">about 100</td><td class="m">100 to 300, depending on NCU</td><td class="m">50</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Siemens also points out that achievable performance depends on the load on the control. For HEIDENHAIN no fixed minimum value has been published. It has to be determined on the control.</p>
+      <p>Our edge box therefore reads the control <strong>once per second</strong> by default. The software technically does not allow an interval shorter than 0.1 seconds. For speed, load, temperatures and alarms that is entirely sufficient, because the fast signals for bearing diagnostics come from the vibration sensor anyway. On the day we ask the operator to compare the responsiveness of the operator interface with and without the box. If it becomes noticeably slower, we lengthen the interval. If other OPC UA clients such as an MES are already running on the machine, they all share the control's budget.</p>
+
+      <h2 id="umati">umati, OPC 40501 and browse paths instead of fixed NodeIds</h2>
+      <p>umati is the VDW (German Machine Tool Builders' Association) information model for machine tools, published by the OPC Foundation as Companion Specification OPC 40501. It promises a uniform view of machines from different manufacturers. For condition monitoring you need to know what it contains and what it does not.</p>
+      <ul>
+        <li><strong>Included:</strong> operating mode, channel and spindle status such as “rotating” or “program active”, overrides, program name, tool data, counters and messages. This is valuable context, for example to evaluate only measurements taken in automatic mode.</li>
+        <li><strong>Not included:</strong> spindle speed, spindle load, torque or drive temperatures. These values come from the manufacturer-specific parts of the address space.</li>
+        <li><strong>SINUMERIK:</strong> umati is not supplied ready-made. It only exists if the machine builder has created its own model with the Siemens tool SiOME.</li>
+        <li><strong>HEIDENHAIN:</strong> the OPC UA NC Server uses its own information model. From model version 1.07 for the TNC7 it contains axis and spindle data such as speed, positions and motor temperature, but by default no load, current or torque values. Such values are only available if the machine builder has added them.</li>
+      </ul>
+      <p>This leads to an important rule for any software that reads CNC controls: <strong>no fixed NodeIds</strong>. The namespace index contained in every NodeId can differ from server to server. The instances of a umati model have no fixed NodeIds; they are found via browse paths. Our edge box therefore resolves the namespace index on every connection via the namespace URI.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Signal mapping process in four steps">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="152" y1="72" x2="182" y2="72"/><line x1="322" y1="72" x2="352" y2="72"/><line x1="492" y1="72" x2="522" y2="72"/>
+          </g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Browse</text><text x="82" y="86" text-anchor="middle">read-only</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Table</text><text x="252" y="86" text-anchor="middle">path, type, value</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Live check</text><text x="422" y="86" text-anchor="middle">spindle running</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Configuration</text><text x="595" y="86" text-anchor="middle">per machine</text>
+          <text x="340" y="132" text-anchor="middle">Only what was found and checked on this control is entered</text>
+        </svg>
+        <figcaption>How we map signals. No node is taken from a list or guessed.</figcaption>
+      </figure>
+      <p>On the day, the edge box reads the control's address space through the same read-only barrier as in operation and writes it to a table with path, data type, current value and access right. The table also shows whether umati or the CNC model OPC 40502 is present. The operator then starts a normal program, and we check which values change plausibly with speed and load. Only these verified signals go into the machine's configuration. If the access right column shows “write” for our user, the user is too powerful and its rights are reduced.</p>
+
+      <h2 id="limits">Limits: sampling rate, older controls, FANUC</h2>
+      <p>The most important limit is physical. Via OPC UA, SINUMERIK delivers at most ten values per second. Bearing damage, however, produces impacts at frequencies far above that. A worked example of our own: a spindle at 12,000 rpm turns at 200 Hz. For a bearing with 15 balls, the outer race ball pass frequency is then roughly 1,200 Hz. A data stream at 10 Hz can only represent frequencies up to 5 Hz.</p>
+      <div class="callout">
+        <p class="label">No sensor, no bearing diagnostics</p>
+        <p>The standard interfaces of CNC controls deliver well below 1 kHz. Envelope analysis needs vibration signals in the kilohertz range. That is why our system always includes a vibration sensor on the spindle housing. The control provides the context: speed, load, temperatures and alarms. Without the speed, the bearing frequencies cannot be calculated.</p>
+      </div>
+      <p>The background to envelope analysis is covered in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+      <p><strong>iTNC 530 and TNC 320</strong> have no OPC UA NC Server. These controls are still in use in many plants. Access would be possible via the HEIDENHAIN DNC interface, which needs a Windows PC as a bridge. We do not offer this today. The vibration measurement itself is independent of the control. What the lack of control data means for your machine is something we clarify in the introductory call.</p>
+      <p><strong>FANUC</strong>, according to our research, has no confirmed OPC UA server in the CNC. The usual route is the FOCAS interface over Ethernet, which provides spindle load among other values. We plan this connection for a later phase.</p>
+
+      <h2 id="warranty">Warranty and service contract</h2>
+      <p>The connection uses the OPC UA interface that Siemens and HEIDENHAIN themselves offer and license. Nothing is modified, no software is installed on the control and nothing is written to the control. Even so, one question belongs before every appointment: <strong>who is allowed to create users and certificates on your CNC control?</strong></p>
+      <ul>
+        <li>Some service contracts reserve any intervention on the control to the machine builder. In that case their service team sets up the read-only user, and we tell them which rights are needed.</li>
+        <li>Only your operator or the manufacturer's service may operate the control. We watch, document and photograph the user's rights.</li>
+        <li>Machine parameters, NC programs, tool and PLC data remain untouched, even on request and even “just briefly”.</li>
+      </ul>
+      <p>It is best to clarify these points with your machine builder in advance. If you wish, we can take part in that conversation. You can send an enquiry via the <a href="contact.html">contact page</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Which option is needed for OPC UA on a SINUMERIK 840D sl?</summary><p>The software option “SINUMERIK Access MyMachine /OPC UA” with order number 6FC5800-0AP67-0YB0, electronic 6FC5800-0AP67-0YH0. It requires SINUMERIK Operate. SINUMERIK ONE has its own licence.</p></details>
+        <details class="faq-item"><summary>Which rights does a read-only OPC UA user on SINUMERIK need?</summary><p>For condition monitoring, SinuReadAll and AlarmRead are sufficient. Rights with “Write” in their name and ApWrite for program selection should not be granted.</p></details>
+        <details class="faq-item"><summary>Does the HEIDENHAIN iTNC 530 have an OPC UA interface?</summary><p>No. The OPC UA NC Server is available for TNC7, TNC 640 and TNC 620, as software options 56 to 61. The iTNC 530 and TNC 320 do not have it.</p></details>
+        <details class="faq-item"><summary>Which port does OPC UA use on CNC controls?</summary><p>TCP port 4840 by default. The port may differ from machine to machine. The connection is opened from the edge box to the control; no inbound connections to the box are needed.</p></details>
+        <details class="faq-item"><summary>Is OPC UA enough to detect bearing damage?</summary><p>No. Via OPC UA the control delivers at most about ten values per second, while bearing damage shows up at frequencies in the kilohertz range. That requires a vibration sensor on the spindle housing. OPC UA provides the speed and further context.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Integration and IT</span><a href="opc-ua-vs-mqtt-production-data.html">OPC UA vs MQTT: which protocol belongs where for production data</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

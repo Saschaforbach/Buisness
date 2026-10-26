@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nur lesen: Schreibschutz für die CNC-Steuerung in vier Ebenen · Forbach &amp; Partners</title>
+<meta name="description" content="Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen: vier unabhängige Ebenen, Positivliste der OPC-UA-Dienste und begrenzte Abfragerate.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/read-only-cnc-control-write-protection.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Nur lesen: Schreibschutz für die CNC-Steuerung in vier Ebenen · Forbach &amp; Partners">
+<meta property="og:description" content="Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen: vier unabhängige Ebenen, Positivliste der OPC-UA-Dienste und begrenzte Abfragerate.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Nur lesen: Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen", "description": "Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen: vier unabhängige Ebenen, Positivliste der OPC-UA-Dienste und begrenzte Abfragerate.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html", "articleSection": "Sicherheit und Compliance", "wordCount": 1790}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Nur lesen: Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen", "item": "https://forbachandpartners.com/blog-nur-lesen-schreibschutz-cnc-steuerung.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kann ein Überwachungssystem per OPC UA Parameter an der CNC-Steuerung ändern?", "acceptedAnswer": {"@type": "Answer", "text": "Grundsätzlich bietet OPC UA Schreib- und Methodenfunktionen an. Unser System kann sie nicht nutzen: Die Software enthält keinen Schreibcode, eine Positivliste blockiert jede verändernde Anfrage vor dem Senden, Tests prüfen das bei jeder Änderung, und der Benutzer an der Steuerung hat nur Leserechte."}}, {"@type": "Question", "name": "Welche Rechte braucht der OPC-UA-Benutzer an der SINUMERIK?", "acceptedAnswer": {"@type": "Answer", "text": "Für unser System genügen reine Leserechte, bei SINUMERIK die Rechte SinuReadAll und AlarmRead. Schreib- oder Verwaltungsrechte sind nicht nötig und werden nicht eingerichtet."}}, {"@type": "Question", "name": "Belastet die Abfrage die Steuerung während der Bearbeitung?", "acceptedAnswer": {"@type": "Answer", "text": "Die Box liest standardmäßig einmal pro Sekunde alle Signale in einer gemeinsamen Anfrage. Kürzere Abstände als 0,1 Sekunden lässt die Konfiguration nicht zu. Die Schwingungsmessung läuft über einen eigenen Sensor und belastet die Steuerung nicht."}}, {"@type": "Question", "name": "Was passiert, wenn ein Update der Software einen Fehler enthält?", "acceptedAnswer": {"@type": "Answer", "text": "Die Positivliste blockiert auch dann jede verändernde Anfrage, und der Lese-Benutzer an der Steuerung würde einen Schreibversuch ablehnen. Zusätzlich laufen die Tests zum Schreibschutz vor jeder Auslieferung, auch nach Updates der verwendeten Bibliotheken."}}, {"@type": "Question", "name": "Muss der Betriebsrat einem Überwachungssystem an der Maschine zustimmen?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt davon ab, ob das System Verhalten oder Leistung von Beschäftigten überwachen kann. Unser System erfasst Maschinendaten zum Zustand von Spindel und Lager, keine Bedienerdaten. Die Bewertung im Einzelfall treffen Sie mit Ihrem Betriebsrat, wir stellen die nötigen Informationen bereit."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/read-only-cnc-control-write-protection.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Sicherheit und Compliance</span></nav>
+      <h1>Nur lesen: Wie wir Schreibzugriffe auf die CNC-Steuerung technisch ausschließen</h1>
+      <p class="lead">Ein Überwachungssystem an der Steuerung darf nichts verändern können, auch nicht durch einen Programmfehler. Wir sichern den Schreibschutz deshalb in vier voneinander unabhängigen Ebenen ab.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#warum">Warum ein Überwachungssystem nie schreiben darf</a></li>
+<li><a href="#vier-ebenen">Schreibschutz für die CNC-Steuerung in vier Ebenen</a></li>
+<li><a href="#opc-ua-dienste">Welche OPC-UA-Dienste erlaubt sind und welche nicht</a></li>
+<li><a href="#abfragerate">Begrenzte Abfragerate schützt die Steuerung</a></li>
+<li><a href="#verbindung">Verschlüsselte Verbindung und geprüfte Gegenstelle</a></li>
+<li><a href="#bedeutung">Was „nur lesen“ für Gewährleistung, Betriebsrat und IT bedeutet</a></li>
+<li><a href="#pruefen">So prüfen Sie den Schreibschutz bei uns selbst</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Wer ein Überwachungssystem an eine CNC-Steuerung anschließt, öffnet eine Tür zur wichtigsten Komponente der Maschine. Über OPC UA lassen sich bei SINUMERIK und HEIDENHAIN nicht nur Werte lesen. Die Schnittstelle bietet je nach Konfiguration auch Funktionen zum Schreiben von Variablen, zum Aufrufen von Methoden und zum Anlegen oder Löschen von Knoten. Für die Zustandsüberwachung einer Spindel braucht man davon nichts. Deshalb ist bei uns <strong>„nur lesen“ keine Einstellung, sondern eine Eigenschaft der Software</strong>, die in vier unabhängigen Ebenen durchgesetzt wird. Dieser Artikel zeigt, wie der Schreibschutz für die CNC-Steuerung technisch aufgebaut ist und warum er für Instandhaltung, IT und Betriebsrat gleichermaßen zählt.</p>
+
+      <h2 id="warum">Warum ein Überwachungssystem nie schreiben darf</h2>
+      <p>Ein einziger ungewollter Schreibzugriff kann an einer Werkzeugmaschine echten Schaden anrichten: ein geänderter Parameter, eine angewählte Programmnummer, ein quittierter Alarm, den der Bediener noch hätte sehen müssen. Im Bedrohungsmodell unseres Systems steht deshalb die Verfügbarkeit und Sicherheit der Maschine an erster Stelle, noch vor dem Schutz der Messdaten.</p>
+      <p>Die Gefahr kommt dabei nicht nur von außen. Auch ein Programmfehler, eine fehlerhafte Bibliothek oder eine falsche Konfiguration könnten eine verändernde Anfrage auslösen. Ein Versprechen im Datenblatt reicht dafür nicht. Der Schutz muss so gebaut sein, dass er auch dann hält, wenn eine Ebene versagt.</p>
+      <div class="callout">
+        <p class="label">Grundsatz</p>
+        <p>Unser System liest Drehzahl, Last und Alarme aus der Steuerung und misst Schwingungen mit einem eigenen Sensor am Spindelgehäuse. Es ändert keine Parameter, wählt keine Programme an, quittiert keine Alarme und überträgt keine Dateien zur Steuerung. Diese Funktionen sind nicht abgeschaltet. Sie sind nicht vorhanden.</p>
+      </div>
+
+      <h2 id="vier-ebenen">Schreibschutz für die CNC-Steuerung in vier Ebenen</h2>
+      <p>Die vier Ebenen arbeiten unabhängig voneinander. Jede für sich würde einen Schreibzugriff bereits verhindern. Zusammen schließen sie auch Fehler aus, die eine einzelne Ebene übersehen könnte.</p>
+      <figure>
+        <svg viewBox="0 0 680 230" role="img" aria-label="Vier Ebenen des Schreibschutzes zwischen Software und Steuerung">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="20" width="150" height="120" rx="2"/><rect x="180" y="20" width="150" height="120" rx="2"/>
+            <rect x="348" y="20" width="150" height="120" rx="2"/><rect x="516" y="20" width="150" height="120" rx="2"/>
+          </g>
+          <text x="87" y="50" text-anchor="middle" style="fill:var(--ink)">1 Kein Schreibcode</text>
+          <text x="87" y="76" text-anchor="middle">Treiber kennt nur</text><text x="87" y="94" text-anchor="middle">Lesen und Abonnieren</text>
+          <text x="255" y="50" text-anchor="middle" style="fill:var(--ink)">2 Vorgelagerte Sperre</text>
+          <text x="255" y="76" text-anchor="middle">Positivliste prüft</text><text x="255" y="94" text-anchor="middle">jede Anfrage</text>
+          <text x="423" y="50" text-anchor="middle" style="fill:var(--ink)">3 Automatische Tests</text>
+          <text x="423" y="76" text-anchor="middle">Quelltext-Prüfung</text><text x="423" y="94" text-anchor="middle">und Simulator</text>
+          <text x="591" y="50" text-anchor="middle" style="fill:var(--ink)">4 Lese-Benutzer</text>
+          <text x="591" y="76" text-anchor="middle">nur Leserechte</text><text x="591" y="94" text-anchor="middle">an der Steuerung</text>
+          <line x1="12" y1="172" x2="666" y2="172" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M650 166 l16 6 l-16 6" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="12" y="200" style="fill:var(--ink-2)">Software der Box</text>
+          <text x="666" y="200" text-anchor="end" style="fill:var(--ink-2)">Steuerung</text>
+        </svg>
+        <figcaption>Die ersten drei Ebenen liegen in unserer Software, die vierte an der Steuerung selbst. Damit ein Schreibzugriff durchkäme, müssten alle vier gleichzeitig versagen.</figcaption>
+      </figure>
+
+      <h3>Ebene 1: Es gibt keinen Schreibcode</h3>
+      <p>Die Schnittstelle, über die unsere Software mit einer Steuerung spricht, kennt genau fünf Funktionen: Verbindung aufbauen, Verbindung trennen, konfigurierte Signale lesen, eingegangene Alarme abholen und den Verbindungsstatus abfragen. Eine Funktion zum Schreiben, zum Aufrufen von Methoden oder zum Steuern ist in der Schnittstelle bewusst nicht vorgesehen. Jeder Treiber für eine Steuerungsfamilie muss sich an diese Schnittstelle halten. Der übrige Code der Box kann einen Schreibbefehl also gar nicht formulieren.</p>
+
+      <h3>Ebene 2: Die vorgelagerte Sperre mit Positivliste</h3>
+      <p>Jede OPC-UA-Anfrage unserer Software läuft durch eine einzige Stelle im Programm, bevor sie ins Netz geht. Genau dort sitzt eine Sperre, die jede Anfrage gegen eine <strong>Positivliste</strong> prüft. Nur Dienste, die nichts auf der Steuerung verändern können, kommen durch. Alles andere wird abgewiesen, bevor ein einziges Byte gesendet wird. Die Sperre wird eingesetzt, bevor die Verbindung zur Steuerung überhaupt aufgebaut wird.</p>
+      <p>Wichtig ist der Unterschied zwischen Positiv- und Verbotsliste. Eine Verbotsliste zählt auf, was nicht erlaubt ist. Sie hat eine Lücke, sobald es eine Anfrageart gibt, an die niemand gedacht hat, etwa nach einem Update der OPC-UA-Bibliothek. Eine Positivliste dreht das um: Erlaubt ist nur, was ausdrücklich freigegeben ist. Eine unbekannte Anfrageart wird automatisch blockiert. Unser erster Entwurf arbeitete tatsächlich mit einer Verbotsliste. Die eigenen Tests haben ihn als lückenhaft entlarvt, deshalb ist die Positivliste heute die maßgebliche Ebene.</p>
+
+      <h3>Ebene 3: Automatische Tests bei jeder Änderung</h3>
+      <p>Die dritte Ebene sind Tests, die bei jeder Änderung am Code laufen. Sie prüfen den Schreibschutz von mehreren Seiten:</p>
+      <ul>
+        <li>Ein Test durchsucht den gesamten Quelltext der Box nach Aufrufen, die auf einem OPC-UA-Server etwas verändern, etwa Werte schreiben, Methoden aufrufen oder Knoten anlegen und löschen. Findet er einen, schlägt die Prüfung fehl.</li>
+        <li>Ein weiterer Test stellt sicher, dass diese Suche einen eingeschleusten Schreibaufruf auch wirklich erkennt. So kann die Prüfung nicht unbemerkt wirkungslos werden.</li>
+        <li>Für jede verändernde Anfrageart wird geprüft, dass die Sperre sie blockiert, und dass keine davon in der Positivliste steht.</li>
+        <li>Ein Test gegen unseren Steuerungssimulator zeigt, dass Lesen funktioniert, ein Schreibversuch und ein Methodenaufruf aber an der Sperre scheitern. Der Simulator registriert dabei keinen einzigen Methodenaufruf.</li>
+      </ul>
+      <p>Diese Tests laufen auch nach jedem Update der OPC-UA-Bibliothek. Ändert die Bibliothek ihren inneren Aufbau so, dass die Sperre nicht mehr greift, fällt das sofort auf, bevor eine neue Version ausgeliefert wird.</p>
+
+      <h3>Ebene 4: Ein Benutzer mit minimalen Rechten an der Steuerung</h3>
+      <p>Die letzte Ebene liegt außerhalb unserer Software. An der Steuerung wird ein eigener Benutzer für die Box angelegt, der nur Leserechte hat. Bei SINUMERIK sind das die Rechte <code>SinuReadAll</code> und <code>AlarmRead</code>. Bei HEIDENHAIN wird eine Rolle mit reinen Leserechten in der Benutzerverwaltung vergeben, die genauen Bedienschritte stimmen wir bei der Inbetriebnahme mit Ihnen ab. Selbst wenn die Ebenen 1 bis 3 alle versagen würden, lehnt die Steuerung einen Schreibversuch dann selbst ab. Die Einrichtung dieses Benutzers prüfen wir vor Ort und dokumentieren sie. Wie die Verbindung im Detail eingerichtet wird, beschreibt der Artikel <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+
+      <h2 id="opc-ua-dienste">Welche OPC-UA-Dienste erlaubt sind und welche nicht</h2>
+      <p>OPC UA ist in Dienste gegliedert. Jede Anfrage eines Clients gehört zu genau einem Dienst. Die Positivliste in unserem System lässt nur Dienste durch, die Daten lesen oder die eigene Sitzung und die eigenen Abonnements verwalten. Abonnements und Sitzungen sind dabei Verwaltungsdaten unserer Verbindung, nicht der Maschine.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Positivliste der Box, Stand dieses Artikels</caption>
+          <thead><tr><th>Bereich</th><th>Erlaubt</th><th>Blockiert</th></tr></thead>
+          <tbody>
+            <tr><td>Sitzung und Server</td><td>Sitzung anlegen, aktivieren, schließen; Endpunkte und Server abfragen</td><td>Server registrieren (RegisterServer, RegisterServer2)</td></tr>
+            <tr><td>Daten</td><td>Read, HistoryRead</td><td>Write, HistoryUpdate</td></tr>
+            <tr><td>Adressraum</td><td>Browse, BrowseNext, Pfade in Knoten-IDs übersetzen, Lese-Aliase registrieren und freigeben</td><td>AddNodes, DeleteNodes, AddReferences, DeleteReferences</td></tr>
+            <tr><td>Methoden</td><td>keine</td><td>Call (jeder Methodenaufruf)</td></tr>
+            <tr><td>Abonnements</td><td>Abonnements und überwachte Elemente anlegen, ändern, löschen; Publish, Republish</td><td>nichts darüber hinaus</td></tr>
+            <tr><td>Alles andere</td><td>nichts</td><td>jeder nicht aufgeführte Dienst, auch künftige</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Bemerkenswert ist der Methodenaufruf. Über Methoden bieten Steuerungen Funktionen wie Programmanwahl oder Dateiübertragung an. Unser System ruft keine einzige Methode auf, auch keine scheinbar harmlose. Alarme empfängt die Box als Ereignisse über ein Abonnement, nicht über einen Methodenaufruf.</p>
+
+      <h2 id="abfragerate">Begrenzte Abfragerate schützt die Steuerung</h2>
+      <p>Schreibschutz ist nur ein Teil davon, die Steuerung nicht zu beeinträchtigen. Auch zu häufiges Lesen kann eine Steuerung belasten, deren eigentliche Aufgabe die Bearbeitung ist. Unser System liest deshalb standardmäßig <strong>einmal pro Sekunde</strong>. Kürzere Abstände als <strong>0,1 Sekunden</strong> lehnt bereits die Prüfung der Konfiguration ab. Diese Untergrenze orientiert sich an der Mindestabtastzeit, die Siemens für SINUMERIK angibt. Alle konfigurierten Signale werden dabei in einer gemeinsamen Anfrage gelesen, nicht einzeln.</p>
+      <p>Für die Spindelüberwachung reicht diese Rate aus. Die Steuerung liefert Drehzahl und Last als Zusatzinformation. Die eigentliche Schwingungsmessung mit hoher Abtastrate kommt vom Sensor am Spindelgehäuse und belastet die Steuerung überhaupt nicht. Mehr zur Aufteilung zwischen Box, Sensor und Steuerung lesen Sie im Artikel <a href="blog-edge-box-zustandsueberwachung-aufbau.html">Aufbau der Edge-Box</a>.</p>
+      <div class="formula">Abfrageintervall      Standard 1,0 s
+Untergrenze           0,1 s (kürzere Werte werden abgelehnt)
+Signale je Abfrage    alle in einer gemeinsamen Leseanfrage
+Schwingung            eigener Sensor, keine Last für die Steuerung</div>
+
+      <h2 id="verbindung">Verschlüsselte Verbindung und geprüfte Gegenstelle</h2>
+      <p>Neben dem Schreibschutz sichern wir auch die Verbindung selbst. Der Normalfall ist eine verschlüsselte OPC-UA-Verbindung mit der Sicherheitsrichtlinie Basic256Sha256 im Modus „Sign and Encrypt“. Sobald verschlüsselt wird, verlangt unsere Konfiguration das Zertifikat der Steuerung. Ohne dieses Zertifikat würde die Box jeder Gegenstelle vertrauen, die sich als Steuerung ausgibt. Das Passwort des Lese-Benutzers steht nie in der Konfigurationsdatei, sondern nur in einer Umgebungsvariablen der Box. Wie die Box sich ihrerseits ausweist, beschreibt der Artikel <a href="blog-signierte-updates-geraetezertifikate.html">Gerätezertifikate und signierte Updates</a>.</p>
+
+      <h2 id="bedeutung">Was „nur lesen“ für Gewährleistung, Betriebsrat und IT bedeutet</h2>
+      <p><strong>Instandhaltung und Gewährleistung:</strong> Eine häufige Sorge ist, dass ein fremdes System an der Steuerung die Gewährleistung oder den Servicevertrag mit dem Maschinenhersteller berührt. Unser System verändert weder Maschinendaten noch NC-Programme noch Parameter. Damit stellt sich nicht die Frage, ob ein Dritter etwas an der Maschine verstellt hat. Was Ihr Vertrag im Einzelnen regelt, klären Sie bitte mit dem Maschinenhersteller. Der Nachweis, dass die Box nur liest, liegt in Form der vier Ebenen vor und lässt sich an der Steuerung über die Rechte des Lese-Benutzers selbst prüfen.</p>
+      <p><strong>Betriebsrat:</strong> Der Betriebsrat fragt vor allem, ob das System Verhalten oder Leistung von Beschäftigten überwachen kann. Technische Einrichtungen, die dazu geeignet sind, unterliegen in Deutschland der Mitbestimmung nach § 87 Abs. 1 Nr. 6 BetrVG. Unser System erfasst Maschinendaten und keine Daten über Bediener. Es ist ausschließlich auf den Zustand von Spindel und Spindellager ausgerichtet. Dass es zudem nichts an der Maschine verändern kann, nimmt eine zweite Sorge vorweg: Niemand kann über das System in die Arbeit an der Maschine eingreifen.</p>
+      <p><strong>IT und OT-Sicherheit:</strong> Für die IT zählt, dass ein kompromittiertes System nicht zum Werkzeug gegen die Maschine wird. Durch die Positivliste und den Lese-Benutzer bleibt der mögliche Schaden selbst im schlimmsten Fall auf das Mitlesen von Werten begrenzt. Die Box nimmt zudem keine Verbindungen von außen an und sendet nur ausgehend. Eine Übersicht aller Maßnahmen finden Sie auf der Seite <a href="datensicherheit.html">Datensicherheit</a>.</p>
+
+      <h2 id="pruefen">So prüfen Sie den Schreibschutz bei uns selbst</h2>
+      <p>Sie müssen uns nicht glauben, Sie können nachsehen. Bei der Inbetriebnahme legen Sie oder Ihr Steuerungsbetreuer den Lese-Benutzer selbst an und sehen, welche Rechte er hat. Das Zertifikat der Box wird an der Steuerung von Hand als vertrauenswürdig eingetragen, die Box zeigt dafür die Fingerabdrücke zum Vergleich an. Beim ersten Termin durchsucht die Box den Adressraum der Steuerung nur lesend, mit derselben Sperre wie im späteren Betrieb, und erstellt daraus eine Tabelle der verfügbaren Signale. Wie dieser Termin abläuft, steht auf der Seite <a href="ablauf.html">Ablauf</a>. Fragen zur Freigabe in Ihrem Haus beantworten wir gern im <a href="kontakt.html">Erstgespräch</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Kann ein Überwachungssystem per OPC UA Parameter an der CNC-Steuerung ändern?</summary><p>Grundsätzlich bietet OPC UA Schreib- und Methodenfunktionen an. Unser System kann sie nicht nutzen: Die Software enthält keinen Schreibcode, eine Positivliste blockiert jede verändernde Anfrage vor dem Senden, Tests prüfen das bei jeder Änderung, und der Benutzer an der Steuerung hat nur Leserechte.</p></details>
+        <details class="faq-item"><summary>Welche Rechte braucht der OPC-UA-Benutzer an der SINUMERIK?</summary><p>Für unser System genügen reine Leserechte, bei SINUMERIK die Rechte SinuReadAll und AlarmRead. Schreib- oder Verwaltungsrechte sind nicht nötig und werden nicht eingerichtet.</p></details>
+        <details class="faq-item"><summary>Belastet die Abfrage die Steuerung während der Bearbeitung?</summary><p>Die Box liest standardmäßig einmal pro Sekunde alle Signale in einer gemeinsamen Anfrage. Kürzere Abstände als 0,1 Sekunden lässt die Konfiguration nicht zu. Die Schwingungsmessung läuft über einen eigenen Sensor und belastet die Steuerung nicht.</p></details>
+        <details class="faq-item"><summary>Was passiert, wenn ein Update der Software einen Fehler enthält?</summary><p>Die Positivliste blockiert auch dann jede verändernde Anfrage, und der Lese-Benutzer an der Steuerung würde einen Schreibversuch ablehnen. Zusätzlich laufen die Tests zum Schreibschutz vor jeder Auslieferung, auch nach Updates der verwendeten Bibliotheken.</p></details>
+        <details class="faq-item"><summary>Muss der Betriebsrat einem Überwachungssystem an der Maschine zustimmen?</summary><p>Das hängt davon ab, ob das System Verhalten oder Leistung von Beschäftigten überwachen kann. Unser System erfasst Maschinendaten zum Zustand von Spindel und Lager, keine Bedienerdaten. Die Bewertung im Einzelfall treffen Sie mit Ihrem Betriebsrat, wir stellen die nötigen Informationen bereit.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Sicherheit und Compliance</span><a href="blog-cyber-resilience-act-zustandsueberwachung.html">Cyber Resilience Act und IEC 62443: Was Betreiber von Zustandsüberwachung wissen sollten</a></li>
+<li><span class="label">Sicherheit und Compliance</span><a href="blog-signierte-updates-geraetezertifikate.html">Gerätezertifikate und signierte Updates: Wie sich die Edge-Box ausweist und schützt</a></li>
+<li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

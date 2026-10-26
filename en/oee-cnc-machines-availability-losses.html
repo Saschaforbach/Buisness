@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OEE on CNC machines: formula, losses, availability · Forbach &amp; Partners</title>
+<meta name="description" content="Calculating OEE on CNC machines properly: availability, performance and quality, the six big losses and what condition monitoring can contribute.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-oee-unter-75-prozent-hauptursachen.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-oee-unter-75-prozent-hauptursachen.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="OEE on CNC machines: formula, losses, availability · Forbach &amp; Partners">
+<meta property="og:description" content="Calculating OEE on CNC machines properly: availability, performance and quality, the six big losses and what condition monitoring can contribute.">
+<meta property="og:url" content="https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "OEE on CNC machines: where availability is really lost", "description": "Calculating OEE on CNC machines properly: availability, performance and quality, the six big losses and what condition monitoring can contribute.", "inLanguage": "en-GB", "datePublished": "2026-05-10", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html", "articleSection": "Economics", "wordCount": 1778}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "OEE on CNC machines: where availability is really lost", "item": "https://forbachandpartners.com/en/oee-cnc-machines-availability-losses.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do you calculate the OEE of a CNC machine?", "acceptedAnswer": {"@type": "Answer", "text": "OEE = availability × performance × quality. Availability is run time divided by planned production time, performance is parts produced times ideal cycle time divided by run time, and quality is good parts divided by parts produced. As a check: good parts times ideal cycle time divided by planned production time gives the same result."}}, {"@type": "Question", "name": "What is a good OEE value?", "acceptedAnswer": {"@type": "Answer", "text": "A generally valid target value means little, because part mix, batch size and above all the definition of planned production time vary widely. Compare the OEE of the same machine over time and analyse which of the three factors explains the largest loss."}}, {"@type": "Question", "name": "Does planned maintenance count towards OEE?", "acceptedAnswer": {"@type": "Answer", "text": "That is a decision made within the plant. Planned maintenance is often excluded from planned production time, whereas unplanned failures count as availability loss. What matters is that the rule is set down in writing and applies to all machines."}}, {"@type": "Question", "name": "Can I read OEE data directly from the SINUMERIK or HEIDENHAIN control?", "acceptedAnswer": {"@type": "Answer", "text": "Operating state, program status, overrides and alarms can be read via OPC UA if the control has the corresponding option. The control does not usually supply the reason for a stoppage or the number of good parts. That requires an entry by the operator or a link to quality inspection."}}, {"@type": "Question", "name": "Does predictive maintenance improve OEE?", "acceptedAnswer": {"@type": "Answer", "text": "It can reduce the loss from unplanned failures, and in the case of spindle monitoring the failure caused by bearing damage. It has no influence on set-up times, minor stops due to material or operators, or problems on other assemblies. The difference between the terms is explained in the article Condition monitoring or predictive maintenance ."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-oee-unter-75-prozent-hauptursachen.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Economics</span></nav>
+      <h1>OEE on CNC machines: where availability is really lost</h1>
+      <p class="lead">OEE is only as good as its definition. If you separate availability, performance and quality cleanly, you can see which losses on CNC machines really count and where spindle monitoring helps.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#formula">Calculating OEE: availability × performance × quality</a></li>
+<li><a href="#example">Worked example with assumed values</a></li>
+<li><a href="#losses">The six big losses on CNC machines</a></li>
+<li><a href="#downtime">Where unplanned downtime shows up in OEE</a></li>
+<li><a href="#measuring">Measuring OEE on CNC machines correctly</a></li>
+<li><a href="#condition-monitoring">What condition monitoring can contribute to OEE</a></li>
+<li><a href="#approach">How to proceed</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Overall equipment effectiveness, or <strong>OEE</strong>, is the best-known indicator of a machine's productivity. It condenses into a single number what share of the planned time actually resulted in good parts at the intended cycle time. That very condensation makes it vulnerable: two plants with the same OEE can have completely different problems, and two plants with different OEE figures are often simply calculating differently. This article explains how to calculate OEE on CNC machines properly, which losses lie behind it, where unplanned downtime has an effect and what condition monitoring of the spindle can contribute. And what it cannot.</p>
+
+      <h2 id="formula">Calculating OEE: availability × performance × quality</h2>
+      <p>OEE is the product of three factors. Each factor describes a different kind of loss and lies between zero and one:</p>
+      <div class="formula">OEE = availability × performance × quality
+
+Availability = run time / planned production time
+Performance  = (parts produced × ideal cycle time) / run time
+Quality      = good parts / parts produced
+
+Planned production time = shift time − planned breaks and planned idle time
+Run time                = planned production time − stoppages</div>
+      <p><strong>Availability</strong> captures how long the machine actually produced during the planned time. <strong>Performance</strong> captures whether it worked as fast during that time as the ideal cycle time allows. <strong>Quality</strong> captures what share of the parts produced were good without rework.</p>
+      <p>The definition of planned production time is important. Whether planned maintenance, set-up or a lack of orders is deducted or counts as downtime is a decision made within the plant. The international standard ISO 22400-2 describes key performance indicators for manufacturing operations management, including OEE, but leaves room for interpretation in how losses are assigned. In practice, a uniform definition, set down in writing and applied to all machines, matters more than the question of which definition is the "right" one.</p>
+
+      <h2 id="example">Worked example with assumed values</h2>
+      <p>Assume a machining centre works a shift of 480 minutes. Of this, 30 minutes are a planned break. During the shift the machine stands still for a total of 45 minutes because of faults and set-up. The ideal cycle time for the part is 3 minutes. 120 parts are produced, of which 114 are good. All values are freely chosen:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Assumptions, not a benchmark</caption>
+          <thead><tr><th>Quantity</th><th>Calculation</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Planned production time</td><td class="m">480 − 30 min</td><td class="m">450 min</td></tr>
+            <tr><td>Run time</td><td class="m">450 − 45 min</td><td class="m">405 min</td></tr>
+            <tr><td>Availability</td><td class="m">405 / 450</td><td class="m">90.0%</td></tr>
+            <tr><td>Performance</td><td class="m">120 × 3 / 405</td><td class="m">88.9%</td></tr>
+            <tr><td>Quality</td><td class="m">114 / 120</td><td class="m">95.0%</td></tr>
+            <tr><td><strong>OEE</strong></td><td class="m">0.900 × 0.889 × 0.950</td><td class="m"><strong>76.0%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A useful cross-check: OEE is also the time that would theoretically have been needed for the good parts, divided by the planned production time. In the example that is 114 × 3 minutes = 342 minutes, divided by 450 minutes, which again gives 76.0%. If this cross-check does not match, something is wrong in the input data, usually the ideal cycle time.</p>
+      <p>The example also shows why a single OEE figure reveals little. Whether 76% is good or bad depends on the part mix, the batch size and above all on your own definition. Benchmark values circulating on the internet should therefore be used only with great caution. More meaningful is the trend on the same machine over time, and the question of which of the three factors explains the largest loss.</p>
+
+      <h2 id="losses">The six big losses on CNC machines</h2>
+      <p>The classification into six big losses comes from Total Productive Maintenance. It assigns each loss to one of the three OEE factors. Applied to machining centres, it looks like this:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Loss</th><th>OEE factor</th><th>Example on a machining centre</th></tr></thead>
+          <tbody>
+            <tr><td>Breakdowns and faults</td><td>Availability</td><td>Spindle bearing damage, axis fault, tool changer failure, CNC control alarm</td></tr>
+            <tr><td>Set-up and adjustment</td><td>Availability</td><td>Changing fixtures, setting the zero point, measuring tools, proving out the first part</td></tr>
+            <tr><td>Idling and minor stops</td><td>Performance</td><td>Waiting for blanks or the operator, chip problems, short interruptions caused by messages</td></tr>
+            <tr><td>Reduced speed</td><td>Performance</td><td>Feed or spindle speed override below 100%, cautious cutting data, programs slower than possible</td></tr>
+            <tr><td>Start-up losses</td><td>Quality</td><td>Scrap after set-up or after a longer stoppage, for example until the machine is thermally stable</td></tr>
+            <tr><td>Quality losses in production</td><td>Quality</td><td>Dimensional deviations, surface defects, rework</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The assignment is not set in stone. Many plants count minor stops below a defined duration as performance loss and longer interruptions as availability loss. Whether set-up counts as a loss or is excluded from planned production time is also a matter of definition. Again, what matters is that all machines are treated the same way.</p>
+
+      <h2 id="downtime">Where unplanned downtime shows up in OEE</h2>
+      <p>An unplanned failure lowers availability first. With spindle bearing damage, however, that is not the only effect. Bearing damage can hit OEE on all three levels:</p>
+      <ul>
+        <li><strong>Availability:</strong> the failure itself, the wait for spare parts and service, measuring in after the repair.</li>
+        <li><strong>Performance:</strong> when a spindle sounds unusual or runs warm, operators sometimes turn the override down to spare it. That is understandable, but it does not appear in any fault statistics.</li>
+        <li><strong>Quality:</strong> advanced bearing damage can affect surface finish and dimensional accuracy. On top of this comes scrap if the damage escalates during machining.</li>
+      </ul>
+      <div class="callout">
+        <p class="label">A note on honest accounting</p>
+        <p>If planned maintenance is excluded from planned production time, every failure that turns from an unplanned into a planned case improves OEE on paper alone. Part of this improvement is therefore a matter of bookkeeping. The economic benefit lies elsewhere: shorter stoppages, less consequential damage, no rush costs and plannable delivery dates.</p>
+      </div>
+      <p>The costs behind unplanned downtime and how to quantify them are described in the article <a href="cost-of-machine-downtime-per-hour.html">What does an hour of machine downtime cost?</a></p>
+
+      <h2 id="measuring">Measuring OEE on CNC machines correctly</h2>
+      <p>An OEE based on shift sheets is better than none. But it almost always underestimates minor stops and speed losses, because nobody writes down a two-minute interruption. Modern CNC controls supply much of the necessary data themselves:</p>
+      <ul>
+        <li><strong>Operating state and program status:</strong> is a program running, is the machine halted, in set-up mode or in alarm?</li>
+        <li><strong>Overrides:</strong> at what percentage are feed and spindle running? The speed loss can be estimated from this.</li>
+        <li><strong>Alarms and messages:</strong> when did which alarm occur, and when was it acknowledged?</li>
+        <li><strong>Part counts:</strong> depending on the control and programming, via counters in the NC program.</li>
+      </ul>
+      <p>On SINUMERIK and HEIDENHAIN controls, many of these values are available via OPC UA. The companion specification for machine tools (OPC 40501, known as umati) provides a vendor-independent information model for this, provided the control offers it. How the connection works in practice is shown in the article <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+      <p>Two things no control supplies: the <strong>reason</strong> for a stoppage and the number of <strong>good parts</strong>. A halt can be set-up, a material shortage or a defect. Without a short entry by the operator or a link to quality inspection, the loss analysis remains incomplete. Also check the ideal cycle time: a value from the CAM system is often more realistic than a historical average that already contains the losses.</p>
+
+      <h2 id="condition-monitoring">What condition monitoring can contribute to OEE</h2>
+      <p>Spindle condition monitoring addresses a single but expensive loss: unplanned failure caused by bearing damage. It detects changes in the vibration pattern of the spindle before the damage leads to failure, and so turns an unplanned intervention into a planned one. For this, our system evaluates outer race, inner race, rolling elements, cage and unbalance, assesses them against the learned baseline, i.e. the normal state of each individual spindle, and explains every alert. The basics are described in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>.</p>
+      <p>Just as important is what it does not do:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Loss</th><th>Contribution of spindle monitoring</th></tr></thead>
+          <tbody>
+            <tr><td>Failure due to spindle bearing damage</td><td>Early warning, plannable replacement, less consequential damage</td></tr>
+            <tr><td>Spindle run slowly out of caution</td><td>Can help, because the condition is documented rather than guessed</td></tr>
+            <tr><td>Scrap from escalating bearing damage</td><td>Can help if action is taken in time</td></tr>
+            <tr><td>Set-up and adjustment</td><td>No contribution</td></tr>
+            <tr><td>Minor stops due to material, chips, operators</td><td>No contribution</td></tr>
+            <tr><td>Feed axes, tool changer, coolant</td><td>Not offered today. Feed axes are in development, tool changer and coolant are planned</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Nobody can seriously offer a prediction to the day or a promise of zero downtime. How early bearing damage becomes visible depends on bearing type, load, speed and lubrication. Notes on the individual areas can be found in the articles on <a href="feed-axes-ball-screw-wear-patterns.html">feed axes</a>, <a href="tool-changer-failure-patterns.html">tool changers</a> and <a href="coolant-monitoring-cnc-milling.html">coolant</a>.</p>
+
+      <h2 id="approach">How to proceed</h2>
+      <ol>
+        <li><strong>Fix the definition.</strong> Write down what belongs to planned production time and how set-up, maintenance and minor stops are booked.</li>
+        <li><strong>Start with one machine.</strong> Ideally the bottleneck. There, every hour gained has a direct effect on throughput.</li>
+        <li><strong>Sort losses by cause.</strong> A simple Pareto analysis of the reasons for stoppages shows where the largest blocks are.</li>
+        <li><strong>Separate planned and unplanned.</strong> Only this separation shows which share of the failures could become plannable through early detection.</li>
+        <li><strong>Choose the right measure.</strong> Long set-up times are solved with set-up optimisation, not with sensors. Frequent spindle damage, on the other hand, with condition monitoring.</li>
+      </ol>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How do you calculate the OEE of a CNC machine?</summary><p>OEE = availability × performance × quality. Availability is run time divided by planned production time, performance is parts produced times ideal cycle time divided by run time, and quality is good parts divided by parts produced. As a check: good parts times ideal cycle time divided by planned production time gives the same result.</p></details>
+        <details class="faq-item"><summary>What is a good OEE value?</summary><p>A generally valid target value means little, because part mix, batch size and above all the definition of planned production time vary widely. Compare the OEE of the same machine over time and analyse which of the three factors explains the largest loss.</p></details>
+        <details class="faq-item"><summary>Does planned maintenance count towards OEE?</summary><p>That is a decision made within the plant. Planned maintenance is often excluded from planned production time, whereas unplanned failures count as availability loss. What matters is that the rule is set down in writing and applies to all machines.</p></details>
+        <details class="faq-item"><summary>Can I read OEE data directly from the SINUMERIK or HEIDENHAIN control?</summary><p>Operating state, program status, overrides and alarms can be read via OPC UA if the control has the corresponding option. The control does not usually supply the reason for a stoppage or the number of good parts. That requires an entry by the operator or a link to quality inspection.</p></details>
+        <details class="faq-item"><summary>Does predictive maintenance improve OEE?</summary><p>It can reduce the loss from unplanned failures, and in the case of spindle monitoring the failure caused by bearing damage. It has no influence on set-up times, minor stops due to material or operators, or problems on other assemblies. The difference between the terms is explained in the article <a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring or predictive maintenance</a>.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Economics</span><a href="cost-of-machine-downtime-per-hour.html">What does an hour of machine downtime cost? How to work it out for your plant</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

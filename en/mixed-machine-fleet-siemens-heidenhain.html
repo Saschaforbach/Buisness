@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mixed machine fleet: Siemens and HEIDENHAIN in one view · Forbach &amp; Partners</title>
+<meta name="description" content="Condition monitoring for a mixed machine fleet: one data contract for SINUMERIK and HEIDENHAIN, umati via browse paths, older iTNC 530 with sensors only.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-gemischter-maschinenpark-siemens-heidenhain.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Mixed machine fleet: Siemens and HEIDENHAIN in one view · Forbach &amp; Partners">
+<meta property="og:description" content="Condition monitoring for a mixed machine fleet: one data contract for SINUMERIK and HEIDENHAIN, umati via browse paths, older iTNC 530 with sensors only.">
+<meta property="og:url" content="https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Mixed machine fleet: Siemens and HEIDENHAIN, old and new, in one view", "description": "Condition monitoring for a mixed machine fleet: one data contract for SINUMERIK and HEIDENHAIN, umati via browse paths, older iTNC 530 with sensors only.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html", "articleSection": "Our system", "wordCount": 1871}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Mixed machine fleet: Siemens and HEIDENHAIN, old and new, in one view", "item": "https://forbachandpartners.com/en/mixed-machine-fleet-siemens-heidenhain.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I monitor Siemens and HEIDENHAIN machines in one system?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Box and platform translate the values from both controls into a common data contract with manufacturer-neutral keys. Evaluation, levels and alerts are the same for all machines and appear in one shared view."}}, {"@type": "Question", "name": "Is umati enough for spindle condition monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "No. OPC 40501-1 provides states, overrides, program and messages, but no spindle speed, no load and no vibration. Bearing diagnostics needs a vibration sensor; speed and load come from the control's manufacturer models."}}, {"@type": "Question", "name": "Can an iTNC 530 be monitored without OPC UA?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with sensors. The vibration sensor on the spindle housing provides the data for bearing diagnostics. Values from the control such as speed, load, program and alarms are then not available. We clarify on site how the speed is determined."}}, {"@type": "Question", "name": "Which option does the CNC control need for OPC UA?", "acceptedAnswer": {"@type": "Answer", "text": "SINUMERIK and HEIDENHAIN each need an enabled OPC UA option. With HEIDENHAIN, each connected application occupies its own option. We check which options are present on your machine before committing."}}, {"@type": "Question", "name": "When will FANUC be supported?", "acceptedAnswer": {"@type": "Answer", "text": "FANUC is planned, with the connection via FOCAS. We will only name a date once the connection has been tested on real controls."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-gemischter-maschinenpark-siemens-heidenhain.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>Mixed machine fleet: Siemens and HEIDENHAIN, old and new, in one view</h1>
+      <p class="lead">Hardly any plant has only one type of CNC control. We show how our system brings SINUMERIK and HEIDENHAIN together through a common data contract, and what is possible on older machines without OPC UA.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#silos">The problem with manufacturer-specific silos</a></li>
+<li><a href="#data-contract">One data contract for all CNC controls</a></li>
+<li><a href="#signal-sources">Where the values come from: manufacturer paths from the configuration</a></li>
+<li><a href="#umati">umati and OPC 40501: browse paths instead of fixed NodeIds</a></li>
+<li><a href="#controls">What each CNC control provides</a></li>
+<li><a href="#without-opc-ua">Older machines without OPC UA: sensors only</a></li>
+<li><a href="#fanuc">FANUC: later, via a dedicated connection</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>In a typical contract manufacturer (job shop) you will find, side by side, a new machining centre with SINUMERIK ONE, two older ones with SINUMERIK 840D sl, a milling machine with a HEIDENHAIN TNC 640 and one with an iTNC 530. Each CNC control speaks differently, and each manufacturer offers its own data acquisition software. Anyone who wants to introduce condition monitoring across a <strong>mixed machine fleet</strong> quickly faces the question: do I need a separate system for each brand? In our system the answer is no. This article shows how we bring Siemens and HEIDENHAIN, old and new controls, into a single view, and where the limits lie.</p>
+
+      <h2 id="silos">The problem with manufacturer-specific silos</h2>
+      <p>Control manufacturers and machine builders offer their own solutions for data acquisition and condition monitoring. Each may be good in its own right. In a mixed machine fleet, however, they create silos:</p>
+      <ul>
+        <li><strong>Several user interfaces:</strong> the maintenance engineer has to look in one system for the Siemens machines and in another for the HEIDENHAIN machines.</li>
+        <li><strong>Values that cannot be compared:</strong> each system has its own features, its own levels and its own terms. “Yellow” in one does not mean the same as “Warning” in another.</li>
+        <li><strong>Several contracts and access points:</strong> each silo needs its own licences, its own users and its own approval by IT.</li>
+        <li><strong>Gaps on older machines:</strong> for controls without a modern interface there is often no offering at all.</li>
+      </ul>
+      <p>For spindle monitoring there is also a fundamental problem: the standard interfaces of CNC controls deliver values well below 1 kHz, but bearing damage shows up in the kilohertz range. The actual diagnosis therefore comes from the vibration sensor on the spindle housing anyway, not from the control. The control supplies the context: speed, load, program, alarms. That is good news for a mixed machine fleet, because the sensor is the same for every brand.</p>
+
+      <h2 id="data-contract">One data contract for all CNC controls</h2>
+      <p>At the core of our solution is a uniform data contract between the edge box at the machine and our platform. It defines which messages the box may send and how they are structured, regardless of which control is connected to the box. There are four kinds of record:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Record</th><th>Content</th></tr></thead>
+          <tbody>
+            <tr><td>Control values</td><td>Snapshot of values read, under our own manufacturer-neutral keys, for example <code>spindle.speed</code>, <code>spindle.load</code>, <code>program.name</code></td></tr>
+            <tr><td>Features</td><td>Vibration features of a measurement window, computed on the box, with measuring point, speed, feature set version and, where applicable, the finding in the envelope spectrum</td></tr>
+            <tr><td>Events</td><td>Alarms from the control, connection changes, buffer losses, updates</td></tr>
+            <tr><td>Device status</td><td>Software version of the box, connection to the control, number of buffered records, age of the oldest unsent record, remaining validity of the device certificate</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The contract is strict. Unknown fields are rejected, as are invalid numerical values. Every record carries a sequence number from the box's buffer. The platform stores each number exactly once and confirms receipt. Only then does the box delete the data. This means there are neither gaps nor duplicates after a network interruption. More on the transport route in the article <a href="opc-ua-vs-mqtt-production-data.html">OPC UA or MQTT for production data</a>.</p>
+      <p>The decision to use manufacturer-neutral keys has a simple reason: box and platform are developed independently of each other, and new data sources should be able to join without the contract changing. The platform cannot see whether the speed comes from a SINUMERIK or a TNC. It sees <code>spindle.speed</code>. Evaluation, levels and alerts are therefore the same for all machines. An “Alarm” on the HEIDENHAIN machine means exactly the same as on the Siemens machine.</p>
+
+      <h2 id="signal-sources">Where the values come from: manufacturer paths from the configuration</h2>
+      <p>Siemens and HEIDENHAIN store their values in OPC UA differently. SINUMERIK uses the paths of the NC variables, HEIDENHAIN its own information model. Which node on a particular machine contains the spindle speed also depends on software version, options and machine builder.</p>
+      <p>We do not guess such paths and we do not hard-code them in the software. The mapping “this node is <code>spindle.speed</code>” is held in the box configuration, per machine. During the on-site appointment, a tool on the box reads the control's address space, read-only and through the same barrier as in operation. The entries are created from this table. Each path is checked on the real control before it goes into operation.</p>
+      <p>The connection itself is secured in the same way for all controls: the box reads via OPC UA, normally once per second and never more often than every 0.1 seconds. Writes, method calls, adding and deleting are technically blocked before a request leaves the box. Details in the articles <a href="read-only-cnc-control-write-protection.html">Read-only: write protection on the CNC control</a> and <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+
+      <h2 id="umati">umati and OPC 40501: browse paths instead of fixed NodeIds</h2>
+      <p>With umati, technically OPC UA for Machine Tools (OPC 40501-1), there is a cross-manufacturer standard for machine tools. It describes operating mode, channel state, overrides, active program, tools and messages in a uniform structure. That is valuable context for a measurement: is a program currently running in automatic mode? Is a test run active?</p>
+      <div class="callout">
+        <p class="label">What umati does not provide</p>
+        <p>In its current version, OPC 40501-1 contains no continuous process values: no spindle speed, no spindle load, no axis data. For the spindle there is only whether it is rotating, the override and whether it is being used as an axis. umati alone is therefore not enough for diagnostics. Speed and load come from the manufacturer models.</p>
+      </div>
+      <p>Anyone reading umati should do so via browse paths, not fixed NodeIds. The reasons are practical:</p>
+      <ul>
+        <li><strong>Namespace indices differ</strong> from server to server. The box has to resolve them via the namespace URI when connecting.</li>
+        <li><strong>Channels and spindles have manufacturer-specific names</strong> in the namespace of the particular machine. You find them by browsing the <code>Monitoring</code> node and filtering by type, not via a fixed path.</li>
+        <li><strong>Machines are found via the <code>Machines</code> folder</strong> from OPC 40001-1 and recognised by the type <code>MachineToolType</code>.</li>
+        <li><strong>The NodeId is not a machine identity.</strong> The property <code>ProductInstanceUri</code> from the machine's identification serves as the unique key.</li>
+      </ul>
+      <p>An honest assessment belongs here: a umati model cannot be taken for granted on the two major controls. On SINUMERIK, a machine is only umati-capable if the machine builder or an integrator has set up a corresponding model. The HEIDENHAIN OPC UA NC Server uses its own model, not umati. Automatic detection via umati has therefore not yet been implemented in our box software. Today we work with the verified manufacturer paths from the configuration; umati will follow as an addition.</p>
+
+      <h2 id="controls">What each CNC control provides</h2>
+      <p>The following overview summarises what is possible today for each control. The vibration sensor on the spindle housing is needed in all cases, because only it delivers the signals for bearing diagnostics.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">CNC control → connection → what is available</caption>
+          <thead><tr><th>CNC control</th><th>Connection</th><th>What is available</th></tr></thead>
+          <tbody>
+            <tr><td>SINUMERIK 840D sl, 828D, ONE</td><td>OPC UA, read-only, option on the control required, plus vibration sensor</td><td>Vibration features and bearing diagnostics, plus speed, spindle load, program and alarms from the NC variables. Shortest polling interval of the control 100 ms.</td></tr>
+            <tr><td>HEIDENHAIN TNC 640, TNC 620, TNC7</td><td>OPC UA NC Server, read-only, option on the control required, plus vibration sensor</td><td>Vibration features and bearing diagnostics, plus operating mode, overrides, program and error messages. Spindle and axis data only in newer TNC7 software versions; on older versions we check the speed source on site. Spindle load not in the standard model.</td></tr>
+            <tr><td>HEIDENHAIN iTNC 530, TNC 320</td><td>No OPC UA NC Server, sensors only</td><td>Vibration features and bearing diagnostics. Speed, load, program and alarms from the control are not available.</td></tr>
+            <tr><td>FANUC</td><td>Planned</td><td>Not yet offered. Connection via the FANUC FOCAS interface is planned.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Which values a specific machine delivers depends on the software version, enabled options and the machine builder. That is why we check this on your equipment before committing to anything. With HEIDENHAIN there is an additional point: every application that connects to the OPC UA NC Server needs its own option. If you already use an MES via OPC UA there, a further option may be required.</p>
+
+      <h2 id="without-opc-ua">Older machines without OPC UA: sensors only</h2>
+      <p>The iTNC 530 is still in use in many plants, as is the TNC 320. Neither has an OPC UA NC Server. On these machines we work with the sensors only. In concrete terms:</p>
+      <ul>
+        <li><strong>What works:</strong> the vibration sensor measures on the spindle housing, the box computes the features and looks for bearing frequencies in the envelope spectrum. Evaluation against the learned baseline, levels and alerts work as on any other machine.</li>
+        <li><strong>What is missing:</strong> speed, load, program name and alarms from the control. Without the program name, a measurement cannot be assigned to a machining program.</li>
+        <li><strong>What matters:</strong> bearing frequencies are proportional to speed, and the learned baseline is learned per speed range. How the speed is determined on such a machine is something we clarify for the specific machine during the on-site appointment.</li>
+      </ul>
+      <p>For the maintenance engineer nothing changes in the view. The iTNC machine appears in the same overview as the SINUMERIK ONE, with the same levels and alerts. How the box is built and what it computes on site is described in the article <a href="edge-box-condition-monitoring.html">How the edge box is built</a>.</p>
+
+      <h2 id="fanuc">FANUC: later, via a dedicated connection</h2>
+      <p>For FANUC controls, an OPC UA server in the control itself is not reliably available. The usual route is the FANUC FOCAS interface over Ethernet. We are developing a dedicated connection for this that writes to the same data format as the OPC UA connection. Once it is finished, FANUC machines will appear in the same view. Until then, FANUC is not offered. The sensors alone could also be used there. Whether that makes sense on your machine is something we discuss in the <a href="contact.html">introductory call</a>.</p>
+      <p>An overview of all services for milling centres is on the page <a href="spindle-monitoring.html">Spindle monitoring</a>. What you need to provide for the connection is listed under <a href="process.html">Process and prerequisites</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Can I monitor Siemens and HEIDENHAIN machines in one system?</summary><p>Yes. Box and platform translate the values from both controls into a common data contract with manufacturer-neutral keys. Evaluation, levels and alerts are the same for all machines and appear in one shared view.</p></details>
+        <details class="faq-item"><summary>Is umati enough for spindle condition monitoring?</summary><p>No. OPC 40501-1 provides states, overrides, program and messages, but no spindle speed, no load and no vibration. Bearing diagnostics needs a vibration sensor; speed and load come from the control's manufacturer models.</p></details>
+        <details class="faq-item"><summary>Can an iTNC 530 be monitored without OPC UA?</summary><p>Yes, with sensors. The vibration sensor on the spindle housing provides the data for bearing diagnostics. Values from the control such as speed, load, program and alarms are then not available. We clarify on site how the speed is determined.</p></details>
+        <details class="faq-item"><summary>Which option does the CNC control need for OPC UA?</summary><p>SINUMERIK and HEIDENHAIN each need an enabled OPC UA option. With HEIDENHAIN, each connected application occupies its own option. We check which options are present on your machine before committing.</p></details>
+        <details class="faq-item"><summary>When will FANUC be supported?</summary><p>FANUC is planned, with the connection via FOCAS. We will only name a date once the connection has been tested on real controls.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li>
+<li><span class="label">Our system</span><a href="edge-box-condition-monitoring.html">The edge box for condition monitoring: design, tasks and behaviour during network outages</a></li>
+<li><span class="label">Our system</span><a href="explained-alerts-dashboard.html">Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

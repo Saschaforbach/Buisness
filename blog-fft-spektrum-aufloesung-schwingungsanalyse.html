@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FFT in der Schwingungsanalyse: Abtastrate und Auflösung · Forbach &amp; Partners</title>
+<meta name="description" content="FFT in der Schwingungsanalyse für Praktiker: Abtastrate, Nyquist, Frequenzauflösung, Hann-Fenster, Leckeffekt und Amplitudenskalierung an CNC-Spindeln erklärt.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/fft-spectrum-resolution-vibration-analysis.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="FFT in der Schwingungsanalyse: Abtastrate und Auflösung · Forbach &amp; Partners">
+<meta property="og:description" content="FFT in der Schwingungsanalyse für Praktiker: Abtastrate, Nyquist, Frequenzauflösung, Hann-Fenster, Leckeffekt und Amplitudenskalierung an CNC-Spindeln erklärt.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "FFT in der Schwingungsanalyse: Abtastrate, Auflösung und Fensterfunktion für Praktiker", "description": "FFT in der Schwingungsanalyse für Praktiker: Abtastrate, Nyquist, Frequenzauflösung, Hann-Fenster, Leckeffekt und Amplitudenskalierung an CNC-Spindeln erklärt.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html", "articleSection": "Methode", "wordCount": 1769}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "FFT in der Schwingungsanalyse: Abtastrate, Auflösung und Fensterfunktion für Praktiker", "item": "https://forbachandpartners.com/blog-fft-spektrum-aufloesung-schwingungsanalyse.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Welche Abtastrate braucht man für die Schwingungsanalyse an Wälzlagern?", "acceptedAnswer": {"@type": "Answer", "text": "Eine Abtastrate, deren halber Wert deutlich über den Strukturresonanzen liegt, die ein Lagerschaden anregt. Diese liegen meist im Kilohertz-Bereich. Unser Simulator arbeitet mit 51,2 kHz. Welche Rate an einer bestimmten Spindel sinnvoll ist, hängt von Messkarte, Sensor und Messstelle ab."}}, {"@type": "Question", "name": "Wie berechnet man die Frequenzauflösung einer FFT?", "acceptedAnswer": {"@type": "Answer", "text": "Abtastrate geteilt durch die Zahl der Abtastwerte im Fenster, oder einfacher: eins geteilt durch die Fensterdauer in Sekunden. Ein Fenster von einer Sekunde ergibt eine Auflösung von 1 Hz, unabhängig von der Abtastrate."}}, {"@type": "Question", "name": "Warum verwendet man bei der FFT ein Hann-Fenster?", "acceptedAnswer": {"@type": "Answer", "text": "Weil ein Signal selten in einer ganzen Zahl von Perioden in das Messfenster passt. Ohne Fenster verteilt sich die Energie einer Linie auf ihre Nachbarn, der Leckeffekt. Das Hann-Fenster verringert diesen Effekt stark und hält Linien gut getrennt. Die Amplitude muss danach um den Fensterverlust korrigiert werden."}}, {"@type": "Question", "name": "Reichen die Daten aus der CNC-Steuerung für eine FFT-Analyse der Spindellager?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Standard-Schnittstellen liefern deutlich unter 1 kHz, das Spektrum endet damit unter 500 Hz. Lagerdiagnose braucht Signale im Kilohertz-Bereich und deshalb einen Schwingungssensor am Spindelgehäuse. Die Steuerung liefert aber die Drehzahl, ohne die sich die Lagerfrequenzen nicht berechnen lassen."}}, {"@type": "Question", "name": "Was bedeutet die Amplitude in einem FFT-Spektrum?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt von der Skalierung ab. In unserem System erscheint eine reine Sinusschwingung mit ihrem Spitzenwert, korrigiert um den Verlust durch das Hann-Fenster. Andere Systeme zeigen Effektivwerte oder Leistungsdichten. Vor jedem Vergleich zwischen zwei Systemen sollte man die Skalierung klären."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/fft-spectrum-resolution-vibration-analysis.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Methode</span></nav>
+      <h1>FFT in der Schwingungsanalyse: Abtastrate, Auflösung und Fensterfunktion für Praktiker</h1>
+      <p class="lead">Ein Spektrum ist nur so gut wie die Entscheidungen davor. Abtastrate, Fensterlänge und Fensterfunktion bestimmen, ob zwei eng beieinander liegende Lagerfrequenzen als zwei Linien erscheinen oder als ein verwaschener Hügel.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#abtastrate">Abtastrate und Nyquist: Was überhaupt sichtbar wird</a></li>
+<li><a href="#aufloesung">Frequenzauflösung: Fensterlänge entscheidet</a></li>
+<li><a href="#lagerfrequenzen">Warum die Auflösung für Lagerfrequenzen zählt</a></li>
+<li><a href="#fenster">Fensterfunktionen und Leckeffekt</a></li>
+<li><a href="#amplitude">Amplitudenskalierung: Was die Zahl im Spektrum bedeutet</a></li>
+<li><a href="#mittelung">Mittelung und Rauschen</a></li>
+<li><a href="#steuerung">Warum Steuerungsdaten unter 1 kHz nicht reichen</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Fast jede Schwingungsdiagnose an Maschinen beginnt mit derselben Rechnung: der schnellen Fourier-Transformation, kurz <strong>FFT</strong>. Sie zerlegt ein Zeitsignal in seine Frequenzanteile und macht aus einem unruhigen Messschrieb ein Spektrum mit klaren Linien. Die FFT selbst ist Standard und in jeder Mathematikbibliothek enthalten. Ob das Ergebnis brauchbar ist, entscheidet sich aber vorher: bei Abtastrate, Fensterlänge, Fensterfunktion und Skalierung. Dieser Artikel erklärt diese Stellschrauben der FFT in der Schwingungsanalyse für Praktiker und zeigt, wie wir sie in unserem System für CNC-Spindeln einsetzen.</p>
+
+      <h2 id="abtastrate">Abtastrate und Nyquist: Was überhaupt sichtbar wird</h2>
+      <p>Ein Schwingungssensor liefert ein kontinuierliches Signal. Die Messkarte tastet es in festen Zeitabständen ab. Die Zahl der Werte pro Sekunde ist die <strong>Abtastrate</strong> <code>f<sub>s</sub></code>. Daraus folgt die wichtigste Grenze der ganzen Analyse: Ein Spektrum reicht höchstens bis zur halben Abtastrate, der <strong>Nyquist-Frequenz</strong>.</p>
+      <div class="formula">f_Nyquist = f_s / 2
+
+Beispiel (Annahme): f_s = 51.200 Hz  →  Spektrum bis 25.600 Hz
+                    f_s =  1.000 Hz  →  Spektrum bis    500 Hz</div>
+      <p>Frequenzen oberhalb dieser Grenze verschwinden nicht einfach. Werden sie nicht vor der Abtastung herausgefiltert, erscheinen sie gespiegelt an einer falschen, tieferen Stelle im Spektrum. Dieser Effekt heißt <strong>Aliasing</strong>. Messkarten für Schwingungen haben deshalb ein analoges Tiefpassfilter vor dem Wandler. Nachträglich lässt sich ein Aliasing-Fehler nicht mehr korrigieren.</p>
+      <p>Für die Praxis heißt das: Die Abtastrate muss zu den Frequenzen passen, die man sehen will. Bei Wälzlagern sind das nicht nur die Überrollfrequenzen selbst, sondern vor allem die Strukturresonanzen, die die Stöße eines Lagerschadens anregen. Sie liegen meist im Kilohertz-Bereich. Unser Simulator stellt Schwingungsfenster mit 51,2 kHz bereit, und die Messkartenschnittstelle der Box ist für Beschleunigungssensoren bis zu dieser Abtastrate ausgelegt.</p>
+
+      <h2 id="aufloesung">Frequenzauflösung: Fensterlänge entscheidet</h2>
+      <p>Die FFT verarbeitet immer ein Stück Signal fester Länge, das <strong>Messfenster</strong>. Aus diesem Fenster entsteht ein Spektrum mit Linien in gleichmäßigem Abstand. Dieser Abstand ist die <strong>Frequenzauflösung</strong>:</p>
+      <div class="formula">Δf = f_s / N = 1 / T
+
+N = Anzahl Abtastwerte im Fenster   T = Fensterdauer in Sekunden</div>
+      <p>Die Auflösung hängt also nur von der Dauer des Fensters ab, nicht von der Abtastrate allein. Eine hohe Abtastrate erweitert den Frequenzbereich nach oben. Eine feinere Auflösung bekommt man nur mit einem längeren Fenster.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Beispielwerte, Annahme f_s = 51.200 Hz</caption>
+          <thead><tr><th>Fensterdauer T</th><th>Abtastwerte N</th><th>Auflösung Δf</th><th>Frequenzbereich</th></tr></thead>
+          <tbody>
+            <tr><td class="m">0,25 s</td><td class="m">12.800</td><td class="m">4 Hz</td><td class="m">bis 25.600 Hz</td></tr>
+            <tr><td class="m">0,5 s</td><td class="m">25.600</td><td class="m">2 Hz</td><td class="m">bis 25.600 Hz</td></tr>
+            <tr><td class="m">1 s</td><td class="m">51.200</td><td class="m">1 Hz</td><td class="m">bis 25.600 Hz</td></tr>
+            <tr><td class="m">2 s</td><td class="m">102.400</td><td class="m">0,5 Hz</td><td class="m">bis 25.600 Hz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Längere Fenster haben aber einen Preis. Die Drehzahl muss während des ganzen Fensters konstant bleiben, sonst verschmieren alle drehzahlabhängigen Linien. An einer CNC-Spindel, die mit jedem Werkzeug die Drehzahl wechselt, ist das eine echte Grenze. Die Fensterlänge ist deshalb immer ein Kompromiss zwischen Auflösung und der Zeit, in der die Maschine ruhig genug läuft. In unserer Box ist die Fensterdauer je Messstelle einstellbar. Ein Fenster wird nur ausgewertet, wenn die Drehzahl vor und nach der Messung nahezu gleich war.</p>
+
+      <h2 id="lagerfrequenzen">Warum die Auflösung für Lagerfrequenzen zählt</h2>
+      <p>Die Lagerdiagnose sucht im Spektrum nach Linien an berechneten Stellen: Außenring (BPFO), Innenring (BPFI), Wälzkörper (BSF) und Käfig (FTF). Die Formeln stehen im Artikel <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen</a>. Drei Situationen verlangen eine ausreichend feine Auflösung:</p>
+      <ul>
+        <li><strong>Seitenbänder:</strong> Ein Innenringschaden zeigt sich als Linie bei BPFI mit Nebenlinien im Abstand der Drehfrequenz. Ist die Auflösung zu grob, verschmelzen Hauptlinie und Seitenbänder.</li>
+        <li><strong>Benachbarte Vielfache:</strong> Vielfache verschiedener Schadensarten können eng beieinander liegen. Beim angenommenen Lager aus dem Lagerartikel liegt 3 × BPFO bei rund 1.936 Hz und 2 × BPFI bei rund 1.909 Hz, bei 6.000 min⁻¹ also nur etwa 27 Hz auseinander.</li>
+        <li><strong>Käfigfrequenz:</strong> Die FTF liegt unterhalb der Drehfrequenz, im Beispiel bei rund 40 Hz. Tiefe Frequenzen brauchen absolut gesehen eine feine Auflösung, damit sie sich vom Gleichanteil und von der Drehfrequenz abheben.</li>
+      </ul>
+      <p>Reale Lager schlupfen etwas, die Linien liegen nicht exakt an der berechneten Stelle. Unser System sucht deshalb in einem Toleranzband um jede erwartete Frequenz. Das Band ist mindestens einige Prozent der Frequenz breit und nie schmaler als einige Spektrallinien. Zwei Folgen daraus haben wir bewusst in die Auswertung eingebaut. Erstens wird ein Schaden nur als erkannt gewertet, wenn die <strong>Grundfrequenz</strong> selbst sichtbar ist, nicht nur ein Vielfaches. Zweitens prüft das System, ob eine erwartete Frequenz mit ihren Vielfachen noch unterhalb der Nyquist-Grenze liegt. Liegt sie darüber, wird sie gar nicht erst bewertet, statt einen Wert zu raten.</p>
+
+      <h2 id="fenster">Fensterfunktionen und Leckeffekt</h2>
+      <p>Die FFT nimmt an, dass sich das Messfenster endlos wiederholt. Passt eine Schwingung nicht in einer ganzen Zahl von Perioden in das Fenster, entsteht an der Nahtstelle ein Sprung. Im Spektrum verteilt sich die Energie der Linie dann auf die Nachbarlinien. Das nennt man <strong>Leckeffekt</strong>, im Englischen Leakage. Eine starke Linie kann so eine schwache Nachbarlinie überdecken, und die Amplitude der starken Linie wird zu klein angezeigt.</p>
+      <p>Gegenmittel ist eine <strong>Fensterfunktion</strong>. Sie gewichtet das Signal so, dass es an den Rändern des Fensters sanft auf null ausläuft. Damit verschwindet der Sprung, und die Energie bleibt viel enger bei der eigentlichen Linie. Es gibt viele Fensterfunktionen mit unterschiedlichen Stärken:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Fenster</th><th>Stärke</th><th>Typischer Einsatz</th></tr></thead>
+          <tbody>
+            <tr><td>Rechteck (kein Fenster)</td><td>schärfste Linie, aber starker Leckeffekt</td><td>Stoßmessungen, Signale, die exakt ins Fenster passen</td></tr>
+            <tr><td>Hann</td><td>guter Kompromiss aus Trennschärfe und geringem Leckeffekt</td><td>allgemeine Schwingungsanalyse an Maschinen</td></tr>
+            <tr><td>Flat-Top</td><td>sehr genaue Amplitude, aber breite Linien</td><td>Kalibrierung, Amplitudenmessung einzelner Linien</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In unserem System verwenden wir das <strong>Hann-Fenster</strong>, sowohl für das gewöhnliche Spektrum als auch für das Hüllkurvenspektrum. Für die Lagerdiagnose ist das die übliche Wahl: Linien bleiben gut getrennt, und schwache Lagerlinien neben der starken Drehfrequenz gehen nicht im Leckeffekt unter. Der Preis ist eine etwas breitere Hauptlinie, die durch das Toleranzband bei der Suche aufgefangen wird.</p>
+
+      <h2 id="amplitude">Amplitudenskalierung: Was die Zahl im Spektrum bedeutet</h2>
+      <p>Ein Spektrum zeigt auf der senkrechten Achse eine Amplitude. Was diese Zahl genau bedeutet, ist nicht selbstverständlich. Spektren können als Spitzenwert, als Effektivwert, als Leistung oder als Leistungsdichte skaliert sein. Wer zwei Spektren aus verschiedenen Systemen vergleicht, muss das wissen, sonst vergleicht er Äpfel mit Birnen.</p>
+      <p>Unser System berechnet ein <strong>einseitiges Amplitudenspektrum</strong>, also nur positive Frequenzen. Die Skalierung ist so gewählt, dass eine reine Sinusschwingung im Spektrum mit ihrem <strong>Spitzenwert</strong> erscheint. Dazu gehören zwei Korrekturen:</p>
+      <ul>
+        <li><strong>Fensterkorrektur:</strong> Das Hann-Fenster dämpft das Signal an den Rändern und senkt damit die Amplitude aller Linien. Das Ergebnis wird durch die Summe der Fenstergewichte geteilt, damit die Amplitude wieder stimmt.</li>
+        <li><strong>Einseitige Darstellung:</strong> Die FFT verteilt die Energie einer Schwingung auf eine positive und eine negative Frequenz. Für die einseitige Darstellung werden die Werte verdoppelt. Der Gleichanteil und die Linie genau bei der Nyquist-Frequenz haben kein Spiegelbild und werden nicht verdoppelt.</li>
+      </ul>
+      <p>Die absolute Höhe ist für unsere Bewertung trotzdem nicht der Maßstab. Sie hängt vom Sensor, seiner Befestigung und dem Übertragungsweg im Spindelgehäuse ab. Bewertet wird die Abweichung von der gelernten Normallage derselben Messstelle. Mehr dazu im Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">feste Schwellen oder gelernte Normallage</a>.</p>
+
+      <h2 id="mittelung">Mittelung und Rauschen</h2>
+      <p>Ein einzelnes Spektrum enthält Zufallsanteile. Klassische Messgeräte mitteln deshalb oft mehrere Spektren hintereinander, etwa nach dem Welch-Verfahren mit überlappenden Teilfenstern. Die Linien bleiben stehen, das Rauschen wird glatter. Der Nachteil ist, dass eine Mittelung über Teilfenster bei gleicher Gesamtdauer die Auflösung verringert.</p>
+      <p>Unser System mittelt innerhalb eines Messfensters nicht. Jedes Fenster ergibt genau ein Spektrum mit voller Auflösung. Die Robustheit gegen Zufall kommt an anderer Stelle hinein:</p>
+      <ul>
+        <li><strong>Rauschboden als Median:</strong> Ob eine Linie bei einer Lagerfrequenz hervorsticht, misst das System gegen den Median der Amplituden in einem Band um diese Frequenz. Der Median wird von den gesuchten Spitzen selbst kaum beeinflusst. Das Ergebnis ist ein Abstand in Dezibel über dem Rauschen.</li>
+        <li><strong>Normallage aus vielen Messungen:</strong> Die Normallage einer Spindel wird aus vielen gesunden Messungen gelernt, mit robusten Maßen wie Median und mittlerer absoluter Abweichung statt Mittelwert und Standardabweichung.</li>
+        <li><strong>Bestätigung über mehrere Messungen:</strong> Eine Meldung entsteht erst, wenn eine Abweichung über mehrere aufeinanderfolgende Messungen besteht.</li>
+      </ul>
+      <p>Diese Aufteilung hält jedes einzelne Spektrum scharf und verschiebt die statistische Glättung dorthin, wo sie die Diagnose nicht verwischt.</p>
+
+      <h2 id="steuerung">Warum Steuerungsdaten unter 1 kHz nicht reichen</h2>
+      <p>Viele Betriebe fragen zu Recht, ob man nicht einfach die Daten nutzen kann, die die CNC-Steuerung ohnehin liefert. Für Drehzahl, Spindellast und Betriebszustand ist die Steuerung tatsächlich die richtige Quelle. Für die Lagerdiagnose reicht sie nicht. Die Standard-Schnittstellen der Steuerungen liefern Werte mit deutlich unter 1 kHz. Nach der Nyquist-Regel endet das Spektrum dann unterhalb von 500 Hz. Die Strukturresonanzen, an denen die Hüllkurvenanalyse ansetzt, liegen weit darüber. Selbst die Überrollfrequenzen des Innenrings liegen bei hohen Spindeldrehzahlen schon über dieser Grenze.</p>
+      <div class="callout">
+        <p class="label">Zwei Quellen, zwei Aufgaben</p>
+        <p>Unsere Box liest die Steuerung per OPC UA nur lesend, standardmäßig einmal pro Sekunde, und nie öfter als alle 0,1 Sekunden. Daraus kommt die Drehzahl, ohne die sich keine Lagerfrequenz berechnen lässt. Das Schwingungssignal im Kilohertz-Bereich kommt von einem Sensor am Spindelgehäuse. Die FFT und die Hüllkurvenanalyse laufen direkt auf der Box. Übertragen werden nur die Kennwerte.</p>
+      </div>
+      <p>Für die Hüllkurve wird das Signal vorher mit einem Bandpass um die Resonanz gefiltert. Wir verwenden dafür ein Butterworth-Filter, das vorwärts und rückwärts angewendet wird und so keine Phasenverschiebung erzeugt. Die Hüllkurve entsteht über die Hilbert-Transformation. Das passende Frequenzband wird je Messstelle festgelegt. Den Weg vom Rohsignal bis zur Meldung beschreibt der Artikel <a href="blog-von-der-schwingung-zur-meldung-verarbeitungskette.html">Von der Schwingung zur Meldung</a>. Wie die Box aufgebaut ist, steht unter <a href="blog-edge-box-zustandsueberwachung-aufbau.html">Edge-Box für die Zustandsüberwachung</a>, und wie die Daten geschützt sind, unter <a href="datensicherheit.html">Datensicherheit</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Welche Abtastrate braucht man für die Schwingungsanalyse an Wälzlagern?</summary><p>Eine Abtastrate, deren halber Wert deutlich über den Strukturresonanzen liegt, die ein Lagerschaden anregt. Diese liegen meist im Kilohertz-Bereich. Unser Simulator arbeitet mit 51,2 kHz. Welche Rate an einer bestimmten Spindel sinnvoll ist, hängt von Messkarte, Sensor und Messstelle ab.</p></details>
+        <details class="faq-item"><summary>Wie berechnet man die Frequenzauflösung einer FFT?</summary><p>Abtastrate geteilt durch die Zahl der Abtastwerte im Fenster, oder einfacher: eins geteilt durch die Fensterdauer in Sekunden. Ein Fenster von einer Sekunde ergibt eine Auflösung von 1 Hz, unabhängig von der Abtastrate.</p></details>
+        <details class="faq-item"><summary>Warum verwendet man bei der FFT ein Hann-Fenster?</summary><p>Weil ein Signal selten in einer ganzen Zahl von Perioden in das Messfenster passt. Ohne Fenster verteilt sich die Energie einer Linie auf ihre Nachbarn, der Leckeffekt. Das Hann-Fenster verringert diesen Effekt stark und hält Linien gut getrennt. Die Amplitude muss danach um den Fensterverlust korrigiert werden.</p></details>
+        <details class="faq-item"><summary>Reichen die Daten aus der CNC-Steuerung für eine FFT-Analyse der Spindellager?</summary><p>Nein. Die Standard-Schnittstellen liefern deutlich unter 1 kHz, das Spektrum endet damit unter 500 Hz. Lagerdiagnose braucht Signale im Kilohertz-Bereich und deshalb einen Schwingungssensor am Spindelgehäuse. Die Steuerung liefert aber die Drehzahl, ohne die sich die Lagerfrequenzen nicht berechnen lassen.</p></details>
+        <details class="faq-item"><summary>Was bedeutet die Amplitude in einem FFT-Spektrum?</summary><p>Das hängt von der Skalierung ab. In unserem System erscheint eine reine Sinusschwingung mit ihrem Spitzenwert, korrigiert um den Verlust durch das Hann-Fenster. Andere Systeme zeigen Effektivwerte oder Leistungsdichten. Vor jedem Vergleich zwischen zwei Systemen sollte man die Skalierung klären.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Methode</span><a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">Feste Schwellen, 3 Sigma oder gelernte Normallage: Wie Alarme in der Zustandsüberwachung entstehen</a></li>
+<li><span class="label">Methode</span><a href="blog-condition-monitoring-vs-predictive-maintenance.html">Condition Monitoring vs. Predictive Maintenance: Was der Unterschied ist und was eine Prognose leisten kann</a></li>
+<li><span class="label">Methode</span><a href="blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">Effektivwert, Scheitelfaktor und Kurtosis: Schwingungskennwerte verständlich erklärt</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

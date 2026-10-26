@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stillstandsrechner: Was kosten ungeplante Spindelschäden? · Forbach &amp; Partners</title>
+<meta name="description" content="Rechner für Geschäftsführer: Was kosten ungeplante Spindel- und Lagerschäden Ihren Betrieb pro Jahr, Monat und Arbeitstag? Mit Ihren eigenen Zahlen.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/stillstandsrechner.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/stillstandsrechner.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/downtime-calculator.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/stillstandsrechner.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Stillstandsrechner: Was kosten ungeplante Spindelschäden? · Forbach &amp; Partners">
+<meta property="og:description" content="Rechner für Geschäftsführer: Was kosten ungeplante Spindel- und Lagerschäden Ihren Betrieb pro Jahr, Monat und Arbeitstag? Mit Ihren eigenen Zahlen.">
+<meta property="og:url" content="https://forbachandpartners.com/stillstandsrechner.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html" aria-current="page">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/downtime-calculator.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="label">Stillstandsrechner für die Geschäftsführung</p>
+      <h1>Was kostet Sie ungeplanter Stillstand heute?</h1>
+      <p class="lead">Ein Spindelschaden kostet mehr als die Reparatur. Die Maschine steht, Aufträge verschieben sich, und oft leidet mehr als nur das Lager. Stellen Sie die Regler auf Ihre Zahlen. Das Ergebnis sehen Sie sofort.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="calc">
+        <form id="calc" onsubmit="return false">
+          <div class="field"><label for="c-m">Bearbeitungszentren mit Spindel <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
+          <div class="field"><label for="c-h">Kosten je Stillstandsstunde <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="1500" step="25" value="400"><small class="hint">Maschinenstundensatz plus entgangener Deckungsbeitrag, wenn Aufträge warten.</small></div>
+          <div class="field"><label for="c-s">Ungeplante Stillstandsstunden je Maschine und Jahr durch Spindel- und Lagerschäden <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="30"></div>
+          <div class="field"><label for="c-n">Ungeplante Spindelschäden pro Jahr, alle Maschinen <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="2"></div>
+          <div class="field"><label for="c-r">Mehrkosten je ungeplantem Spindelschaden <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="8000"><small class="hint">Eilreparatur, Folgeschäden an Spindel und Werkstück, Expresskosten, Sonderschichten.</small></div>
+          <div class="field"><label for="c-v">Davon vermeidbar bei früher Erkennung, Ihre Schätzung <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
+        </form>
+        <div class="result" aria-live="polite">
+          <div><span class="label">Das verlieren Sie heute durch ungeplante Spindelschäden</span><div class="big" id="r-loss" style="margin-top:10px">–</div><span class="muted" style="font-size:14px">pro Jahr</span></div>
+          <div class="pair">
+            <div><span class="label">Pro Monat</span><b id="r-month">–</b></div>
+            <div><span class="label">Pro Arbeitstag</span><b id="r-day">–</b></div>
+          </div>
+          <div class="split" aria-hidden="true"><span id="r-bar-a"></span><span id="r-bar-b"></span></div>
+          <div class="legend"><span><i class="la"></i>Stillstand <b id="r-a">–</b></span><span><i class="lb"></i>Reparatur und Folgeschäden <b id="r-b">–</b></span></div>
+          <div class="save"><span class="label">Nach Ihrer Schätzung vermeidbar</span><b id="r-save">–</b><span class="muted" style="font-size:14px">pro Jahr</span></div>
+          <a class="btn solid" id="r-cta" href="kontakt.html?rechner=1">Ergebnis im Erstgespräch durchgehen <span class="arr">→</span></a>
+          <small>Rechenhilfe mit Ihren eigenen Annahmen, keine Zusage. Die Regler zeigen Beispielwerte. Pro Arbeitstag gerechnet mit 250 Arbeitstagen im Jahr. Wie früh das System an Ihren Maschinen warnt, zeigt der Pilotbetrieb.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Woher Sie die Zahlen bekommen</p>
+        <h2>Fünf Werte, die Ihr Controlling kennt.</h2>
+        <p>Wenn Sie einen Wert nicht genau wissen, nehmen Sie eine vorsichtige Schätzung. Das Ergebnis ist dann eher zu niedrig als zu hoch.</p>
+      </div>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Wert</th><th>Wo Sie ihn finden</th></tr></thead>
+          <tbody>
+            <tr><td>Kosten je Stillstandsstunde</td><td>Maschinenstundensatz aus der Kalkulation. Wenn Aufträge warten oder verloren gehen, zusätzlich den entgangenen Deckungsbeitrag pro Stunde.</td></tr>
+            <tr><td>Ungeplante Stillstandsstunden</td><td>Instandhaltungsprotokoll, BDE oder Maschinenbuch der letzten zwei bis drei Jahre. Nur Stillstände durch Spindel und Spindellager zählen.</td></tr>
+            <tr><td>Anzahl ungeplanter Spindelschäden</td><td>Rechnungen von Spindelservice und Maschinenhersteller. Ein Durchschnitt über mehrere Jahre ist aussagekräftiger als ein einzelnes Jahr.</td></tr>
+            <tr><td>Mehrkosten je Schaden</td><td>Unterschied zwischen ungeplanter und geplanter Reparatur: Eilzuschläge, Expressversand, Folgeschäden an Spindel, Werkzeug und Werkstück, Sonderschichten zum Aufholen.</td></tr>
+            <tr><td>Vermeidbarer Anteil</td><td>Ihre eigene Einschätzung. Wie viele der Schäden hätten Sie in eine Wartungspause verlegen können, wenn Sie Wochen vorher davon gewusst hätten?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Der Rechner nennt bewusst keinen Preis für unser System und keine Ersparnis, die wir versprechen. Wie früh das System an Ihren Maschinen warnt, zeigt der Pilotbetrieb. Was eine Anbindung kostet, nennen wir Ihnen im Erstgespräch als konkrete Zahl.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <div>
+        <p class="label">Mehr dazu</p>
+        <h2 style="margin-top:18px">Die ganze Rechnung, Schritt für Schritt.</h2>
+      </div>
+      <div>
+        <p class="lead">Wie Sie Stillstandskosten sauber herleiten, welche Posten oft vergessen werden und wie daraus eine Wirtschaftlichkeitsrechnung wird, steht im Fachartikel.</p>
+        <p style="margin-top:24px"><a class="tel" href="blog-was-kostet-eine-stunde-maschinenstillstand.html">Was kostet eine Stunde Maschinenstillstand? →</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

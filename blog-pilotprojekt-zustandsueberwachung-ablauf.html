@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pilotprojekt Zustandsüberwachung: Ablauf von innen · Forbach &amp; Partners</title>
+<meta name="description" content="So läuft ein Pilotprojekt zur Zustandsüberwachung an CNC-Spindeln ab: Erstgespräch, Vorabklärung, Generalprobe, Tag vor Ort, Einlernphase und Abschluss.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/condition-monitoring-pilot-project.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Pilotprojekt Zustandsüberwachung: Ablauf von innen · Forbach &amp; Partners">
+<meta property="og:description" content="So läuft ein Pilotprojekt zur Zustandsüberwachung an CNC-Spindeln ab: Erstgespräch, Vorabklärung, Generalprobe, Tag vor Ort, Einlernphase und Abschluss.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Pilotprojekt Zustandsüberwachung: So läuft es von innen ab", "description": "So läuft ein Pilotprojekt zur Zustandsüberwachung an CNC-Spindeln ab: Erstgespräch, Vorabklärung, Generalprobe, Tag vor Ort, Einlernphase und Abschluss.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html", "articleSection": "Unser System", "wordCount": 1804}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Pilotprojekt Zustandsüberwachung: So läuft es von innen ab", "item": "https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie läuft ein Pilotprojekt zur Zustandsüberwachung ab?", "acceptedAnswer": {"@type": "Answer", "text": "Erstgespräch von etwa 20 Minuten, Vorabklärung je Maschine per E-Mail, ein Tag vor Ort zur lesenden Anbindung der Steuerung und zur Festlegung der Messstellen, danach Einlernphase und Pilotbetrieb mit Meldungen, Rückmeldung und einem Monatsbericht je Maschine."}}, {"@type": "Question", "name": "Wird beim Pilotprojekt etwas an der CNC-Steuerung verändert?", "acceptedAnswer": {"@type": "Answer", "text": "An Parametern, Programmen und Werkzeugdaten wird nichts verändert. Mit Ihrer Freigabe wird ein Lesebenutzer angelegt und das Zertifikat der Box an der Steuerung als vertrauenswürdig markiert. Das erledigt Ihr Personal oder der Service des Maschinenherstellers. Die Box kann nur lesen."}}, {"@type": "Question", "name": "Was muss unsere IT für die Zustandsüberwachung freigeben?", "acceptedAnswer": {"@type": "Answer", "text": "Ausgehende Verbindungen von der Box zu unserer Plattform in Deutschland über Port 8883, ersatzweise 443, und für signierte Updates über Port 443. Eingehende Verbindungen sind nicht nötig. Prüft eine Firewall verschlüsselte Verbindungen durch Aufbrechen, braucht die Box eine Ausnahme."}}, {"@type": "Question", "name": "Wie lange dauert die Einlernphase?", "acceptedAnswer": {"@type": "Answer", "text": "Das hängt davon ab, wie oft Ihre Spindeln in welchen Drehzahlbereichen laufen. Das System lernt je Maschine, Messstelle und Drehzahlklasse, bis genügend Messungen vorliegen. Eine pauschale Dauer nennen wir deshalb nicht."}}, {"@type": "Question", "name": "Was passiert mit unseren Daten, wenn wir den Pilot beenden?", "acceptedAnswer": {"@type": "Answer", "text": "Sie können alle Daten als JSON-Lines-Datei exportieren. Auf Wunsch löschen wir alle Daten Ihres Betriebs. Vorher wird ein vollständiger Export erstellt, die Löschung läuft in einer einzigen Transaktion, und ein Bericht weist die gelöschten Zeilen je Tabelle aus."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/condition-monitoring-pilot-project.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Unser System</span></nav>
+      <h1>Pilotprojekt Zustandsüberwachung: So läuft es von innen ab</h1>
+      <p class="lead">Ein Pilotprojekt ist kein Software-Download. Dieser Artikel zeigt Schritt für Schritt, was vor, während und nach dem Termin an Ihrer Maschine passiert, was wir vorher proben und wie ein Pilot sauber endet.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#erstgespraech">Erstgespräch und Vorabklärung: Passt Ihr Maschinenpark?</a></li>
+<li><a href="#generalprobe">Generalprobe mit unserem Steuerungssimulator</a></li>
+<li><a href="#vor-ort">Der Tag vor Ort</a></li>
+<li><a href="#einlernen">Einlernphase: Die Normallage Ihrer Spindel</a></li>
+<li><a href="#meldungen">Meldungen, Rückmeldung und Monatsbericht</a></li>
+<li><a href="#vorbereitung">Was Ihr Betrieb vorbereiten sollte</a></li>
+<li><a href="#abschluss">Abschluss: Datenexport oder nachweisbare Löschung</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Bevor ein Betrieb eine Zustandsüberwachung für seine CNC-Spindeln einführt, will er zu Recht wissen, worauf er sich einlässt. Wer kommt ins Haus, was passiert an der Steuerung, wer muss was vorbereiten, und wie kommt man wieder heraus, wenn es nicht passt. Dieser Artikel beschreibt ein <strong>Pilotprojekt zur Zustandsüberwachung</strong> bei uns von innen: vom ersten Telefonat über die Generalprobe in unserem Labor und den Tag an Ihrer Maschine bis zum Abschluss mit Datenexport oder nachweisbarer Löschung. Wir nennen dabei nur die Zeitangaben, die wir auch zusagen können.</p>
+
+      <h2 id="erstgespraech">Erstgespräch und Vorabklärung: Passt Ihr Maschinenpark?</h2>
+      <p>Am Anfang steht ein Erstgespräch von etwa 20 Minuten per Telefon oder Video. Es dient einer einzigen Frage: Lassen sich Ihre Maschinen anbinden. Entscheidend sind Steuerung, Softwarestand und freigeschaltete Optionen, nicht die Größe Ihres Betriebs.</p>
+      <ul>
+        <li><strong>Siemens:</strong> SINUMERIK 840D sl, 828D und ONE mit der Option für OPC UA.</li>
+        <li><strong>HEIDENHAIN:</strong> TNC 640, TNC 620 und TNC7 mit dem OPC UA NC Server. Jeder verbundene Client belegt dort eine Lizenz.</li>
+        <li><strong>Ausnahmen:</strong> iTNC 530 und TNC 320 haben keinen OPC UA NC Server. Dort ist nur die Schwingungsmessung möglich. FANUC folgt in einer späteren Phase.</li>
+      </ul>
+      <p>Überwacht werden heute Spindel und Spindellager. Wenn Sie eher Probleme an Vorschubachsen, Werkzeugwechsler oder Kühlmittel haben, sagen wir Ihnen im Erstgespräch, dass das noch nicht zum Angebot gehört. Passt es nicht, erfahren Sie das in diesem Gespräch und nicht erst nach dem Termin vor Ort. Welche Maschinen wir anbinden, steht auch auf der Seite <a href="cnc-fraeszentren.html">CNC-Fräszentren</a>.</p>
+
+      <h3 id="vorabklaerung">Vorabklärung je Maschine</h3>
+      <p>Nach dem Erstgespräch erhalten Sie ein Datenblatt je Maschine und das IT-Sicherheitsblatt. Je Maschine brauchen wir eine Zeile mit Hersteller, Typ, Baujahr, Seriennummer, Steuerung und NC-Softwarestand. Dazu Fotos vom Typenschild und vom Options- oder Lizenzbildschirm der Steuerung. Diese Fotos sparen vor Ort viel Zeit, denn erst sie zeigen, ob die nötige OPC-UA-Option tatsächlich freigeschaltet ist.</p>
+      <p>Wir fragen außerdem nach:</p>
+      <ul>
+        <li>anderen Programmen, die bereits per OPC UA auf die Steuerung zugreifen, etwa Betriebsdatenerfassung, MES oder Fernwartung des Herstellers. Bei HEIDENHAIN zählt jeder davon gegen die verfügbaren Lizenzen.</li>
+        <li>Ihrem Wartungsvertrag. Behält er Eingriffe dem Maschinenhersteller vor, etwa das Anlegen von Benutzern oder Zertifikaten an der Steuerung, klären wir das vorher gemeinsam.</li>
+        <li>dem Netzwerk: IP-Adresse der Steuerung, Netzsegment, Ansprechpartner der IT, Standort und Stromversorgung für die Box.</li>
+      </ul>
+      <p>Parallel gibt Ihre IT eine einzige ausgehende Verbindung frei: TCP-Port 8883, ersatzweise 443, von der Box zu unserer Plattform in Deutschland. Eingehende Verbindungen sind nicht nötig. Prüft eine Firewall verschlüsselte Verbindungen durch Aufbrechen, braucht die Box dort eine Ausnahme, weil sonst die Zertifikatsprüfung fehlschlägt. Details dazu stehen unter <a href="datensicherheit.html">Datensicherheit</a>.</p>
+      <p>Organisatorisch klären wir vorab Geheimhaltungsvereinbarung und Auftragsverarbeitungsvertrag. Wir erfassen Maschinendaten, keine Bedienerdaten. Ob Ihr Betriebsrat informiert werden muss, klären Sie bitte vorab.</p>
+
+      <h2 id="generalprobe">Generalprobe mit unserem Steuerungssimulator</h2>
+      <p>Bevor wir zu Ihnen fahren, proben wir den Termin. Dafür haben wir einen eigenen Simulator gebaut, der sich wie eine abgesicherte SINUMERIK verhält. Er stellt einen OPC-UA-Server mit Drehzahl, Spindellast, Werkzeug, Programmzustand und Alarmen bereit. Eine virtuelle Messkarte liefert dazu passende Schwingungssignale. Beide lesen aus demselben Maschinenmodell, damit Drehzahl und Schwingung immer zusammenpassen. Im Simulator lassen sich gezielt Lagerschäden einbauen und wachsen lassen, um die ganze Kette bis zur Meldung zu prüfen.</p>
+      <p>In der Generalprobe läuft der Simulator im verschlüsselten Modus. Er akzeptiert dann nur verschlüsselte Verbindungen mit einem eigenen Lesebenutzer, so wie es an Ihrer Steuerung sein wird. Wir üben damit den Austausch der Zertifikate, das Auslesen des Adressraums und den Start der Box. Alle Variablen im Simulator sind nur lesbar, Schreibversuche werden abgelehnt. Eine nachgebildete Methode zählt jeden Aufruf. So belegen wir in unserem Gesamttest, dass die Box nie eine Methode aufruft.</p>
+      <div class="callout">
+        <p class="label">Was die Generalprobe nicht ersetzt</p>
+        <p>Der Simulator ahmt eine Steuerung nach, er ist keine. Welche Signale Ihre Steuerung unter welchem Pfad anbietet, hängt von Hersteller, Softwarestand, Optionen und Maschinenhersteller ab. Diese Pfade lesen wir an Ihrer Maschine aus, statt sie anzunehmen. Mehr dazu im Artikel <a href="blog-sinumerik-heidenhain-opc-ua-anbinden.html">SINUMERIK und HEIDENHAIN per OPC UA anbinden</a>.</p>
+      </div>
+
+      <h2 id="vor-ort">Der Tag vor Ort</h2>
+      <p>Der Termin an Ihrer Maschine dauert einen Tag. Ziel ist eine belastbare Grundlage, nicht alles an einem Tag fertig zu haben. Die Produktion läuft dabei weiter. An der Steuerung bedienen nur Ihr Personal oder der Service des Maschinenherstellers. Wir sagen, was wir brauchen, schauen zu und dokumentieren. Der Ablauf folgt einer festen Checkliste:</p>
+      <ol>
+        <li><strong>Ankommen:</strong> Sicherheitsunterweisung, ein fester Begleiter aus Bedienung oder Instandhaltung, Fotos von Typenschild, Versions- und Optionsbildschirm.</li>
+        <li><strong>Netzwerk prüfen:</strong> Box mit Ihrer IT ins Maschinennetz bringen, Erreichbarkeit der Steuerung prüfen, ausgehende Verbindung zur Plattform testen.</li>
+        <li><strong>Adressraum auslesen:</strong> Die Box liest den Adressraum der Steuerung in eine Tabelle. Dabei gilt dieselbe Lesesperre wie im Betrieb: Nur Durchsuchen und Lesen sind erlaubt.</li>
+        <li><strong>Zertifikate austauschen:</strong> Das Zertifikat der Steuerung wird in der Box hinterlegt, das Zertifikat der Box an der Steuerung von Hand als vertrauenswürdig markiert. Den Fingerabdruck vergleichen wir mit einem Ausdruck.</li>
+        <li><strong>Lesebenutzer anlegen:</strong> Mit Ihrer Freigabe richtet Ihr Personal einen Benutzer ein, der nur lesen darf. Bei Siemens mit den Rechten zum Lesen von Daten und Alarmen, ohne jedes Schreibrecht.</li>
+        <li><strong>Signale festlegen:</strong> Nur Signale, die in der Tabelle gefunden und bei laufender Spindel live geprüft wurden, kommen in die Konfiguration. Die Spindeldrehzahl ist Pflicht.</li>
+        <li><strong>Box starten und prüfen:</strong> Kommen die Werte auf der Plattform an? Reagiert die Bedienoberfläche der Steuerung genauso schnell wie ohne Box? Die Box fragt standardmäßig einmal pro Sekunde ab und nie öfter als alle 0,1 Sekunden.</li>
+        <li><strong>Verbindungsabbruch testen:</strong> Wir trennen die Internetverbindung der Box, nicht die zur Steuerung. Die Box puffert, und nach dem Wiederverbinden müssen die Daten lückenlos auf der Plattform ankommen.</li>
+        <li><strong>Messstellen festlegen:</strong> Gemeinsam mit Ihnen bestimmen wir die Montagepunkte für den Schwingungssensor am Spindelgehäuse und dokumentieren sie mit Fotos.</li>
+        <li><strong>Abschluss:</strong> Box beschriften, Einbauort fotografieren, kurzes Gespräch über Stand, offene Punkte und nächste Schritte.</li>
+      </ol>
+      <p>Einige Dinge tun wir an diesem Tag grundsätzlich nicht: Maschinenparameter, NC-Programme, Werkzeugdaten oder PLC-Werte ändern, auch nicht auf Bitte. Schreibversuche „zum Testen“ unternehmen. Eingehende Ports öffnen oder Fernwartungssoftware installieren. Netzwerkscans ohne Freigabe der IT durchführen. Warum die Box technisch gar nicht schreiben kann, erklärt der Artikel <a href="blog-nur-lesen-schreibschutz-cnc-steuerung.html">Nur lesen: Schreibschutz an der CNC-Steuerung</a>.</p>
+
+      <h2 id="einlernen">Einlernphase: Die Normallage Ihrer Spindel</h2>
+      <p>Nach dem Termin beginnt der Pilotbetrieb. Zuerst lernt das System die <strong>Normallage</strong> Ihrer Spindeln. Für jede Kombination aus Maschine, Messstelle und Drehzahlklasse sammelt es Kennwerte, bis genügend Messungen für eine robuste Statistik vorliegen. Solange eine Drehzahlklasse noch lernt, erzeugt sie keine Meldungen. Drehzahlen, die Ihre Maschine selten fährt, brauchen entsprechend länger.</p>
+      <p>Eine feste Dauer für die Einlernphase nennen wir nicht. Sie hängt davon ab, wie oft und in welchen Drehzahlbereichen Ihre Spindeln laufen. Eine Voraussetzung ist wichtig: Die Einlernphase geht davon aus, dass die Spindel gesund ist. Ist bereits ein Schaden vorhanden, wird er Teil der Normallage. Nach einem Lagertausch oder einer Spindelreparatur lässt sich die Normallage deshalb neu lernen. Diese Aktion wird im Protokoll vermerkt. Mehr dazu im Artikel <a href="blog-normallage-lernen-einlernphase.html">Normallage lernen</a>.</p>
+
+      <h2 id="meldungen">Meldungen, Rückmeldung und Monatsbericht</h2>
+      <p>Sobald eine Normallage steht, wird jede neue Messung mit ihr verglichen. Es gibt vier Stufen: Normal, Auffällig, Warnung und Alarm. Eine Meldung entsteht erst, wenn eine Abweichung über mehrere aufeinanderfolgende Messungen bestehen bleibt. Jede Meldung nennt Maschine, Messstelle und Drehzahl, den betroffenen Kennwert im Vergleich zur Normallage, die Dringlichkeit und eine Prüfempfehlung. Bei einem Lagerbefund nennt sie das vermutete Bauteil, etwa den Außenring. Eine Restlaufzeit nennt sie bewusst nicht.</p>
+      <p>Ihre Rückmeldung ist im Pilot der wichtigste Beitrag. Zu jeder Meldung können Instandhalter oder Administrator festhalten, ob sie <strong>stimmt</strong>, ein <strong>Fehlalarm</strong> war oder <strong>unklar</strong> ist. Die Schwellen für die Stufen sind Startwerte. Mit Prüfstandsdaten und Ihren Rückmeldungen werden sie kalibriert. Ohne Rückmeldung bleibt eine Meldung offen und ist in der Übersicht als offen sichtbar.</p>
+      <p>Einmal im Monat erhalten Sie einen Bericht je Maschine. Wie eine einzelne Meldung im Dashboard aussieht, zeigt der Artikel <a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung</a>.</p>
+
+      <h2 id="vorbereitung">Was Ihr Betrieb vorbereiten sollte</h2>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Wer</th><th>Was</th><th>Wann</th></tr></thead>
+          <tbody>
+            <tr><td>Instandhaltung</td><td>Datenblatt je Maschine, Fotos von Typenschild und Optionsbildschirm</td><td>vor dem Termin</td></tr>
+            <tr><td>Instandhaltung</td><td>Pilotmaschine auswählen, möglichst eine mit Wiederholteilen</td><td>vor dem Termin</td></tr>
+            <tr><td>IT</td><td>Ausgehend Port 8883 freigeben, ersatzweise 443. Keine Prüfung durch Aufbrechen der Verschlüsselung für die Box</td><td>vor dem Termin</td></tr>
+            <tr><td>IT</td><td>IP-Adresse der Steuerung, Netzsegment, Platz und Netzwerkanschluss für die Box, Zeitserver</td><td>vor dem Termin</td></tr>
+            <tr><td>Geschäftsleitung</td><td>Geheimhaltungsvereinbarung und Auftragsverarbeitungsvertrag</td><td>vor dem Termin</td></tr>
+            <tr><td>Geschäftsleitung</td><td>Wartungsvertrag prüfen, Betriebsrat bei Bedarf informieren</td><td>vor dem Termin</td></tr>
+            <tr><td>Bedienung</td><td>Ein fester Begleiter, der die Steuerung bedient und die Spindel für Live-Tests laufen lässt</td><td>am Termin</td></tr>
+            <tr><td>Instandhaltung</td><td>Meldungen prüfen und im Dashboard bewerten</td><td>im Pilotbetrieb</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="abschluss">Abschluss: Datenexport oder nachweisbare Löschung</h2>
+      <p>Ein Pilot endet entweder mit dem Übergang in den regulären Betrieb oder mit einem sauberen Ausstieg. Für den Ausstieg gibt es zwei Werkzeuge.</p>
+      <p><strong>Datenexport:</strong> Ein Administrator Ihres Betriebs kann jederzeit alle Daten exportieren: Maschinen, Kennwerte, Steuerungswerte, Ereignisse, Normallagen und Meldungen mit Ihren Rückmeldungen. Das Format ist JSON Lines, eine Textdatei mit einem Datensatz pro Zeile, die jedes Analysewerkzeug lesen kann. Jeder Export wird im Protokoll vermerkt.</p>
+      <p><strong>Löschung:</strong> Die vollständige Löschung eines Kunden folgt einer festen Reihenfolge, die sich nicht abkürzen lässt:</p>
+      <ol>
+        <li>Zuerst wird ein vollständiger Export aller Daten des Kunden in eine Datei geschrieben.</li>
+        <li>Dann muss die Löschung ausdrücklich bestätigt werden, indem der exakte Kundenname eingegeben wird. Stimmt er nicht, wird nichts gelöscht.</li>
+        <li>Die Löschung aller Tabellen läuft in einer einzigen Transaktion: Entweder wird alles gelöscht oder nichts.</li>
+      </ol>
+      <p>Das Ergebnis ist ein Bericht mit der Zahl der exportierten Zeilen und der gelöschten Zeilen je Tabelle. Damit ist die Löschung nachweisbar. Ausgeführt wird sie von Forbach &amp; Partners, nie über die Kundenschnittstelle. Die Box wird abgebaut, ihre Zugangsdaten auf der Plattform sind mit gelöscht. Wenn Sie wissen möchten, ob Ihre Steuerung anbindbar ist, beginnt alles mit dem Erstgespräch. Den öffentlichen Ablauf finden Sie unter <a href="ablauf.html">Ablauf und Voraussetzungen</a>, den Kontakt unter <a href="kontakt.html">Kontakt</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Wie läuft ein Pilotprojekt zur Zustandsüberwachung ab?</summary><p>Erstgespräch von etwa 20 Minuten, Vorabklärung je Maschine per E-Mail, ein Tag vor Ort zur lesenden Anbindung der Steuerung und zur Festlegung der Messstellen, danach Einlernphase und Pilotbetrieb mit Meldungen, Rückmeldung und einem Monatsbericht je Maschine.</p></details>
+        <details class="faq-item"><summary>Wird beim Pilotprojekt etwas an der CNC-Steuerung verändert?</summary><p>An Parametern, Programmen und Werkzeugdaten wird nichts verändert. Mit Ihrer Freigabe wird ein Lesebenutzer angelegt und das Zertifikat der Box an der Steuerung als vertrauenswürdig markiert. Das erledigt Ihr Personal oder der Service des Maschinenherstellers. Die Box kann nur lesen.</p></details>
+        <details class="faq-item"><summary>Was muss unsere IT für die Zustandsüberwachung freigeben?</summary><p>Ausgehende Verbindungen von der Box zu unserer Plattform in Deutschland über Port 8883, ersatzweise 443, und für signierte Updates über Port 443. Eingehende Verbindungen sind nicht nötig. Prüft eine Firewall verschlüsselte Verbindungen durch Aufbrechen, braucht die Box eine Ausnahme.</p></details>
+        <details class="faq-item"><summary>Wie lange dauert die Einlernphase?</summary><p>Das hängt davon ab, wie oft Ihre Spindeln in welchen Drehzahlbereichen laufen. Das System lernt je Maschine, Messstelle und Drehzahlklasse, bis genügend Messungen vorliegen. Eine pauschale Dauer nennen wir deshalb nicht.</p></details>
+        <details class="faq-item"><summary>Was passiert mit unseren Daten, wenn wir den Pilot beenden?</summary><p>Sie können alle Daten als JSON-Lines-Datei exportieren. Auf Wunsch löschen wir alle Daten Ihres Betriebs. Vorher wird ein vollständiger Export erstellt, die Löschung läuft in einer einzigen Transaktion, und ein Bericht weist die gelöschten Zeilen je Tabelle aus.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Unser System</span><a href="blog-edge-box-zustandsueberwachung-aufbau.html">Die Edge-Box für die Zustandsüberwachung: Aufbau, Aufgaben und Verhalten bei Netzausfall</a></li>
+<li><span class="label">Unser System</span><a href="blog-gemischter-maschinenpark-siemens-heidenhain.html">Gemischter Maschinenpark: Siemens und Heidenhain, alt und neu, in einer Ansicht</a></li>
+<li><span class="label">Unser System</span><a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung: Was in unserem Dashboard steht und was der Instandhalter damit tut</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

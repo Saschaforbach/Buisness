@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3 Sigma, Fixed Thresholds or Learned Baseline: Condition Monitoring Alarms · Forbach &amp; Partners</title>
+<meta name="description" content="Why fixed alarm limits and 3-sigma rules cause false alarms in vibration monitoring, and how median, MAD and persistence fix this on CNC spindles.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="3 Sigma, Fixed Thresholds or Learned Baseline: Condition Monitoring Alarms · Forbach &amp; Partners">
+<meta property="og:description" content="Why fixed alarm limits and 3-sigma rules cause false alarms in vibration monitoring, and how median, MAD and persistence fix this on CNC spindles.">
+<meta property="og:url" content="https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered", "description": "Why fixed alarm limits and 3-sigma rules cause false alarms in vibration monitoring, and how median, MAD and persistence fix this on CNC spindles.", "inLanguage": "en-GB", "datePublished": "2026-05-20", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html", "articleSection": "Method", "wordCount": 2283}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered", "item": "https://forbachandpartners.com/en/fixed-thresholds-3-sigma-vs-learned-baseline.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does 3 sigma mean in vibration monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "An alarm is raised when a feature is more than three standard deviations above the mean of a learning phase. With normally distributed data, this applies to about 0.13 per cent of values. Vibration features, however, are often skewed and contain outliers, so the rule works less well in practice than in theory."}}, {"@type": "Question", "name": "Why does my condition monitoring system produce so many false alarms?", "acceptedAnswer": {"@type": "Answer", "text": "Common causes are fixed limits that do not suit the individual machine, learning phases containing outliers, no separation by speed and alarms on single measurements. The remedies are robust statistics, a baseline per speed class and alerting only after several conspicuous measurements in a row."}}, {"@type": "Question", "name": "What is the difference between MAD and standard deviation?", "acceptedAnswer": {"@type": "Answer", "text": "The standard deviation squares the distances from the mean, so a single outlier has a strong effect. The MAD is the median of the absolute distances from the median and is barely affected by outliers. With the factor 1.4826 it corresponds to the standard deviation for normally distributed data."}}, {"@type": "Question", "name": "How long does it take to learn a spindle's baseline?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on how often the spindle runs in each speed range. For each combination of measuring point and speed class, the system needs at least 20 measurements from healthy operation. Frequently used speeds are therefore assessed sooner than rarely used ones."}}, {"@type": "Question", "name": "Is AI anomaly detection better than statistical limits?", "acceptedAnswer": {"@type": "Answer", "text": "Not automatically. Models can find patterns across many features, but they are harder to explain and need to be proven on data they did not see during training. Without that proof, robust, transparent statistics are the more reliable basis."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-3-sigma-alarme-vs-ki-anomalieerkennung.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Method</span></nav>
+      <h1>Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered</h1>
+      <p class="lead">An alarm is only as good as the rule that triggers it. We compare fixed limits, the 3-sigma rule and a robustly learned baseline, and show where machine learning helps and where it does not.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>11 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#fixed-limits">Fixed limits: simple, but blind to the individual machine</a></li>
+<li><a href="#three-sigma">The 3-sigma rule and its pitfalls</a></li>
+<li><a href="#robust-statistics">Robust statistics: median, MAD and upper quantile</a></li>
+<li><a href="#baseline">Baseline per machine, measuring point and speed range</a></li>
+<li><a href="#levels-persistence">Four levels and persistence over several measurements</a></li>
+<li><a href="#explanation">Explanation and feedback from the maintenance team</a></li>
+<li><a href="#machine-learning">Where machine learning fits and where it does not</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Every condition monitoring system ultimately has to answer one simple question: is this reading still normal? The answer decides whether the maintenance engineer receives an alert. Set too strictly, the system produces so many false alarms that nobody looks any more. Set too loosely, and the bearing damage is only reported once you can hear it anyway. This article is about <strong>how alarms in condition monitoring are triggered</strong>: with fixed limits, with the well-known <strong>3-sigma rule</strong> or with a learned baseline for each machine. At the end comes the question of when machine learning is the better choice.</p>
+
+      <h2 id="fixed-limits">Fixed limits: simple, but blind to the individual machine</h2>
+      <p>The simplest approach is a fixed limit: if the RMS vibration velocity exceeds a threshold, an alarm is raised. Such values come from standards such as the ISO 20816 series, from manufacturer data or from experience. They have real advantages. Everyone understands them, they need no learning phase, and they are useful for an initial assessment of the machine. More on this in the article on <a href="vibration-analysis-machine-tools-iso-limits.html">ISO limits for machine tools</a>.</p>
+      <p>For early detection on spindles, however, they are not enough. Two spindles of the same design vibrate to different degrees, depending on installation, age, tool and speed. A limit that suits the quieter spindle trips constantly on the louder one. A limit that suits the louder one only detects damage on the quieter spindle once its level has multiplied. In addition, incipient bearing damage barely changes the overall level. It first appears as a faint line at a bearing frequency, as described in the article on <a href="rolling-bearing-damage-early-detection.html">envelope analysis and bearing frequencies</a>. A fixed limit for that line cannot be set sensibly without knowing the individual machine.</p>
+
+      <h2 id="three-sigma">The 3-sigma rule and its pitfalls</h2>
+      <p>The obvious next step: measure the healthy machine for a while, calculate the mean μ and standard deviation σ and report everything above μ + 3σ. The rule comes from statistical process control. With normally distributed data, only about 0.13 per cent of values lie above this limit. That sounds like a clean criterion and is a good starting point for many features. In practical vibration monitoring, however, the rule runs into four limitations.</p>
+      <div class="formula">Limit = μ + 3 · σ
+
+μ = mean of the learning phase
+σ = standard deviation of the learning phase</div>
+      <ul>
+        <li><strong>Outliers in the learning phase:</strong> a single impact during a tool change or a run-up pulls the mean and standard deviation upwards. The limit becomes so wide that real damage stays below it for a long time.</li>
+        <li><strong>Skewed distributions:</strong> vibration features are never negative. Spectral amplitudes, kurtosis and crest factor are usually right-skewed: many values close to the typical level, a few well above it. The assumption of a normal distribution, on which the 0.13 per cent is based, then no longer holds.</li>
+        <li><strong>Speed dependence:</strong> at 12,000 rpm a spindle vibrates differently from at 3,000 rpm. Lump all speeds together and you get a huge spread, and therefore a limit that no longer detects anything.</li>
+        <li><strong>Many checks add up:</strong> the 0.13 per cent applies to a single check. A system, however, checks many features with every measurement.</li>
+      </ul>
+      <p>The last point is often underestimated. A simple calculation with assumed values: if ten features are checked every ten minutes, that is 1,440 checks a day. Even with perfectly normally distributed data, this results on average in almost two exceedances a day, without anything having changed on the machine. Without further measures, the 3-sigma rule turns into a system that reports false alarms every day.</p>
+
+      <h2 id="robust-statistics">Robust statistics: median, MAD and upper quantile</h2>
+      <p>The first two problems are solved by replacing the mean and standard deviation with robust measures. Robust means that individual outliers barely shift the result. Our system scores each feature with a deviation score built exactly like this:</p>
+      <div class="formula">Deviation = (value − median) / spread      (only increases count)
+
+Spread = maximum of
+  1.4826 · MAD
+  (Q90 − median) / 1.2816
+  0.05 · |median|
+
+MAD = median of the absolute values |value − median|
+Q90 = 90th percentile of the learning phase</div>
+      <p>Each building block has a clear purpose:</p>
+      <ul>
+        <li><strong>Median instead of mean:</strong> the median is the middle value of the sorted series. A single outlier hardly changes it at all.</li>
+        <li><strong>MAD instead of standard deviation:</strong> the median absolute deviation from the median is just as insensitive to outliers. The factor 1.4826 makes it exactly as large as the standard deviation for normally distributed data. A deviation score of 3 therefore remains comparable with "3 sigma".</li>
+        <li><strong>Upper quantile:</strong> for right-skewed features, the MAD underestimates the spread upwards. We therefore also check the distance of the 90th percentile from the median. The divisor 1.2816 is the 90th percentile of the standard normal distribution, so with normally distributed data this value also corresponds to the standard deviation.</li>
+        <li><strong>Lower bound:</strong> if a spindle is extremely quiet during the learning phase, the spread would be tiny and the smallest changes would produce large deviation scores. We therefore set the spread to at least 5 per cent of the median.</li>
+      </ul>
+      <p>Only increases count, because bearing damage raises features. A drop below the learned baseline is not a sign of damage for this assessment.</p>
+
+      <h3>Worked example</h3>
+      <p>A simplified example shows how big the difference is. For illustration we use only 13 values; the system requires at least 20 for a baseline. Twelve measurements of a feature lie between 0.90 and 1.20. A thirteenth measurement coincided with an impact and gave 5.0. Then a new value of 2.0 arrives, roughly twice the normal level.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Example with assumed values, not measured data</caption>
+          <thead><tr><th>Quantity</th><th>Mean and σ</th><th>Median and robust spread</th></tr></thead>
+          <tbody>
+            <tr><td>Location</td><td class="m">1.32</td><td class="m">1.00</td></tr>
+            <tr><td>Spread</td><td class="m">1.11</td><td class="m">0.14</td></tr>
+            <tr><td>Score for the new value 2.0</td><td class="m">0.6 σ, unremarkable</td><td class="m">Deviation 7.1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The single outlier inflates the standard deviation to more than ten times what the other twelve values show. The 3-sigma limit is then 4.65. A doubling of the feature remains invisible. The robust assessment, by contrast, detects it clearly. This is not an edge case: impacts during tool changes, run-ups or from chips occur on every machining centre.</p>
+
+      <h2 id="baseline">Baseline per machine, measuring point and speed range</h2>
+      <p>The third problem, speed dependence, is not solved by a formula. It is solved by dividing the data correctly. Our system does not learn the baseline for a machine as a whole, but separately according to three attributes:</p>
+      <ol>
+        <li><strong>Machine:</strong> each spindle gets its own learned baseline, i.e. the normal state of this spindle. There is no comparison with an average of other machines.</li>
+        <li><strong>Measuring point:</strong> a sensor at the front of the spindle housing sees different levels from one at the rear. Each measuring point is assessed separately.</li>
+        <li><strong>Speed class:</strong> the speed comes from the CNC control. Measurements are grouped into speed classes, and each class has its own baseline. A measurement at 8,000 rpm is therefore only compared with earlier measurements at 8,000 rpm.</li>
+      </ol>
+      <p>For each of these combinations, the system first collects measurements from healthy operation. Until there are enough measurements, the combination is marked "learning" and produces no alerts. Measurement windows during run-up, i.e. while the speed is changing, and at very low speed are not assessed at all. This takes a little patience at the start, but it prevents comparing apples with oranges.</p>
+      <div class="callout">
+        <p class="label">Prerequisite: a healthy learning phase</p>
+        <p>A baseline describes the condition in which it was learned. If a bearing is already damaged at the start, the system learns that damage as normal. That is why we ask about the spindle's history before starting. In addition, the edge box looks for the bearing frequencies in the envelope spectrum and compares them with the noise floor of the spectrum, i.e. independently of the baseline. A clear finding during the learning phase is a reason not to accept that baseline without checking.</p>
+      </div>
+
+      <h2 id="levels-persistence">Four levels and persistence over several measurements</h2>
+      <p>The deviation score is mapped to one of four levels. The thresholds between them are starting values, not values from a standard or from the bearing manufacturer. They are calibrated on the test rig and with feedback from operation.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Starting values, calibrated per application</caption>
+          <thead><tr><th>Level</th><th>Deviation from</th><th>Meaning for the maintenance team</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td class="m">below 4</td><td>Within the band of the learned baseline.</td></tr>
+            <tr><td>Noticeable</td><td class="m">4</td><td>Keep an eye on it, no immediate action needed.</td></tr>
+            <tr><td>Warning</td><td class="m">8</td><td>Schedule an inspection at the next opportunity.</td></tr>
+            <tr><td>Alarm</td><td class="m">15</td><td>Inspect promptly, increased risk of failure.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The thresholds are deliberately well above 3. That is the answer to the problem of many checks. The second answer is <strong>persistence</strong>: a level is only reported once it has held over several consecutive measurements. The default is three. The level reported is the lowest of these last measurements. So if two measurements are in the "Alarm" range and one in the "Warning" range, the alert reads "Warning".</p>
+      <figure>
+        <svg viewBox="0 0 680 220" role="img" aria-label="Deviation scores over ten measurements with threshold and persistence rule">
+          <line x1="40" y1="180" x2="660" y2="180" stroke="var(--rule)"/>
+          <line x1="40" y1="20" x2="40" y2="180" stroke="var(--rule)"/>
+          <line x1="40" y1="116" x2="660" y2="116" stroke="var(--gold)" stroke-dasharray="6 4"/>
+          <text x="656" y="108" text-anchor="end">"Noticeable" threshold</text>
+          <g fill="var(--ink-2)">
+            <rect x="60" y="164" width="36" height="16"/>
+            <rect x="120" y="160" width="36" height="20"/>
+            <rect x="180" y="84" width="36" height="96"/>
+            <rect x="240" y="162" width="36" height="18"/>
+            <rect x="300" y="158" width="36" height="22"/>
+          </g>
+          <g fill="var(--gold)">
+            <rect x="360" y="104" width="36" height="76"/>
+            <rect x="420" y="96" width="36" height="84"/>
+            <rect x="480" y="88" width="36" height="92"/>
+            <rect x="540" y="82" width="36" height="98"/>
+            <rect x="600" y="76" width="36" height="104"/>
+          </g>
+          <text x="198" y="74" text-anchor="middle">Single impact</text>
+          <text x="198" y="200" text-anchor="middle">no alert</text>
+          <text x="498" y="200" text-anchor="middle">from the third measurement in a row: alert</text>
+        </svg>
+        <figcaption>Schematic illustration, not measured data. A single impact exceeds the threshold only once and produces no alert. A sustained deviation is reported as soon as it has held for three measurements in a row.</figcaption>
+      </figure>
+      <p>Persistence costs a little time, because a real change is only reported after the third measurement. For bearing damage, which develops over much longer periods, this does not matter. A false alarm that rings the shift supervisor's phone at three in the morning, on the other hand, matters a great deal for trust in the system.</p>
+
+      <h2 id="explanation">Explanation and feedback from the maintenance team</h2>
+      <p>A deviation score on its own helps nobody at the machine. Every alert therefore states the location (machine, measuring point, speed class), the urgency, a specific inspection instruction and the explanation. The explanation shows the most conspicuous features with reading, baseline, factor and deviation. An example with assumed figures:</p>
+      <div class="formula">Kurtosis = 6.2 (normal 3.1 ± 0.3, 2.0×, deviation 10.3) → Warning
+Finding in the envelope spectrum: outer race
+Confirmed over several consecutive measurements.</div>
+      <p>This leads to an inspection instruction in the language of the maintenance team, for example: inspect the spindle bearing, check running noise, bearing temperature and lubrication, discuss the finding with the spindle service provider. The maintenance engineer therefore sees what has changed and against which baseline. There is no need to trust the system blindly.</p>
+      <p>For each alert, the maintenance team can give feedback: <strong>That's right</strong>, <strong>False alarm</strong> or <strong>Not sure yet</strong>. This feedback is the most important basis for calibrating the starting thresholds for a machine or machine type. A system that never learns whether its alerts were right cannot get any better.</p>
+
+      <h2 id="machine-learning">Where machine learning fits and where it does not</h2>
+      <p>Methods such as Isolation Forest, autoencoders or other anomaly detection models can look at many features together. They can recognise, for instance, that a particular combination of kurtosis and RMS is unusual, even though each value on its own is unremarkable. That is a real advantage. It is offset by three drawbacks that weigh particularly heavily on spindles.</p>
+      <ul>
+        <li><strong>Few failure cases:</strong> a single spindle suffers only a few bearing failures in its lifetime. A model that is supposed to learn to distinguish damage from them has hardly any examples.</li>
+        <li><strong>Explainability:</strong> an anomaly score of 0.7 does not tell the maintenance engineer whether to look at the outer race, the tool or the workholding.</li>
+        <li><strong>Apparent accuracy:</strong> a model tested on the same data it was trained on always looks good. That says nothing about how it will behave on the next machine.</li>
+      </ul>
+      <p>We therefore rely first on transparent methods: physically grounded features, envelope analysis, bearing frequencies and the robust baseline. Machine learning is only added where it is demonstrably better. Demonstrably means: tested on <strong>held-out data</strong>, i.e. on machines or time periods the model never saw during training, and in a direct comparison with the robust method. We see sensible applications with many machines of the same type and in classifying findings, once enough feedback from the maintenance team is available as a basis for evaluation. The difference between condition detection and prediction is described in the article <a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring or predictive maintenance</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What does 3 sigma mean in vibration monitoring?</summary><p>An alarm is raised when a feature is more than three standard deviations above the mean of a learning phase. With normally distributed data, this applies to about 0.13 per cent of values. Vibration features, however, are often skewed and contain outliers, so the rule works less well in practice than in theory.</p></details>
+        <details class="faq-item"><summary>Why does my condition monitoring system produce so many false alarms?</summary><p>Common causes are fixed limits that do not suit the individual machine, learning phases containing outliers, no separation by speed and alarms on single measurements. The remedies are robust statistics, a baseline per speed class and alerting only after several conspicuous measurements in a row.</p></details>
+        <details class="faq-item"><summary>What is the difference between MAD and standard deviation?</summary><p>The standard deviation squares the distances from the mean, so a single outlier has a strong effect. The MAD is the median of the absolute distances from the median and is barely affected by outliers. With the factor 1.4826 it corresponds to the standard deviation for normally distributed data.</p></details>
+        <details class="faq-item"><summary>How long does it take to learn a spindle's baseline?</summary><p>That depends on how often the spindle runs in each speed range. For each combination of measuring point and speed class, the system needs at least 20 measurements from healthy operation. Frequently used speeds are therefore assessed sooner than rarely used ones.</p></details>
+        <details class="faq-item"><summary>Is AI anomaly detection better than statistical limits?</summary><p>Not automatically. Models can find patterns across many features, but they are harder to explain and need to be proven on data they did not see during training. Without that proof, robust, transparent statistics are the more reliable basis.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Method</span><a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver</a></li>
+<li><span class="label">Method</span><a href="fft-spectrum-resolution-vibration-analysis.html">FFT in vibration analysis: sampling rate, resolution and window function for practitioners</a></li>
+<li><span class="label">Method</span><a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools: what ISO limits can do and where they stop</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

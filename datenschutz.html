@@ -1,270 +1,109 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datenschutz — Forbach & Partners</title>
-<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap">
-<style>
-:root{--gold:#e4b15e;--gold-light:#f8dfa5;--black:#000;--dark-2:#111;--dark-card:#141414;--border:rgba(228,177,94,0.15);--border-strong:rgba(228,177,94,0.38);--text:#fff;--text-dim:#a0a0a0;--text-muted:#555;--font-d:'Oswald',sans-serif;--font-b:'Raleway',sans-serif;--font-m:'JetBrains Mono',monospace;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{scroll-behavior:smooth;overflow-x:hidden;}
-/* Sprache vor dem Rendern festlegen → kein Sprach-Flackern/Layout-Sprung */
-.de{display:block}.en{display:none}
-span.de{display:inline}span.en{display:none}
-body.lang-en .de{display:none}body.lang-en .en{display:block}
-body.lang-en span.en{display:inline}body.lang-en span.de{display:none}
-body{background:var(--black);color:var(--text);font-family:var(--font-b);line-height:1.6;}
-nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);border:1px solid var(--border-strong);border-radius:14px;padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between;gap:2rem;width:min(1200px,calc(100vw - 2rem));}
-.nav-logo{font-family:var(--font-d);font-size:1.2rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
-.nav-links{display:flex;gap:0.25rem;}
-.nav-link{color:var(--text-dim);text-decoration:none;font-size:0.8rem;padding:0.4rem 0.75rem;border-radius:6px;transition:all 0.2s;}
-.nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
-.nav-cta{background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:0.4rem 1.1rem;border-radius:6px;font-weight:700;font-size:0.78rem;text-decoration:none;}
-@media(max-width:900px){.nav-links{display:none;}}
-
-.page{max-width:800px;margin:0 auto;padding:130px 2rem 6rem;}
-.page-label{font-family:var(--font-m);font-size:0.6rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
-.page-label::before{content:'';width:22px;height:1px;background:var(--gold);}
-h1{font-family:var(--font-d);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;margin-bottom:3rem;line-height:1.12;}
-.gold{background:linear-gradient(135deg,#e4b15e,#f8dfa5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.card{background:var(--dark-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;}
-.card h2{font-family:var(--font-d);font-size:1.1rem;letter-spacing:1px;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;}
-.card p,.card li{font-size:0.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:0.6rem;}
-.card a{color:var(--gold);text-decoration:none;}
-.card a:hover{text-decoration:underline;}
-.card ul{padding-left:1.2rem;margin-bottom:0.5rem;}
-.card strong{color:#fff;}
-
-footer{background:var(--dark-2);border-top:1px solid var(--border);padding:3rem 2rem 2rem;text-align:center;}
-.f-logo{font-family:var(--font-d);font-size:1.4rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;}
-.f-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
-.f-link{color:var(--text-muted);text-decoration:none;font-size:0.75rem;font-family:var(--font-m);letter-spacing:1px;transition:color 0.2s;}
-.f-link:hover{color:var(--gold);}
-.f-copy{font-size:0.65rem;color:var(--text-muted);font-family:var(--font-m);border-top:1px solid var(--border);padding-top:1.25rem;}
-
-/* ── HAMBURGER ── */
-.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:1px solid rgba(228,177,94,0.4);border-radius:8px;padding:8px 10px;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
-.nav-hamburger span{display:block;width:20px;height:2px;background:#e4b15e;border-radius:2px;transition:all 0.3s;}
-.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.nav-hamburger.open span:nth-child(2){opacity:0;}
-.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-@media(max-width:900px){
-  .nav-hamburger{display:flex;}
-  .lang-toggle-nav{display:none!important;}
-  .nav-phone{display:none!important;}
-  .nav-cta{font-size:0.72rem;padding:0.35rem 0.85rem;}
-}
-@media(max-width:480px){.nav-cta{display:none;}}
-/* ── MOBILE OVERLAY ── */
-.mobile-nav-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity 0.3s;}
-.mobile-nav-overlay.open{opacity:1;pointer-events:all;}
-.mobile-nav-menu{position:absolute;top:0;right:0;width:min(320px,90vw);height:100%;background:#0d0d0d;border-left:1px solid rgba(228,177,94,0.3);padding:1.5rem;display:flex;flex-direction:column;gap:0.25rem;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);}
-.mobile-nav-overlay.open .mobile-nav-menu{transform:translateX(0);}
-.mobile-nav-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(228,177,94,0.2);}
-.mobile-nav-logo{font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:2px;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.mobile-nav-close{background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.mobile-nav-link{color:#a0a0a0;text-decoration:none;font-size:1rem;font-family:'Raleway',sans-serif;font-weight:500;padding:0.85rem 1rem;border-radius:8px;transition:all 0.2s;display:block;}
-.mobile-nav-link:hover,.mobile-nav-link.active{color:#fff;background:rgba(228,177,94,0.08);}
-.mobile-nav-link.active{color:#e4b15e;}
-.mobile-nav-divider{height:1px;background:rgba(228,177,94,0.15);margin:0.75rem 0;}
-.mobile-nav-phone{color:#a0a0a0;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.75rem 1rem;display:block;border-radius:8px;}
-.mobile-nav-cta{display:block;background:linear-gradient(135deg,#e4b15e,#f8dfa5,#e4b15e);color:#000;padding:1rem 1.5rem;border-radius:10px;font-weight:700;font-size:0.95rem;text-decoration:none;text-align:center;margin-top:0.5rem;letter-spacing:0.5px;}
-.mobile-nav-lang{display:flex;gap:0.75rem;margin-top:1rem;padding:0 1rem;}
-.mobile-lang-btn{flex:1;background:rgba(228,177,94,0.08);border:1px solid rgba(228,177,94,0.3);border-radius:8px;color:#e4b15e;font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.6rem;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
-/* ── OVERFLOW GUARD ── */
-html,body{overflow-x:hidden;max-width:100vw;}
-@media(max-width:768px){
-  .section{padding:3.5rem 1.25rem;}
-  .section-full{padding:3.5rem 1.25rem;}
-}
-
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datenschutz · Forbach &amp; Partners</title>
+<meta name="description" content="Datenschutzerklärung der Website forbachandpartners.com.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/datenschutz.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/datenschutz.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/privacy.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/datenschutz.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Datenschutz · Forbach &amp; Partners">
+<meta property="og:description" content="Datenschutzerklärung der Website forbachandpartners.com.">
+<meta property="og:url" content="https://forbachandpartners.com/datenschutz.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-logo">FORBACH & PARTNERS</a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="ueber-uns.html" class="nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
-    <a href="cnc-fraeszentren.html" class="nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
-    <a href="blog.html" class="nav-link">Blog</a>
-    <a href="kontakt.html" class="nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/privacy.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
   </div>
-  <div class="lang-toggle-nav">
-      <button class="lang-btn-nav btn-de active" onclick="setLang('de')">DE</button>
-      <button class="lang-btn-nav btn-en" onclick="setLang('en')">EN</button>
-    </div>
-  <a href="tel:021190989962" style="font-family:monospace;font-size:0.7rem;color:#a0a0a0;text-decoration:none;white-space:nowrap;margin-right:0.5rem;"><span class="de">📞 Jetzt anrufen</span><span class="en">📞 Call Now</span></a>
-  <a href="kontakt.html" class="nav-cta"><span class="de">Termin vereinbaren</span><span class="en">Schedule a Call</span></a>
-  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+</header>
 
-<!-- Mobile Nav Overlay -->
-<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()">
-  <div class="mobile-nav-menu" onclick="event.stopPropagation()">
-    <div class="mobile-nav-top">
-      <span class="mobile-nav-logo">FORBACH &amp; PARTNERS</span>
-      <button class="mobile-nav-close" onclick="closeMobileNav()">&#x2715;</button>
-    </div>
-    <a href="index.html" class="mobile-nav-link"><span class="de">Home</span><span class="en">Home</span></a>
-    <a href="ueber-uns.html" class="mobile-nav-link"><span class="de">Über uns</span><span class="en">About Us</span></a>
-    <a href="cnc-fraeszentren.html" class="mobile-nav-link"><span class="de">CNC-Anlagen</span><span class="en">CNC Machines</span></a>
-    <a href="blog.html" class="mobile-nav-link"><span class="de">Blog</span><span class="en">Blog</span></a>
-    <a href="kontakt.html" class="mobile-nav-link"><span class="de">Kontakt</span><span class="en">Contact</span></a>
-    <div class="mobile-nav-divider"></div>
-    <a href="tel:021190989962" class="mobile-nav-phone">&#128222; +49 211 90989962</a>
-    <a href="mailto:info@forbachandpartners.com" class="mobile-nav-cta"><span class="de">Termin anfragen &#8594;</span><span class="en">Book Meeting &#8594;</span></a>
-    <div class="mobile-nav-lang">
-      <button onclick="setLang('de');closeMobileNav()" class="mobile-lang-btn">DE</button>
-      <button onclick="setLang('en');closeMobileNav()" class="mobile-lang-btn">EN</button>
-    </div>
-  </div>
-</div>
-
-<div class="page">
-  <div class="page-label">Rechtliches</div>
-  <h1>DATEN<span class="gold">SCHUTZ</span></h1>
-
-  <!-- EN notice -->
-  <div class="en">
-    <div class="card">
-      <h2>Privacy Policy</h2>
-      <p>This privacy policy (Datenschutzerklärung) is required under German and EU law (GDPR/DSGVO) and is provided in German. An English summary is available upon request: <a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a></p>
-    </div>
-  </div>
-
-  <!-- DE Inhalt -->
-  <div class="de">
-    <div class="card">
+<main id="inhalt">
+  <section class="pagehead">
+    <div class="wrap"><p class="label">Rechtliches</p><h1>Datenschutz­erklärung</h1></div>
+  </section>
+  <section class="block" style="border-bottom:0">
+    <div class="wrap prose">
       <h2>1. Verantwortlicher</h2>
-      <p><strong>Forbach and Partners Ltd</strong><br>
-      Agias Irinis 46, 8504 Paphos, Zypern<br>
-      Adresse: Graf-Adolf-Straße 41, 40210 Düsseldorf<br>
-      E-Mail: <a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a><br>
-      Telefon: <a href="tel:021190989962">+49 211 90989962</a></p>
-    </div>
+      <address>Forbach and Partners Ltd<br>Agias Irinis 46, 8504 Paphos, Zypern<br>Adresse Deutschland: Graf-Adolf-Straße 41, 40210 Düsseldorf<br>E-Mail: info@forbachandpartners.com<br>Telefon: +49 211 90989962</address>
 
-    <div class="card">
       <h2>2. Erhebung und Verarbeitung personenbezogener Daten</h2>
-      <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese im Rahmen einer Kontaktaufnahme oder Terminanfrage freiwillig mitteilen. Dies umfasst insbesondere:</p>
-      <ul>
-        <li>Name und Vorname</li>
-        <li>Unternehmen / Organisation</li>
-        <li>E-Mail-Adresse</li>
-        <li>Telefonnummer (optional)</li>
-        <li>Inhalt Ihrer Anfrage</li>
-      </ul>
+      <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese im Rahmen einer Kontaktaufnahme oder Terminanfrage freiwillig mitteilen. Das umfasst insbesondere:</p>
+      <ul><li>Name</li><li>Unternehmen</li><li>E-Mail-Adresse</li><li>Telefonnummer (freiwillig)</li><li>Angaben zu Ihrer Maschinensteuerung (freiwillig)</li><li>Inhalt Ihrer Anfrage</li></ul>
       <p>Eine Weitergabe Ihrer Daten an Dritte erfolgt nicht, außer es ist zur Vertragserfüllung erforderlich oder Sie haben ausdrücklich zugestimmt.</p>
-    </div>
 
-    <div class="card">
       <h2>3. Kontaktformular</h2>
-      <p>Wenn Sie uns über das Kontaktformular eine Anfrage senden, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verarbeitet und per E-Mail an uns übermittelt. Die Übertragung erfolgt verschlüsselt (SSL/TLS) über einen Server unseres deutschen Hosting-Anbieters <strong>ALL-INKL.COM – Neue Medien Münnich</strong> (Inhaber René Münnich, Hauptstraße 68, 02742 Friedersdorf, Deutschland), mit dem ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO besteht. Eine Weitergabe an sonstige Dritte findet nicht statt. Ihre Daten werden gelöscht, sobald sie für die Zweckerreichung nicht mehr erforderlich sind.</p>
-    </div>
+      <p>Wenn Sie uns über das Kontaktformular eine Anfrage senden, verarbeiten wir Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO) und übermitteln sie per E-Mail an uns. Die Übertragung erfolgt verschlüsselt (TLS) über einen Server unseres deutschen Hosting-Anbieters ALL-INKL.COM – Neue Medien Münnich (Inhaber René Münnich, Hauptstraße 68, 02742 Friedersdorf, Deutschland), mit dem ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO besteht. Ihre Daten werden gelöscht, sobald sie für den Zweck nicht mehr erforderlich sind.</p>
 
-    <div class="card">
-      <h2>4. Hosting & Server-Logs</h2>
-      <p>Diese Website wird über <strong>GitHub Pages</strong> (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA) gehostet. Beim Aufruf unserer Seiten werden automatisch Serverlog-Dateien erstellt, die folgende Informationen enthalten können:</p>
-      <ul>
-        <li>IP-Adresse (anonymisiert)</li>
-        <li>Datum und Uhrzeit des Zugriffs</li>
-        <li>Aufgerufene URL</li>
-        <li>Browsertyp und -version</li>
-        <li>Betriebssystem</li>
-      </ul>
-      <p>Diese Daten dienen ausschließlich der technischen Bereitstellung und werden nicht mit anderen Datenquellen zusammengeführt. Weitere Informationen: <a href="https://docs.github.com/de/pages/getting-started-with-github-pages/about-github-pages#data-collection" target="_blank">GitHub Pages Datenschutz</a>.</p>
-    </div>
+      <h2>4. Hosting und Server-Logs</h2>
+      <p>Diese Website wird über GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA) bereitgestellt. Beim Aufruf unserer Seiten werden automatisch Serverlog-Dateien erstellt, die folgende Informationen enthalten können: IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Adresse, Browsertyp und -version sowie Betriebssystem. Diese Daten dienen ausschließlich der technischen Bereitstellung (Art. 6 Abs. 1 lit. f DSGVO) und werden nicht mit anderen Datenquellen zusammengeführt. Weitere Informationen: <a href="https://docs.github.com/de/pages/getting-started-with-github-pages/about-github-pages#data-collection" rel="noopener" target="_blank">GitHub Pages Datenschutz</a>.</p>
 
-    <div class="card">
-      <h2>5. Externe Dienste & Ressourcen</h2>
-      <p><strong>Schriftarten (lokal gehostet):</strong> Diese Website verwendet die Schriftarten Raleway, Oswald und JetBrains Mono. Die Schriftdateien sind vollständig auf unserem eigenen Webserver (GitHub Pages) gespeichert und werden von dort geladen. Es erfolgt <strong>keine Verbindung zu Google-Servern</strong> und keine Übertragung von IP-Adressen an Dritte durch Schriftarten.</p>
-      <p style="margin-top:0.75rem;"><strong>Cloudflare CDN (cdnjs.cloudflare.com):</strong> Für die 3D-Visualisierung auf unserer Website wird die Bibliothek Three.js über das CDN von Cloudflare, Inc. (San Francisco, CA, USA) geladen. Dabei kann Ihre IP-Adresse an Cloudflare übermittelt werden. Cloudflare verarbeitet diese Daten zur technischen Bereitstellung der Inhalte. Rechtsgrundlage: berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO. Datenschutzhinweise Cloudflare: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">cloudflare.com/privacypolicy</a>.</p>
-      <p style="margin-top:0.75rem;"><strong>Bilder auf der Website:</strong> Fotos werden ausschließlich von unserem Webserver (GitHub Pages) aus dem Ordner <code>images/</code> geladen. Es werden keine externen Bilderdienste genutzt.</p>
-    </div>
+      <h2>5. Schriftarten und Bilder</h2>
+      <p>Diese Website verwendet die Schriftarten Archivo, IBM Plex Sans und IBM Plex Mono. Die Schriftdateien liegen auf unserem eigenen Webspace und werden von dort geladen. Es besteht keine Verbindung zu Google-Servern. Auch alle Bilder werden ausschließlich von unserem Webspace geladen. Externe Skript-Bibliotheken oder Content-Delivery-Netzwerke nutzen wir nicht.</p>
 
-    <div class="card">
-      <h2>6. Cookies & lokaler Browserspeicher</h2>
-      <p><strong>Ohne Ihre Einwilligung</strong> verwendet diese Website keine Tracking- oder Analyse-Cookies und kein Website-Analyse-Tool (z. B. Google Analytics). Marketing-Cookies (LinkedIn Insight Tag) werden ausschließlich nach Ihrer ausdrücklichen Zustimmung über das Cookie-Banner gesetzt – siehe Abschnitt 6a.</p>
-      <p style="margin-top:0.75rem;"><strong>Technisch notwendiger Browserspeicher (localStorage):</strong> Zur Verbesserung der Nutzererfahrung speichert diese Website maximal zwei technisch notwendige Einträge im lokalen Browserspeicher (localStorage): die von Ihnen gewählte Sprache (Deutsch/Englisch) sowie eine anonyme Markierung, ob ein einmaliger Hinweis-Dialog bereits angezeigt wurde. Diese Einträge enthalten keine personenbezogenen Daten, werden nicht an Dritte übertragen und dienen ausschließlich der Funktion der Website. Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TTDSG (technisch notwendig).</p>
-    </div>
+      <h2>6. Lokaler Browserspeicher</h2>
+      <p>Ohne Ihre Einwilligung verwendet diese Website keine Tracking- oder Analyse-Cookies. Wir speichern lediglich Ihre Entscheidung im Einwilligungshinweis im lokalen Browserspeicher (Eintrag „fp_cookie_consent“), damit der Hinweis nicht bei jedem Aufruf erneut erscheint. Dieser Eintrag enthält keine personenbezogenen Daten und wird nicht übertragen (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
 
-    <div class="card">
-      <h2>6a. LinkedIn Insight Tag (einwilligungsbasiertes Marketing)</h2>
-      <p><strong>Einwilligung erforderlich:</strong> Wir setzen den LinkedIn Insight Tag der LinkedIn Ireland Unlimited Company (Wilton Plaza, Wilton Place, Dublin 2, Irland) ein. Er wird <strong>erst geladen, nachdem Sie über unser Cookie-Banner ausdrücklich zugestimmt haben</strong> (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Klicken Sie „Ablehnen", wird der Tag nicht geladen und es werden keine Marketing-Cookies gesetzt.</p>
-      <p style="margin-top:0.75rem;"><strong>Zweck &amp; Daten:</strong> Der Insight Tag hilft uns zu messen, wie erfolgreich unsere LinkedIn-Anzeigen sind (z. B. ob Besucher nach einem Anzeigenklick eine Anfrage senden), und Reichweiten auszuwerten. Dabei werden ein Cookie gesetzt sowie Daten wie IP-Adresse, Geräte- und Browserinformationen, Seitenaufrufe und ggf. Ihre LinkedIn-Mitglieds-ID an LinkedIn übermittelt und teilweise in die USA übertragen (Grundlage: EU-Standardvertragsklauseln). Für uns erfolgt die Auswertung nur in aggregierter, anonymisierter Form.</p>
-      <p style="margin-top:0.75rem;"><strong>Widerruf:</strong> Ihre Entscheidung wird lokal in Ihrem Browser gespeichert (Eintrag „fp_cookie_consent"). Sie können die Einwilligung jederzeit widerrufen, indem Sie diesen Browserspeicher löschen. Weitere Informationen: <a href="https://www.linkedin.com/legal/privacy-policy" target="_blank">linkedin.com/legal/privacy-policy</a>.</p>
-    </div>
+      <h2>7. LinkedIn Insight Tag (nur mit Einwilligung)</h2>
+      <p>Wir setzen den LinkedIn Insight Tag der LinkedIn Ireland Unlimited Company (Wilton Plaza, Wilton Place, Dublin 2, Irland) ein. Er wird <strong>erst geladen, nachdem Sie ausdrücklich zugestimmt haben</strong> (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Lehnen Sie ab, wird der Tag nicht geladen und es werden keine Marketing-Cookies gesetzt.</p>
+      <p>Der Insight Tag hilft uns zu messen, wie erfolgreich unsere LinkedIn-Anzeigen sind, etwa ob Besucher nach einem Anzeigenklick eine Anfrage senden. Dabei werden ein Cookie gesetzt sowie Daten wie IP-Adresse, Geräte- und Browserinformationen, Seitenaufrufe und gegebenenfalls Ihre LinkedIn-Mitglieds-ID an LinkedIn übermittelt und teilweise in die USA übertragen (Grundlage: EU-Standardvertragsklauseln). Wir erhalten die Auswertung nur in zusammengefasster, anonymer Form.</p>
+      <p>Sie können Ihre Einwilligung jederzeit über den Link „Cookie-Einstellungen“ unten auf jeder Seite widerrufen. Weitere Informationen: <a href="https://www.linkedin.com/legal/privacy-policy" rel="noopener" target="_blank">linkedin.com/legal/privacy-policy</a>.</p>
 
-    <!-- ════════════════════════════════════════════════════════════════
-         VORBEREITET: Abschnitt für Google Analytics / Search Console / GoHighLevel.
-         AKTIVIEREN, SOBALD DAS TRACKING LÄUFT: die umschließenden Kommentarzeichen
-         (die Zeile darüber und die Zeile ganz unten) entfernen, sodass der folgende
-         Abschnitt sichtbar wird. Vorher bitte NICHT veröffentlichen, da sonst Dienste
-         beschrieben werden, die noch nicht aktiv sind.
-    <div class="card">
-      <h2>6a. Web-Analyse, Suchmaschinen-Tools & Marketing (einwilligungsbasiert)</h2>
-      <p><strong>Einwilligung (Cookie-Banner):</strong> Die folgenden Dienste werden erst geladen, nachdem Sie über unser Cookie-Banner ausdrücklich zugestimmt haben (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Ihre Entscheidung wird lokal in Ihrem Browser gespeichert (Eintrag „fp_consent"). Sie können die Einwilligung jederzeit widerrufen, indem Sie diesen Browserspeicher löschen.</p>
-      <p style="margin-top:0.75rem;"><strong>Google Analytics 4 (Google Ireland Ltd., Irland):</strong> Zur Reichweiten- und Nutzungsanalyse. Es werden Cookies gesetzt und Nutzungsdaten (u. a. gekürzte IP-Adresse, Geräte-/Browserdaten, Seitenaufrufe) verarbeitet. IP-Anonymisierung ist aktiviert. Eine Übermittlung in die USA (Google LLC) kann erfolgen; Grundlage sind die EU-Standardvertragsklauseln. Datenschutz: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a>.</p>
-      <p style="margin-top:0.75rem;"><strong>Google Search Console:</strong> Dient ausschließlich der technischen Überprüfung und Optimierung unserer Sichtbarkeit in der Google-Suche. Die Verifizierung erfolgt über ein HTML-Meta-Tag und setzt keine Cookies.</p>
-      <p style="margin-top:0.75rem;"><strong>GoHighLevel (HighLevel, Inc., USA):</strong> Wir nutzen GoHighLevel für Kontaktformulare, Terminbuchung, Chat und Marketing-Automatisierung. Dabei können Cookies gesetzt sowie von Ihnen eingegebene Daten und Nutzungsdaten verarbeitet und in die USA übermittelt werden (EU-Standardvertragsklauseln). Datenschutz: <a href="https://www.gohighlevel.com/privacy-policy" target="_blank">gohighlevel.com/privacy-policy</a>.</p>
-    </div>
-         ════════════════════════════════════════════════════════════════ -->
+      <h2>8. Ihre Rechte</h2>
+      <p>Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Wenden Sie sich dazu an info@forbachandpartners.com.</p>
+      <p>Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, zum Beispiel bei der <a href="https://www.ldi.nrw.de" rel="noopener" target="_blank">Landesbeauftragten für Datenschutz und Informationsfreiheit NRW</a>.</p>
 
-    <div class="card">
-      <h2>7. Ihre Rechte</h2>
-      <p>Sie haben gemäß DSGVO folgende Rechte bezüglich Ihrer gespeicherten personenbezogenen Daten:</p>
-      <ul>
-        <li><strong>Auskunft</strong> (Art. 15 DSGVO)</li>
-        <li><strong>Berichtigung</strong> (Art. 16 DSGVO)</li>
-        <li><strong>Löschung</strong> (Art. 17 DSGVO)</li>
-        <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
-        <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
-        <li><strong>Widerspruch</strong> (Art. 21 DSGVO)</li>
-      </ul>
-      <p>Zur Ausübung dieser Rechte wenden Sie sich an: <a href="mailto:info@forbachandpartners.com">info@forbachandpartners.com</a></p>
-      <p>Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Zuständig für Deutschland: <a href="https://www.ldi.nrw.de" target="_blank">Landesbeauftragte für Datenschutz NRW</a>.</p>
+      <h2>9. Stand</h2>
+      <p>Oktober 2026. Wir passen diese Datenschutzerklärung an, wenn sich die Website oder die Rechtslage ändert.</p>
     </div>
-
-    <div class="card">
-      <h2>8. Aktualität dieser Datenschutzerklärung</h2>
-      <p>Stand: Mai 2026. Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf anzupassen.</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
 
 <footer>
-  <div class="f-logo">FORBACH & PARTNERS</div>
-  <div class="f-links">
-    <a class="f-link" href="index.html">Home</a>
-    <a class="f-link" href="ueber-uns.html">Über uns</a>
-    <a class="f-link" href="blog.html">Blog</a>
-    <a class="f-link" href="kontakt.html">Kontakt</a>
-    <a class="f-link" href="impressum.html">Impressum</a>
-    <a class="f-link" href="datenschutz.html">Datenschutz</a>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
   </div>
-  <div class="f-copy">© 2026 Forbach and Partners Ltd · Reg. Cyprus HE 483586 · Alle Rechte vorbehalten</div>
 </footer>
-<script src="common.js"></script>
 
-<script>
-function toggleMobileNav(){
-  var o=document.getElementById('mobileNavOverlay');
-  var b=document.getElementById('navHamburger');
-  var open=o.classList.toggle('open');
-  b.classList.toggle('open',open);
-  document.body.style.overflow=open?'hidden':'';
-}
-function closeMobileNav(){
-  document.getElementById('mobileNavOverlay').classList.remove('open');
-  var b=document.getElementById('navHamburger');
-  if(b) b.classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileNav();});
-</script>
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
 </body>
 </html>

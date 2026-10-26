@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Condition Monitoring vs Predictive Maintenance: The Difference · Forbach &amp; Partners</title>
+<meta name="description" content="Condition monitoring or predictive maintenance? The maintenance strategies clearly defined, the ISO 13374 stages explained and what a prognosis can deliver.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-condition-monitoring-vs-predictive-maintenance.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-condition-monitoring-vs-predictive-maintenance.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Condition Monitoring vs Predictive Maintenance: The Difference · Forbach &amp; Partners">
+<meta property="og:description" content="Condition monitoring or predictive maintenance? The maintenance strategies clearly defined, the ISO 13374 stages explained and what a prognosis can deliver.">
+<meta property="og:url" content="https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver", "description": "Condition monitoring or predictive maintenance? The maintenance strategies clearly defined, the ISO 13374 stages explained and what a prognosis can deliver.", "inLanguage": "en-GB", "datePublished": "2026-06-01", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html", "articleSection": "Method", "wordCount": 1683}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver", "item": "https://forbachandpartners.com/en/condition-monitoring-vs-predictive-maintenance.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between condition monitoring and predictive maintenance?", "acceptedAnswer": {"@type": "Answer", "text": "Condition monitoring records and assesses the current condition of a machine. Predictive maintenance also uses this condition data to estimate the future progression. Predictive maintenance therefore requires condition monitoring."}}, {"@type": "Question", "name": "Is preventive maintenance the same as predictive maintenance?", "acceptedAnswer": {"@type": "Answer", "text": "No. Preventive maintenance follows fixed intervals by calendar or operating hours, regardless of the actual condition. Predictive maintenance is based on the measured condition and its expected development."}}, {"@type": "Question", "name": "Can the remaining useful life of a spindle bearing be predicted?", "acceptedAnswer": {"@type": "Answer", "text": "Not credibly to the day in most cases. The progression of damage depends on future load, speed and lubrication, and there are usually not enough recorded damage progressions for a reliable model. What can be measured reliably is the current condition, the damage pattern and the trend."}}, {"@type": "Question", "name": "How can I tell whether a system really is predictive?", "acceptedAnswer": {"@type": "Answer", "text": "Ask what data the prognosis is based on, how it was tested on held-out data and whether an uncertainty is stated. A system that only compares a reading with a fixed limit is condition monitoring, even if it is called \"predictive\"."}}, {"@type": "Question", "name": "What does ISO 13374 describe?", "acceptedAnswer": {"@type": "Answer", "text": "ISO 13374 describes data processing in machine condition monitoring in stages that build on one another: data acquisition, feature calculation, condition detection, diagnosis, prognosis and recommendation. It helps to compare the scope of different systems."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-condition-monitoring-vs-predictive-maintenance.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Method</span></nav>
+      <h1>Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver</h1>
+      <p class="lead">Condition monitoring tells you how the machine is doing now. Predictive maintenance wants to tell you how it will be doing later. We define the terms and are honest about where prognosis reaches its limits.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>8 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#strategies">Four maintenance strategies at a glance</a></li>
+<li><a href="#iso-13374">The processing stages according to ISO 13374</a></li>
+<li><a href="#prognosis-limits">Why a remaining useful life to the day is rarely credible</a></li>
+<li><a href="#our-approach">What we deliver instead: condition, trend, explanation</a></li>
+<li><a href="#choosing">Which strategy suits which machine</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Few pairs of terms in maintenance are confused as often as <strong>condition monitoring and predictive maintenance</strong>. Many products are called "predictive" but measure a value and compare it with a limit. Others promise a remaining useful life down to the day, without saying what that number is based on. For a purchasing decision this is a problem, because the terms stand for different capabilities. This article sets out the four maintenance strategies, explains the processing stages according to ISO 13374 and describes what a prognosis on a CNC spindle can credibly deliver today.</p>
+
+      <h2 id="strategies">Four maintenance strategies at a glance</h2>
+      <p>Maintenance terminology is defined in the European standard EN 13306. For practical purposes, a division into four strategies is enough. They differ in <strong>what</strong> triggers an action.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Strategy</th><th>Trigger for action</th><th>Typical weakness</th></tr></thead>
+          <tbody>
+            <tr><td>Reactive (run to failure)</td><td>The failure itself</td><td>Unplanned downtime, often secondary damage</td></tr>
+            <tr><td>Preventive, time-based</td><td>Calendar or operating hours</td><td>Intact parts are replaced, damage between intervals goes undetected</td></tr>
+            <tr><td>Condition-based</td><td>Measured condition deviates from the normal state</td><td>Needs measurement equipment and a reliable assessment</td></tr>
+            <tr><td>Predictive</td><td>Prognosis of the future condition</td><td>Additionally needs a sound model of the progression</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Reactive maintenance</strong> is not automatically wrong. For an inexpensive, easily accessible component with no secondary damage, it can be the most economical choice. That is rarely true for a main spindle, because bearing damage in its final stage can damage the shaft, the housing or the workpiece. What downtime costs in your own plant is shown in the article <a href="cost-of-machine-downtime-per-hour.html">What does an hour of machine downtime cost</a>.</p>
+      <p><strong>Preventive maintenance</strong> works with fixed intervals. It can be planned, but it is based on averages. This is already evident in bearing selection: the basic rating life L10 according to ISO 281 is a statistical statement about many identical bearings. It gives the running time that 90 per cent of these bearings will reach. It does not tell you when the one bearing in your spindle will fail.</p>
+      <p><strong>Condition-based maintenance</strong> triggers actions when the measured condition requires it. The tool for this is condition monitoring.</p>
+      <p><strong>Predictive maintenance</strong> goes one step further. It is condition-based maintenance in which the future progression is also estimated. Predictive maintenance therefore requires condition monitoring. Without reliable condition detection there is no reliable prognosis.</p>
+
+      <h2 id="iso-13374">The processing stages according to ISO 13374</h2>
+      <p>ISO 13374 describes how data is processed in condition monitoring. It divides the path from sensor signal to recommended action into stages that build on one another. This helps when comparing products: you can quickly see at which stage a system stops.</p>
+      <figure>
+        <svg viewBox="0 0 680 170" role="img" aria-label="Processing stages according to ISO 13374 from data to recommendation">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="8" y="40" width="102" height="64" rx="2"/><rect x="122" y="40" width="102" height="64" rx="2"/>
+            <rect x="236" y="40" width="102" height="64" rx="2"/><rect x="350" y="40" width="102" height="64" rx="2"/>
+            <rect x="464" y="40" width="102" height="64" rx="2"/><rect x="578" y="40" width="94" height="64" rx="2"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.5">
+            <line x1="110" y1="72" x2="122" y2="72"/><line x1="224" y1="72" x2="236" y2="72"/>
+            <line x1="338" y1="72" x2="350" y2="72"/><line x1="452" y1="72" x2="464" y2="72"/>
+            <line x1="566" y1="72" x2="578" y2="72"/>
+          </g>
+          <text x="59" y="68" text-anchor="middle" style="fill:var(--ink)">1 Acquire</text><text x="59" y="86" text-anchor="middle">data</text>
+          <text x="173" y="68" text-anchor="middle" style="fill:var(--ink)">2 Calculate</text><text x="173" y="86" text-anchor="middle">features</text>
+          <text x="287" y="68" text-anchor="middle" style="fill:var(--ink)">3 Detect</text><text x="287" y="86" text-anchor="middle">condition</text>
+          <text x="401" y="68" text-anchor="middle" style="fill:var(--ink)">4 Diagnose</text><text x="401" y="86" text-anchor="middle">cause</text>
+          <text x="515" y="68" text-anchor="middle" style="fill:var(--ink)">5 Prognosis</text><text x="515" y="86" text-anchor="middle">progression</text>
+          <text x="625" y="68" text-anchor="middle" style="fill:var(--ink)">6 Advise</text><text x="625" y="86" text-anchor="middle">action</text>
+          <line x1="8" y1="128" x2="452" y2="128" stroke="var(--ink-2)"/>
+          <text x="230" y="150" text-anchor="middle">Condition monitoring</text>
+          <line x1="464" y1="128" x2="672" y2="128" stroke="var(--gold)"/>
+          <text x="568" y="150" text-anchor="middle">predictive</text>
+        </svg>
+        <figcaption>Simplified illustration of the processing stages according to ISO 13374. Condition monitoring covers the stages up to diagnosis; predictive maintenance adds the prognosis.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Acquire data:</strong> sensor and control signals are recorded; on spindles, mainly the vibration on the spindle housing and the speed from the CNC control.</li>
+        <li><strong>Calculate features:</strong> meaningful quantities are derived from the raw signal, such as RMS, crest factor, kurtosis and the amplitudes at the bearing frequencies in the envelope spectrum.</li>
+        <li><strong>Detect condition:</strong> the features are compared with a reference, either a limit or a learned baseline. The result is a statement such as "noticeable".</li>
+        <li><strong>Make a diagnosis:</strong> the system assigns the deviation to a cause, for example damage to the outer race.</li>
+        <li><strong>Make a prognosis:</strong> the future progression is estimated, ideally with a remaining useful life.</li>
+        <li><strong>Give a recommendation:</strong> condition, diagnosis and prognosis lead to an action with an urgency.</li>
+      </ol>
+      <p>A system that only compares an overall level with a fixed limit covers stages 1 to 3. A diagnosis requires frequency-based methods such as <a href="rolling-bearing-damage-early-detection.html">envelope analysis for rolling bearings</a>. How condition detection in stage 3 works properly is described in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">fixed thresholds, 3 sigma or a learned baseline</a>.</p>
+
+      <h2 id="prognosis-limits">Why a remaining useful life to the day is rarely credible</h2>
+      <p>The idea is tempting: the system reports that the spindle bearing will last another 23 days, and the maintenance team schedules the replacement for day 20. On a CNC spindle, such a number is in most cases not reliable. There are solid reasons for this.</p>
+      <ul>
+        <li><strong>The progression depends on the future:</strong> how quickly bearing damage grows depends on load, speed, lubrication and temperature. These change with every job. A roughing programme with high load stresses the bearing differently from a week of finishing.</li>
+        <li><strong>The progression is not uniform:</strong> bearing damage passes through phases at different speeds. A line in the envelope spectrum can remain stable for a long time and then grow rapidly.</li>
+        <li><strong>Run-to-failure data is missing:</strong> a reliable prognosis model would require many fully recorded damage progressions of exactly this spindle and bearing type under similar conditions. A single plant has only a few of them.</li>
+        <li><strong>Interventions change the progression:</strong> if the bearing is relubricated, the speed reduced or the spindle loaded less, the old projection no longer applies.</li>
+      </ul>
+      <p>A remaining useful life given as a single date is therefore usually false precision. At most, a range with a stated uncertainty would be credible, and even that only after an observation period on the specific machine. Anyone who gives you a fixed number of days without that basis should be able to explain where it comes from.</p>
+      <div class="callout">
+        <p class="label">Questions to ask any supplier</p>
+        <p>What data is the prognosis based on? How many damage progressions of the same type was it built on? How was it tested on data that was not used for training? Is an uncertainty stated? Without clear answers, it is an estimate, not a prognosis.</p>
+      </div>
+
+      <h2 id="our-approach">What we deliver instead: condition, trend, explanation</h2>
+      <p>We deliberately do not give a remaining useful life in days. For every monitored spindle, our system delivers three things that can be checked:</p>
+      <ol>
+        <li><strong>The condition:</strong> one of four levels, measured against the learned baseline, i.e. the normal state of this spindle, separately for each measuring point and speed range. An alert is only raised once the deviation persists over several measurements.</li>
+        <li><strong>The trend:</strong> how the features develop over days and weeks. Whether a deviation remains stable or grows tells the maintenance team more than any projection.</li>
+        <li><strong>The explanation:</strong> which feature has changed and by how much, which damage pattern is suspected, such as outer race, inner race, rolling element, cage or unbalance, and what to inspect.</li>
+      </ol>
+      <p>The urgency follows from the level. "Noticeable" means keep an eye on it; no immediate action is needed. "Warning" means schedule an inspection at the next opportunity. "Alarm" means inspect promptly, because the risk of failure is increased. This is less spectacular than a countdown. But it is transparent, and the maintenance engineer keeps the decision on when to intervene. They know the order book, the spare parts situation and the next free maintenance slot better than any model.</p>
+      <p>Our offering therefore sits clearly on stages 1 to 4 of ISO 13374, supplemented by trend and recommendation. What the system monitors today and what it does not is set out on the page <a href="spindle-monitoring.html">Spindle monitoring for CNC machining centres</a>.</p>
+
+      <h2 id="choosing">Which strategy suits which machine</h2>
+      <p>Not every machine needs condition monitoring. The choice depends on three questions: what does an unplanned failure cost, how long does it take to obtain a replacement, and does the damage announce itself measurably?</p>
+      <ul>
+        <li><strong>Reactive</strong> is enough for inexpensive parts with no secondary damage that can be replaced quickly.</li>
+        <li><strong>Time-based</strong> suits wear parts with a well-known service life and inspections required by law or by the manufacturer.</li>
+        <li><strong>Condition-based</strong> pays off where a failure is expensive, replacement takes time and the damage shows itself in advance. Main spindles of machining centres meet all three conditions: rolling bearing damage announces itself in the vibration signature.</li>
+      </ul>
+      <p>In practice, almost every plant mixes these strategies, often on the same machine. On a machining centre, the coolant is changed according to schedule, a defective limit switch is replaced reactively and the main spindle is monitored on a condition basis. Condition monitoring does not replace the maintenance work prescribed by the machine manufacturer either. It supplements it where fixed intervals come too early or too late.</p>
+      <p>It is also important to look at the organisation. An alert is only useful if someone reads it, schedules the inspection and reports back on the result. Before you introduce a system, it should therefore be clear who receives alerts, who decides on actions and how findings are documented. This feedback improves the assessment over time, because the thresholds can be calibrated against experience with your machines. A system without this feedback loop stays where it was on day one.</p>
+      <p>You can make your own estimate for your plant with our <a href="index.html#calculator">calculator</a>. A broader overview of spindle monitoring is given in the <a href="spindle-monitoring-cnc-guide.html">spindle monitoring guide</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What is the difference between condition monitoring and predictive maintenance?</summary><p>Condition monitoring records and assesses the current condition of a machine. Predictive maintenance also uses this condition data to estimate the future progression. Predictive maintenance therefore requires condition monitoring.</p></details>
+        <details class="faq-item"><summary>Is preventive maintenance the same as predictive maintenance?</summary><p>No. Preventive maintenance follows fixed intervals by calendar or operating hours, regardless of the actual condition. Predictive maintenance is based on the measured condition and its expected development.</p></details>
+        <details class="faq-item"><summary>Can the remaining useful life of a spindle bearing be predicted?</summary><p>Not credibly to the day in most cases. The progression of damage depends on future load, speed and lubrication, and there are usually not enough recorded damage progressions for a reliable model. What can be measured reliably is the current condition, the damage pattern and the trend.</p></details>
+        <details class="faq-item"><summary>How can I tell whether a system really is predictive?</summary><p>Ask what data the prognosis is based on, how it was tested on held-out data and whether an uncertainty is stated. A system that only compares a reading with a fixed limit is condition monitoring, even if it is called "predictive".</p></details>
+        <details class="faq-item"><summary>What does ISO 13374 describe?</summary><p>ISO 13374 describes data processing in machine condition monitoring in stages that build on one another: data acquisition, feature calculation, condition detection, diagnosis, prognosis and recommendation. It helps to compare the scope of different systems.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Method</span><a href="fft-spectrum-resolution-vibration-analysis.html">FFT in vibration analysis: sampling rate, resolution and window function for practitioners</a></li>
+<li><span class="label">Method</span><a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered</a></li>
+<li><span class="label">Method</span><a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools: what ISO limits can do and where they stop</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

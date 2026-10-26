@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What does an hour of machine downtime cost? A clean derivation · Forbach &amp; Partners</title>
+<meta name="description" content="What an hour of machine downtime really costs: derive contribution margin, labour, scrap, consequential damage and rush costs, and build your own figure.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-was-kostet-eine-stunde-maschinenstillstand.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-was-kostet-eine-stunde-maschinenstillstand.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="What does an hour of machine downtime cost? A clean derivation · Forbach &amp; Partners">
+<meta property="og:description" content="What an hour of machine downtime really costs: derive contribution margin, labour, scrap, consequential damage and rush costs, and build your own figure.">
+<meta property="og:url" content="https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "What does an hour of machine downtime cost? How to work it out for your plant", "description": "What an hour of machine downtime really costs: derive contribution margin, labour, scrap, consequential damage and rush costs, and build your own figure.", "inLanguage": "en-GB", "datePublished": "2026-06-10", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html", "articleSection": "Economics", "wordCount": 2316}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "What does an hour of machine downtime cost? How to work it out for your plant", "item": "https://forbachandpartners.com/en/cost-of-machine-downtime-per-hour.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do you calculate the cost of machine downtime?", "acceptedAnswer": {"@type": "Answer", "text": "Separate time-dependent costs such as lost contribution margin and waiting staff from costs that arise once per event, such as scrap, consequential damage, rush surcharges and contractual penalties. Calculate the costs per event first, and only divide by the duration of the downtime if you need an hourly value."}}, {"@type": "Question", "name": "Is the machine hour rate the same as the cost of downtime?", "acceptedAnswer": {"@type": "Answer", "text": "No. The machine hour rate allocates costs such as depreciation, interest and floor space, which are incurred even when the machine is standing still. Downtime costs are the costs that would not have arisen without the downtime. They depend above all on whether the machine is a bottleneck."}}, {"@type": "Question", "name": "Is there an average value for downtime costs per hour for CNC machines?", "acceptedAnswer": {"@type": "Answer", "text": "A generally valid value makes no sense, because utilisation, part mix, contracts and repair scope vary widely from plant to plant. Blanket figures from the internet say little about your machine. With the formulas in this article you can arrive at your own, justified value within a few hours."}}, {"@type": "Question", "name": "When does condition monitoring for spindles pay off?", "acceptedAnswer": {"@type": "Answer", "text": "When the difference between an unplanned and a planned bearing replacement, multiplied by the number of failures and the share detected in time, exceeds the cost of the monitoring. Calculate with several values for this share and check from which value the investment pays for itself."}}, {"@type": "Question", "name": "What does it cost to connect to your system?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on the CNC control, the number of machines and the measuring points. We give you a specific figure in the introductory call so that you can use it in your own calculation. The page Process and requirements describes how it works, and you can arrange an appointment via Contact ."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-was-kostet-eine-stunde-maschinenstillstand.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Economics</span></nav>
+      <h1>What does an hour of machine downtime cost? How to work it out for your plant</h1>
+      <p class="lead">The machine hour rate does not answer the question of downtime costs. To derive the cost of an hour of downtime properly, separate time-dependent from event-dependent costs and work with your own figures.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>12 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#hour-rate">Why the machine hour rate is the wrong answer</a></li>
+<li><a href="#cost-blocks">The cost blocks of an hour of downtime</a></li>
+<li><a href="#formula">The formula: separate time-dependent and event-dependent costs</a></li>
+<li><a href="#example">Worked example: cost of machine downtime with assumed values</a></li>
+<li><a href="#planned-unplanned">Planned and unplanned bearing replacement compared</a></li>
+<li><a href="#business-case">Building your own business case</a></li>
+<li><a href="#data">Where to get the figures</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Ask anyone in a manufacturing plant what an hour of machine downtime costs and a number often comes back quickly: the machine hour rate from the costing sheet. That number is known, agreed and appears in every quotation. For the question of <strong>what downtime costs</strong>, however, it is almost always the wrong basis. The hour rate allocates costs that are incurred anyway. Downtime, on the other hand, causes costs that would not have arisen without it. This article shows how to derive the cost of an hour of downtime properly, why an unplanned spindle bearing replacement has to be assessed differently from a planned one, and how to build your own business case for condition monitoring from it. You will deliberately not find industry averages here. Your figures are the only ones that matter for your decision.</p>
+
+      <h2 id="hour-rate">Why the machine hour rate is the wrong answer</h2>
+      <p>The machine hour rate is usually made up of imputed depreciation, imputed interest, floor space costs, energy and maintenance, divided by the planned running hours. Its purpose is to cost orders. Most of these items continue when the machine is standing still: depreciation does not change, the shop floor does not get smaller, the interest remains. Only part of the energy cost goes away.</p>
+      <p>Multiplying the hour rate by the duration of the downtime therefore mostly counts costs that the downtime did not cause at all. At the same time, everything it actually triggers is missing: lost orders, waiting staff, scrap, rush surcharges and damage to the spindle, workpiece or tool. The correct question from a business perspective is therefore: <strong>What would we have earned in addition, or spent less, without the downtime?</strong> These are known as decision-relevant costs or opportunity costs.</p>
+      <div class="callout">
+        <p class="label">The key question</p>
+        <p>Is the affected machine running at its capacity limit? If so, every lost hour is lost contribution margin. If not, the work can often be caught up later, and the costs consist mainly of catch-up effort. This one distinction changes the result more than any other assumption.</p>
+      </div>
+
+      <h2 id="cost-blocks">The cost blocks of an hour of downtime</h2>
+      <p>The costs of unplanned downtime can be divided into seven blocks. Not every block applies to every event. The table shows when each one is relevant and where in the business the figures can be found:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Cost block</th><th>When it applies</th><th>Where the figures are</th></tr></thead>
+          <tbody>
+            <tr><td>Lost contribution margin</td><td>When the machine is a bottleneck and the hours cannot be caught up</td><td>Cost accounting, contribution margin per machine hour</td></tr>
+            <tr><td>Catch-up costs</td><td>When the work is postponed: overtime, extra shifts, subcontracting</td><td>Payroll, purchasing</td></tr>
+            <tr><td>Staff without alternative work</td><td>When operators and setters cannot be usefully redeployed</td><td>Shift plan, hourly rates</td></tr>
+            <tr><td>Scrap and rework</td><td>When a workpiece is damaged during machining or the restart requires inspection effort</td><td>Quality department, material costs</td></tr>
+            <tr><td>Consequential damage</td><td>When a bearing failure damages other parts of the spindle, the tool or the workpiece</td><td>Maintenance, repair invoices</td></tr>
+            <tr><td>Rush costs</td><td>When a spare part or service engineer has to be obtained at short notice</td><td>Purchasing, service invoices</td></tr>
+            <tr><td>Contractual penalties and delivery performance</td><td>When delivery dates are missed and contracts provide for penalties</td><td>Sales, customer contracts</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Lost contribution margin</h3>
+      <p>Contribution margin is revenue minus variable costs. It is the amount that contributes to covering fixed costs and to profit. If a fully loaded machine fails, exactly this amount is lost, unless the parts can be made on another machine or later. For a machine with spare capacity, by contrast, the lost contribution margin is often close to zero, because the order is merely postponed. Calculated honestly, the value therefore depends on utilisation during the period of the failure, not on an annual average.</p>
+
+      <h3>Staff and catch-up costs</h3>
+      <p>Operators, setters and sometimes downstream workstations wait as well. Whether this causes costs depends on whether you can redeploy the staff usefully. If the work is caught up later, overtime premiums or the costs of extra shifts arise instead. Do not count both items twice: either the contribution margin is lost, or you catch up the work at additional cost.</p>
+
+      <h3>Scrap and rework</h3>
+      <p>A bearing failure that escalates during machining often hits a workpiece that already has hours of machining time in it. It is valued at material plus the production costs incurred so far. On top of this comes the effort after the repair: measuring in, trial parts, additional inspections until the first good part is released again.</p>
+
+      <h3>Consequential damage to spindle, workpiece and tool</h3>
+      <p>A rolling bearing that runs until it fails often damages more than itself. Depending on how the damage progresses, bearing seats, shaft or tool holder interface can be affected. A bearing replacement then becomes a spindle overhaul or a spindle exchange. How bearing damage develops and when it becomes detectable is described in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+
+      <h3>Rush costs, contractual penalties and delivery performance</h3>
+      <p>Unplanned means the spare part is sourced by express delivery and the service engineer comes at the next available slot, often with surcharges for call-outs outside normal working hours. Whether an exchange spindle is available at all makes a difference of days. If a delivery date is missed as a result, some customer contracts trigger contractual penalties. Harder to quantify, but real, is the damage to your supplier rating. Only include this item if you can justify it, for example with a specific contract clause.</p>
+
+      <h2 id="formula">The formula: separate time-dependent and event-dependent costs</h2>
+      <p>Many of the blocks do not grow with duration but arise once per event. A damaged workpiece costs the same whether the machine then stands for two hours or twenty. It is therefore cleaner to calculate the costs of a <strong>failure event</strong> first and only derive an hourly value from it at the end:</p>
+      <div class="formula">C_event = t · (c_CM + c_staff + c_catchup)
+        + C_repair + C_rush + C_consequential + C_scrap + C_penalty
+
+c_hour  = C_event / t
+
+t         = downtime in hours (until the first good part)
+c_CM      = lost contribution margin per hour (only if bottleneck)
+c_staff   = staff costs without alternative work per hour
+c_catchup = additional cost per caught-up hour (instead of c_CM, not in addition)
+C_…       = costs that arise once per event</div>
+      <p>The hourly value <code>c_hour</code> is useful for comparing events and for feeding calculation aids. It has one weakness, however: with short stoppages the one-off costs dominate, with long ones the time-dependent costs. Transferring an hourly value from a long failure to a short one gives the wrong answer. So calculate per event type, for example "spindle bearing damage, unplanned".</p>
+      <p>The downtime <code>t</code> does not run until the end of the repair, but until the first released good part. Waiting for the spare part, installation, measuring in and trial parts are all included.</p>
+
+      <h2 id="example">Worked example: cost of machine downtime with assumed values</h2>
+      <p>The following example is only meant to show the calculation method. All values are freely chosen and describe neither an average nor a real machine. Assume that on a 5-axis machining centre, which is a bottleneck during this period, a spindle bearing fails during machining:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Assumptions, not empirical values</caption>
+          <thead><tr><th>Item</th><th>Assumption</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Downtime until the first good part</td><td class="m">40 h machine time</td><td class="m"></td></tr>
+            <tr><td>Lost contribution margin</td><td class="m">40 h × €150</td><td class="m">€6,000</td></tr>
+            <tr><td>Staff without alternative work</td><td class="m">8 h × €50</td><td class="m">€400</td></tr>
+            <tr><td>Workpiece in the machine</td><td class="m">1 part</td><td class="m">€1,200</td></tr>
+            <tr><td>Spindle overhaul instead of bearing replacement</td><td class="m">additional cost</td><td class="m">€5,000</td></tr>
+            <tr><td>Rush surcharges for spare part and service</td><td class="m">lump sum</td><td class="m">€1,500</td></tr>
+            <tr><td>Contractual penalty</td><td class="m">none agreed</td><td class="m">€0</td></tr>
+            <tr><td><strong>Total per event</strong></td><td class="m"></td><td class="m"><strong>€14,100</strong></td></tr>
+            <tr><td>Calculated per hour of downtime</td><td class="m">€14,100 / 40 h</td><td class="m">approx. €353</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In this example the one-off costs make up more than half of the total. Had the machine had spare capacity, the contribution margin would drop out, but overtime premiums would be added instead. The repair itself, i.e. the bearing replacement, is not included in the table, because it is also incurred with a planned approach. Only the additional cost of the consequential damage is included. This separation is important for the next step.</p>
+
+      <h2 id="planned-unplanned">Planned and unplanned bearing replacement compared</h2>
+      <p>A spindle bearing has to be replaced at some point. The question is not whether, but under what conditions. The same technical job costs very different amounts depending on whether it comes as a surprise or is planned:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Characteristic</th><th>Unplanned</th><th>Planned</th></tr></thead>
+          <tbody>
+            <tr><td>Timing</td><td>During production, often in the middle of an order</td><td>In a chosen window, for example at the weekend or between two orders</td></tr>
+            <tr><td>Spare part and service</td><td>Rush procurement, next available slot</td><td>Normal delivery time, agreed appointment</td></tr>
+            <tr><td>Scope</td><td>Often with consequential damage to seats, shaft or tool interface</td><td>Usually limited to the bearing if the damage was detected early</td></tr>
+            <tr><td>Workpiece</td><td>Can be damaged in the machine</td><td>Order is completed beforehand</td></tr>
+            <tr><td>Staff</td><td>Wait or are re-planned at short notice</td><td>Are scheduled elsewhere</td></tr>
+            <tr><td>Delivery dates</td><td>Unclear until the cause is established</td><td>Taken into account in planning</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The economic benefit of early damage detection lies precisely in this difference. The repair does not become free. It becomes postponed, plannable and, at best, smaller. How early damage becomes visible depends on bearing type, load, speed and lubrication. Nobody can seriously predict it to the day. What monitoring can provide is an explained alert as soon as the vibration pattern of the spindle moves away from its learned baseline, i.e. the normal state of this spindle. More on this in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>.</p>
+
+      <h2 id="business-case">Building your own business case</h2>
+      <p>A simple calculation for condition monitoring can be derived from the event costs. The key is to include only the part that early detection can actually change:</p>
+      <div class="formula">Benefit per year = N · a · (C_unplanned − C_planned)
+
+Payback in years = E / (benefit per year − R)
+
+N           = expected spindle bearing failures per year, all machines
+a           = share detected in time and fixed as planned (your estimate)
+C_unplanned = costs per unplanned event (see above)
+C_planned   = costs per planned replacement, excluding the repair itself
+E           = set-up costs   R = running costs per year</div>
+      <p>Three notes on applying it:</p>
+      <ol>
+        <li><strong>Estimate N from your own history.</strong> Maintenance orders and repair invoices from recent years show how often spindle bearings were affected. With only a few machines this number is small and fluctuates strongly. In that case, work with a range rather than an average.</li>
+        <li><strong>Choose a honestly.</strong> Not every failure is detected early enough, and not every alert leads to a timely replacement. Calculate with several values and see from which share the case pays off. This threshold says more than a single result.</li>
+        <li><strong>Only count what is monitored.</strong> Spindle monitoring does not prevent failures on feed axes, the tool changer or the coolant system. These events do not belong in N.</li>
+      </ol>
+      <p>For a quick estimate there is a <a href="index.html#calculator">calculation aid</a> on our home page. It works with downtime hours, cost per hour and your own estimate of what share would be avoidable. We deliberately do not insert a savings rate there. Consequential damage is not included in the calculation aid. For a robust decision we recommend the detailed calculation using the formula above.</p>
+
+      <h2 id="data">Where to get the figures</h2>
+      <p>Most of the values already exist in the business, just in different places. Half a day with cost accounting, maintenance and production planning is often enough for a first robust version:</p>
+      <ul>
+        <li><strong>Downtime:</strong> from machine or production data acquisition, otherwise from maintenance orders. Make sure the time until the first good part is recorded, not just the repair duration.</li>
+        <li><strong>Contribution margin per machine hour:</strong> from cost accounting. Ask for the value for the periods in which the machine was fully loaded.</li>
+        <li><strong>Repair and rush costs:</strong> from the spindle service provider's invoices. If available, compare a planned case with an unplanned one.</li>
+        <li><strong>Scrap:</strong> from quality reports, valued at material and the machining time spent so far.</li>
+        <li><strong>Contractual penalties:</strong> from customer contracts. Only include them if a clause exists.</li>
+      </ul>
+      <p>If you have no figure for a block, leave it out and note that. A calculation that is cautious and says so openly is more convincing to management than a complete one with estimated mark-ups. How downtime affects overall equipment effectiveness is shown in the article <a href="oee-cnc-machines-availability-losses.html">OEE on CNC machines</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How do you calculate the cost of machine downtime?</summary><p>Separate time-dependent costs such as lost contribution margin and waiting staff from costs that arise once per event, such as scrap, consequential damage, rush surcharges and contractual penalties. Calculate the costs per event first, and only divide by the duration of the downtime if you need an hourly value.</p></details>
+        <details class="faq-item"><summary>Is the machine hour rate the same as the cost of downtime?</summary><p>No. The machine hour rate allocates costs such as depreciation, interest and floor space, which are incurred even when the machine is standing still. Downtime costs are the costs that would not have arisen without the downtime. They depend above all on whether the machine is a bottleneck.</p></details>
+        <details class="faq-item"><summary>Is there an average value for downtime costs per hour for CNC machines?</summary><p>A generally valid value makes no sense, because utilisation, part mix, contracts and repair scope vary widely from plant to plant. Blanket figures from the internet say little about your machine. With the formulas in this article you can arrive at your own, justified value within a few hours.</p></details>
+        <details class="faq-item"><summary>When does condition monitoring for spindles pay off?</summary><p>When the difference between an unplanned and a planned bearing replacement, multiplied by the number of failures and the share detected in time, exceeds the cost of the monitoring. Calculate with several values for this share and check from which value the investment pays for itself.</p></details>
+        <details class="faq-item"><summary>What does it cost to connect to your system?</summary><p>That depends on the CNC control, the number of machines and the measuring points. We give you a specific figure in the introductory call so that you can use it in your own calculation. The page <a href="process.html">Process and requirements</a> describes how it works, and you can arrange an appointment via <a href="contact.html">Contact</a>.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Economics</span><a href="oee-cnc-machines-availability-losses.html">OEE on CNC machines: where availability is really lost</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

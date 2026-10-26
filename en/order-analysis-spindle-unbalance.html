@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order analysis on the spindle: detecting unbalance reliably · Forbach &amp; Partners</title>
+<meta name="description" content="Order analysis on CNC spindles: why multiples of shaft speed help at varying speeds, how unbalance shows as order 1, how bearing orders differ, what to check.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Order analysis on the spindle: detecting unbalance reliably · Forbach &amp; Partners">
+<meta property="og:description" content="Order analysis on CNC spindles: why multiples of shaft speed help at varying speeds, how unbalance shows as order 1, how bearing orders differ, what to check.">
+<meta property="og:url" content="https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed", "description": "Order analysis on CNC spindles: why multiples of shaft speed help at varying speeds, how unbalance shows as order 1, how bearing orders differ, what to check.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html", "articleSection": "Spindle and bearings", "wordCount": 2068}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed", "item": "https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is order analysis in vibration measurement?", "acceptedAnswer": {"@type": "Answer", "text": "An analysis in which the frequency axis of the spectrum is expressed in multiples of the shaft frequency. Order 1 means once per revolution. That way, speed-related vibrations such as unbalance stay in the same place even when the spindle runs at a different speed."}}, {"@type": "Question", "name": "How do you detect unbalance on a CNC spindle?", "acceptedAnswer": {"@type": "Answer", "text": "By increased vibration at order 1, i.e. exactly at the shaft frequency (1× running speed). What matters is the comparison with measurements of the same spindle at a similar speed, because the amplitude increases sharply with speed and varies from tool to tool."}}, {"@type": "Question", "name": "Is an elevated order 1 always spindle damage?", "acceptedAnswer": {"@type": "Answer", "text": "No. The cause often lies in the tool, the tool holder, contamination on the taper or the seating of the holder. Only if the deviation persists with different, clean and balanced tools should the balance condition of the spindle itself be checked."}}, {"@type": "Question", "name": "Where does the speed for order analysis come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the CNC control. Our edge box reads the spindle speed via OPC UA, read-only, and only assesses a vibration window if the speed was almost constant during it. The vibration signal itself comes from a sensor on the spindle housing."}}, {"@type": "Question", "name": "Why are bearing frequencies not at whole orders?", "acceptedAnswer": {"@type": "Answer", "text": "Because the rolling elements and cage travel round more slowly than the shaft. The defect frequencies follow from the bearing geometry and are therefore non-integer multiples of the shaft frequency, for example 6.45 for the outer race of an assumed spindle bearing."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-ordnungsanalyse-unwucht-spindel.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Spindle and bearings</span></nav>
+      <h1>Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed</h1>
+      <p class="lead">A spindle rarely runs at the same speed for long. Order analysis therefore measures vibration in multiples of the shaft frequency. That way unbalance is always order 1, whether the spindle is turning at 3,000 or 12,000 rpm.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>10 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#order">What an order is</a></li>
+<li><a href="#speed">Why orders help with varying speeds</a></li>
+<li><a href="#unbalance">Order 1: unbalance in tool, tool holder and spindle</a></li>
+<li><a href="#order-2">Order 2: twice per revolution</a></li>
+<li><a href="#bearings">Bearing frequencies: non-integer orders</a></li>
+<li><a href="#system">How we use order analysis in our system</a></li>
+<li><a href="#checks">What to check when unbalance is reported</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Anyone analysing vibration on a machining centre faces a problem that does not exist on a fixed-speed pump: the spindle changes its speed with every tool and often within a program. A spectrum in hertz therefore looks different at every speed. <strong>Order analysis</strong> solves this by referencing the frequency axis to the shaft frequency of the spindle. ‘Peak at 100 Hz’ becomes ‘peak at order 1’. This article explains what an order is, how unbalance and bearing damage differ in orders, and how our system uses order analysis on the spindle.</p>
+
+      <h2 id="order">What an order is</h2>
+      <p>An order is a multiple of the shaft frequency. The shaft frequency <code>f<sub>r</sub></code> is the number of revolutions per second. It follows directly from the speed reported by the CNC control:</p>
+      <div class="formula">f_r   = n / 60          (n in rpm, f_r in Hz)
+
+order = f / f_r
+
+Example: n = 6,000 rpm  →  f_r = 100 Hz
+         line at 200 Hz  →  order 2</div>
+      <p>So order 1 means the event repeats once per revolution. Order 2: twice per revolution. An order of 6.45 means 6.45 times per revolution. That sounds abstract, but it is very intuitive. Anything rigidly connected to the shaft produces vibration at a fixed order. An unbalance in the tool holder turns with the shaft and pulls in one direction once per revolution. It therefore stays at order 1, however fast the spindle runs.</p>
+      <p>Mathematically, order analysis at constant speed is simple: you calculate the ordinary amplitude spectrum and divide the frequency axis by the shaft frequency. Our analysis library implements exactly that. The amplitudes remain unchanged; only the axis is expressed in orders. How the spectrum itself is produced is described in the article <a href="fft-spectrum-resolution-vibration-analysis.html">FFT, spectrum and resolution</a>.</p>
+
+      <h2 id="speed">Why orders help with varying speeds</h2>
+      <p>Suppose the same spindle runs once at 6,000 and once at 12,000 rpm. In the spectrum in hertz, the unbalance is at 100 Hz in one case and at 200 Hz in the other. An outer race defect moves in the same ratio. Comparing two measurements in hertz means comparing different things. In orders, by contrast, both measurements line up: unbalance at 1, outer race at the same non-integer order.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Example, assumed bearing as in the article on bearing frequencies</caption>
+          <thead><tr><th>Source</th><th>Order</th><th>at 6,000 rpm</th><th>at 12,000 rpm</th></tr></thead>
+          <tbody>
+            <tr><td>Unbalance</td><td class="m">1</td><td class="m">100 Hz</td><td class="m">200 Hz</td></tr>
+            <tr><td>Twice per revolution</td><td class="m">2</td><td class="m">200 Hz</td><td class="m">400 Hz</td></tr>
+            <tr><td>Cage, FTF</td><td class="m">0.40</td><td class="m">40.3 Hz</td><td class="m">80.6 Hz</td></tr>
+            <tr><td>Rolling element, 2 × BSF</td><td class="m">4.81</td><td class="m">481.3 Hz</td><td class="m">962.7 Hz</td></tr>
+            <tr><td>Outer race, BPFO</td><td class="m">6.45</td><td class="m">645.4 Hz</td><td class="m">1,290.8 Hz</td></tr>
+            <tr><td>Inner race, BPFI</td><td class="m">9.55</td><td class="m">954.6 Hz</td><td class="m">1,909.2 Hz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The ‘Order’ column does not change. That is the real benefit: a feature such as ‘amplitude at order 1’ has the same meaning at every speed. One limitation remains, however. The <strong>height</strong> of the amplitude does depend on speed, because the centrifugal force of an unbalance increases with the square of the speed. Resonances of the machine structure also amplify certain speeds more than others. So the order tells you <em>where</em> to look. Whether the value there is abnormal can only be judged by comparison with measurements at a similar speed.</p>
+
+      <h3>Speed changes during the measurement</h3>
+      <p>It becomes more difficult when the speed changes within a measurement window, for example during run-up. The line then smears across a frequency range in the ordinary spectrum. The classic remedy is <strong>order tracking</strong>: the time signal is resampled from equal time steps to equal angle steps of the shaft. This requires the speed profile during the measurement. After this resampling, components synchronous with rotation stay sharp even at varying speed.</p>
+      <p>Our analysis library includes this method. In day-to-day operation, however, we deliberately take a simpler and more robust route: the edge box only evaluates measurement windows in which the speed was almost constant. It reads the speed from the CNC control before and after the window and discards windows in which the speed changed too much or the spindle was running too slowly. Run-ups, braking and standstill therefore never enter the assessment.</p>
+
+      <h2 id="unbalance">Order 1: unbalance in tool, tool holder and spindle</h2>
+      <p>Increased vibration at order 1 is the classic sign of unbalance. The mass is not distributed symmetrically about the axis of rotation, and with every revolution the centrifugal force pulls once in the same direction. On a machine tool spindle, these are the main possible causes:</p>
+      <ul>
+        <li><strong>Tool and tool holder:</strong> unbalanced or poorly balanced holders, long overhang, unevenly worn cutting edges.</li>
+        <li><strong>Clamping and seating:</strong> a holder that does not seat cleanly in the spindle taper, or a chuck with runout.</li>
+        <li><strong>Contamination:</strong> chips or deposits on the taper or the holder that change the seating or act as mass themselves.</li>
+        <li><strong>The spindle itself:</strong> a change in the balance condition of the rotor, less common but more serious.</li>
+      </ul>
+      <p>Important in practice: the first three causes change with the tool. Order 1 can therefore vary from tool to tool without anything being wrong with the spindle. A single outlier during a tool change is not a finding. Only when order 1 stays elevated over several measurements is it worth looking at the holder, taper and balance condition. If, on the other hand, order 1 rises slowly across all tools, this points more towards a cause in the spindle.</p>
+      <div class="callout">
+        <p class="label">Unbalance and bearings are linked</p>
+        <p>Unbalance is more than a surface finish issue on the workpiece. The rotating force puts additional load on the spindle bearings with every revolution. A persistently elevated order 1 is therefore also a reason to follow the bearing features of the same spindle more closely.</p>
+      </div>
+
+      <h2 id="order-2">Order 2: twice per revolution</h2>
+      <p>In vibration diagnostics, increased vibration at order 2 often points to misalignment or mechanical looseness. Loose mountings, a component with play or distortion in the assembly can cause the structure to knock twice per revolution. The assignment is less clear-cut than for order 1. Order 2 is more an indication of where to look than a diagnosis.</p>
+      <p>Our system words this with corresponding caution. If order 2 is the most conspicuous feature, the alert reads roughly ‘Vibration twice per revolution increased’, and the recommended check names alignment and mounting: check for loose parts and distortion. The alert does not claim a specific cause.</p>
+
+      <h2 id="bearings">Bearing frequencies: non-integer orders</h2>
+      <p>Rolling bearing damage behaves differently from unbalance. Its defect frequencies are proportional to speed, but they are not whole multiples. This is due to the kinematics: the rolling elements travel round with the cage more slowly than the shaft turns. For the assumed bearing in the table above, the outer race is at order 6.45, the inner race at 9.55, the cage at 0.40. The formulas are given in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+      <p>This gives a useful rule of thumb for reading an order spectrum:</p>
+      <ul>
+        <li><strong>Integer orders</strong> (1, 2, 3 …) belong to processes rigidly tied to the revolution: unbalance, alignment, looseness, the number of cutting edges on the tool.</li>
+        <li><strong>Non-integer orders</strong> point to rolling bearings, especially if they match the values calculated from the bearing geometry.</li>
+      </ul>
+      <p>Two caveats apply. First, real bearings slip slightly, so the lines are not exactly at the calculated order. The search needs a tolerance band. Second, early bearing damage hardly shows in the ordinary spectrum, but it does in the envelope spectrum. Our system therefore does not look for the bearing frequencies in the order spectrum, but in the envelope spectrum. It recalculates them for every measurement window from the bearing geometry and the current speed. The principle is the same: the frequency is tied to the speed.</p>
+
+      <h2 id="system">How we use order analysis in our system</h2>
+      <p>The edge box at the machine calculates a small number of features for each valid measurement window. Two of them come from order analysis:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Feature</th><th>Meaning</th><th>Typical question behind it</th></tr></thead>
+          <tbody>
+            <tr><td>Order 1</td><td>Amplitude of the vibration once per revolution</td><td>Unbalance in tool, tool holder or spindle?</td></tr>
+            <tr><td>Order 2</td><td>Amplitude of the vibration twice per revolution</td><td>Alignment, mounting, looseness?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The edge box does not look for the amplitude at an exact point, but in a narrow band around order 1 and order 2. The width of the band depends on the frequency resolution of the spectrum. This way, a speed reading that is very slightly off does not cause the line to be narrowly missed. Only these features are transmitted, no raw data. They are joined by RMS, crest factor, kurtosis and the amplitudes at the bearing frequencies. What these features tell you is explained in the article <a href="vibration-features-rms-crest-factor-kurtosis.html">RMS, crest factor and kurtosis</a>.</p>
+      <p>The assessment takes place on the platform, and not against a fixed limit. Each measurement is assigned to a <strong>speed class</strong>. For each combination of machine, measurement point and speed class, the system learns its own learned baseline, i.e. the normal state of this spindle under those conditions. This solves the problem of speed-dependent amplitude: order 1 at 12,000 rpm is only compared with order 1 at a similar speed. How the learned baseline is built is described in the article <a href="learning-the-baseline.html">Learning the baseline</a>.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Path from measurement to assessment of the order features">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g><path d="M156 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M326 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M496 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/></g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Measurement window</text><text x="82" y="86" text-anchor="middle" style="fill:var(--ink-2)">Speed constant?</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Spectrum</text><text x="252" y="86" text-anchor="middle" style="fill:var(--ink-2)">Axis in orders</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Features</text><text x="422" y="86" text-anchor="middle" style="fill:var(--ink-2)">Order 1 and 2</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Comparison</text><text x="595" y="86" text-anchor="middle" style="fill:var(--ink-2)">per speed class</text>
+          <text x="340" y="132" text-anchor="middle" style="fill:var(--ink-2)">Steps 1 to 3 on the edge box, step 4 on the platform</text>
+        </svg>
+        <figcaption>From measurement window to assessment. Windows with changing speed are discarded; comparisons are only made within the same speed class.</figcaption>
+      </figure>
+
+      <h2 id="checks">What to check when unbalance is reported</h2>
+      <p>If order 1 stays clearly above the learned baseline over several consecutive measurements, our system raises an alert titled ‘Unbalance suspected (vibration once per revolution increased)’. The alert names the machine, measurement point and speed class, the measured value compared with the learned baseline and a recommended check. The recommendation reads: check tool and tool holder for unbalance, contamination and seating, check balance condition. In the workshop, that means in this order:</p>
+      <ol>
+        <li><strong>Which tool was loaded?</strong> If the deviation only occurs with one particular tool, the cause is very probably there.</li>
+        <li><strong>Clean taper and holder:</strong> remove chips and deposits from the spindle taper and the face contact, check the seating.</li>
+        <li><strong>Check holder and tool:</strong> balance grade, runout, overhang, condition of the cutting edges.</li>
+        <li><strong>Balance condition of the spindle:</strong> if the deviation persists with different, clean and balanced tools, the spindle service provider should check the balance condition.</li>
+      </ol>
+      <p>The urgency follows from the level. ‘Noticeable’ means keep an eye on it, no immediate action is needed. ‘Warning’ means plan an inspection at the next opportunity. ‘Alarm’ means inspect soon. The alert deliberately does not state a remaining useful life. After the check, you report back in the dashboard whether the alert was accurate. How such an alert is structured is shown in the article <a href="explained-alerts-dashboard.html">Alerts with a stated reason</a>. An overview of spindle monitoring as a whole is given in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>, and which machines we connect today is listed under <a href="spindle-monitoring.html">CNC machining centres</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What is order analysis in vibration measurement?</summary><p>An analysis in which the frequency axis of the spectrum is expressed in multiples of the shaft frequency. Order 1 means once per revolution. That way, speed-related vibrations such as unbalance stay in the same place even when the spindle runs at a different speed.</p></details>
+        <details class="faq-item"><summary>How do you detect unbalance on a CNC spindle?</summary><p>By increased vibration at order 1, i.e. exactly at the shaft frequency (1× running speed). What matters is the comparison with measurements of the same spindle at a similar speed, because the amplitude increases sharply with speed and varies from tool to tool.</p></details>
+        <details class="faq-item"><summary>Is an elevated order 1 always spindle damage?</summary><p>No. The cause often lies in the tool, the tool holder, contamination on the taper or the seating of the holder. Only if the deviation persists with different, clean and balanced tools should the balance condition of the spindle itself be checked.</p></details>
+        <details class="faq-item"><summary>Where does the speed for order analysis come from?</summary><p>From the CNC control. Our edge box reads the spindle speed via OPC UA, read-only, and only assesses a vibration window if the speed was almost constant during it. The vibration signal itself comes from a sensor on the spindle housing.</p></details>
+        <details class="faq-item"><summary>Why are bearing frequencies not at whole orders?</summary><p>Because the rolling elements and cage travel round more slowly than the shaft. The defect frequencies follow from the bearing geometry and are therefore non-integer multiples of the shaft frequency, for example 6.45 for the outer race of an assumed spindle bearing.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Spindle and bearings</span><a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal</a></li>
+<li><span class="label">Spindle and bearings</span><a href="spindle-monitoring-cnc-guide.html">Spindle monitoring on CNC machining centres: the guide</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

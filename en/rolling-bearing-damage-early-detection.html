@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bearing fault detection: envelope analysis, BPFO, BPFI, BSF, FTF · Forbach &amp; Partners</title>
+<meta name="description" content="How outer race, inner race, rolling element and cage defects show in the envelope spectrum. With BPFO, BPFI, BSF and FTF formulas and a spindle bearing example.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Bearing fault detection: envelope analysis, BPFO, BPFI, BSF, FTF · Forbach &amp; Partners">
+<meta property="og:description" content="How outer race, inner race, rolling element and cage defects show in the envelope spectrum. With BPFO, BPFI, BSF and FTF formulas and a spindle bearing example.">
+<meta property="og:url" content="https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal", "description": "How outer race, inner race, rolling element and cage defects show in the envelope spectrum. With BPFO, BPFI, BSF and FTF formulas and a spindle bearing example.", "inLanguage": "en-GB", "datePublished": "2026-05-05", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html", "articleSection": "Spindle and bearings", "wordCount": 1517}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal", "item": "https://forbachandpartners.com/en/rolling-bearing-damage-early-detection.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can bearing damage be detected from the RMS value of the vibration?", "acceptedAnswer": {"@type": "Answer", "text": "Only late. The RMS value usually rises only once the damage is advanced. Early damage shows up as weak lines at the bearing frequencies in the envelope spectrum, long before the overall level changes."}}, {"@type": "Question", "name": "Where do I get the geometry data for my spindle bearing?", "acceptedAnswer": {"@type": "Answer", "text": "From the bearing manufacturer's datasheet or from the spindle manufacturer's documentation. You need the number of rolling elements, rolling element diameter, pitch diameter and contact angle. Estimated values lead to wrong frequencies."}}, {"@type": "Question", "name": "Is CNC control data enough for bearing diagnostics?", "acceptedAnswer": {"@type": "Answer", "text": "No. The standard interfaces of the controls deliver values well below 1 kHz. Envelope analysis needs signals in the kilohertz range, so a vibration sensor on the spindle housing is required. The control does, however, supply the speed, without which the bearing frequencies cannot be calculated."}}, {"@type": "Question", "name": "How long before failure is bearing damage detected?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on bearing design, load, speed and lubrication and cannot be given as a general figure. Frequency-based methods do, however, typically show the damage much earlier than overall level, temperature or noise."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Spindle and bearings</span></nav>
+      <h1>Detecting rolling bearing damage early: what envelope analysis and bearing defect frequencies reveal</h1>
+      <p class="lead">Incipient bearing damage produces tiny impacts at a fixed repetition rate. If you know which frequency to look for, you will find them in the envelope spectrum long before the bearing becomes audible.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>8 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#impacts">Why bearing damage has its own frequency</a></li>
+<li><a href="#formulas">The formulas for BPFO, BPFI, BSF and FTF</a></li>
+<li><a href="#envelope">Envelope analysis: how the impacts become visible</a></li>
+<li><a href="#patterns">Which pattern belongs to which defect</a></li>
+<li><a href="#progression">How bearing damage develops</a></li>
+<li><a href="#in-practice">How we implement this in our system</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A rolling bearing rarely fails suddenly. It almost always starts with a small defect on a raceway or a rolling element: a pit, a crack, a spot with a damaged surface. Every time a rolling element rolls over this spot, a short impact is produced. At first these impacts are so weak that they are lost in the overall vibration level. Their <strong>repetition rate</strong>, however, is precisely determined by the bearing geometry and the speed. Rolling bearing diagnostics is built on this.</p>
+
+      <h2 id="impacts">Why bearing damage has its own frequency</h2>
+      <p>A bearing consists of an outer race, an inner race, rolling elements and a cage. When the spindle is running, the inner race turns with the shaft, the outer race is stationary in the housing, and the rolling elements travel round with the cage. This gives each component its own defect frequency:</p>
+      <ul>
+        <li><strong>BPFO</strong> (ball pass frequency, outer race): how many times per second a rolling element passes over a given point on the outer race.</li>
+        <li><strong>BPFI</strong> (ball pass frequency, inner race): the same for a point on the inner race.</li>
+        <li><strong>BSF</strong> (ball spin frequency): how many times per second a rolling element turns about its own axis.</li>
+        <li><strong>FTF</strong> (fundamental train frequency): the rotational frequency of the cage.</li>
+      </ul>
+      <p>If the defect is on the outer race, the impacts repeat at BPFO. If it is on the inner race, at BPFI. So the diagnosis does not ask ‘Is the vibration high?’, but ‘Is there energy at exactly the frequency that belongs to this component?’. That is why a frequency-based analysis shows damage much earlier than an RMS value.</p>
+
+      <h2 id="formulas">The formulas for BPFO, BPFI, BSF and FTF</h2>
+      <p>The defect frequencies can be calculated from four geometry values and the shaft rotational frequency <code>f<sub>r</sub></code>. The formulas apply to rolling without slip with a stationary outer race:</p>
+      <div class="formula">r    = d / D · cos(α)
+
+FTF  = f_r / 2 · (1 − r)
+BPFO = n · f_r / 2 · (1 − r)
+BPFI = n · f_r / 2 · (1 + r)
+BSF  = D / (2d) · f_r · (1 − r²)
+
+n = number of rolling elements   d = rolling element diameter
+D = pitch diameter   α = contact angle</div>
+      <p>The geometry values are in the bearing manufacturer's datasheet. You should <strong>never estimate them</strong>: even a wrong number of rolling elements shifts all the frequencies, and the diagnosis then looks in the wrong place. Spindle bearings are usually angular contact ball bearings. That is why the contact angle α enters the calculation; for deep groove ball bearings it is zero.</p>
+
+      <h3>Worked example</h3>
+      <p>For an assumed angular contact ball bearing with 16 balls, a d/D ratio of 0.2 and a 15° contact angle at 6,000 rpm (f<sub>r</sub> = 100 Hz), the result is:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Example, not manufacturer data</caption>
+          <thead><tr><th>Characteristic frequency</th><th>Value</th><th>Multiple of shaft frequency</th></tr></thead>
+          <tbody>
+            <tr><td>FTF, cage</td><td class="m">40.3 Hz</td><td class="m">0.40 ×</td></tr>
+            <tr><td>BSF, rolling element</td><td class="m">240.7 Hz</td><td class="m">2.41 ×</td></tr>
+            <tr><td>BPFO, outer race</td><td class="m">645.4 Hz</td><td class="m">6.45 ×</td></tr>
+            <tr><td>BPFI, inner race</td><td class="m">954.6 Hz</td><td class="m">9.55 ×</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Because all values are proportional to speed, they are often given as multiples of the shaft frequency. That way the figure stays the same when the spindle runs at a different speed. For the diagnosis, the current speed must still be known. On CNC machines it comes from the CNC control.</p>
+
+      <h2 id="envelope">Envelope analysis: how the impacts become visible</h2>
+      <p>An impact in the bearing excites the structure around the bearing, usually at a high natural frequency in the kilohertz range. In the normal frequency spectrum you therefore do not see the defect frequency itself, but a broad high-frequency band that swells and fades in time with the impacts. Envelope analysis extracts this rhythm:</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Envelope analysis in four steps">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g fill="var(--gold)"><path d="M156 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M326 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M496 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/></g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Raw signal</text><text x="82" y="86" text-anchor="middle">Acceleration</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Band-pass</text><text x="252" y="86" text-anchor="middle">around the resonance</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Envelope</text><text x="422" y="86" text-anchor="middle">Demodulation</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Spectrum</text><text x="595" y="86" text-anchor="middle">of the envelope</text>
+          <text x="340" y="132" text-anchor="middle">Result: peaks at BPFO, BPFI, BSF or FTF and their harmonics</text>
+        </svg>
+        <figcaption>The four steps of envelope analysis. Only in the last step does the repetition rate of the impacts appear as a clear line in the spectrum.</figcaption>
+      </figure>
+      <ol>
+        <li><strong>Measure:</strong> an accelerometer on the spindle housing records the raw signal at a high sampling rate.</li>
+        <li><strong>Filter:</strong> a band-pass filter cuts out the frequency range in which the impacts excite the structure. Shaft frequency, gear mesh and cutting forces are usually lower and are removed.</li>
+        <li><strong>Demodulate:</strong> the envelope is formed from the filtered signal, i.e. the amplitude over time.</li>
+        <li><strong>Transform:</strong> the spectrum of the envelope shows how many times per second the impacts occur. This is where the defect frequencies appear as lines.</li>
+      </ol>
+      <div class="callout">
+        <p class="label">Why a dedicated sensor is needed</p>
+        <p>The standard interfaces of CNC controls deliver values at well below 1 kHz. Envelope analysis needs signals in the kilohertz range. Spindle bearing diagnostics is therefore only possible with a vibration sensor mounted directly on the spindle housing. Speed and load come from the CNC control as a supplement.</p>
+      </div>
+
+      <h2 id="patterns">Which pattern belongs to which defect</h2>
+      <p>In the envelope spectrum each defect has a typical signature. These patterns have been described in vibration diagnostics for decades:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Defect</th><th>Typical pattern in the envelope spectrum</th></tr></thead>
+          <tbody>
+            <tr><td>Outer race</td><td>Line at BPFO and its harmonics. Because the outer race is stationary, the load zone stays the same. Sidebands are usually absent.</td></tr>
+            <tr><td>Inner race</td><td>Line at BPFI with sidebands spaced at the shaft frequency. The defect turns with the shaft through the load zone, so the impact becomes stronger and weaker once per revolution.</td></tr>
+            <tr><td>Rolling element</td><td>Often clearer at 2 × BSF than at BSF, because a damaged rolling element touches both raceways once per revolution. Frequently with sidebands spaced at the cage frequency.</td></tr>
+            <tr><td>Cage</td><td>Line at FTF, often also as modulation of other lines. Hard to detect and frequently a sign of lubrication problems.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Two practical pitfalls: first, real bearings slip by around one to two per cent, so the lines are not exactly where the calculation puts them. The search therefore needs a tolerance band. Second, harmonics of different defect types can almost coincide, for example 3 × BPFO and 2 × BPFI on some bearings. Our system therefore only treats a defect as detected if the <strong>fundamental frequency</strong> itself is visible, not just a harmonic.</p>
+
+      <h2 id="progression">How bearing damage develops</h2>
+      <p>The progression of bearing damage follows a well-known pattern, even though the duration of each stage depends heavily on load, speed, lubrication and bearing design:</p>
+      <ol>
+        <li><strong>Onset:</strong> first impacts. A weak line appears at the defect frequency in the envelope spectrum. RMS and noise are unchanged. This is the stage at which frequency-based monitoring pays off most.</li>
+        <li><strong>Propagation:</strong> the line becomes stronger, harmonics and sidebands appear. Features such as crest factor and kurtosis rise because the signal becomes more impulsive.</li>
+        <li><strong>Advanced:</strong> the damage grows and the impacts smear. The overall level rises, the bearing becomes audible and runs warm.</li>
+        <li><strong>Final stage:</strong> broadband noise masks the clear lines. Failure is imminent.</li>
+      </ol>
+      <p>Nobody can give a general figure for how much time passes between the first line and failure. Sound statements on this are only possible for a specific machine and only after a period of observation. Anyone who promises you a fixed number of weeks does not know your spindle.</p>
+
+      <h2 id="in-practice">How we implement this in our system</h2>
+      <p>The bearing frequencies are the foundation. Whether a line that has been found is actually significant, however, is decided in our system by comparison with the <strong>learned baseline, i.e. the normal state of this spindle</strong>. Every spindle has its own background noise, depending on installation, age and machining. The edge box calculates the features directly at the machine and transmits only the results. An alert is only raised if a deviation persists over several measurements, so that a single impact during a tool change does not trigger an alarm. More on this in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds or learned baseline</a>.</p>
+      <p>Every alert names the suspected component, the frequency and the size of the deviation. So the maintenance engineer sees not just a red light, but the reason: ‘Line at BPFO with three harmonics, clearly above the learned baseline’.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Can bearing damage be detected from the RMS value of the vibration?</summary><p>Only late. The RMS value usually rises only once the damage is advanced. Early damage shows up as weak lines at the bearing frequencies in the envelope spectrum, long before the overall level changes.</p></details>
+        <details class="faq-item"><summary>Where do I get the geometry data for my spindle bearing?</summary><p>From the bearing manufacturer's datasheet or from the spindle manufacturer's documentation. You need the number of rolling elements, rolling element diameter, pitch diameter and contact angle. Estimated values lead to wrong frequencies.</p></details>
+        <details class="faq-item"><summary>Is CNC control data enough for bearing diagnostics?</summary><p>No. The standard interfaces of the controls deliver values well below 1 kHz. Envelope analysis needs signals in the kilohertz range, so a vibration sensor on the spindle housing is required. The control does, however, supply the speed, without which the bearing frequencies cannot be calculated.</p></details>
+        <details class="faq-item"><summary>How long before failure is bearing damage detected?</summary><p>That depends on bearing design, load, speed and lubrication and cannot be given as a general figure. Frequency-based methods do, however, typically show the damage much earlier than overall level, temperature or noise.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li>
+<li><span class="label">Spindle and bearings</span><a href="order-analysis-spindle-unbalance.html">Order analysis on the spindle: unbalance and bearing frequencies as multiples of running speed</a></li>
+<li><span class="label">Spindle and bearings</span><a href="spindle-monitoring-cnc-guide.html">Spindle monitoring on CNC machining centres: the guide</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

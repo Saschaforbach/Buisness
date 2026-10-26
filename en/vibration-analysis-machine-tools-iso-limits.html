@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vibration analysis on machine tools: what ISO limits can do · Forbach &amp; Partners</title>
+<meta name="description" content="Vibration analysis on machine tools: what ISO 10816 and ISO 20816 cover, why fixed vibration limits are of limited use for spindles and what trending shows.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Vibration analysis on machine tools: what ISO limits can do · Forbach &amp; Partners">
+<meta property="og:description" content="Vibration analysis on machine tools: what ISO 10816 and ISO 20816 cover, why fixed vibration limits are of limited use for spindles and what trending shows.">
+<meta property="og:url" content="https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Vibration analysis on machine tools: what ISO limits can do and where they stop", "description": "Vibration analysis on machine tools: what ISO 10816 and ISO 20816 cover, why fixed vibration limits are of limited use for spindles and what trending shows.", "inLanguage": "en-GB", "datePublished": "2026-06-05", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html", "articleSection": "Method", "wordCount": 1650}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Vibration analysis on machine tools: what ISO limits can do and where they stop", "item": "https://forbachandpartners.com/en/vibration-analysis-machine-tools-iso-limits.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What vibration limit applies to a CNC spindle?", "acceptedAnswer": {"@type": "Answer", "text": "To the best of our knowledge, the ISO standards do not contain a generally applicable limit for the main spindles of machining centres. What counts are the manufacturer's specifications and, above all, the change relative to the spindle's own learned baseline."}}, {"@type": "Question", "name": "What is the difference between ISO 10816 and ISO 20816?", "acceptedAnswer": {"@type": "Answer", "text": "ISO 10816 evaluates vibration based on measurements on non-rotating parts. The newer ISO 20816 series is gradually replacing it and combines measurements on non-rotating and rotating parts. Which part applies depends on the machine type."}}, {"@type": "Question", "name": "Can bearing damage be detected from vibration velocity in mm/s?", "acceptedAnswer": {"@type": "Answer", "text": "Usually only late. Early bearing damage produces short impacts in the kilohertz range that barely show in the broadband vibration velocity value. They show up earlier in envelope analysis at the bearing frequencies, and in crest factor and kurtosis."}}, {"@type": "Question", "name": "How often should spindle vibration be measured?", "acceptedAnswer": {"@type": "Answer", "text": "The more regularly, the easier it is to see a trend. More important than frequency are comparable conditions: same measurement point, same speed, same operating state. Continuous monitoring measures all the time and assigns every measurement to the operating state."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-vibrationsanalyse-werkzeugmaschinen-iso-grenzwerte.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Method</span></nav>
+      <h1>Vibration analysis on machine tools: what ISO limits can do and where they stop</h1>
+      <p class="lead">The ISO vibration standards provide a framework for the overall condition of a machine. Early diagnosis of spindle bearings needs more: trending against the machine&#x27;s own learned baseline and frequency-based features.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>8 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#standards">What ISO 10816 and ISO 20816 cover</a></li>
+<li><a href="#zones">Evaluation zones A to D</a></li>
+<li><a href="#limitations">Why fixed overall level limits are of limited use for spindles</a></li>
+<li><a href="#baseline">Better: trending against the machine's own learned baseline</a></li>
+<li><a href="#features">Frequency-based features show what is changing</a></li>
+<li><a href="#in-practice">Combining standard and trend sensibly</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Anyone working on <strong>vibration analysis on machine tools</strong> soon comes across the ISO vibration severity standards and the question of the right limit. The expectation is understandable: one value, and you know whether the machine is fine. It is not that simple. The standards do something important, but something different from what many people expect. For early detection of spindle bearing damage, a fixed overall level limit is usually not enough.</p>
+      <p>This article explains what the ISO 10816 and ISO 20816 series cover, why an overall level reaches its limits on spindles, and how the standard, trending and frequency-based features complement each other. We deliberately do not quote specific zone boundaries. They depend on the machine type and the part of the standard, and should be taken from the current edition of the standard, not from a blog article.</p>
+
+      <h2 id="standards">What ISO 10816 and ISO 20816 cover</h2>
+      <p>The ISO 10816 series describes the evaluation of machine vibration by measurements on non-rotating parts, for example bearing housings. It is gradually being replaced by the ISO 20816 series, which combines measurements on non-rotating and rotating parts. Both series consist of a general part and several parts for specific machine types.</p>
+      <p>The basic idea is similar in all parts:</p>
+      <ul>
+        <li><strong>A broadband value is measured.</strong> Typically this is the RMS vibration velocity over a defined frequency range, measured at defined points on the machine.</li>
+        <li><strong>The evaluation uses zones.</strong> The measured value is assigned to an evaluation zone that describes whether the vibration condition is acceptable for continuous operation.</li>
+        <li><strong>The limits depend on the machine.</strong> Machine size, power, mounting and design determine which zone boundaries apply.</li>
+      </ul>
+      <p>This makes the standards a common yardstick for manufacturers and operators, for example at machine acceptance or when deciding whether a vibration condition is fundamentally a concern. They are not a diagnostic method. A zone value says that something is vibrating and how strongly. It does not say what is vibrating.</p>
+      <div class="callout">
+        <p class="label">Does the standard apply to your spindle?</p>
+        <p>The individual parts of the series apply to specific machine types and size classes. To the best of our knowledge, they do not contain zone boundaries specifically for the main spindles of machining centres. Check the scope of the relevant edition of the standard to see whether, and which, part fits your machine before adopting any values.</p>
+      </div>
+
+      <h2 id="zones">Evaluation zones A to D</h2>
+      <p>The standards divide the vibration condition into four zones. The zones are described in words; the figures for them are in the machine-specific parts:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Zone</th><th>Meaning (paraphrased)</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td>Vibration typical of newly commissioned machines</td></tr>
+            <tr><td>B</td><td>Acceptable for unrestricted long-term operation</td></tr>
+            <tr><td>C</td><td>Unsatisfactory for long-term operation; operation for a limited period until an opportunity for remedial action arises</td></tr>
+            <tr><td>D</td><td>Vibration considered severe enough to cause damage to the machine</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Besides the absolute value, the standards also recognise the <strong>change relative to a reference value</strong> as a criterion. A significant change can be a reason to investigate even if the machine is still in a good zone. For spindles, this idea is more important than the zones themselves. We will come back to it.</p>
+
+      <h2 id="limitations">Why fixed overall level limits are of limited use for spindles</h2>
+      <p>An overall level is a good indicator of gross problems such as severe unbalance, loose mountings or far-advanced damage. For early detection of spindle bearing damage it has four weaknesses.</p>
+      <h3>1. Bearing impacts barely contribute to the overall level</h3>
+      <p>Incipient bearing damage produces short impacts that excite the structure in the kilohertz range. Vibration velocity, on the other hand, emphasises low and medium frequencies, because it is derived from acceleration by dividing by frequency. High-frequency impacts are almost lost in the broadband velocity value. The overall level usually only rises once the damage is advanced.</p>
+      <h3>2. The spindle does not run at one speed</h3>
+      <p>A pump often runs at the same speed for years. A milling spindle changes speed with every tool and sometimes within a program. Vibration levels depend heavily on speed. A limit that fits at low speed is too strict or too lenient at high speed.</p>
+      <h3>3. Cutting overlays the signal</h3>
+      <p>During machining, cutting forces, the tooth passing frequencies of the cutter and possibly chatter are added. A fixed limit cannot tell whether the level is rising because the bearing is getting worse or because a different tool happens to be in the cut.</p>
+      <h3>4. Every spindle has its own base level</h3>
+      <p>Two identical spindles in two machines vibrate differently, depending on installation, mounting, age and measurement point. A value that is normal for one spindle may already mean a significant change for the other. A common limit is too strict for one and too lenient for the other.</p>
+
+      <h2 id="baseline">Better: trending against the machine's own learned baseline</h2>
+      <p>The answer to these weaknesses is not a better fixed limit, but a different reference point. Instead of asking whether a value is above a general limit, you ask whether it has changed compared with the healthy state of this particular spindle. That is the idea of the change criterion from the standard, followed through to its conclusion.</p>
+      <p>To do this, our system learns a <strong>learned baseline, i.e. the normal state of this spindle</strong>, for each machine, separately for each measurement point and speed range. The median and a robust spread are determined for each feature. Each new measurement is assessed against them:</p>
+      <div class="formula">Deviation = (measured value − median of learned baseline) / spread of learned baseline
+
+Learned baseline: per machine, measurement point and speed range
+Only increases are assessed</div>
+      <p>Median and robust spread are insensitive to individual outliers. An impact during a tool change therefore barely shifts the learned baseline. The deviation results in the levels Normal, Noticeable, Warning and Alarm. A level is only reported once it persists over several consecutive measurements. The thresholds between the levels are starting values that are calibrated with real data and feedback from operation. They do not come from a standard.</p>
+      <p>The advantage is practical: the assessment automatically takes into account how this spindle normally vibrates. A change becomes visible even if the absolute value is still far from any zone boundary. Why we use robust statistics for this rather than an opaque AI model is explained in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds or learned baseline</a>.</p>
+
+      <h2 id="features">Frequency-based features show what is changing</h2>
+      <p>A trend in the overall level tells you that something is changing. For a diagnosis, you need features that can be assigned to a component. Alongside RMS, our system therefore also evaluates features that respond sensitively to specific failure modes:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Feature</th><th>Responds to</th><th>What it indicates</th></tr></thead>
+          <tbody>
+            <tr><td>RMS</td><td>Total energy of the vibration</td><td>General change, usually late for bearing damage</td></tr>
+            <tr><td>Crest factor, kurtosis</td><td>Impulsive signal components</td><td>Indication of impacts, for example from incipient bearing damage</td></tr>
+            <tr><td>Amplitudes in the envelope spectrum at BPFO, BPFI, 2 × BSF, FTF</td><td>Impacts at the repetition rate of a bearing component</td><td>Outer race, inner race, rolling element or cage</td></tr>
+            <tr><td>Amplitude at 1 × shaft frequency</td><td>Vibration once per revolution</td><td>Unbalance, for example from the tool or tool holder</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The bearing frequencies are calculated from the bearing geometry and the current speed, which comes from the CNC control. Envelope analysis makes visible the impacts that are lost in the overall level. How this works in detail, and what the patterns look like for each defect, is covered in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
+      <p>These features require a vibration sensor on the spindle housing. The standard interfaces of the controls deliver values at well below 1 kHz and are not sufficient for bearing diagnostics.</p>
+
+      <h2 id="in-practice">Combining standard and trend sensibly</h2>
+      <p>The ISO standards and monitoring against a learned baseline are not mutually exclusive. They answer different questions:</p>
+      <ul>
+        <li><strong>Standard:</strong> is the vibration condition of this machine fundamentally acceptable compared with what is usual for machines of its type? This is useful at acceptance, after a repair or for a comparison across manufacturers.</li>
+        <li><strong>Learned baseline:</strong> has this spindle changed compared with its own healthy state? That is the question for ongoing monitoring.</li>
+        <li><strong>Frequency-based features:</strong> which component is affected? That is the question the maintenance engineer needs answered for planning.</li>
+      </ul>
+      <p>If you work with a handheld vibration meter, the same principles apply on a small scale: always measure at the same points, at the same speed and preferably without cutting. Only comparable measurements produce a meaningful trend. Record the measurement conditions in writing.</p>
+      <p>Continuous monitoring takes this discipline off your hands, because it links every measurement with speed and operating state from the CNC control. How such monitoring is set up is described in the <a href="spindle-monitoring-cnc-guide.html">guide to spindle monitoring</a>. How condition monitoring differs from predictive maintenance is covered in the article <a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring or predictive maintenance</a>. Which spindle failure modes our system currently evaluates is shown on the <a href="spindle-monitoring.html">service</a> page.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What vibration limit applies to a CNC spindle?</summary><p>To the best of our knowledge, the ISO standards do not contain a generally applicable limit for the main spindles of machining centres. What counts are the manufacturer's specifications and, above all, the change relative to the spindle's own learned baseline.</p></details>
+        <details class="faq-item"><summary>What is the difference between ISO 10816 and ISO 20816?</summary><p>ISO 10816 evaluates vibration based on measurements on non-rotating parts. The newer ISO 20816 series is gradually replacing it and combines measurements on non-rotating and rotating parts. Which part applies depends on the machine type.</p></details>
+        <details class="faq-item"><summary>Can bearing damage be detected from vibration velocity in mm/s?</summary><p>Usually only late. Early bearing damage produces short impacts in the kilohertz range that barely show in the broadband vibration velocity value. They show up earlier in envelope analysis at the bearing frequencies, and in crest factor and kurtosis.</p></details>
+        <details class="faq-item"><summary>How often should spindle vibration be measured?</summary><p>The more regularly, the easier it is to see a trend. More important than frequency are comparable conditions: same measurement point, same speed, same operating state. Continuous monitoring measures all the time and assigns every measurement to the operating state.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Method</span><a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver</a></li>
+<li><span class="label">Method</span><a href="fft-spectrum-resolution-vibration-analysis.html">FFT in vibration analysis: sampling rate, resolution and window function for practitioners</a></li>
+<li><span class="label">Method</span><a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

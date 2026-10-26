@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RMS, crest factor and kurtosis: vibration features explained · Forbach &amp; Partners</title>
+<meta name="description" content="Vibration features explained: RMS, peak, crest factor, kurtosis and band features, with formulas, strengths and limits for detecting rolling bearing damage.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="RMS, crest factor and kurtosis: vibration features explained · Forbach &amp; Partners">
+<meta property="og:description" content="Vibration features explained: RMS, peak, crest factor, kurtosis and band features, with formulas, strengths and limits for detecting rolling bearing damage.">
+<meta property="og:url" content="https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "RMS, crest factor and kurtosis: vibration features explained clearly", "description": "Vibration features explained: RMS, peak, crest factor, kurtosis and band features, with formulas, strengths and limits for detecting rolling bearing damage.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html", "articleSection": "Method", "wordCount": 1697}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "RMS, crest factor and kurtosis: vibration features explained clearly", "item": "https://forbachandpartners.com/en/vibration-features-rms-crest-factor-kurtosis.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between the RMS and the peak value of a vibration?", "acceptedAnswer": {"@type": "Answer", "text": "RMS is the square root of the mean of the squared values and describes the mean energy. The peak value is the largest excursion in the measurement window. Their ratio is the crest factor, which rises with short impacts."}}, {"@type": "Question", "name": "What crest factor is normal for a spindle?", "acceptedAnswer": {"@type": "Answer", "text": "There is no universally valid value. Mathematically, a pure sine wave has a crest factor of √2, i.e. about 1.41. The base level of a real spindle depends on installation, speed and machining. What is meaningful, therefore, is the deviation from the learned baseline of the particular machine."}}, {"@type": "Question", "name": "Why does the crest factor fall again with severe bearing damage?", "acceptedAnswer": {"@type": "Answer", "text": "In the final stage the damage spreads, and the impacts become more numerous and smear. RMS rises, and the individual peaks stand out less. A falling crest factor can therefore only be interpreted correctly together with RMS and the bearing frequencies."}}, {"@type": "Question", "name": "What does a kurtosis of 3 mean?", "acceptedAnswer": {"@type": "Answer", "text": "A kurtosis of 3 corresponds to Gaussian noise; a pure sine wave has 1.5. Values well above 3 indicate an impulsive signal, for example from bearing impacts, but also from process impacts such as interrupted cuts."}}, {"@type": "Question", "name": "Is RMS enough to monitor spindle bearings?", "acceptedAnswer": {"@type": "Answer", "text": "No. It usually only rises once the damage is advanced. Early detection also needs features for impulsiveness and, above all, the amplitudes at the bearing frequencies in the envelope spectrum."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Method</span></nav>
+      <h1>RMS, crest factor and kurtosis: vibration features explained clearly</h1>
+      <p class="lead">Every vibration feature answers a different question, and every one has a blind spot. If you know when a feature fails, you can combine them correctly and assess them against the learned baseline of the machine.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>8 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#basics">What a feature is and what it is not</a></li>
+<li><a href="#rms">RMS: the energy of the vibration</a></li>
+<li><a href="#peak-crest-factor">Peak value and crest factor: how far the impacts stand out</a></li>
+<li><a href="#kurtosis">Kurtosis: the measure of impulsiveness</a></li>
+<li><a href="#band-features">Band features: energy where the damage is</a></li>
+<li><a href="#combination">Why we combine several features</a></li>
+<li><a href="#baseline">Why we assess against the learned baseline rather than fixed limits</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A vibration signal contains thousands of data points per second. Monitoring needs a few numbers that summarise what matters: the <strong>vibration features</strong>. The best known are RMS, crest factor and kurtosis. They are easy to calculate, but not easy to interpret. A feature can rise markedly with incipient bearing damage and fall again in the final stage. This article explains each feature with its formula, shows what it reveals about bearing damage and where it fails.</p>
+
+      <h2 id="basics">What a feature is and what it is not</h2>
+      <p>A feature condenses a measurement window into a single number. Information is lost in the process, and deliberately so. RMS tells you something about the energy, but nothing about the shape of the signal. Kurtosis tells you something about the shape, but nothing about the magnitude. No single feature fully describes the condition of a spindle.</p>
+      <p>All features in this article refer to a measurement window with N samples x<sub>1</sub> to x<sub>N</sub>. RMS and peak value have the unit of the input signal, i.e. m/s² or g for an accelerometer. Crest factor and kurtosis are dimensionless ratios. This is a practical advantage: they do not depend on the sensor gain.</p>
+
+      <h2 id="rms">RMS: the energy of the vibration</h2>
+      <p>RMS, short for root mean square, is the square root of the mean of the squared samples:</p>
+      <div class="formula">RMS = √( (x₁² + x₂² + … + x_N²) / N )</div>
+      <p>It measures the mean energy of the vibration in the window. That is why standards such as ISO 10816 and ISO 20816 assess the vibration condition of entire classes of machines using an RMS value, in that case of vibration velocity. In our calculation, RMS includes any DC component of the signal.</p>
+      <p><strong>Strength:</strong> RMS is stable and responds reliably to anything that increases the vibration overall: unbalance, loose parts, advanced bearing wear.</p>
+      <p><strong>Limit:</strong> incipient bearing damage produces short, weak impacts. Their energy is small compared with the overall vibration of a running spindle. RMS therefore usually only changes once the damage is advanced. It is a good watchdog for gross changes, but not an early warning system for bearings. More on standard limits in the article <a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools and ISO limits</a>.</p>
+
+      <h2 id="peak-crest-factor">Peak value and crest factor: how far the impacts stand out</h2>
+      <p>The peak value is the largest absolute value in the window. On its own it says little, because a single knock during clamping or a tool change drives it up. It becomes interesting in relation to RMS. This ratio is called the crest factor:</p>
+      <div class="formula">Peak value    = max |xᵢ|
+Crest factor  = peak value / RMS
+
+pure sine:  crest factor = √2 ≈ 1.41</div>
+      <p>For a pure sine wave, the crest factor is exactly √2, i.e. about 1.41. The more short, high peaks a signal contains, the larger it becomes. That is exactly what happens with early bearing damage: each time a rolling element passes over the defect, an impact is produced that stands out clearly from the rest of the signal, while RMS barely moves.</p>
+      <p><strong>Limit:</strong> the crest factor falls again in the final stage of bearing damage. As the defect spreads, the impacts become more numerous and smear. The overall vibration, and with it RMS, rises, and the peaks no longer stand out as clearly. A falling crest factor is therefore not an all-clear. It may mean that the damage is advanced. If you look only at the crest factor, you can mistake severe damage for an improvement.</p>
+
+      <h2 id="kurtosis">Kurtosis: the measure of impulsiveness</h2>
+      <p>Kurtosis describes how strongly a distribution is shaped by rare, extreme values. We use Pearson's kurtosis, i.e. without subtracting 3:</p>
+      <div class="formula">x̄  = mean of xᵢ
+σ² = mean of (xᵢ − x̄)²
+Kurtosis = mean of (xᵢ − x̄)⁴ / σ⁴</div>
+      <p>Because the deviations are raised to the fourth power, rare large excursions count very heavily. Three reference values help with interpretation:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Mathematical reference values, not limits</caption>
+          <thead><tr><th>Signal</th><th>Kurtosis</th><th>Crest factor</th></tr></thead>
+          <tbody>
+            <tr><td>pure sine</td><td class="m">1.5</td><td class="m">√2 ≈ 1.41</td></tr>
+            <tr><td>Gaussian noise</td><td class="m">3</td><td>depends on window length</td></tr>
+            <tr><td>signal with short impacts</td><td>well above 3</td><td>well above the base level</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The vibration of a healthy spindle under load is a mixture of speed-related components and broadband noise. Its kurtosis is usually close to the reference values. When impacts from bearing damage are added, it rises markedly.</p>
+      <p><strong>Limit:</strong> kurtosis has the same weakness as the crest factor. In the final stage, when the signal is dominated by many impacts and broadband noise, it approaches the value for noise again. There is also a second weakness: it responds to any kind of impact, including process impacts during interrupted cuts, as the tool enters and leaves the cut, or during a tool change. So an elevated kurtosis tells you that impacts are present, but not where they come from.</p>
+
+      <h2 id="band-features">Band features: energy where the damage is</h2>
+      <p>Time-domain features see the whole signal. Band features look specifically at a frequency range or a single frequency. This lets them answer the question that RMS and kurtosis leave open: where does the change come from?</p>
+      <p>In our system we use two kinds of band features:</p>
+      <ul>
+        <li><strong>Orders:</strong> the amplitude at once and twice per revolution in the order spectrum. The first order typically rises with unbalance, the second often with alignment or mounting problems. See <a href="order-analysis-spindle-unbalance.html">Order analysis and unbalance</a>.</li>
+        <li><strong>Envelope amplitudes at the bearing frequencies:</strong> the amplitude in the envelope spectrum at the defect frequency of the outer race (BPFO), inner race (BPFI), cage (FTF) and at twice the rolling element frequency (BSF). These features show not only that impacts are present, but also at what repetition rate. This means they can be assigned to a bearing component. The basics are covered in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</li>
+      </ul>
+      <p><strong>Limit:</strong> band features are only as good as the data they are based on. The bearing frequencies need the correct geometry from the datasheet and the current speed. The envelope needs a suitably chosen frequency band around a structural resonance. And the spectrum needs sufficient frequency resolution for neighbouring lines to be separated. More on this in the article <a href="fft-spectrum-resolution-vibration-analysis.html">FFT, spectrum and resolution</a>.</p>
+
+      <h2 id="combination">Why we combine several features</h2>
+      <p>Every feature has a range in which it is strong and one in which it fails. Together they cover the progression of bearing damage much better:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Typical behaviour, qualitative</caption>
+          <thead><tr><th>Stage</th><th>Envelope at bearing frequency</th><th>Crest factor, kurtosis</th><th>RMS</th></tr></thead>
+          <tbody>
+            <tr><td>Incipient damage</td><td>first line visible</td><td>may already be rising</td><td>unchanged</td></tr>
+            <tr><td>Propagation</td><td>stronger, with harmonics</td><td>rising</td><td>rising slightly</td></tr>
+            <tr><td>Advanced</td><td>lines smear</td><td>falling again</td><td>rising markedly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>This leads to a simple rule: one feature alone is not enough. A falling crest factor with rising RMS is a different picture from a falling crest factor with constant RMS. Only the combination makes the progression readable. That is why, in our system, the edge box calculates RMS, peak value, crest factor, kurtosis, the first and second orders and the four envelope amplitudes from every measurement window. How the edge box does this at the machine is described in the article <a href="edge-box-condition-monitoring.html">The edge box at the machine</a>.</p>
+
+      <h2 id="baseline">Why we assess against the learned baseline rather than fixed limits</h2>
+      <p>There is no fixed limit for kurtosis or crest factor that applies to all spindles. Installation, sensor position, speed and machining shape the base level of each machine. A spindle roughing with interrupted cuts has a different kurtosis from one doing finishing.</p>
+      <p>Our system therefore learns, for each feature, the <strong>learned baseline, i.e. the normal state of this spindle</strong>, separately for each measurement point and speed range, from at least 20 measurements in healthy condition. The median and a robust spread are stored. Each new measurement is expressed as a deviation in multiples of this spread; only increases count. This gives the levels Normal, Noticeable, Warning and Alarm. An alert is only raised once a level persists over several consecutive measurements. That way, a single impact during a tool change does not produce an alert, even though it drives up the crest factor and kurtosis of that one window.</p>
+      <div class="callout">
+        <p class="label">An example of a stated reason</p>
+        <p>An alert names the feature, the measured value, the normal value for this spindle, the factor and the deviation. If kurtosis or crest factor rise the most, the note reads: impulsive vibration, incipient bearing damage possible, check spindle bearings for running noise, temperature and lubrication.</p>
+      </div>
+      <p>The level thresholds are starting values that we calibrate with test rig measurements and feedback from operation. The whole chain from measurement window to alert is described in the article <a href="from-vibration-to-alert-processing-chain.html">From vibration to alert</a>, and the comparison with fixed statistical thresholds in the article <a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">3-sigma alarms or learned baseline</a>. Whether your machines are suitable is shown on the <a href="spindle-monitoring.html">CNC machining centres</a> page.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What is the difference between the RMS and the peak value of a vibration?</summary><p>RMS is the square root of the mean of the squared values and describes the mean energy. The peak value is the largest excursion in the measurement window. Their ratio is the crest factor, which rises with short impacts.</p></details>
+        <details class="faq-item"><summary>What crest factor is normal for a spindle?</summary><p>There is no universally valid value. Mathematically, a pure sine wave has a crest factor of √2, i.e. about 1.41. The base level of a real spindle depends on installation, speed and machining. What is meaningful, therefore, is the deviation from the learned baseline of the particular machine.</p></details>
+        <details class="faq-item"><summary>Why does the crest factor fall again with severe bearing damage?</summary><p>In the final stage the damage spreads, and the impacts become more numerous and smear. RMS rises, and the individual peaks stand out less. A falling crest factor can therefore only be interpreted correctly together with RMS and the bearing frequencies.</p></details>
+        <details class="faq-item"><summary>What does a kurtosis of 3 mean?</summary><p>A kurtosis of 3 corresponds to Gaussian noise; a pure sine wave has 1.5. Values well above 3 indicate an impulsive signal, for example from bearing impacts, but also from process impacts such as interrupted cuts.</p></details>
+        <details class="faq-item"><summary>Is RMS enough to monitor spindle bearings?</summary><p>No. It usually only rises once the damage is advanced. Early detection also needs features for impulsiveness and, above all, the amplitudes at the bearing frequencies in the envelope spectrum.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Method</span><a href="condition-monitoring-vs-predictive-maintenance.html">Condition monitoring vs predictive maintenance: what the difference is and what a prognosis can deliver</a></li>
+<li><span class="label">Method</span><a href="fft-spectrum-resolution-vibration-analysis.html">FFT in vibration analysis: sampling rate, resolution and window function for practitioners</a></li>
+<li><span class="label">Method</span><a href="fixed-thresholds-3-sigma-vs-learned-baseline.html">Fixed thresholds, 3 sigma or a learned baseline: how alarms in condition monitoring are triggered</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

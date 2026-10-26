@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyber Resilience Act and IEC 62443 for condition monitoring · Forbach &amp; Partners</title>
+<meta name="description" content="What the Cyber Resilience Act and IEC 62443 mean for machine builders and operators of condition monitoring: deadlines, SBOM, reporting and supplier questions.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-cyber-resilience-act-zustandsueberwachung.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Cyber Resilience Act and IEC 62443 for condition monitoring · Forbach &amp; Partners">
+<meta property="og:description" content="What the Cyber Resilience Act and IEC 62443 mean for machine builders and operators of condition monitoring: deadlines, SBOM, reporting and supplier questions.">
+<meta property="og:url" content="https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cyber Resilience Act and IEC 62443: what machine builders and operators of condition monitoring should know", "description": "What the Cyber Resilience Act and IEC 62443 mean for machine builders and operators of condition monitoring: deadlines, SBOM, reporting and supplier questions.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html", "articleSection": "Security and compliance", "wordCount": 1759}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Cyber Resilience Act and IEC 62443: what machine builders and operators of condition monitoring should know", "item": "https://forbachandpartners.com/en/cyber-resilience-act-condition-monitoring.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "From when does the Cyber Resilience Act apply to condition monitoring on machines?", "acceptedAnswer": {"@type": "Answer", "text": "The reporting obligations for actively exploited vulnerabilities and severe incidents have applied since 11 September 2026, including for products already on the market. The remaining obligations, such as the security requirements of Annex I and CE marking, apply from 11 December 2027."}}, {"@type": "Question", "name": "Does the operator of a machine have obligations under the CRA?", "acceptedAnswer": {"@type": "Answer", "text": "The CRA is aimed at manufacturers, importers and distributors of products with digital elements. As an operator you generally have no obligations of your own under it, but you can require the supplier to meet its obligations. Obligations of your own may arise from other rules such as NIS2. Please have the assessment of your individual case reviewed legally."}}, {"@type": "Question", "name": "What is an SBOM and does the supplier have to hand it over?", "acceptedAnswer": {"@type": "Answer", "text": "An SBOM is a machine-readable list of all software components of a product. The CRA requires the manufacturer to create one, but not to make it public. We make our SBOM available to customers on request."}}, {"@type": "Question", "name": "How long must a supplier provide security updates?", "acceptedAnswer": {"@type": "Answer", "text": "Under the CRA, generally at least five years, unless the product is expected to be used for a shorter period. The end of the support period must be stated at the time of purchase."}}, {"@type": "Question", "name": "Is certification to IEC 62443 mandatory?", "acceptedAnswer": {"@type": "Answer", "text": "The CRA does not prescribe certification to IEC 62443. However, the standard is a recognised benchmark for secure development and secure components in industrial automation. Ask the supplier which security level it is aiming for and how it demonstrates this."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-cyber-resilience-act-zustandsueberwachung.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Security and compliance</span></nav>
+      <h1>Cyber Resilience Act and IEC 62443: what machine builders and operators of condition monitoring should know</h1>
+      <p class="lead">The Cyber Resilience Act makes manufacturers of networked products responsible for their security. As an operator you should know which questions to ask a condition monitoring supplier and which answers you can expect.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#cra">The Cyber Resilience Act in brief</a></li>
+<li><a href="#iec-62443">IEC 62443: process and component</a></li>
+<li><a href="#questions">Questions to ask every condition monitoring supplier</a></li>
+<li><a href="#reporting">The reporting route under Article 14</a></li>
+<li><a href="#implementation">How we implement the Cyber Resilience Act</a></li>
+<li><a href="#operators">What this means for your own security</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A condition monitoring system on machine tools is a networked product: a box on the plant network, a connection to the CNC control, a connection to the outside and a platform where the analysis takes place. In the EU, such products are covered by the <strong>Cyber Resilience Act</strong> (CRA, Regulation (EU) 2024/2847). The <strong>IEC 62443</strong> series of standards describes how secure components for industrial automation are developed. This article explains, from the operator's point of view, what the Cyber Resilience Act and IEC 62443 mean for condition monitoring, which questions you should ask every supplier and how we answer them for our system.</p>
+      <div class="callout">
+        <p class="label">Not legal advice</p>
+        <p>This article is a technical assessment based on publicly available sources, as of October 2026. It does not replace a legal review. Whether and how the regulations mentioned apply to your company or to a particular product should be clarified with your legal advisers.</p>
+      </div>
+
+      <h2 id="cra">The Cyber Resilience Act in brief</h2>
+      <p>The CRA places obligations on <strong>manufacturers</strong> of products with digital elements. This also includes software that is connected to other devices over a network. A subscription business model does not change that. The CRA creates no obligations of their own for operators, but it does set a clear benchmark: you can expect your supplier to meet the requirements, and you should ask about them.</p>
+      <p>One point is particularly important for condition monitoring. In our assessment, the platform and dashboard count as remote data processing and are part of the product, because the box cannot fulfil its purpose without them. Box, platform and dashboard together are then one product within the meaning of the CRA. A supplier therefore cannot fall back on the argument that only the box is installed at the customer's site.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">CRA timeline</caption>
+          <thead><tr><th>Date</th><th>What applies</th></tr></thead>
+          <tbody>
+            <tr><td class="m">10 Dec 2024</td><td>Regulation enters into force</td></tr>
+            <tr><td class="m">11 Sep 2026</td><td>Reporting obligations under Article 14 for actively exploited vulnerabilities and severe security incidents, including for products already on the market</td></tr>
+            <tr><td class="m">11 Dec 2027</td><td>All remaining obligations, including the security requirements of Annex I, conformity assessment and CE marking</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>This means the reporting obligation already applies today. As soon as a single box is running at a customer's site, the manufacturer must be able to report an actively exploited vulnerability as an early warning within 24 hours.</p>
+
+      <h2 id="iec-62443">IEC 62443: process and component</h2>
+      <p>The IEC 62443 series is extensive. Two parts are decisive for suppliers of monitoring systems:</p>
+      <ul>
+        <li><strong>IEC 62443-4-1</strong> describes the secure development process: security requirements and threat model, secure design, testing, vulnerability handling, update management and security guidance for the customer.</li>
+        <li><strong>IEC 62443-4-2</strong> describes technical requirements for individual components, graded by security level. Level 2 means protection against intentional attacks using low resources and generic skills.</li>
+      </ul>
+      <p>Both parts fit well with the CRA: what IEC 62443 requires as process and component properties covers a large part of the requirements in Annex I. For our box we have set security level SL-C 2 as the target.</p>
+
+      <h2 id="questions">Questions to ask every condition monitoring supplier</h2>
+      <p>The following questions are derived from the requirements of the CRA. They apply to any networked system on your machines, not just condition monitoring. A reputable supplier answers them in writing and without evasion.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Question to the supplier</th><th>What to look for</th></tr></thead>
+          <tbody>
+            <tr><td>Is there a software bill of materials (SBOM)?</td><td>Machine-readable, for example in CycloneDX format, for each shipped component. The CRA requires at least the direct dependencies. The SBOM does not have to be public, but should be available to you on request.</td></tr>
+            <tr><td>How are vulnerabilities handled?</td><td>A described process from report through assessment to remediation, with target deadlines and a check of the libraries used for known vulnerabilities.</td></tr>
+            <tr><td>Where do you report a vulnerability?</td><td>A fixed contact address and a published coordinated disclosure policy. The CRA requires both.</td></tr>
+            <tr><td>Is there a security.txt?</td><td>A file at <code>/.well-known/security.txt</code> according to RFC 9116 states contact, policy and expiry date. It shows whether the supplier wants to be reachable.</td></tr>
+            <tr><td>How long will security updates be provided?</td><td>The CRA generally requires at least five years, unless the product is used for a shorter period. The end date must be stated at the time of purchase. Get it in writing.</td></tr>
+            <tr><td>How are updates distributed?</td><td>Signed and verified on the device. Security updates must be provided without delay and free of charge.</td></tr>
+            <tr><td>What happens in the event of an incident?</td><td>A reporting route under Article 14 via ENISA's reporting platform, and a commitment on how quickly you as a customer will be informed.</td></tr>
+            <tr><td>Is there a threat model?</td><td>A documented risk assessment is mandatory. It is a good sign if it honestly lists open points.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Two further questions do not concern the CRA directly but do concern the security of your machines: can the system write to the CNC control? And does it need inbound connections into your network? A monitoring system should need neither.</p>
+
+      <h2 id="reporting">The reporting route under Article 14</h2>
+      <p>The CRA's reporting obligation is triggered by two events: an <strong>actively exploited vulnerability</strong> in the product and a <strong>severe security incident</strong> affecting the security of the product. A vulnerability that the manufacturer finds and fixes itself without it having been exploited is not reportable. It must nevertheless be dealt with.</p>
+      <figure>
+        <svg viewBox="0 0 680 160" role="img" aria-label="Reporting deadlines under Article 14 CRA">
+          <line x1="40" y1="70" x2="650" y2="70" stroke="var(--rule)" stroke-width="1.5"/>
+          <path d="M642 65 l8 5 l-8 5" stroke="var(--rule)" stroke-width="1.5" fill="none"/>
+          <g fill="var(--gold)"><rect x="36" y="62" width="8" height="16"/><rect x="196" y="62" width="8" height="16"/><rect x="376" y="62" width="8" height="16"/><rect x="556" y="62" width="8" height="16"/></g>
+          <text x="40" y="45" text-anchor="middle" style="fill:var(--ink)">Awareness</text>
+          <text x="200" y="45" text-anchor="middle" style="fill:var(--ink)">24 hours</text>
+          <text x="380" y="45" text-anchor="middle" style="fill:var(--ink)">72 hours</text>
+          <text x="560" y="45" text-anchor="middle" style="fill:var(--ink)">Closure</text>
+          <text x="40" y="102" text-anchor="middle">clock starts</text>
+          <text x="200" y="102" text-anchor="middle">Early warning</text>
+          <text x="380" y="102" text-anchor="middle">Notification</text>
+          <text x="560" y="102" text-anchor="middle">Final report</text>
+          <text x="560" y="122" text-anchor="middle" style="fill:var(--ink-2)">14 days after the fix</text>
+          <text x="560" y="140" text-anchor="middle" style="fill:var(--ink-2)">or 1 month (incident)</text>
+        </svg>
+        <figcaption>Deadlines under Article 14 CRA. For vulnerabilities, the final report is due 14 days after a fix is available; for severe incidents, one month after the 72-hour notification.</figcaption>
+      </figure>
+      <p>Reports are made via ENISA's central reporting platform, the Single Reporting Platform. The recipient is the CSIRT of the member state in which the manufacturer has its main establishment. In addition, users must be informed about the incident and possible countermeasures. For you as an operator this means: ask how, and how quickly, you will find out in an emergency what you need to do yourself.</p>
+
+      <h2 id="implementation">How we implement the Cyber Resilience Act</h2>
+      <p>We are a young company in the market launch phase. That is why we have developed the security process from the start rather than retrofitting it later. The following status is honest: some things are implemented, some exist as drafts.</p>
+      <ul>
+        <li><strong>SBOM:</strong> for every shipped component, i.e. the box and the platform, we generate a software bill of materials in CycloneDX format. Development tools are not included, only what is actually shipped. We make it available to you on request.</li>
+        <li><strong>Library checks:</strong> with every code check, all libraries used are automatically checked for known vulnerabilities. Versions are pinned and are only updated deliberately and with a full test run. A reported vulnerability blocks the check until it is fixed or documented, with reasons, as not applicable.</li>
+        <li><strong>Vulnerability handling:</strong> every report receives a reference number and an acknowledgement of receipt, is assessed using CVSS 4.0 and in context, fixed with a test that demonstrates the vulnerability, and shipped as a security update separately from feature updates.</li>
+        <li><strong>Reporting route:</strong> the process under Article 14, with early warning, notification and final report, is described, with defined responsibilities and a template for informing our customers. For us the recipient is CSIRT-CY, because Forbach and Partners Ltd has its registered office in Cyprus.</li>
+        <li><strong>Contact and security.txt:</strong> an address for security reports and a security.txt according to RFC 9116 have been prepared.</li>
+        <li><strong>Signed updates:</strong> the box checks every update for signature, version and checksum. Details are in the article <a href="signed-updates-device-certificates.html">Device certificates and signed updates</a>.</li>
+        <li><strong>Threat model:</strong> there is a STRIDE risk assessment for the box, connections, platform and supply chain. For each countermeasure it states which test demonstrates it, and it ends with a list of open points.</li>
+      </ul>
+      <p>The architecture itself meets several requirements of Annex I. The box reads the CNC control <a href="read-only-cnc-control-write-protection.html">read-only, secured in four layers</a>, polls at most every 0.1 seconds and so does not impair other devices. It opens no ports and only establishes outbound connections, which keeps the attack surface small. And it only transmits features rather than raw signals, and no operator data, in line with the principle of data minimisation. An overview is on the <a href="data-security.html">Data security</a> page.</p>
+
+      <h2 id="operators">What this means for your own security</h2>
+      <p>Many machine builders and larger manufacturers are themselves subject to NIS2 and have to manage the security of their supply chain. In concrete terms this means security questionnaires for suppliers, security clauses in contracts and evidence of how vulnerabilities are handled. A supplier that has already documented its SBOM, vulnerability process and reporting route makes this work considerably easier for you.</p>
+      <p>Also check what the supplier openly names. A threat model without open points is more of a warning sign than a mark of quality. We name our open points in conversation, for example that the installer and update server are still to be defined together with the box hardware. How a pilot project at your site works is described on the <a href="process.html">Process</a> page. For coordination with your IT team we provide a security sheet; contact us via the <a href="contact.html">contact page</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>From when does the Cyber Resilience Act apply to condition monitoring on machines?</summary><p>The reporting obligations for actively exploited vulnerabilities and severe incidents have applied since 11 September 2026, including for products already on the market. The remaining obligations, such as the security requirements of Annex I and CE marking, apply from 11 December 2027.</p></details>
+        <details class="faq-item"><summary>Does the operator of a machine have obligations under the CRA?</summary><p>The CRA is aimed at manufacturers, importers and distributors of products with digital elements. As an operator you generally have no obligations of your own under it, but you can require the supplier to meet its obligations. Obligations of your own may arise from other rules such as NIS2. Please have the assessment of your individual case reviewed legally.</p></details>
+        <details class="faq-item"><summary>What is an SBOM and does the supplier have to hand it over?</summary><p>An SBOM is a machine-readable list of all software components of a product. The CRA requires the manufacturer to create one, but not to make it public. We make our SBOM available to customers on request.</p></details>
+        <details class="faq-item"><summary>How long must a supplier provide security updates?</summary><p>Under the CRA, generally at least five years, unless the product is expected to be used for a shorter period. The end of the support period must be stated at the time of purchase.</p></details>
+        <details class="faq-item"><summary>Is certification to IEC 62443 mandatory?</summary><p>The CRA does not prescribe certification to IEC 62443. However, the standard is a recognised benchmark for secure development and secure components in industrial automation. Ask the supplier which security level it is aiming for and how it demonstrates this.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Security and compliance</span><a href="read-only-cnc-control-write-protection.html">Read-only: how we technically rule out write access to the CNC control</a></li>
+<li><span class="label">Security and compliance</span><a href="signed-updates-device-certificates.html">Device certificates and signed updates: how the edge box identifies and protects itself</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

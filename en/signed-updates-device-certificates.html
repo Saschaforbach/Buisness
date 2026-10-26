@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Device certificates and signed updates for the edge box · Forbach &amp; Partners</title>
+<meta name="description" content="Device certificate per box, key generated on the box, own device CA, mutual TLS and signed updates: how we secure the identity and software of our edge box.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/signed-updates-device-certificates.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/signed-updates-device-certificates.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-signierte-updates-geraetezertifikate.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Device certificates and signed updates for the edge box · Forbach &amp; Partners">
+<meta property="og:description" content="Device certificate per box, key generated on the box, own device CA, mutual TLS and signed updates: how we secure the identity and software of our edge box.">
+<meta property="og:url" content="https://forbachandpartners.com/en/signed-updates-device-certificates.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Device certificates and signed updates: how the edge box identifies and protects itself", "description": "Device certificate per box, key generated on the box, own device CA, mutual TLS and signed updates: how we secure the identity and software of our edge box.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/signed-updates-device-certificates.html", "articleSection": "Security and compliance", "wordCount": 1814}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Device certificates and signed updates: how the edge box identifies and protects itself", "item": "https://forbachandpartners.com/en/signed-updates-device-certificates.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where is the private key of the device certificate generated?", "acceptedAnswer": {"@type": "Answer", "text": "Directly on the box. Only the certificate signing request with the public key comes to us. The private key never leaves the box, not even during set-up."}}, {"@type": "Question", "name": "How long is a device certificate valid?", "acceptedAnswer": {"@type": "Answer", "text": "One year by default, two years at most. From 30 days before expiry, the box reports a warning to the platform so that the certificate is renewed in good time."}}, {"@type": "Question", "name": "What happens if an update has been manipulated?", "acceptedAnswer": {"@type": "Answer", "text": "The box detects this from the invalid signature or the mismatched checksum, discards the update and continues with its current version. The rejection is reported to the platform with a reason."}}, {"@type": "Question", "name": "Can a lost box be blocked?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The box is removed from the device registry, after which the platform no longer accepts data from it, and its access to the broker is revoked. Because every box has its own certificate, other boxes are not affected."}}, {"@type": "Question", "name": "Does the box need an inbound connection for updates?", "acceptedAnswer": {"@type": "Answer", "text": "No. The box downloads updates exclusively outbound via https. It accepts no connections from outside."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-signierte-updates-geraetezertifikate.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Security and compliance</span></nav>
+      <h1>Device certificates and signed updates: how the edge box identifies and protects itself</h1>
+      <p class="lead">Every box has its own certificate whose key never leaves the box. It only accepts updates if the signature is valid, the version is newer and the package arrives unaltered.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#identity">Why every box needs its own identity</a></li>
+<li><a href="#csr">The private key is generated on the box</a></li>
+<li><a href="#device-ca">A dedicated device CA with strict rules</a></li>
+<li><a href="#mtls">Mutual TLS between box and platform</a></li>
+<li><a href="#revocation">Blocking a device</a></li>
+<li><a href="#signed-updates">Signed updates: what the box checks</a></li>
+<li><a href="#invalid">What the box does if the signature is invalid</a></li>
+<li><a href="#standards">Why this matters for IEC 62443 and the Cyber Resilience Act</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>A device that is attached to a machine tool on your network and sends data to the outside must be able to answer two questions reliably: who am I, and is the software running on me really the manufacturer's? The first question is answered by a <strong>device certificate</strong>, the second by <strong>signed updates</strong>. Both are among the basic requirements that IEC 62443 and the Cyber Resilience Act place on networked components. This article shows how we have implemented device certificates and signed updates in our edge box, which algorithms we use and what is still open today.</p>
+
+      <h2 id="identity">Why every box needs its own identity</h2>
+      <p>Our box sends features to the platform. Anyone who holds a box's identity can send data in its name. They could therefore inject false measurements or mask a genuine alarm. In the threat model of our system, the device keys are therefore an asset in their own right.</p>
+      <p>A shared password for all boxes would be the worst approach: once it is known, every device is affected. Instead, we work without password login. Every box has its <strong>own certificate</strong> containing its device ID. If a device is compromised, exactly that one device is affected.</p>
+
+      <h2 id="csr">The private key is generated on the box</h2>
+      <p>The most important rule is: a box's private key never leaves the box. It is not generated by us and not transferred by USB stick or laptop. The process is therefore split into three parts:</p>
+      <ol>
+        <li><strong>On the box:</strong> a command generates a key using EC P-256. The key file is readable only by the box user. An existing key is never overwritten. From the key, a certificate signing request (CSR) is created with the device ID as its name.</li>
+        <li><strong>At Forbach:</strong> only this request comes to us. It contains the public key but nothing secret. We sign it with our device CA.</li>
+        <li><strong>Back on the box:</strong> the signed certificate is stored on the box. From now on the box can identify itself to our broker.</li>
+      </ol>
+      <figure>
+        <svg viewBox="0 0 680 170" role="img" aria-label="Flow of key, certificate signing request and certificate between box and device CA">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="30" width="200" height="90" rx="2"/><rect x="468" y="30" width="200" height="90" rx="2"/>
+          </g>
+          <text x="112" y="58" text-anchor="middle" style="fill:var(--ink)">Box at the customer</text>
+          <text x="112" y="82" text-anchor="middle">private key</text><text x="112" y="100" text-anchor="middle">stays here</text>
+          <text x="568" y="58" text-anchor="middle" style="fill:var(--ink)">Device CA at Forbach</text>
+          <text x="568" y="82" text-anchor="middle">offline, protected</text><text x="568" y="100" text-anchor="middle">by a passphrase</text>
+          <line x1="222" y1="55" x2="456" y2="55" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M448 50 l8 5 l-8 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="340" y="47" text-anchor="middle">Certificate signing request (CSR)</text>
+          <line x1="222" y1="100" x2="456" y2="100" stroke="var(--gold)" stroke-width="1.5"/>
+          <path d="M230 95 l-8 5 l8 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+          <text x="340" y="92" text-anchor="middle">signed device certificate</text>
+          <text x="340" y="150" text-anchor="middle" style="fill:var(--ink-2)">Only public data travels over the link, never a private key.</text>
+        </svg>
+        <figcaption>The certificate signing request contains only the public key. An attacker who intercepts it can do nothing with it.</figcaption>
+      </figure>
+
+      <h2 id="device-ca">A dedicated device CA with strict rules</h2>
+      <p>Our boxes' certificates are issued by a dedicated certificate authority, the device CA. It runs <strong>offline</strong> on a computer at Forbach, never on a publicly reachable server. Its key is an EC P-384 key, protected by a passphrase of at least twelve characters. Before the CA signs a request, it checks four things:</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Checks before a device certificate is issued</caption>
+          <thead><tr><th>Check</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>The request's signature is valid</td><td>The request comes from the owner of the key and was not altered in transit.</td></tr>
+            <tr><td>The name in the request is exactly the device ID</td><td>A box cannot request a certificate for another box.</td></tr>
+            <tr><td>The box is registered on the platform</td><td>Unknown devices do not receive a certificate.</td></tr>
+            <tr><td>Validity of at most two years, one year by default</td><td>A certificate is renewed regularly and is not valid indefinitely.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The issued certificate may be used exclusively for client authentication. It can neither sign other certificates nor identify a server. So that renewal is not forgotten, the box regularly checks the remaining validity of its certificate and reports a warning to the platform from 30 days before expiry.</p>
+
+      <h2 id="mtls">Mutual TLS between box and platform</h2>
+      <p>The box sends its features via MQTT over TLS, version 1.2 at minimum, and always opens the connection itself, from inside to outside. Both sides verify each other:</p>
+      <ul>
+        <li><strong>The box verifies the server.</strong> It only trusts a server certificate that matches the stored certificate authority. A peer posing as our platform is rejected.</li>
+        <li><strong>The broker verifies the box.</strong> For devices it trusts exclusively our device CA. A certificate from any other source is not sufficient.</li>
+      </ul>
+      <p>Beyond that, the platform alone decides, based on its device registry, which customer a box belongs to. A box cannot assign itself to another customer, and data for someone else's machine is discarded. You can read more about the transmission itself in the article <a href="opc-ua-vs-mqtt-production-data.html">OPC UA or MQTT for production data</a>.</p>
+      <p>Towards the CNC control, too, the box has its own certificate. It is likewise generated on the box and entered manually on the control as trusted. For comparison, the box displays its SHA-1 and SHA-256 fingerprints. The details are in the article <a href="read-only-cnc-control-write-protection.html">Read-only: write protection for the CNC control</a>.</p>
+
+      <h2 id="revocation">Blocking a device</h2>
+      <p>If a box is lost or there is a suspicion that it has been tampered with, it must be possible to exclude it immediately. Today this is done in two steps: the box is removed from the platform's device registry, after which the platform no longer accepts data from it. In addition, its access to the broker is revoked. Because every box has its own certificate, blocking affects only that one device; all others keep working.</p>
+      <div class="callout">
+        <p class="label">Honest status</p>
+        <p>A certificate revocation list (CRL) and automatic renewal have not yet been implemented. Renewal is currently a scheduled, manual process: new request, signing, replacing the file. With a larger number of boxes we plan automatic renewal. We are also reviewing the access rules on the production broker separately before the first boxes go into field use.</p>
+      </div>
+
+      <h2 id="signed-updates">Signed updates: what the box checks</h2>
+      <p>All software needs updates, particularly for security reasons. But an update is also a way in: anyone who can inject a manipulated package has taken over the box. That is why our box only accepts an update if it passes a chain of checks.</p>
+      <p>Every update comes with a <strong>manifest</strong>. It states the version, file name, SHA-256 checksum and size of the package, a validity period, the oldest version from which a direct update is permitted, and whether it is a security update. This manifest is signed with an <strong>Ed25519</strong> key. The exact bytes are signed; changing even a single character invalidates the signature.</p>
+      <div class="formula">Chain of checks on the box
+1  Manifest signature        with a public key stored on the box
+2  Manifest content          product, format, validity period
+3  No rollback               version must be newer than any ever accepted
+4  Minimum source version    otherwise an intermediate version is needed first
+5  Download via https only   abort if more arrives than announced
+6  Size and SHA-256          must match the manifest exactly
+7  Re-check                  immediately before installation</div>
+      <p>Some of these steps deserve an explanation:</p>
+      <ul>
+        <li><strong>Keys stored on the box:</strong> the public keys the box trusts are stored permanently on the box. There can be several, so that we can rotate a key in a planned way. The private signing key is kept offline by us and protected by a passphrase.</li>
+        <li><strong>No rollback:</strong> the box permanently remembers the highest version it has ever accepted. An old, genuinely signed manifest with a known vulnerability therefore cannot be replayed, even after a restart.</li>
+        <li><strong>Expiry date:</strong> a manifest is valid for 30 days by default. This means an attacker cannot keep presenting an old manifest to the box indefinitely and suppress new updates.</li>
+        <li><strong>Re-check:</strong> time may pass between download and installation. The staged package is therefore fully checked again immediately before installation.</li>
+      </ul>
+
+      <h2 id="invalid">What the box does if the signature is invalid</h2>
+      <p>If any of the checks fails, the box discards the update. It stages nothing, installs nothing and continues running its current version unchanged. At the same time it reports the rejection, with a reason, as an event to the platform, for example “signature invalid”, “version not newer” or “checksum mismatch”. This lets us see immediately if someone attempts to install a manipulated package, or if a download arrives corrupted.</p>
+      <p>The box itself never installs anything. It only downloads outbound, checks and stages. The actual installation is carried out by a separate service on the box's computer, which only accepts checked packages and runs the re-check beforehand. This separation ensures that the software that talks to the internet needs no rights to replace programs.</p>
+      <div class="callout">
+        <p class="label">Honest status</p>
+        <p>Verification of signed updates on the box has been implemented and is backed by tests for manipulated manifests, unknown keys, expired manifests, rollbacks and altered packages. The installer and the server for the update files depend on the choice of box hardware and will follow before series operation.</p>
+      </div>
+
+      <h2 id="standards">Why this matters for IEC 62443 and the Cyber Resilience Act</h2>
+      <p>Device certificates and signed updates are not optional extras; they are explicitly required. IEC 62443-4-2 requires, among other things, that devices and software processes identify themselves unambiguously, that certificates are validated correctly and that the authenticity of software can be verified. For our box we are aiming for security level SL-C 2, i.e. protection against intentional attacks using simple means. In Annex I, the Cyber Resilience Act requires security updates, protection against unauthorised access, the integrity of programs and data, and mechanisms for distributing updates securely.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Requirement</th><th>Implementation in our system</th></tr></thead>
+          <tbody>
+            <tr><td>IEC 62443-4-2 CR 1.2: unique device identification</td><td>Own certificate per box, name equal to device ID</td></tr>
+            <tr><td>IEC 62443-4-2 CR 1.8 and 1.9: certificates and public key methods</td><td>Dedicated device CA, mutual TLS, limited validity</td></tr>
+            <tr><td>IEC 62443-4-2 CR 3.4: integrity and authenticity of software</td><td>Ed25519-signed manifest, SHA-256 checksum, no rollback</td></tr>
+            <tr><td>CRA Annex I Part I (2b): security updates</td><td>Signed updates with a flag for security updates</td></tr>
+            <tr><td>CRA Annex I Part I (2c): protection against unauthorised access</td><td>Login only with device certificate, no password</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The questions you as an operator should ask every supplier about this are described in the article <a href="cyber-resilience-act-condition-monitoring.html">Cyber Resilience Act and condition monitoring</a>. An overview of all protective measures is on the <a href="data-security.html">Data security</a> page. If your IT team has questions before a pilot project, contact us via the <a href="contact.html">contact page</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Where is the private key of the device certificate generated?</summary><p>Directly on the box. Only the certificate signing request with the public key comes to us. The private key never leaves the box, not even during set-up.</p></details>
+        <details class="faq-item"><summary>How long is a device certificate valid?</summary><p>One year by default, two years at most. From 30 days before expiry, the box reports a warning to the platform so that the certificate is renewed in good time.</p></details>
+        <details class="faq-item"><summary>What happens if an update has been manipulated?</summary><p>The box detects this from the invalid signature or the mismatched checksum, discards the update and continues with its current version. The rejection is reported to the platform with a reason.</p></details>
+        <details class="faq-item"><summary>Can a lost box be blocked?</summary><p>Yes. The box is removed from the device registry, after which the platform no longer accepts data from it, and its access to the broker is revoked. Because every box has its own certificate, other boxes are not affected.</p></details>
+        <details class="faq-item"><summary>Does the box need an inbound connection for updates?</summary><p>No. The box downloads updates exclusively outbound via https. It accepts no connections from outside.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Security and compliance</span><a href="cyber-resilience-act-condition-monitoring.html">Cyber Resilience Act and IEC 62443: what machine builders and operators of condition monitoring should know</a></li>
+<li><span class="label">Security and compliance</span><a href="read-only-cnc-control-write-protection.html">Read-only: how we technically rule out write access to the CNC control</a></li>
+<li><span class="label">Spindle and bearings</span><a href="cnc-spindle-noise-causes.html">CNC spindle making noise: possible causes and what you can check yourself</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

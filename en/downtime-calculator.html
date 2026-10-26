@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Downtime calculator: what do unplanned spindle failures cost? · Forbach &amp; Partners</title>
+<meta name="description" content="A calculator for managing directors: what do unplanned spindle and bearing failures cost your business per year, month and working day? With your own figures.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/downtime-calculator.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/stillstandsrechner.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/downtime-calculator.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/stillstandsrechner.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Downtime calculator: what do unplanned spindle failures cost? · Forbach &amp; Partners">
+<meta property="og:description" content="A calculator for managing directors: what do unplanned spindle and bearing failures cost your business per year, month and working day? With your own figures.">
+<meta property="og:url" content="https://forbachandpartners.com/en/downtime-calculator.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html" aria-current="page">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../stillstandsrechner.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="label">Downtime calculator for management</p>
+      <h1>What does unplanned downtime cost you today?</h1>
+      <p class="lead">A spindle failure costs more than the repair. The machine stands still, orders slip, and often more than just the bearing suffers. Set the sliders to your figures. You see the result immediately.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="calc">
+        <form id="calc" onsubmit="return false">
+          <div class="field"><label for="c-m">Machining centres with spindle <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
+          <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="1500" step="25" value="400"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
+          <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="30"></div>
+          <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="2"></div>
+          <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="8000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
+          <div class="field"><label for="c-v">Share avoidable with early detection, your estimate <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
+        </form>
+        <div class="result" aria-live="polite">
+          <div><span class="label">What unplanned spindle failures cost you today</span><div class="big" id="r-loss" style="margin-top:10px">–</div><span class="muted" style="font-size:14px">per year</span></div>
+          <div class="pair">
+            <div><span class="label">Per month</span><b id="r-month">–</b></div>
+            <div><span class="label">Per working day</span><b id="r-day">–</b></div>
+          </div>
+          <div class="split" aria-hidden="true"><span id="r-bar-a"></span><span id="r-bar-b"></span></div>
+          <div class="legend"><span><i class="la"></i>Downtime <b id="r-a">–</b></span><span><i class="lb"></i>Repair and consequential damage <b id="r-b">–</b></span></div>
+          <div class="save"><span class="label">Avoidable by your estimate</span><b id="r-save">–</b><span class="muted" style="font-size:14px">per year</span></div>
+          <a class="btn solid" id="r-cta" href="contact.html?rechner=1">Discuss the result in a call <span class="arr">→</span></a>
+          <small>A calculation aid based on your own assumptions, not a promise. The sliders show example values. Per working day assumes 250 working days per year. How early the system warns on your machines is shown during the pilot.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">Where to find the figures</p>
+        <h2>Five values your controlling department knows.</h2>
+        <p>If you do not know a value exactly, use a cautious estimate. The result will then tend to be too low rather than too high.</p>
+      </div>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Value</th><th>Where to find it</th></tr></thead>
+          <tbody>
+            <tr><td>Cost per hour of downtime</td><td>Machine hourly rate from your costing. If orders wait or are lost, add the lost contribution margin per hour.</td></tr>
+            <tr><td>Unplanned downtime hours</td><td>Maintenance log, production data acquisition (MES) or machine logbook for the last two to three years. Count only downtime caused by the spindle and spindle bearings.</td></tr>
+            <tr><td>Number of unplanned spindle failures</td><td>Invoices from your spindle service provider and the machine manufacturer. An average over several years is more meaningful than a single year.</td></tr>
+            <tr><td>Extra cost per failure</td><td>The difference between an unplanned and a planned repair: rush surcharges, express shipping, consequential damage to spindle, tool and workpiece, extra shifts to catch up.</td></tr>
+            <tr><td>Avoidable share</td><td>Your own estimate. How many of the failures could you have moved into a maintenance window if you had known about them weeks in advance?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">The calculator deliberately states neither a price for our system nor any savings that we promise. How early the system warns on your machines is shown during the pilot. What a connection costs, we tell you as a concrete figure in the introductory call.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <div>
+        <p class="label">Further reading</p>
+        <h2 style="margin-top:18px">The full calculation, step by step.</h2>
+      </div>
+      <div>
+        <p class="lead">How to derive downtime costs properly, which items are often forgotten and how to turn them into a business case is explained in the technical article.</p>
+        <p style="margin-top:24px"><a class="tel" href="cost-of-machine-downtime-per-hour.html">What does an hour of machine downtime cost? →</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Edge Box for Condition Monitoring: Design, Tasks, Offline Buffer · Forbach &amp; Partners</title>
+<meta name="description" content="What the edge box on a CNC machine does: reads the control read-only, measures vibration, computes features locally, buffers 7 days, sends encrypted.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/edge-box-condition-monitoring.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/edge-box-condition-monitoring.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-edge-box-zustandsueberwachung-aufbau.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Edge Box for Condition Monitoring: Design, Tasks, Offline Buffer · Forbach &amp; Partners">
+<meta property="og:description" content="What the edge box on a CNC machine does: reads the control read-only, measures vibration, computes features locally, buffers 7 days, sends encrypted.">
+<meta property="og:url" content="https://forbachandpartners.com/en/edge-box-condition-monitoring.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "The edge box for condition monitoring: design, tasks and behaviour during network outages", "description": "What the edge box on a CNC machine does: reads the control read-only, measures vibration, computes features locally, buffers 7 days, sends encrypted.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/edge-box-condition-monitoring.html", "articleSection": "Our system", "wordCount": 1891}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "The edge box for condition monitoring: design, tasks and behaviour during network outages", "item": "https://forbachandpartners.com/en/edge-box-condition-monitoring.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What happens to the data if the network fails?", "acceptedAnswer": {"@type": "Answer", "text": "The edge box keeps measuring and stores all records in its local buffer, for at least seven days, fourteen by default. Once the connection is back, it sends everything in the correct order. Records are only deleted after the platform confirms receipt, and duplicates are detected there."}}, {"@type": "Question", "name": "Does the edge box need a port opened in the firewall?", "acceptedAnswer": {"@type": "Answer", "text": "Not an inbound one. The edge box only establishes outbound connections, via MQTT over TLS on port 8883 or, if that is blocked, via port 443. To reach the CNC control, it needs an OPC UA connection on the machine network."}}, {"@type": "Question", "name": "Can the edge box change anything on the CNC control?", "acceptedAnswer": {"@type": "Answer", "text": "No. The software contains no write functions, an allowlist blocks all requests except reading, browsing, subscribing and session management, tests verify this, and a read-only user is set up on the control."}}, {"@type": "Question", "name": "Why are the features calculated on the edge box and not in the cloud?", "acceptedAnswer": {"@type": "Answer", "text": "Because the raw signal for bearing diagnosis is in the kilohertz range and would continuously produce large volumes of data. The edge box calculates the spectrum and envelope on site and transmits only the features. This saves bandwidth, keeps the buffer small and means less data leaves your network."}}, {"@type": "Question", "name": "How is the edge box software updated?", "acceptedAnswer": {"@type": "Answer", "text": "The edge box fetches updates outbound via https and only accepts signed updates with a newer version, a valid lifetime and a matching size and checksum. A separate service installs the verified update and checks it once more beforehand."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-edge-box-zustandsueberwachung-aufbau.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>The edge box for condition monitoring: design, tasks and behaviour during network outages</h1>
+      <p class="lead">The edge box on the machine reads the CNC control, measures vibration, calculates features and sends only those. If the network fails, it buffers for at least seven days and then sends everything without gaps or duplicates.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>9 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#tasks">The six tasks of the edge box</a></li>
+<li><a href="#cnc-control">The CNC control: read-only, secured four times over</a></li>
+<li><a href="#edge-computing">Why the calculation happens on site</a></li>
+<li><a href="#network-outage">Behaviour during network outages: a buffer without gaps or duplicates</a></li>
+<li><a href="#configuration">Configuration, identity and transmission</a></li>
+<li><a href="#updates-health">Updates and health reports</a></li>
+<li><a href="#never">What the edge box never does</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Every condition monitoring system needs a computer close to the machine. In our case that is the <strong>edge box</strong>. It is the only part of our system that sits in the network of your shop floor. That is why we have defined particularly precisely what it does, how it behaves when things go wrong and what it never does. This article describes the design of the edge box for condition monitoring as it is implemented in our software. We deliberately do not name a specific hardware model: the software is fixed, but the choice of hardware and data acquisition card is still open.</p>
+
+      <h2 id="tasks">The six tasks of the edge box</h2>
+      <p>The edge box software runs as one program with several parallel tasks. Each task has one job, and an error in one task does not bring the others to a halt.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Task</th><th>What exactly happens</th></tr></thead>
+          <tbody>
+            <tr><td>Read the CNC control</td><td>Speed, spindle load, programme, operating mode, active tool and alarms via OPC UA, read-only, by default once per second</td></tr>
+            <tr><td>Acquire vibration</td><td>Short measurement windows from the vibration sensor on the spindle housing, only at constant speed</td></tr>
+            <tr><td>Calculate features</td><td>RMS, peak value, crest factor, kurtosis, orders, envelope amplitudes at the bearing frequencies</td></tr>
+            <tr><td>Buffer</td><td>All records in a local database until the platform confirms receipt</td></tr>
+            <tr><td>Send</td><td>Outbound only, via MQTT over TLS with its own device certificate</td></tr>
+            <tr><td>Check for updates</td><td>Fetch, verify and stage signed updates</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>There is also a seventh task that reports the health of the edge box itself. More on this further down.</p>
+
+      <h2 id="cnc-control">The CNC control: read-only, secured four times over</h2>
+      <p>The edge box connects to the CNC control via OPC UA. Which signals it reads is defined in its configuration, not in the program code. The paths of the signals are determined on site with a tool that browses the address space of the control and creates a table of all nodes. This tool, too, only reads.</p>
+      <p>Read-only access is secured at four levels. The driver interface contains no write functions. Every OPC UA request passes through a single point with an allowlist that only lets through reading, browsing, subscribing and session management. Writing, method calls, creating and deleting are blocked before anything is sent. Automated tests prove this. And a dedicated read-only user is set up on the control. By default, the control is polled once per second, never more often than every 0.1 seconds.</p>
+      <p>With an encrypted connection, the edge box requires the control's certificate. Without that certificate it would trust any remote party claiming to be the control. Details are given in the articles <a href="read-only-cnc-control-write-protection.html">Read-only: write protection on the CNC control</a> and <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+
+      <h2 id="edge-computing">Why the calculation happens on site</h2>
+      <p>Bearing diagnosis needs vibration signals in the kilohertz range. Such a raw signal is large, and it is produced continuously. Sending it to the cloud would mean every machine needs a permanently wide connection, and a network outage would build up large volumes of data. The edge box therefore performs the computationally intensive steps itself: spectrum, envelope, order analysis, search for the bearing frequencies. Only the features are transmitted, together with the bearing finding and its distance from the noise floor, if there is one.</p>
+      <p>This has three consequences. First, the data volume stays small and predictable. Second, less data leaves your network, which makes the review by your IT team easier. Third, the edge box can continue measuring even during a longer network outage, because it only has to store features.</p>
+      <p>A measurement window is only evaluated if the speed reported by the control before and after the window differs by no more than 2 % and is above 300 rpm. The analysis runs in a separate thread, so that the edge box keeps responding to the control and the network while it calculates. What happens to the features on the platform is explained in the article <a href="from-vibration-to-alert-processing-chain.html">From vibration to alert</a>.</p>
+
+      <h2 id="network-outage">Behaviour during network outages: a buffer without gaps or duplicates</h2>
+      <p>Network disruptions happen on every shop floor. The edge box is built so that data is neither lost nor delivered twice. The mechanism has four parts:</p>
+      <ol>
+        <li><strong>Sequential numbers:</strong> every record is given an ascending number when it is stored, and that number is never reused.</li>
+        <li><strong>Safe storage:</strong> the buffer is an SQLite database that commits every write completely to disk. A power cut does not lose any records that have already been stored.</li>
+        <li><strong>Delete only after confirmation:</strong> the edge box sends a batch, waits for confirmation from the platform and only then deletes the confirmed records. If no confirmation arrives, it sends the same batch again.</li>
+        <li><strong>Duplicate detection:</strong> for each edge box, the platform remembers which numbers it has already stored. A record that is sent again is recognised and not stored a second time.</li>
+      </ol>
+      <p>It follows from these rules that after a disruption the edge box sends everything in the original order. If a confirmation is lost, the worst case is a duplicate, which the platform discards. No gap arises.</p>
+      <div class="callout">
+        <p class="label">How long the edge box can manage without a network</p>
+        <p>The buffer holds data for at least seven days, fourteen by default. Less than seven days cannot be set in the configuration. Only records older than the configured buffer period are discarded. The edge box counts them and reports the loss to the platform as soon as the connection is back.</p>
+      </div>
+      <p>The connections themselves are also designed for outages. If the connection to the control or to the platform drops, the edge box tries again, with increasing pauses up to an upper limit. The edge box does not crash and does not need a manual restart.</p>
+
+      <h2 id="configuration">Configuration, identity and transmission</h2>
+      <h3>One file, no secrets</h3>
+      <p>Everything the edge box needs to know about its machine is in a single configuration file: device and machine ID, address of the control, the signals read, measuring point, measurement window and interval, envelope frequency band, the bearing geometry from the datasheet, buffer period and connection to the platform. The file is fully validated at start-up. Unknown entries, missing mandatory fields or contradictory settings lead to a clear error message instead of silent malfunction.</p>
+      <p>Some rules are firmly built into the validation:</p>
+      <ul>
+        <li>Passwords are never in the file. They come from environment variables. Certificates and keys are only specified by their file path.</li>
+        <li>Unencrypted transmission to the platform is only allowed to the local computer, i.e. for testing. TLS is mandatory for every real address.</li>
+        <li>Encrypted OPC UA connections need the edge box's certificate and key and the control's certificate.</li>
+        <li>The bearing geometry is taken from the datasheet, never estimated.</li>
+        <li>Updates are only fetched via https.</li>
+      </ul>
+
+      <h3>Its own identity, outbound only</h3>
+      <p>Every edge box has its own identity. Its private key is generated on the edge box itself and never leaves it. To the outside world, it only provides a certificate signing request with its device ID. We issue the device certificate from this request. An existing key is never overwritten.</p>
+      <p>Transmission uses MQTT over TLS version 1.2 or later, outbound on port 8883, or via port 443 if that port is blocked. The edge box does not open any port for inbound connections. The broker only allows each edge box to publish messages under its own ID. Which edge box belongs to which customer is decided solely by the platform, based on its device registry. In addition, the platform checks whether the machine ID in the data matches the edge box's registered machine and discards records that do not match. More on this on the page <a href="data-security.html">Data security</a> and in the article <a href="signed-updates-device-certificates.html">Signed updates and device certificates</a>.</p>
+
+      <h2 id="updates-health">Updates and health reports</h2>
+      <p>By default, the edge box checks for an update every six hours. An update is only accepted if its manifest is signed with one of our stored keys, is still valid and the version is newer than the highest ever accepted. A downgrade to an older version is therefore ruled out, even after a restart. The downloaded file must exactly match the size and checksum given in the signed manifest. If all of this is met, the edge box stages the update. It is installed by a separate service that checks everything once more before installation. The edge box reports a rejected update with the reason.</p>
+      <p>So that you and we can see whether the edge box itself is healthy, it sends a health report every minute by default. It contains:</p>
+      <ul>
+        <li>the installed software version,</li>
+        <li>whether the connection to the control is up,</li>
+        <li>how many records are waiting in the buffer to be sent and how old the oldest one is,</li>
+        <li>how many days the device certificate remains valid.</li>
+      </ul>
+      <p>If the certificate expires in less than 30 days, the edge box also reports this as an event. Lost connections to the control, discarded buffer data and updates also appear as events. A growing buffer while the control connection is up, for example, shows immediately that the outbound network connection is disrupted.</p>
+
+      <h2 id="never">What the edge box never does</h2>
+      <p>For approval by your IT team, what a device does not do is often more important. For our edge box:</p>
+      <ul>
+        <li>It never writes to the CNC control, starts no programmes, calls no methods and changes no parameters.</li>
+        <li>It accepts no inbound connections.</li>
+        <li>It does not transmit any raw vibration signal, only features.</li>
+        <li>It does not install unsigned or older software versions.</li>
+        <li>It does not give out its private key.</li>
+        <li>It does not itself assess whether a machine is conspicuous. That decision is made by the platform using the learned baseline, i.e. the normal state of this spindle.</li>
+      </ul>
+      <p>How the edge box is set up at your site is described on the page <a href="process.html">Process</a>. Whether your CNC control can be connected is something we clarify in an <a href="contact.html">introductory call</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>What happens to the data if the network fails?</summary><p>The edge box keeps measuring and stores all records in its local buffer, for at least seven days, fourteen by default. Once the connection is back, it sends everything in the correct order. Records are only deleted after the platform confirms receipt, and duplicates are detected there.</p></details>
+        <details class="faq-item"><summary>Does the edge box need a port opened in the firewall?</summary><p>Not an inbound one. The edge box only establishes outbound connections, via MQTT over TLS on port 8883 or, if that is blocked, via port 443. To reach the CNC control, it needs an OPC UA connection on the machine network.</p></details>
+        <details class="faq-item"><summary>Can the edge box change anything on the CNC control?</summary><p>No. The software contains no write functions, an allowlist blocks all requests except reading, browsing, subscribing and session management, tests verify this, and a read-only user is set up on the control.</p></details>
+        <details class="faq-item"><summary>Why are the features calculated on the edge box and not in the cloud?</summary><p>Because the raw signal for bearing diagnosis is in the kilohertz range and would continuously produce large volumes of data. The edge box calculates the spectrum and envelope on site and transmits only the features. This saves bandwidth, keeps the buffer small and means less data leaves your network.</p></details>
+        <details class="faq-item"><summary>How is the edge box software updated?</summary><p>The edge box fetches updates outbound via https and only accepts signed updates with a newer version, a valid lifetime and a matching size and checksum. A separate service installs the verified update and checks it once more beforehand.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="condition-monitoring-pilot-project.html">Condition monitoring pilot project: how it works from the inside</a></li>
+<li><span class="label">Our system</span><a href="explained-alerts-dashboard.html">Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</a></li>
+<li><span class="label">Our system</span><a href="from-vibration-to-alert-processing-chain.html">From vibration to alert: our system&#x27;s processing chain according to ISO 13374</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

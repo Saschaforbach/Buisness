@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ordnungsanalyse an der Spindel: Unwucht sicher erkennen · Forbach &amp; Partners</title>
+<meta name="description" content="Ordnungsanalyse an der CNC-Spindel: warum Vielfache der Drehfrequenz bei wechselnder Drehzahl helfen, wie Unwucht als Ordnung 1 erscheint und was zu prüfen ist.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/order-analysis-spindle-unbalance.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Ordnungsanalyse an der Spindel: Unwucht sicher erkennen · Forbach &amp; Partners">
+<meta property="og:description" content="Ordnungsanalyse an der CNC-Spindel: warum Vielfache der Drehfrequenz bei wechselnder Drehzahl helfen, wie Unwucht als Ordnung 1 erscheint und was zu prüfen ist.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Ordnungsanalyse an der Spindel: Unwucht und Lagerfrequenzen in Vielfachen der Drehzahl", "description": "Ordnungsanalyse an der CNC-Spindel: warum Vielfache der Drehfrequenz bei wechselnder Drehzahl helfen, wie Unwucht als Ordnung 1 erscheint und was zu prüfen ist.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html", "articleSection": "Spindel und Lager", "wordCount": 1840}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Ordnungsanalyse an der Spindel: Unwucht und Lagerfrequenzen in Vielfachen der Drehzahl", "item": "https://forbachandpartners.com/blog-ordnungsanalyse-unwucht-spindel.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was ist eine Ordnungsanalyse in der Schwingungsmessung?", "acceptedAnswer": {"@type": "Answer", "text": "Eine Auswertung, bei der die Frequenzachse des Spektrums in Vielfachen der Drehfrequenz angegeben wird. Ordnung 1 bedeutet einmal pro Umdrehung. So bleiben drehzahlgebundene Schwingungen wie Unwucht an derselben Stelle, auch wenn die Spindel mit anderer Drehzahl läuft."}}, {"@type": "Question", "name": "Wie erkennt man Unwucht an einer CNC-Spindel?", "acceptedAnswer": {"@type": "Answer", "text": "An einer erhöhten Schwingung bei Ordnung 1, also genau bei der Drehfrequenz. Entscheidend ist der Vergleich mit Messungen derselben Spindel bei ähnlicher Drehzahl, weil die Amplitude mit der Drehzahl stark zunimmt und von Werkzeug zu Werkzeug schwankt."}}, {"@type": "Question", "name": "Ist eine erhöhte Ordnung 1 immer ein Spindelschaden?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Häufig liegt die Ursache am Werkzeug, am Werkzeughalter, an Verschmutzung am Kegel oder am Sitz des Halters. Erst wenn die Abweichung mit verschiedenen, sauberen und gewuchteten Werkzeugen bestehen bleibt, ist der Wuchtzustand der Spindel selbst zu prüfen."}}, {"@type": "Question", "name": "Woher kommt die Drehzahl für die Ordnungsanalyse?", "acceptedAnswer": {"@type": "Answer", "text": "Aus der CNC-Steuerung. Unsere Edge-Box liest die Spindeldrehzahl über OPC UA nur lesend aus und bewertet ein Schwingungsfenster nur, wenn die Drehzahl währenddessen nahezu konstant war. Das Schwingungssignal selbst kommt von einem Sensor am Spindelgehäuse."}}, {"@type": "Question", "name": "Warum liegen Lagerfrequenzen nicht bei ganzen Ordnungen?", "acceptedAnswer": {"@type": "Answer", "text": "Weil Wälzkörper und Käfig langsamer umlaufen als die Welle. Die Überrollfrequenzen ergeben sich aus der Lagergeometrie und sind deshalb krumme Vielfache der Drehfrequenz, zum Beispiel 6,45 für den Außenring eines angenommenen Spindellagers."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="langswitch" href="en/order-analysis-spindle-unbalance.html" hreflang="en" lang="en" title="English version">EN</a>
+    <a class="btn solid" href="kontakt.html">Erstgespräch</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Spindel und Lager</span></nav>
+      <h1>Ordnungsanalyse an der Spindel: Unwucht und Lagerfrequenzen in Vielfachen der Drehzahl</h1>
+      <p class="lead">Eine Spindel läuft selten lange mit derselben Drehzahl. Die Ordnungsanalyse misst Schwingungen deshalb in Vielfachen der Drehfrequenz. So bleibt Unwucht immer Ordnung 1, egal ob die Spindel mit 3.000 oder 12.000 min⁻¹ dreht.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-26">26. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>9 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#ordnung">Was eine Ordnung ist</a></li>
+<li><a href="#drehzahl">Warum Ordnungen bei wechselnden Drehzahlen helfen</a></li>
+<li><a href="#unwucht">Ordnung 1: Unwucht an Werkzeug, Spannmittel und Spindel</a></li>
+<li><a href="#ordnung-2">Ordnung 2: zweimal pro Umdrehung</a></li>
+<li><a href="#lager">Lagerfrequenzen: nicht-ganzzahlige Ordnungen</a></li>
+<li><a href="#system">So setzen wir die Ordnungsanalyse im System ein</a></li>
+<li><a href="#pruefen">Was zu prüfen ist, wenn Unwucht gemeldet wird</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+      <p>Wer an einem Bearbeitungszentrum Schwingungen auswertet, hat ein Problem, das es an einer Pumpe mit fester Drehzahl nicht gibt: Die Spindel wechselt ihre Drehzahl mit jedem Werkzeug und oft innerhalb eines Programms. Ein Spektrum in Hertz sieht deshalb bei jeder Drehzahl anders aus. Die <strong>Ordnungsanalyse</strong> löst das, indem sie die Frequenzachse auf die Drehfrequenz der Spindel bezieht. Aus „Spitze bei 100 Hz“ wird „Spitze bei Ordnung 1“. Dieser Artikel erklärt, was eine Ordnung ist, wie sich Unwucht und Lagerschäden darin unterscheiden und wie unser System die Ordnungsanalyse an der Spindel einsetzt.</p>
+
+      <h2 id="ordnung">Was eine Ordnung ist</h2>
+      <p>Eine Ordnung ist ein Vielfaches der Drehfrequenz. Die Drehfrequenz <code>f<sub>r</sub></code> ist die Zahl der Umdrehungen pro Sekunde. Sie ergibt sich direkt aus der Drehzahl, die die Steuerung meldet:</p>
+      <div class="formula">f_r     = n / 60          (n in min⁻¹, f_r in Hz)
+
+Ordnung = f / f_r
+
+Beispiel: n = 6.000 min⁻¹  →  f_r = 100 Hz
+          Linie bei 200 Hz  →  Ordnung 2</div>
+      <p>Ordnung 1 heißt also: Das Ereignis wiederholt sich einmal pro Umdrehung. Ordnung 2: zweimal pro Umdrehung. Eine Ordnung von 6,45 heißt: 6,45-mal pro Umdrehung. Das klingt abstrakt, ist aber sehr anschaulich. Alles, was fest mit der Welle verbunden ist, erzeugt eine Schwingung mit fester Ordnung. Eine Unwucht im Werkzeughalter dreht mit der Welle und zieht einmal pro Umdrehung in eine Richtung. Sie bleibt deshalb Ordnung 1, egal wie schnell die Spindel läuft.</p>
+      <p>Rechnerisch ist die Ordnungsanalyse bei konstanter Drehzahl einfach: Man berechnet das gewöhnliche Amplitudenspektrum und teilt die Frequenzachse durch die Drehfrequenz. In unserer Analysebibliothek ist das genau so umgesetzt. Die Amplituden bleiben unverändert, nur die Achse wird in Ordnungen angegeben. Wie das Spektrum selbst entsteht, beschreibt der Artikel <a href="blog-fft-spektrum-aufloesung-schwingungsanalyse.html">FFT, Spektrum und Auflösung</a>.</p>
+
+      <h2 id="drehzahl">Warum Ordnungen bei wechselnden Drehzahlen helfen</h2>
+      <p>Angenommen, dieselbe Spindel läuft einmal mit 6.000 und einmal mit 12.000 min⁻¹. Im Spektrum in Hertz liegt die Unwucht einmal bei 100 Hz und einmal bei 200 Hz. Ein Lagerschaden am Außenring wandert im gleichen Verhältnis mit. Wer zwei Messungen in Hertz vergleicht, vergleicht verschiedene Dinge. In Ordnungen dagegen liegen beide Messungen übereinander: Unwucht bei 1, Außenring bei derselben nicht-ganzzahligen Ordnung.</p>
+      <div class="tablebox">
+        <table>
+          <caption class="label">Beispiel, angenommenes Lager wie im Artikel zu Lagerfrequenzen</caption>
+          <thead><tr><th>Quelle</th><th>Ordnung</th><th>bei 6.000 min⁻¹</th><th>bei 12.000 min⁻¹</th></tr></thead>
+          <tbody>
+            <tr><td>Unwucht</td><td class="m">1</td><td class="m">100 Hz</td><td class="m">200 Hz</td></tr>
+            <tr><td>Zweimal pro Umdrehung</td><td class="m">2</td><td class="m">200 Hz</td><td class="m">400 Hz</td></tr>
+            <tr><td>Käfig, FTF</td><td class="m">0,40</td><td class="m">40,3 Hz</td><td class="m">80,6 Hz</td></tr>
+            <tr><td>Wälzkörper, 2 × BSF</td><td class="m">4,81</td><td class="m">481,3 Hz</td><td class="m">962,7 Hz</td></tr>
+            <tr><td>Außenring, BPFO</td><td class="m">6,45</td><td class="m">645,4 Hz</td><td class="m">1.290,8 Hz</td></tr>
+            <tr><td>Innenring, BPFI</td><td class="m">9,55</td><td class="m">954,6 Hz</td><td class="m">1.909,2 Hz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Die Spalte „Ordnung“ ändert sich nicht. Das ist der eigentliche Nutzen: Eine Kennzahl wie „Amplitude bei Ordnung 1“ hat bei jeder Drehzahl dieselbe Bedeutung. Eine Einschränkung bleibt allerdings. Die <strong>Höhe</strong> der Amplitude hängt sehr wohl von der Drehzahl ab, denn die Fliehkraft einer Unwucht wächst mit dem Quadrat der Drehzahl. Auch Resonanzen der Maschinenstruktur verstärken bestimmte Drehzahlen stärker als andere. Die Ordnung sagt also, <em>wo</em> man suchen muss. Ob der Wert dort auffällig ist, lässt sich nur im Vergleich mit Messungen bei ähnlicher Drehzahl beurteilen.</p>
+
+      <h3>Drehzahl ändert sich während der Messung</h3>
+      <p>Schwieriger wird es, wenn sich die Drehzahl innerhalb eines Messfensters ändert, etwa beim Hochlauf. Dann verschmiert die Linie im gewöhnlichen Spektrum über einen Frequenzbereich. Das klassische Gegenmittel heißt <strong>Order Tracking</strong>: Das Zeitsignal wird von gleichen Zeitschritten auf gleiche Winkelschritte der Welle umgerechnet. Dazu braucht man den Drehzahlverlauf während der Messung. Nach dieser Umrechnung bleiben drehsynchrone Anteile auch bei wechselnder Drehzahl scharf.</p>
+      <p>Unsere Analysebibliothek enthält dieses Verfahren. Im laufenden Betrieb gehen wir aber bewusst einen einfacheren und robusteren Weg: Die Edge-Box wertet nur Messfenster aus, in denen die Drehzahl nahezu konstant war. Sie liest die Drehzahl vor und nach dem Fenster aus der Steuerung und verwirft Fenster, in denen sich die Drehzahl zu stark geändert hat oder die Spindel zu langsam lief. Hochläufe, Bremsvorgänge und Stillstand fließen damit gar nicht erst in die Bewertung ein.</p>
+
+      <h2 id="unwucht">Ordnung 1: Unwucht an Werkzeug, Spannmittel und Spindel</h2>
+      <p>Eine erhöhte Schwingung bei Ordnung 1 ist das klassische Zeichen für Unwucht. Die Masse ist nicht symmetrisch um die Drehachse verteilt, und bei jeder Umdrehung zieht die Fliehkraft einmal in dieselbe Richtung. An einer Werkzeugmaschinenspindel kommen dafür vor allem diese Ursachen in Frage:</p>
+      <ul>
+        <li><strong>Werkzeug und Werkzeughalter:</strong> nicht oder schlecht gewuchtete Halter, lange Auskragung, ungleich verschlissene Schneiden.</li>
+        <li><strong>Spannmittel und Sitz:</strong> ein Halter, der nicht sauber im Spindelkegel sitzt, oder ein Spannmittel mit Rundlauffehler.</li>
+        <li><strong>Verschmutzung:</strong> Späne oder Ablagerungen am Kegel oder am Halter, die den Sitz verändern oder selbst als Masse wirken.</li>
+        <li><strong>Spindel selbst:</strong> ein veränderter Wuchtzustand des Rotors, seltener, aber folgenreicher.</li>
+      </ul>
+      <p>Wichtig für die Praxis: Die ersten drei Ursachen wechseln mit dem Werkzeug. Ordnung 1 kann deshalb von Werkzeug zu Werkzeug unterschiedlich hoch sein, ohne dass an der Spindel etwas defekt ist. Ein einzelner Ausreißer bei einem Werkzeugwechsel ist kein Befund. Erst wenn Ordnung 1 über mehrere Messungen erhöht bleibt, lohnt der Blick auf Halter, Kegel und Wuchtzustand. Steigt Ordnung 1 dagegen über alle Werkzeuge hinweg langsam an, spricht das eher für eine Ursache an der Spindel.</p>
+      <div class="callout">
+        <p class="label">Unwucht und Lager hängen zusammen</p>
+        <p>Unwucht ist mehr als ein Qualitätsthema an der Oberfläche des Werkstücks. Die umlaufende Kraft belastet die Spindellager bei jeder Umdrehung zusätzlich. Eine dauerhaft erhöhte Ordnung 1 ist deshalb auch ein Grund, die Lagerkennwerte derselben Spindel aufmerksamer zu verfolgen.</p>
+      </div>
+
+      <h2 id="ordnung-2">Ordnung 2: zweimal pro Umdrehung</h2>
+      <p>Eine erhöhte Schwingung bei Ordnung 2 deutet in der Schwingungsdiagnose häufig auf Ausrichtungsfehler oder auf mechanische Lockerheit hin. Lose Befestigungen, ein Bauteil mit Spiel oder eine Verspannung im Aufbau können dazu führen, dass die Struktur zweimal pro Umdrehung anschlägt. Die Zuordnung ist weniger eindeutig als bei Ordnung 1. Ordnung 2 ist eher ein Hinweis, wo man nachsehen sollte, als eine Diagnose.</p>
+      <p>Unser System formuliert das entsprechend zurückhaltend. Ist Ordnung 2 der auffälligste Kennwert, lautet die Meldung sinngemäß „Schwingung zweimal pro Umdrehung erhöht“, und die Prüfempfehlung nennt Ausrichtung und Befestigung: lose Teile und Verspannungen prüfen. Eine bestimmte Ursache behauptet die Meldung nicht.</p>
+
+      <h2 id="lager">Lagerfrequenzen: nicht-ganzzahlige Ordnungen</h2>
+      <p>Wälzlagerschäden verhalten sich anders als Unwucht. Ihre Überrollfrequenzen sind zwar proportional zur Drehzahl, aber keine ganzen Vielfachen. Das liegt an der Kinematik: Die Wälzkörper laufen mit dem Käfig langsamer um als die Welle. Für das angenommene Lager aus der Tabelle oben liegt der Außenring bei Ordnung 6,45, der Innenring bei 9,55, der Käfig bei 0,40. Die Formeln dazu stehen im Artikel <a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen</a>.</p>
+      <p>Daraus ergibt sich eine nützliche Faustregel für das Lesen eines Ordnungsspektrums:</p>
+      <ul>
+        <li><strong>Ganzzahlige Ordnungen</strong> (1, 2, 3 …) gehören zu Vorgängen, die fest mit der Umdrehung verbunden sind: Unwucht, Ausrichtung, Lockerheit, Zahl der Schneiden am Werkzeug.</li>
+        <li><strong>Nicht-ganzzahlige Ordnungen</strong> sprechen für Wälzlager, vor allem wenn sie zu den berechneten Werten aus der Lagergeometrie passen.</li>
+      </ul>
+      <p>Zwei Einschränkungen gehören dazu. Erstens schlupfen reale Lager etwas, die Linien liegen also nicht exakt bei der berechneten Ordnung. Die Suche braucht ein Toleranzband. Zweitens zeigen sich frühe Lagerschäden kaum im gewöhnlichen Spektrum, sondern im Hüllkurvenspektrum. Unser System sucht die Lagerfrequenzen deshalb nicht im Ordnungsspektrum, sondern im Hüllkurvenspektrum. Es rechnet sie für jedes Messfenster aus der Lagergeometrie und der aktuellen Drehzahl neu aus. Das Prinzip ist dasselbe: Die Frequenz wird an die Drehzahl gekoppelt.</p>
+
+      <h2 id="system">So setzen wir die Ordnungsanalyse im System ein</h2>
+      <p>Die Edge-Box an der Maschine berechnet für jedes gültige Messfenster eine kleine Zahl von Kennwerten. Zwei davon stammen aus der Ordnungsanalyse:</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Kennwert</th><th>Bedeutung</th><th>Typische Frage dahinter</th></tr></thead>
+          <tbody>
+            <tr><td>Ordnung 1</td><td>Amplitude der Schwingung einmal pro Umdrehung</td><td>Unwucht an Werkzeug, Spannmittel oder Spindel?</td></tr>
+            <tr><td>Ordnung 2</td><td>Amplitude der Schwingung zweimal pro Umdrehung</td><td>Ausrichtung, Befestigung, Lockerheit?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Die Box sucht die Amplitude nicht an einem exakten Punkt, sondern in einem kleinen Band um Ordnung 1 und Ordnung 2. Die Breite des Bandes richtet sich nach der Frequenzauflösung des Spektrums. So führt eine minimal abweichende Drehzahlangabe nicht dazu, dass die Linie knapp verfehlt wird. Übertragen werden nur diese Kennwerte, keine Rohdaten. Hinzu kommen Effektivwert, Scheitelfaktor, Kurtosis und die Amplituden bei den Lagerfrequenzen. Was diese Kennwerte aussagen, erklärt der Artikel <a href="blog-kennwerte-effektivwert-scheitelfaktor-kurtosis.html">Effektivwert, Scheitelfaktor und Kurtosis</a>.</p>
+      <p>Bewertet wird auf der Plattform, und zwar nicht gegen einen festen Grenzwert. Jede Messung wird einer <strong>Drehzahlklasse</strong> zugeordnet. Für jede Kombination aus Maschine, Messstelle und Drehzahlklasse lernt das System eine eigene Normallage. Damit ist das Problem der drehzahlabhängigen Amplitude gelöst: Ordnung 1 bei 12.000 min⁻¹ wird nur mit Ordnung 1 bei ähnlicher Drehzahl verglichen. Wie die Normallage entsteht, beschreibt der Artikel <a href="blog-normallage-lernen-einlernphase.html">Normallage lernen</a>.</p>
+      <figure>
+        <svg viewBox="0 0 680 150" role="img" aria-label="Weg von der Messung zur Bewertung der Ordnungskennwerte">
+          <g fill="var(--paper)" stroke="var(--rule)">
+            <rect x="12" y="40" width="140" height="64" rx="2"/><rect x="182" y="40" width="140" height="64" rx="2"/>
+            <rect x="352" y="40" width="140" height="64" rx="2"/><rect x="522" y="40" width="146" height="64" rx="2"/>
+          </g>
+          <g><path d="M156 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M326 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/><path d="M496 72 l18 0 l-6 -5 m6 5 l-6 5" stroke="var(--gold)" stroke-width="1.5" fill="none"/></g>
+          <text x="82" y="68" text-anchor="middle" style="fill:var(--ink)">1 Messfenster</text><text x="82" y="86" text-anchor="middle" style="fill:var(--ink-2)">Drehzahl konstant?</text>
+          <text x="252" y="68" text-anchor="middle" style="fill:var(--ink)">2 Spektrum</text><text x="252" y="86" text-anchor="middle" style="fill:var(--ink-2)">Achse in Ordnungen</text>
+          <text x="422" y="68" text-anchor="middle" style="fill:var(--ink)">3 Kennwerte</text><text x="422" y="86" text-anchor="middle" style="fill:var(--ink-2)">Ordnung 1 und 2</text>
+          <text x="595" y="68" text-anchor="middle" style="fill:var(--ink)">4 Vergleich</text><text x="595" y="86" text-anchor="middle" style="fill:var(--ink-2)">je Drehzahlklasse</text>
+          <text x="340" y="132" text-anchor="middle" style="fill:var(--ink-2)">Schritte 1 bis 3 auf der Edge-Box, Schritt 4 auf der Plattform</text>
+        </svg>
+        <figcaption>Vom Messfenster zur Bewertung. Fenster mit wechselnder Drehzahl werden verworfen, verglichen wird nur innerhalb derselben Drehzahlklasse.</figcaption>
+      </figure>
+
+      <h2 id="pruefen">Was zu prüfen ist, wenn Unwucht gemeldet wird</h2>
+      <p>Bleibt Ordnung 1 über mehrere aufeinanderfolgende Messungen deutlich über der Normallage, erzeugt unser System eine Meldung mit dem Titel „Unwucht vermutet (Schwingung einmal pro Umdrehung erhöht)“. Die Meldung nennt Maschine, Messstelle und Drehzahlklasse, den gemessenen Wert im Vergleich zur Normallage und eine Prüfempfehlung. Die Empfehlung lautet: Werkzeug und Spannmittel auf Unwucht, Verschmutzung und Sitz prüfen, Wuchtzustand prüfen. In der Werkstatt heißt das in dieser Reihenfolge:</p>
+      <ol>
+        <li><strong>Welches Werkzeug war eingewechselt?</strong> Tritt die Abweichung nur mit einem bestimmten Werkzeug auf, liegt die Ursache sehr wahrscheinlich dort.</li>
+        <li><strong>Kegel und Halter reinigen:</strong> Späne und Ablagerungen am Spindelkegel und an der Plananlage entfernen, Sitz prüfen.</li>
+        <li><strong>Halter und Werkzeug prüfen:</strong> Wuchtgüte, Rundlauf, Auskragung, Zustand der Schneiden.</li>
+        <li><strong>Wuchtzustand der Spindel:</strong> Bleibt die Abweichung mit verschiedenen, sauberen und gewuchteten Werkzeugen bestehen, sollte der Spindelservice den Wuchtzustand prüfen.</li>
+      </ol>
+      <p>Die Dringlichkeit ergibt sich aus der Stufe. „Auffällig“ heißt beobachten, eine Sofortmaßnahme ist nicht nötig. „Warnung“ heißt Prüfung bei nächster Gelegenheit einplanen. „Alarm“ heißt zeitnah prüfen. Eine Restlaufzeit nennt die Meldung bewusst nicht. Nach der Prüfung melden Sie im Dashboard zurück, ob die Meldung zutraf. Wie eine solche Meldung aufgebaut ist, zeigt der Artikel <a href="blog-meldung-mit-begruendung-dashboard.html">Meldung mit Begründung</a>. Einen Überblick über die gesamte Spindelüberwachung gibt der <a href="blog-spindelueberwachung-cnc-leitfaden.html">Leitfaden Spindelüberwachung</a>, und welche Maschinen wir heute anbinden, steht unter <a href="cnc-fraeszentren.html">CNC-Fräszentren</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Was ist eine Ordnungsanalyse in der Schwingungsmessung?</summary><p>Eine Auswertung, bei der die Frequenzachse des Spektrums in Vielfachen der Drehfrequenz angegeben wird. Ordnung 1 bedeutet einmal pro Umdrehung. So bleiben drehzahlgebundene Schwingungen wie Unwucht an derselben Stelle, auch wenn die Spindel mit anderer Drehzahl läuft.</p></details>
+        <details class="faq-item"><summary>Wie erkennt man Unwucht an einer CNC-Spindel?</summary><p>An einer erhöhten Schwingung bei Ordnung 1, also genau bei der Drehfrequenz. Entscheidend ist der Vergleich mit Messungen derselben Spindel bei ähnlicher Drehzahl, weil die Amplitude mit der Drehzahl stark zunimmt und von Werkzeug zu Werkzeug schwankt.</p></details>
+        <details class="faq-item"><summary>Ist eine erhöhte Ordnung 1 immer ein Spindelschaden?</summary><p>Nein. Häufig liegt die Ursache am Werkzeug, am Werkzeughalter, an Verschmutzung am Kegel oder am Sitz des Halters. Erst wenn die Abweichung mit verschiedenen, sauberen und gewuchteten Werkzeugen bestehen bleibt, ist der Wuchtzustand der Spindel selbst zu prüfen.</p></details>
+        <details class="faq-item"><summary>Woher kommt die Drehzahl für die Ordnungsanalyse?</summary><p>Aus der CNC-Steuerung. Unsere Edge-Box liest die Spindeldrehzahl über OPC UA nur lesend aus und bewertet ein Schwingungsfenster nur, wenn die Drehzahl währenddessen nahezu konstant war. Das Schwingungssignal selbst kommt von einem Sensor am Spindelgehäuse.</p></details>
+        <details class="faq-item"><summary>Warum liegen Lagerfrequenzen nicht bei ganzen Ordnungen?</summary><p>Weil Wälzkörper und Käfig langsamer umlaufen als die Welle. Die Überrollfrequenzen ergeben sich aus der Lagergeometrie und sind deshalb krumme Vielfache der Drehfrequenz, zum Beispiel 6,45 für den Außenring eines angenommenen Spindellagers.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt der Spindelüberwachung. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Anlagenverfügbarkeit. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Spindel und Lager</span><a href="blog-cnc-spindel-geraeusche-ursachen.html">CNC-Spindel macht Geräusche: mögliche Ursachen und was Sie selbst prüfen können</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-spindelueberwachung-cnc-leitfaden.html">Spindelüberwachung an CNC-Bearbeitungszentren: der Leitfaden</a></li>
+<li><span class="label">Spindel und Lager</span><a href="blog-waelzlagerschaden-frueh-erkennen-vibrationsmuster.html">Wälzlagerschaden früh erkennen: Was Hüllkurve und Lagerfrequenzen verraten</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Nächster Schritt</p>
+        <h2 style="margin-top:18px">Ist Ihre Steuerung anbindbar? In 20 Minuten wissen Sie es.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html">Erstgespräch vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

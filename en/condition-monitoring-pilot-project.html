@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Condition monitoring pilot project: the process from the inside · Forbach &amp; Partners</title>
+<meta name="description" content="How a condition monitoring pilot for CNC spindles works: introductory call, pre-assessment, dress rehearsal, the day on site, learning phase and close-out.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/en/condition-monitoring-pilot-project.html">
+<link rel="alternate" hreflang="de" href="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<link rel="alternate" hreflang="en" href="https://forbachandpartners.com/en/condition-monitoring-pilot-project.html">
+<link rel="alternate" hreflang="x-default" href="https://forbachandpartners.com/blog-pilotprojekt-zustandsueberwachung-ablauf.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Condition monitoring pilot project: the process from the inside · Forbach &amp; Partners">
+<meta property="og:description" content="How a condition monitoring pilot for CNC spindles works: introductory call, pre-assessment, dress rehearsal, the day on site, learning phase and close-out.">
+<meta property="og:url" content="https://forbachandpartners.com/en/condition-monitoring-pilot-project.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Condition monitoring pilot project: how it works from the inside", "description": "How a condition monitoring pilot for CNC spindles works: introductory call, pre-assessment, dress rehearsal, the day on site, learning phase and close-out.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/condition-monitoring-pilot-project.html", "articleSection": "Our system", "wordCount": 2134}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "Condition monitoring pilot project: how it works from the inside", "item": "https://forbachandpartners.com/en/condition-monitoring-pilot-project.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How does a condition monitoring pilot project work?", "acceptedAnswer": {"@type": "Answer", "text": "An introductory call of about 20 minutes, a pre-assessment per machine by email, one day on site to connect the control read-only and define the measuring points, followed by the learning phase and the pilot with alerts, feedback and a monthly report per machine."}}, {"@type": "Question", "name": "Is anything changed on the CNC control during the pilot project?", "acceptedAnswer": {"@type": "Answer", "text": "Nothing is changed in parameters, programs or tool data. With your approval, a read-only user is created and the edge box's certificate is marked as trusted on the control. This is done by your staff or the machine builder's service. The edge box can only read."}}, {"@type": "Question", "name": "What does our IT need to open for condition monitoring?", "acceptedAnswer": {"@type": "Answer", "text": "Outbound connections from the edge box to our platform in Germany via port 8883, alternatively 443, and via port 443 for signed updates. No inbound connections are needed. If a firewall inspects encrypted connections by breaking them open, the edge box needs an exception."}}, {"@type": "Question", "name": "How long does the learning phase take?", "acceptedAnswer": {"@type": "Answer", "text": "That depends on how often your spindles run in which speed ranges. The system learns per machine, measuring point and speed class until there are enough measurements. We therefore do not give a blanket duration."}}, {"@type": "Question", "name": "What happens to our data when we end the pilot?", "acceptedAnswer": {"@type": "Answer", "text": "You can export all data as a JSON Lines file. On request, we delete all of your plant's data. A complete export is created beforehand, the deletion runs in a single transaction, and a report shows the deleted rows per table."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Home">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="spindle-monitoring.html">Product</a>
+      <a href="data-security.html">Data security</a>
+      <a href="process.html">Process</a>
+      <a href="downtime-calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="articles.html" aria-current="page">Articles</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="langswitch" href="../blog-pilotprojekt-zustandsueberwachung-ablauf.html" hreflang="de" lang="de" title="Deutsche Version">DE</a>
+    <a class="btn solid" href="contact.html">Book a call</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
+      <h1>Condition monitoring pilot project: how it works from the inside</h1>
+      <p class="lead">A pilot project is not a software download. This article shows step by step what happens before, during and after the visit to your machine, what we rehearse beforehand and how a pilot ends cleanly.</p>
+      <div class="byline">
+        <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
+        <div><span class="label">Updated</span><span><time datetime="2026-10-26">26 October 2026</time></span></div>
+        <div><span class="label">Reading time</span><span>11 minutes</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#introductory-call">Introductory call and pre-assessment: does your machine fleet fit?</a></li>
+<li><a href="#dress-rehearsal">Dress rehearsal with our CNC control simulator</a></li>
+<li><a href="#on-site">The day on site</a></li>
+<li><a href="#learning-phase">Learning phase: the learned baseline of your spindle</a></li>
+<li><a href="#alerts">Alerts, feedback and monthly report</a></li>
+<li><a href="#preparation">What your plant should prepare</a></li>
+<li><a href="#close-out">Close-out: data export or verifiable deletion</a></li>
+<li><a href="#faq">Frequently asked questions</a></li></ol></aside>
+    <div class="article prose">
+      <p>Before a plant introduces condition monitoring for its CNC spindles, it rightly wants to know what it is getting into. Who comes on site, what happens at the CNC control, who has to prepare what, and how do you get out again if it does not fit. This article describes a <strong>condition monitoring pilot project</strong> with us from the inside: from the first phone call through the dress rehearsal in our lab and the day at your machine to the close-out with a data export or verifiable deletion. We only give the time frames that we can actually commit to.</p>
+
+      <h2 id="introductory-call">Introductory call and pre-assessment: does your machine fleet fit?</h2>
+      <p>It starts with an introductory call of about 20 minutes by phone or video. It serves a single question: can your machines be connected. What matters is the CNC control, its software version and the enabled options, not the size of your business.</p>
+      <ul>
+        <li><strong>Siemens:</strong> SINUMERIK 840D sl, 828D and ONE with the OPC UA option.</li>
+        <li><strong>HEIDENHAIN:</strong> TNC 640, TNC 620 and TNC7 with the OPC UA NC Server. Each connected client uses one licence there.</li>
+        <li><strong>Exceptions:</strong> the iTNC 530 and TNC 320 do not have an OPC UA NC Server. Only vibration measurement is possible on them. FANUC will follow in a later phase.</li>
+      </ul>
+      <p>Today we monitor the spindle and spindle bearings. If your problems are more on feed axes, the tool changer or coolant, we will tell you in the introductory call that this is not yet part of our offer. If it does not fit, you find out in this call and not only after the visit on site. Which machines we connect is also listed on the page <a href="spindle-monitoring.html">Spindle monitoring</a>.</p>
+
+      <h3 id="pre-assessment">Pre-assessment per machine</h3>
+      <p>After the introductory call you receive a datasheet per machine and the IT security sheet. For each machine we need one line with manufacturer, type, year of manufacture, serial number, CNC control and NC software version. In addition, photos of the rating plate and of the options or licence screen of the control. These photos save a lot of time on site, because only they show whether the required OPC UA option is actually enabled.</p>
+      <p>We also ask about:</p>
+      <ul>
+        <li>other programs that already access the control via OPC UA, for example production data acquisition, MES or the machine builder's remote maintenance. On HEIDENHAIN, each of these counts against the available licences.</li>
+        <li>your maintenance contract. If it reserves interventions for the machine builder, such as creating users or certificates on the control, we clarify this together beforehand.</li>
+        <li>the network: IP address of the control, network segment, IT contact, location and power supply for the edge box.</li>
+      </ul>
+      <p>In parallel, your IT opens a single outbound connection: TCP port 8883, alternatively 443, from the edge box to our platform in Germany. No inbound connections are needed. If a firewall inspects encrypted connections by breaking them open, the edge box needs an exception there, because otherwise certificate validation fails. Details are given under <a href="data-security.html">Data security</a>.</p>
+      <p>On the organisational side, we agree a non-disclosure agreement and a data processing agreement in advance. We collect machine data, not operator data. Please clarify beforehand whether your works council needs to be informed.</p>
+
+      <h2 id="dress-rehearsal">Dress rehearsal with our CNC control simulator</h2>
+      <p>Before we travel to you, we rehearse the visit. For this we have built our own simulator that behaves like a secured SINUMERIK. It provides an OPC UA server with spindle speed, spindle load, tool, program state and alarms. A virtual measurement card supplies matching vibration signals. Both read from the same machine model, so that speed and vibration always match. Bearing damage can be deliberately introduced into the simulator and allowed to grow, in order to test the whole chain up to the alert.</p>
+      <p>In the dress rehearsal the simulator runs in encrypted mode. It then only accepts encrypted connections with a dedicated read-only user, just as it will be at your control. We use it to practise exchanging certificates, reading out the address space and starting the edge box. All variables in the simulator are read-only, and write attempts are rejected. A simulated method counts every call. This is how we prove in our end-to-end test that the edge box never calls a method.</p>
+      <div class="callout">
+        <p class="label">What the dress rehearsal does not replace</p>
+        <p>The simulator imitates a CNC control, it is not one. Which signals your control offers under which path depends on the control vendor, software version, options and machine builder. We read these paths out at your machine instead of assuming them. More on this in the article <a href="connect-sinumerik-heidenhain-opc-ua.html">Connecting SINUMERIK and HEIDENHAIN via OPC UA</a>.</p>
+      </div>
+
+      <h2 id="on-site">The day on site</h2>
+      <p>The visit to your machine takes one day. The aim is a solid foundation, not to have everything finished in one day. Production continues in the meantime. Only your staff or the machine builder's service operate the control. We say what we need, watch and document. The process follows a fixed checklist:</p>
+      <ol>
+        <li><strong>Arrival:</strong> safety briefing, one dedicated companion from operations or maintenance, photos of the rating plate, version and options screens.</li>
+        <li><strong>Check the network:</strong> bring the edge box into the machine network with your IT, check that the control can be reached, test the outbound connection to the platform.</li>
+        <li><strong>Read out the address space:</strong> the edge box reads the address space of the control into a table. The same read lock applies as in operation: only browsing and reading are permitted.</li>
+        <li><strong>Exchange certificates:</strong> the control's certificate is stored in the edge box, and the edge box's certificate is marked as trusted on the control by hand. We compare the fingerprint against a printout.</li>
+        <li><strong>Create a read-only user:</strong> with your approval, your staff set up a user that is only allowed to read. On Siemens with the rights to read data and alarms, without any write right.</li>
+        <li><strong>Define the signals:</strong> only signals that were found in the table and checked live with the spindle running go into the configuration. Spindle speed is mandatory.</li>
+        <li><strong>Start and check the edge box:</strong> do the values arrive on the platform? Does the control's user interface respond as quickly as without the edge box? By default the edge box polls once per second and never more often than every 0.1 s.</li>
+        <li><strong>Test a connection loss:</strong> we disconnect the edge box's internet connection, not the one to the control. The edge box buffers, and after reconnecting the data must arrive on the platform without gaps.</li>
+        <li><strong>Define the measuring points:</strong> together with you we determine the mounting points for the vibration sensor on the spindle housing and document them with photos.</li>
+        <li><strong>Wrap-up:</strong> label the edge box, photograph the installation location, short discussion of status, open points and next steps.</li>
+      </ol>
+      <p>Some things we never do on this day: change machine parameters, NC programs, tool data or PLC values, not even on request. Attempt writes "for testing". Open inbound ports or install remote maintenance software. Carry out network scans without approval from IT. Why the edge box technically cannot write at all is explained in the article <a href="read-only-cnc-control-write-protection.html">Read only: write protection on the CNC control</a>.</p>
+
+      <h2 id="learning-phase">Learning phase: the learned baseline of your spindle</h2>
+      <p>After the visit, the pilot begins. First the system learns the <strong>learned baseline</strong>, i.e. the normal state of each of your spindles. For every combination of machine, measuring point and speed class it collects features until there are enough measurements for robust statistics. As long as a speed class is still learning, it does not generate alerts. Speeds that your machine rarely runs take correspondingly longer.</p>
+      <p>We do not give a fixed duration for the learning phase. It depends on how often and in which speed ranges your spindles run. One precondition is important: the learning phase assumes that the spindle is healthy. If damage is already present, it becomes part of the learned baseline. After a bearing replacement or spindle repair, the baseline can therefore be learned again. This action is recorded in the log. More on this in the article <a href="learning-the-baseline.html">Learning the baseline</a>.</p>
+
+      <h2 id="alerts">Alerts, feedback and monthly report</h2>
+      <p>As soon as a learned baseline is in place, every new measurement is compared with it. There are four levels: Normal, Noticeable, Warning and Alarm. An alert is only raised when a deviation persists over several consecutive measurements. Every alert states the machine, measuring point and speed, the affected feature compared with the learned baseline, the urgency and a recommended check. For a bearing finding it names the suspected component, for example the outer race. It deliberately does not state a remaining useful life.</p>
+      <p>Your feedback is the most important contribution during the pilot. For every alert, the maintenance engineer or administrator can record whether it is <strong>correct</strong>, a <strong>false alarm</strong> or <strong>unclear</strong>. The thresholds for the levels are starting values. They are calibrated with test rig data and your feedback. Without feedback an alert stays open and is visible as open in the overview.</p>
+      <p>Once a month you receive a report per machine. What a single alert looks like in the dashboard is shown in the article <a href="explained-alerts-dashboard.html">Explained alerts</a>.</p>
+
+      <h2 id="preparation">What your plant should prepare</h2>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Who</th><th>What</th><th>When</th></tr></thead>
+          <tbody>
+            <tr><td>Maintenance</td><td>Datasheet per machine, photos of the rating plate and options screen</td><td>before the visit</td></tr>
+            <tr><td>Maintenance</td><td>Select the pilot machine, ideally one with repeat parts</td><td>before the visit</td></tr>
+            <tr><td>IT</td><td>Open outbound port 8883, alternatively 443. No inspection by breaking the encryption for the edge box</td><td>before the visit</td></tr>
+            <tr><td>IT</td><td>IP address of the control, network segment, space and network connection for the edge box, time server</td><td>before the visit</td></tr>
+            <tr><td>Management</td><td>Non-disclosure agreement and data processing agreement</td><td>before the visit</td></tr>
+            <tr><td>Management</td><td>Check the maintenance contract, inform the works council if required</td><td>before the visit</td></tr>
+            <tr><td>Operations</td><td>One dedicated companion who operates the control and runs the spindle for live tests</td><td>on the day</td></tr>
+            <tr><td>Maintenance</td><td>Check alerts and give feedback in the dashboard</td><td>during the pilot</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="close-out">Close-out: data export or verifiable deletion</h2>
+      <p>A pilot ends either with the transition to regular operation or with a clean exit. There are two tools for the exit.</p>
+      <p><strong>Data export:</strong> an administrator in your plant can export all data at any time: machines, features, control values, events, learned baselines and alerts with your feedback. The format is JSON Lines, a text file with one record per line that any analysis tool can read. Every export is recorded in the log.</p>
+      <p><strong>Deletion:</strong> the complete deletion of a customer follows a fixed sequence that cannot be shortened:</p>
+      <ol>
+        <li>First, a complete export of all the customer's data is written to a file.</li>
+        <li>Then the deletion must be explicitly confirmed by entering the exact customer name. If it does not match, nothing is deleted.</li>
+        <li>The deletion of all tables runs in a single transaction: either everything is deleted or nothing.</li>
+      </ol>
+      <p>The result is a report with the number of exported rows and deleted rows per table. This makes the deletion verifiable. It is carried out by Forbach &amp; Partners, never via the customer interface. The edge box is removed, and its access credentials on the platform are deleted along with everything else. If you would like to know whether your control can be connected, everything starts with the introductory call. The public process is described under <a href="process.html">Process and requirements</a>, and you can reach us under <a href="contact.html">Contact</a>.</p>
+
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>How does a condition monitoring pilot project work?</summary><p>An introductory call of about 20 minutes, a pre-assessment per machine by email, one day on site to connect the control read-only and define the measuring points, followed by the learning phase and the pilot with alerts, feedback and a monthly report per machine.</p></details>
+        <details class="faq-item"><summary>Is anything changed on the CNC control during the pilot project?</summary><p>Nothing is changed in parameters, programs or tool data. With your approval, a read-only user is created and the edge box's certificate is marked as trusted on the control. This is done by your staff or the machine builder's service. The edge box can only read.</p></details>
+        <details class="faq-item"><summary>What does our IT need to open for condition monitoring?</summary><p>Outbound connections from the edge box to our platform in Germany via port 8883, alternatively 443, and via port 443 for signed updates. No inbound connections are needed. If a firewall inspects encrypted connections by breaking them open, the edge box needs an exception.</p></details>
+        <details class="faq-item"><summary>How long does the learning phase take?</summary><p>That depends on how often your spindles run in which speed ranges. The system learns per machine, measuring point and speed class until there are enough measurements. We therefore do not give a blanket duration.</p></details>
+        <details class="faq-item"><summary>What happens to our data when we end the pilot?</summary><p>You can export all data as a JSON Lines file. On request, we delete all of your plant's data. A complete export is created beforehand, the deletion runs in a single transaction, and a report shows the deleted rows per table.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="../images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">About the author</p><p><b>Sascha P. Forbach</b> is the founder of Forbach &amp; Partners and the software architect of its spindle monitoring system. For twelve years he has advised manufacturers on process quality and machine availability. <a href="about.html">About us</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Read next</p><ul><li><span class="label">Our system</span><a href="edge-box-condition-monitoring.html">The edge box for condition monitoring: design, tasks and behaviour during network outages</a></li>
+<li><span class="label">Our system</span><a href="explained-alerts-dashboard.html">Alerts with an explanation: what our dashboard shows and what the maintenance engineer does with it</a></li>
+<li><span class="label">Our system</span><a href="from-vibration-to-alert-processing-chain.html">From vibration to alert: our system&#x27;s processing chain according to ISO 13374</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Next step</p>
+        <h2 style="margin-top:18px">Can your control be connected? You will know in 20 minutes.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="contact.html">Book an introductory call <span class="arr">→</span></a>
+        <a class="tel" href="tel:+4921190989962">+49 211 909 899 62</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Cyprus) · Düsseldorf (Germany)</span>
+    <nav aria-label="Legal">
+      <a href="imprint.html">Legal notice</a>
+      <a href="privacy.html">Privacy</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie settings</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Consent" hidden>
+  <p>With your consent we use the LinkedIn Insight Tag to measure how well our ads perform. If you decline, nothing is loaded. <a href="privacy.html">Learn more</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Decline</button>
+    <button class="btn" id="consent-yes" type="button">Accept</button>
+  </div>
+</div>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
