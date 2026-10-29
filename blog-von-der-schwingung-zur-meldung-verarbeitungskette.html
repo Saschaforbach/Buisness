@@ -22,7 +22,7 @@
 <link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Von der Schwingung zur Meldung: Die Verarbeitungskette unseres Systems nach ISO 13374", "description": "Wie aus Schwingungsdaten eine Meldung mit Begründung wird: Messfenster, Kennwerte, Hüllkurve, Lagerfrequenzen, Normallage, Bestätigung und Prüfempfehlung.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html", "articleSection": "Unser System", "wordCount": 1727}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Von der Schwingung zur Meldung: Die Verarbeitungskette unseres Systems nach ISO 13374", "description": "Wie aus Schwingungsdaten eine Meldung mit Begründung wird: Messfenster, Kennwerte, Hüllkurve, Lagerfrequenzen, Normallage, Bestätigung und Prüfempfehlung.", "inLanguage": "de-DE", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-architekt und gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html", "articleSection": "Unser System", "wordCount": 1729}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Von der Schwingung zur Meldung: Die Verarbeitungskette unseres Systems nach ISO 13374", "item": "https://forbachandpartners.com/blog-von-der-schwingung-zur-meldung-verarbeitungskette.html"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie entsteht ein Alarm in der Zustandsüberwachung einer CNC-Spindel?", "acceptedAnswer": {"@type": "Answer", "text": "In unserem System in fünf der sechs Stufen nach ISO 13374, eine Prognose auf den Tag geben wir bewusst nicht ab: Die Box nimmt Schwingungsfenster bei gleichbleibender Drehzahl auf, berechnet Kennwerte und sucht Lagerfrequenzen im Hüllkurvenspektrum. Die Plattform vergleicht die Kennwerte mit der gelernten Normallage der Maschine. Gemeldet wird erst, wenn eine Stufe drei Messungen in Folge besteht."}}, {"@type": "Question", "name": "Warum löst ein einzelner Stoß beim Werkzeugwechsel keinen Alarm aus?", "acceptedAnswer": {"@type": "Answer", "text": "Weil eine Stufe erst gemeldet wird, wenn sie in drei aufeinanderfolgenden Messungen erreicht wurde. Ein einmaliger Ausreißer bleibt in der Datenbank sichtbar, erzeugt aber keine Meldung."}}, {"@type": "Question", "name": "Sind die Alarmschwellen aus einer Norm wie ISO 10816?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Normen wie ISO 10816 oder ISO 20816 bewerten ganze Maschinenklassen und sind für frühe Lagerschäden zu grob. Unsere Schwellen beziehen sich auf die Abweichung von der Normallage der einzelnen Spindel. Die Werte 4, 8 und 15 sind Startwerte, die am Prüfstand kalibriert werden."}}, {"@type": "Question", "name": "Werden Rohdaten der Schwingung in die Cloud übertragen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Box berechnet die Kennwerte an der Maschine und überträgt nur diese. Details zur Übertragung und Speicherung stehen auf der Seite Datensicherheit ."}}, {"@type": "Question", "name": "Sagt das System voraus, wann die Spindel ausfällt?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Meldung nennt den Befund, die Stärke der Abweichung und eine Prüfempfehlung mit Dringlichkeit. Eine Restlaufzeit auf den Tag lässt sich ohne Schadensdaten der konkreten Spindel nicht seriös angeben."}}]}</script>
 </head>
@@ -52,7 +52,7 @@
     <div class="wrap">
       <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Unser System</span></nav>
       <h1>Von der Schwingung zur Meldung: Die Verarbeitungskette unseres Systems nach ISO 13374</h1>
-      <p class="lead">Zwischen dem Rohsignal am Spindelgehäuse und der Meldung im Dashboard liegen sieben klar getrennte Schritte. Jeder ist nachvollziehbar, und jeder Schwellwert ist offen benannt.</p>
+      <p class="lead">Zwischen dem Rohsignal am Spindelgehäuse und der Meldung im Dashboard liegen fünf klar getrennte Schritte. Jeder ist nachvollziehbar, und jeder Schwellwert ist offen benannt.</p>
       <div class="byline">
         <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
         <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
@@ -62,9 +62,9 @@
     </div>
   </header>
   <div class="wrap artgrid">
-    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#iso-13374">Fünf Stufen nach ISO 13374</a></li>
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#iso-13374">Fünf der sechs Stufen nach ISO 13374</a></li>
 <li><a href="#messfenster">Schritt 1: Das Messfenster bei gleicher Drehzahl</a></li>
-<li><a href="#kennwerte">Schritt 2 und 3: Kennwerte, Ordnungen und Hüllkurve</a></li>
+<li><a href="#kennwerte">Schritt 2: Kennwerte, Ordnungen und Hüllkurve</a></li>
 <li><a href="#lagerfrequenzen">Schritt 3: Die Suche nach den Lagerfrequenzen</a></li>
 <li><a href="#normallage">Schritt 4: Bewertung gegen die gelernte Normallage</a></li>
 <li><a href="#persistenz">Persistenz: Erst bestätigt, dann gemeldet</a></li>
@@ -73,7 +73,7 @@
     <div class="article prose">
       <p>Eine Meldung wie „Lagerschaden Außenring vermutet“ ist das Ende einer langen Rechnung. Wer ihr vertrauen soll, muss wissen, wie sie entsteht. Dieser Artikel beschreibt die <strong>Verarbeitungskette von der Schwingung zur Meldung</strong> in unserem System, Schritt für Schritt: vom Messfenster über Kennwerte, Spektrum und Hüllkurve bis zur Bewertung gegen die Normallage und zur Prüfempfehlung in Klartext. Wir nennen dabei die Startwerte, mit denen das System heute arbeitet, und sagen, welche davon noch am Prüfstand kalibriert werden.</p>
 
-      <h2 id="iso-13374">Fünf Stufen nach ISO 13374</h2>
+      <h2 id="iso-13374">Fünf der sechs Stufen nach ISO 13374</h2>
       <p>Die Normenreihe ISO 13374 beschreibt, wie Daten in der Zustandsüberwachung verarbeitet werden. Sie gliedert den Weg in Stufen: Daten erfassen, Daten aufbereiten, Zustand erkennen, Zustand bewerten, Diagnose und Empfehlung. Diese Gliederung haben wir übernommen, weil sie eine saubere Trennung erzwingt. Jede Stufe hat eine klare Eingabe, eine klare Ausgabe und einen festen Ort: entweder die Edge-Box an der Maschine oder die Plattform im Rechenzentrum in Deutschland.</p>
       <figure>
         <svg viewBox="0 0 700 200" role="img" aria-label="Verarbeitungskette in fünf Stufen von der Datenerfassung bis zur Empfehlung">
@@ -104,7 +104,7 @@
       <p>Die Box nimmt das Signal des Schwingungssensors am Spindelgehäuse in kurzen Fenstern auf. In der Grundeinstellung ist ein Fenster eine Sekunde lang, alle zehn Sekunden wird eines aufgenommen. Beides ist je Messstelle einstellbar. Parallel liest die Box die Spindeldrehzahl aus der Steuerung, nur lesend per OPC UA.</p>
       <p>Nicht jedes Fenster wird ausgewertet. Die Box prüft die Drehzahl unmittelbar vor und nach dem Fenster. Nur wenn beide Werte über 300 min⁻¹ liegen und um höchstens 2 % voneinander abweichen, geht das Fenster in die Rechnung. Hochläufe, Bremsvorgänge und Stillstand fallen so heraus. Der Grund ist einfach: Lagerfrequenzen sind proportional zur Drehzahl. Ändert sich die Drehzahl während der Messung, verschmieren die Linien im Spektrum, und das Fenster lässt sich nicht mehr sauber mit der Normallage vergleichen.</p>
 
-      <h2 id="kennwerte">Schritt 2 und 3: Kennwerte, Ordnungen und Hüllkurve</h2>
+      <h2 id="kennwerte">Schritt 2: Kennwerte, Ordnungen und Hüllkurve</h2>
       <p>Aus jedem gültigen Fenster berechnet die Box einen festen Satz von Kennwerten. Die Namen dieser Kennwerte sind Teil unseres Datenvertrags und versioniert. So bleibt nachvollziehbar, mit welcher Rechnung ein gespeicherter Wert entstanden ist.</p>
       <div class="tablebox">
         <table>
@@ -115,7 +115,7 @@
             <tr><td>Scheitelfaktor</td><td>Zeitbereich</td><td>Spitzenwert geteilt durch Effektivwert, steigt bei Stößen</td></tr>
             <tr><td>Kurtosis</td><td>Zeitbereich</td><td>Maß für Impulshaltigkeit</td></tr>
             <tr><td>1. und 2. Ordnung</td><td>Ordnungsspektrum</td><td>Schwingung einmal und zweimal pro Umdrehung</td></tr>
-            <tr><td>Hüllkurvenamplituden</td><td>Hüllkurvenspektrum</td><td>Energie bei BPFO, BPFI, BSF und FTF</td></tr>
+            <tr><td>Hüllkurvenamplituden</td><td>Hüllkurvenspektrum</td><td>Energie bei BPFO, BPFI, 2 × BSF und FTF</td></tr>
           </tbody>
         </table>
       </div>
@@ -142,7 +142,7 @@ Streuung = Maximum aus
            1,4826 · MAD
            (90-%-Quantil − Median) / 1,2816
            5 % des Medians</div>
-      <p>MAD ist die mittlere absolute Abweichung vom Median. Mit dem Faktor 1,4826 entspricht sie bei normalverteilten Daten der Standardabweichung, ist aber unempfindlich gegen einzelne Ausreißer in der Lernphase. Die zweite Formel fängt schiefe Verteilungen ab, wie sie bei Spektralamplituden üblich sind. Die Untergrenze von 5 % des Medians verhindert, dass eine sehr ruhige Maschine kleinste Änderungen als Alarm meldet. Warum wir diesen Weg statt fester Schwellen gehen, erklärt der Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">3-Sigma-Alarme oder gelernte Normallage</a>. Wie die Lernphase im Betrieb abläuft, beschreibt <a href="blog-normallage-lernen-einlernphase.html">Normallage lernen</a>.</p>
+      <p>MAD ist die mediane absolute Abweichung vom Median. Mit dem Faktor 1,4826 entspricht sie bei normalverteilten Daten der Standardabweichung, ist aber unempfindlich gegen einzelne Ausreißer in der Lernphase. Die zweite Formel fängt schiefe Verteilungen ab, wie sie bei Spektralamplituden üblich sind. Die Untergrenze von 5 % des Medians verhindert, dass eine sehr ruhige Maschine kleinste Änderungen als Alarm meldet. Warum wir diesen Weg statt fester Schwellen gehen, erklärt der Artikel <a href="blog-3-sigma-alarme-vs-ki-anomalieerkennung.html">3-Sigma-Alarme oder gelernte Normallage</a>. Wie die Lernphase im Betrieb abläuft, beschreibt <a href="blog-normallage-lernen-einlernphase.html">Normallage lernen</a>.</p>
 
       <h2 id="persistenz">Persistenz: Erst bestätigt, dann gemeldet</h2>
       <p>Aus der größten Abweichung über alle Kennwerte ergibt sich die Stufe einer einzelnen Messung. Die Startwerte lauten:</p>
@@ -161,7 +161,7 @@ Streuung = Maximum aus
       <p>Eine einzelne Messung löst aber noch nichts aus. Gemeldet wird eine Stufe erst, wenn sie in <strong>drei aufeinanderfolgenden Messungen</strong> erreicht wurde. Genauer: Die gemeldete Stufe ist die niedrigste der letzten drei. Ein Stoß beim Werkzeugwechsel oder ein Schlag beim Spannen erzeugt so keinen Alarm. Eine neue Meldung entsteht außerdem nur, wenn die bestätigte Stufe steigt. Bleibt eine Spindel in „Warnung“, wird nicht bei jeder Messung erneut gemeldet.</p>
       <div class="callout">
         <p class="label">Was die Startwerte bedeuten</p>
-        <p>Die Schwellen 4, 8 und 15, die 10 dB für die Lagerlinien und die drei Bestätigungen stammen weder aus einer Norm noch von einem Hersteller. Es sind bewusst gewählte Startwerte, die sich je Installation einstellen lassen. Mit künstlichen Signalen ist nachgewiesen, dass die Rechnung stimmt. Wie früh echte Schäden erkannt werden, zeigt erst der Prüfstand und die Rückmeldung aus dem Betrieb.</p>
+        <p>Die Schwellen 4, 8 und 15, die 10 dB für die Lagerlinien und die drei Bestätigungen stammen weder aus einer Norm noch von einem Hersteller. Es sind bewusst gewählte Startwerte, die sich je Installation einstellen lassen. Mit künstlichen Signalen ist nachgewiesen, dass die Rechnung stimmt. Wie früh echte Schäden erkannt werden, zeigen erst der Prüfstand und die Rückmeldung aus dem Betrieb.</p>
       </div>
 
       <h2 id="empfehlung">Schritt 5: Von der Abweichung zur Empfehlung in Klartext</h2>

@@ -56,12 +56,12 @@
     <div class="wrap">
       <div class="calc">
         <form id="calc" onsubmit="return false">
-          <div class="field"><label for="c-m">Machining centres with spindle <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
+          <div class="field"><label for="c-m">Number of machining centres <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
           <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="2000" step="25" value="500"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
           <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="40"></div>
           <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="1"></div>
           <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="15000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
-          <div class="field"><label for="c-v">Share avoidable with early detection, your estimate <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
+          <div class="field"><label for="c-v">Share avoidable through early detection (your estimate) <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
         </form>
         <div class="result" aria-live="polite">
           <div><span class="label">What unplanned spindle failures cost you today</span><div class="big" id="r-loss" style="margin-top:10px">–</div><span class="muted" style="font-size:14px">per year</span></div>
@@ -83,7 +83,7 @@
     <div class="wrap">
       <div class="head">
         <p class="label">Where to find the figures</p>
-        <h2>Five values your controlling department knows.</h2>
+        <h2>Five values you probably already have.</h2>
         <p>If you do not know a value exactly, use a cautious estimate. The result will then tend to be too low rather than too high.</p>
       </div>
       <div class="tablebox">

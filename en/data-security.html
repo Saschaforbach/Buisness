@@ -105,8 +105,8 @@
     <div class="wrap">
       <div class="head">
         <p class="label">Network</p>
-        <h2>Four lines for your firewall.</h2>
-        <p>No further rules are needed. The box cannot be reached from outside; it accepts no inbound connections.</p>
+        <h2>Three rules for your firewall.</h2>
+        <p>Nothing more is needed. The box cannot be reached from outside; it accepts no inbound connections.</p>
       </div>
       <div class="tablebox">
         <table>
@@ -132,9 +132,9 @@
       </div>
       <div class="spec" style="border:0">
         <dl>
-          <div><dt class="label">CNC control → box</dt><dd>OPC UA, signed and encrypted<small>Security policy Basic256Sha256. Certificates are explicitly trusted on both sides.</small></dd></div>
+          <div><dt class="label">CNC control → box</dt><dd>OPC UA, signed and encrypted<small>Security policy Basic256Sha256. Certificates are explicitly trusted by both sides.</small></dd></div>
           <div><dt class="label">Box → platform</dt><dd>TLS 1.2 or higher<small>Every box has its own certificate. The private key is generated on the box and never leaves it.</small></dd></div>
-          <div><dt class="label">Polling rate</dt><dd>Once per second<small>Technically limited to at most every 0.1 s so that the CNC control is not loaded.</small></dd></div>
+          <div><dt class="label">Polling rate</dt><dd>Once per second<small>Technically limited to at most once every 0.1 s so that the CNC control is not loaded.</small></dd></div>
           <div><dt class="label">Network outage</dt><dd>At least 7 days of buffer<small>The box stores data locally and sends it on without gaps as soon as the connection is restored.</small></dd></div>
         </dl>
       </div>
@@ -150,7 +150,7 @@
     <div class="wrap grid2">
       <div>
         <p class="label">Security datasheet</p>
-        <h2 style="margin-top:18px">Send us your IT.</h2>
+        <h2 style="margin-top:18px">Put us in touch with your IT team.</h2>
       </div>
       <div>
         <p class="lead">We go through the security datasheet with your IT lead in 20 minutes, technically and without a sales pitch. You receive the document in advance as a PDF.</p>

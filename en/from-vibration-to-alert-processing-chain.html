@@ -22,7 +22,7 @@
 <link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "From vibration to alert: our system's processing chain according to ISO 13374", "description": "How vibration data becomes an explained alert: measurement window, features, envelope, bearing frequencies, learned baseline, confirmation and advice.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html", "articleSection": "Our system", "wordCount": 2032}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "From vibration to alert: our system's processing chain according to ISO 13374", "description": "How vibration data becomes an explained alert: measurement window, features, envelope, bearing frequencies, learned baseline, confirmation and advice.", "inLanguage": "en-GB", "datePublished": "2026-10-26", "dateModified": "2026-10-26", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software architect and founder", "url": "https://forbachandpartners.com/en/about.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html", "articleSection": "Our system", "wordCount": 2035}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://forbachandpartners.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://forbachandpartners.com/en/articles.html"}, {"@type": "ListItem", "position": 3, "name": "From vibration to alert: our system's processing chain according to ISO 13374", "item": "https://forbachandpartners.com/en/from-vibration-to-alert-processing-chain.html"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is an alarm generated in condition monitoring of a CNC spindle?", "acceptedAnswer": {"@type": "Answer", "text": "In our system, in five of the six stages of ISO 13374 (we deliberately make no day-exact prognosis): the edge box records vibration windows at constant speed, calculates features and searches the envelope spectrum for bearing frequencies. The platform compares the features with the machine's learned baseline. An alert is only raised when a level persists for three measurements in a row."}}, {"@type": "Question", "name": "Why does a single impact during a tool change not trigger an alarm?", "acceptedAnswer": {"@type": "Answer", "text": "Because a level is only reported once it has been reached in three consecutive measurements. A one-off outlier remains visible in the database but does not produce an alert."}}, {"@type": "Question", "name": "Are the alarm thresholds taken from a standard such as ISO 10816?", "acceptedAnswer": {"@type": "Answer", "text": "No. Standards such as ISO 10816 or ISO 20816 assess whole classes of machines and are too coarse for early bearing damage. Our thresholds refer to the deviation from the baseline of the individual spindle. The values 4, 8 and 15 are starting values that are calibrated on the test rig."}}, {"@type": "Question", "name": "Is raw vibration data transferred to the cloud?", "acceptedAnswer": {"@type": "Answer", "text": "No. The edge box calculates the features at the machine and transmits only these. Details on transmission and storage are on the page Data security ."}}, {"@type": "Question", "name": "Does the system predict when the spindle will fail?", "acceptedAnswer": {"@type": "Answer", "text": "No. The alert states the finding, the size of the deviation and an inspection recommendation with urgency. A remaining running time to the day cannot be credibly given without damage data for the specific spindle."}}]}</script>
 </head>
@@ -52,7 +52,7 @@
     <div class="wrap">
       <nav class="crumbs label" aria-label="Breadcrumb"><a href="articles.html">Articles</a><span>/</span><span>Our system</span></nav>
       <h1>From vibration to alert: our system&#x27;s processing chain according to ISO 13374</h1>
-      <p class="lead">Between the raw signal on the spindle housing and the alert in the dashboard there are seven clearly separated steps. Each one is traceable, and every threshold is stated openly.</p>
+      <p class="lead">Between the raw signal on the spindle housing and the alert in the dashboard there are five clearly separated steps. Each one is traceable, and every threshold is stated openly.</p>
       <div class="byline">
         <img src="../images/team/sascha-avatar.jpg" alt="" width="88" height="88">
         <div><b><a href="about.html">Sascha P. Forbach</a></b><span>Software architect and founder</span></div>
@@ -62,9 +62,9 @@
     </div>
   </header>
   <div class="wrap artgrid">
-    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#iso-13374">Five stages according to ISO 13374</a></li>
+    <aside class="toc" aria-label="Contents"><p class="label">Contents</p><ol><li><a href="#iso-13374">Five of the six stages according to ISO 13374</a></li>
 <li><a href="#measurement-window">Step 1: The measurement window at constant speed</a></li>
-<li><a href="#features">Steps 2 and 3: Features, orders and envelope</a></li>
+<li><a href="#features">Step 2: Features, orders and envelope</a></li>
 <li><a href="#bearing-frequencies">Step 3: Searching for the bearing frequencies</a></li>
 <li><a href="#baseline">Step 4: Assessment against the learned baseline</a></li>
 <li><a href="#persistence">Persistence: confirmed first, then reported</a></li>
@@ -73,7 +73,7 @@
     <div class="article prose">
       <p>An alert such as "Outer race bearing damage suspected" is the end of a long calculation. If people are to trust it, they need to know how it comes about. This article describes the <strong>processing chain from vibration to alert</strong> in our system, step by step: from the measurement window through features, spectrum and envelope to the assessment against the learned baseline and the inspection recommendation in plain language. Along the way we state the starting values the system works with today and say which of them are still being calibrated on the test rig.</p>
 
-      <h2 id="iso-13374">Five stages according to ISO 13374</h2>
+      <h2 id="iso-13374">Five of the six stages according to ISO 13374</h2>
       <p>The ISO 13374 series of standards describes how data is processed in condition monitoring. It divides the path into stages: data acquisition, data manipulation, state detection, health assessment, diagnosis and recommendation. We have adopted this structure because it enforces a clean separation. Each stage has a clear input, a clear output and a fixed location: either the edge box on the machine or the platform in the data centre in Germany.</p>
       <figure>
         <svg viewBox="0 0 700 200" role="img" aria-label="Processing chain in five stages from data acquisition to recommendation">
@@ -104,7 +104,7 @@
       <p>The edge box records the signal from the vibration sensor on the spindle housing in short windows. By default, a window is one second long and one is recorded every ten seconds. Both can be set per measuring point. In parallel, the edge box reads the spindle speed from the CNC control, read-only via OPC UA.</p>
       <p>Not every window is evaluated. The edge box checks the speed immediately before and after the window. Only if both values are above 300 rpm and differ by no more than 2 % does the window go into the calculation. Run-ups, braking and standstill are therefore excluded. The reason is simple: bearing frequencies are proportional to speed. If the speed changes during the measurement, the lines in the spectrum smear, and the window can no longer be compared cleanly with the baseline.</p>
 
-      <h2 id="features">Steps 2 and 3: Features, orders and envelope</h2>
+      <h2 id="features">Step 2: Features, orders and envelope</h2>
       <p>From every valid window, the edge box calculates a fixed set of features. The names of these features are part of our data contract and are versioned. This keeps it traceable which calculation produced a stored value.</p>
       <div class="tablebox">
         <table>
@@ -115,7 +115,7 @@
             <tr><td>Crest factor</td><td>Time domain</td><td>Peak value divided by RMS, rises with impacts</td></tr>
             <tr><td>Kurtosis</td><td>Time domain</td><td>Measure of impulsiveness</td></tr>
             <tr><td>1st and 2nd order</td><td>Order spectrum</td><td>Vibration once and twice per revolution</td></tr>
-            <tr><td>Envelope amplitudes</td><td>Envelope spectrum</td><td>Energy at BPFO, BPFI, BSF and FTF</td></tr>
+            <tr><td>Envelope amplitudes</td><td>Envelope spectrum</td><td>Energy at BPFO, BPFI, 2 × BSF and FTF</td></tr>
           </tbody>
         </table>
       </div>

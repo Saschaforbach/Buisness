@@ -81,7 +81,7 @@
         <li><strong>Its failure is expensive and takes a long time to fix.</strong> A spindle repair usually means removal, overhaul by a spindle service provider and refitting. How much the damage costs your plant depends on utilisation and spare capacity. The article <a href="cost-of-machine-downtime-per-hour.html">What an hour of machine downtime costs</a> and the <a href="index.html#calculator">calculator on the home page</a> help you work it out.</li>
         <li><strong>Its damage is physically easy to measure.</strong> Spindle bearings are rolling bearings. A defect in a rolling bearing produces impacts at a repetition rate that can be calculated from bearing geometry and speed. This has been described and proven for decades.</li>
       </ul>
-      <p>The third point is decisive. For other assemblies the signals are harder to interpret, or the methods are not yet mature enough for us to offer them in good conscience. That is why we focus on the spindle. The situation for other assemblies is described in the articles on <a href="feed-axes-ball-screw-wear-patterns.html">feed axes</a>, <a href="tool-changer-failure-patterns.html">tool changers</a> and <a href="coolant-monitoring-cnc-milling.html">coolant monitoring</a>. The effect of downtime on overall equipment effectiveness is covered in the article <a href="oee-cnc-machines-availability-losses.html">OEE below 75 per cent</a>.</p>
+      <p>The third point is decisive. For other assemblies the signals are harder to interpret, or the methods are not yet mature enough for us to offer them in good conscience. That is why we focus on the spindle. The situation for other assemblies is described in the articles on <a href="feed-axes-ball-screw-wear-patterns.html">feed axes</a>, <a href="tool-changer-failure-patterns.html">tool changers</a> and <a href="coolant-monitoring-cnc-milling.html">coolant monitoring</a>. The effect of downtime on overall equipment effectiveness is covered in the article <a href="oee-cnc-machines-availability-losses.html">OEE on CNC machines</a>.</p>
 
       <h2 id="failure-modes">Five failure modes spindle monitoring has to detect</h2>
       <p>Spindle monitoring should report not only that something has changed, but also where. To do this, it assigns every change to a failure mode. Our system currently evaluates five failure modes:</p>
@@ -91,7 +91,7 @@
           <tbody>
             <tr><td>Outer race defect</td><td>Line at the outer race defect frequency and its harmonics in the envelope spectrum</td><td class="m">BPFO</td></tr>
             <tr><td>Inner race defect</td><td>Line at the inner race defect frequency, typically with sidebands spaced at the shaft frequency</td><td class="m">BPFI</td></tr>
-            <tr><td>Rolling element defect</td><td>Line at twice the rolling element spin frequency, because a damaged rolling element touches both raceways once per revolution</td><td class="m">2 × BSF</td></tr>
+            <tr><td>Rolling element defect</td><td>Line at twice the rolling element spin frequency, because a damaged rolling element touches both raceways once per rotation about its own axis</td><td class="m">2 × BSF</td></tr>
             <tr><td>Cage defect</td><td>Line at the cage frequency, often also as modulation of other lines; frequently a sign of lubrication problems</td><td class="m">FTF</td></tr>
             <tr><td>Unbalance</td><td>Increased vibration once per revolution, for example from contaminated tool holders or poorly balanced tools</td><td class="m">1 × shaft frequency</td></tr>
           </tbody>
@@ -133,7 +133,7 @@
         </table>
       </div>
       <p>RMS, crest factor and kurtosis are time-domain features. They are robust and simple, but they do not tell you which component is changing. That requires <strong>envelope analysis</strong>: the signal is band-pass filtered around the resonance range, the envelope is formed and its spectrum calculated. There, the repetition rates of the bearing impacts appear as clear lines. We only count a line as a finding if the fundamental frequency itself is visible, not just a harmonic. The steps and the typical patterns for each defect are described in the article <a href="rolling-bearing-damage-early-detection.html">Detecting rolling bearing damage early</a>.</p>
-      <p>For unbalance we use order analysis. It converts the frequency axis into multiples of the shaft frequency. If the speed changes during a program, the signal is resampled to equal steps of rotation angle, so that the speed-related components stay sharp in the spectrum.</p>
+      <p>For unbalance we use order analysis. It converts the frequency axis into multiples of the shaft frequency. Only measurement windows with a constant speed are analysed, so that the speed-related components stay sharp in the spectrum. Windows with a speed change are discarded.</p>
       <p>Why a single overall level says little about spindles, and what the ISO vibration standards actually specify, is covered in the article <a href="vibration-analysis-machine-tools-iso-limits.html">Vibration analysis on machine tools and ISO limits</a>.</p>
 
       <h2 id="baseline">Learned baseline, levels and alerts</h2>
@@ -180,7 +180,7 @@ Only increases count. A falling feature triggers nothing.</div>
       </figure>
       <ol>
         <li><strong>Introductory call:</strong> by phone or video, we check whether the control, software version and options are suitable. If they are not, we tell you in this call.</li>
-        <li><strong>Pre-check:</strong> for each machine you send us the manufacturer, model, year of manufacture and control, plus photos of the rating plate and the options screen. Your IT approves the single outbound connection.</li>
+        <li><strong>Pre-check:</strong> for each machine you send us the manufacturer, model, year of manufacture and control, plus photos of the nameplate and the options screen. Your IT approves the outbound connections.</li>
         <li><strong>On-site visit:</strong> we connect the control read-only, document the available signals and agree the measurement points on the spindle housing with you. We only set up users and certificates on the control with your approval. Production carries on throughout.</li>
         <li><strong>Pilot:</strong> the system first learns the baseline. How long that takes depends on how quickly the spindle runs through its usual speed ranges in healthy operation. After that, every alert comes with a reason, you tell us whether it was accurate, and once a month you receive a report per machine.</li>
       </ol>

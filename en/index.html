@@ -22,7 +22,7 @@
 <link rel="preload" href="../assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Forbach and Partners Ltd", "alternateName": "Forbach & Partners", "url": "https://forbachandpartners.com/", "logo": "https://forbachandpartners.com/assets/favicon.svg", "email": "info@forbachandpartners.com", "telephone": "+49 211 90989962", "founder": {"@type": "Person", "name": "Sascha P. Forbach"}, "address": [{"@type": "PostalAddress", "streetAddress": "Agias Irinis 46", "postalCode": "8504", "addressLocality": "Paphos", "addressCountry": "CY"}, {"@type": "PostalAddress", "streetAddress": "Graf-Adolf-Straße 41", "postalCode": "40210", "addressLocality": "Düsseldorf", "addressCountry": "DE"}], "sameAs": ["https://www.linkedin.com/in/sascha-p-forbach-6aa52b396/", "https://www.xing.com/profile/Sascha_Forbach"], "description": "Zustandsüberwachung für CNC-Bearbeitungszentren: Schwingungsanalyse an Spindellagern, nur lesender Zugriff auf Siemens SINUMERIK und HEIDENHAIN TNC, Daten in Deutschland."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Forbach and Partners Ltd", "alternateName": "Forbach & Partners", "url": "https://forbachandpartners.com/", "logo": "https://forbachandpartners.com/assets/favicon.svg", "email": "info@forbachandpartners.com", "telephone": "+49 211 90989962", "founder": {"@type": "Person", "name": "Sascha P. Forbach"}, "address": [{"@type": "PostalAddress", "streetAddress": "Agias Irinis 46", "postalCode": "8504", "addressLocality": "Paphos", "addressCountry": "CY"}, {"@type": "PostalAddress", "streetAddress": "Graf-Adolf-Straße 41", "postalCode": "40210", "addressLocality": "Düsseldorf", "addressCountry": "DE"}], "sameAs": ["https://www.linkedin.com/in/sascha-p-forbach-6aa52b396/", "https://www.xing.com/profile/Sascha_Forbach"], "description": "Condition monitoring for CNC machining centres: vibration analysis on spindle bearings, read-only access to Siemens SINUMERIK and HEIDENHAIN TNC, data stored in Germany."}</script>
 </head>
 <body>
 <a class="skip" href="#inhalt">Skip to content</a>
@@ -69,7 +69,7 @@
           </div>
           <div class="plot"><canvas id="spec" aria-hidden="true"></canvas></div>
           <div class="inst-foot">
-            <div><span class="label">Speed</span><b class="num">6,000 min⁻¹</b></div>
+            <div><span class="label">Speed</span><b class="num">6,000 rpm</b></div>
             <div><span class="label">BPFO feature</span><b class="num" id="kv">–</b></div>
             <div><span class="label">Assessment</span><b id="ev"><span class="state s-warn">Warning</span></b></div>
           </div>
@@ -228,12 +228,12 @@
       </div>
       <div class="calc">
         <form id="calc" onsubmit="return false">
-          <div class="field"><label for="c-m">Machining centres with spindle <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
+          <div class="field"><label for="c-m">Number of machining centres <output id="o-m" for="c-m"></output></label><input type="range" id="c-m" min="1" max="40" step="1" value="4"></div>
           <div class="field"><label for="c-h">Cost per hour of downtime <output id="o-h" for="c-h"></output></label><input type="range" id="c-h" min="100" max="2000" step="25" value="500"><small class="hint">Machine hourly rate plus lost contribution margin when orders are waiting.</small></div>
           <div class="field"><label for="c-s">Unplanned downtime hours per machine and year caused by spindle and bearing damage <output id="o-s" for="c-s"></output></label><input type="range" id="c-s" min="0" max="200" step="2" value="40"></div>
           <div class="field"><label for="c-n">Unplanned spindle failures per year, all machines <output id="o-n" for="c-n"></output></label><input type="range" id="c-n" min="0" max="20" step="1" value="1"></div>
           <div class="field"><label for="c-r">Extra cost per unplanned spindle failure <output id="o-r" for="c-r"></output></label><input type="range" id="c-r" min="0" max="60000" step="1000" value="15000"><small class="hint">Rush repair, consequential damage to spindle and workpiece, express shipping, extra shifts.</small></div>
-          <div class="field"><label for="c-v">Share avoidable with early detection, your estimate <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
+          <div class="field"><label for="c-v">Share avoidable through early detection (your estimate) <output id="o-v" for="c-v"></output></label><input type="range" id="c-v" min="0" max="100" step="5" value="30"></div>
         </form>
         <div class="result" aria-live="polite">
           <div><span class="label">What unplanned spindle failures cost you today</span><div class="big" id="r-loss" style="margin-top:10px">–</div><span class="muted" style="font-size:14px">per year</span></div>
@@ -270,7 +270,7 @@
         <h3>Sascha P. Forbach</h3>
         <p class="role">Founder, managing director and software architect · Düsseldorf</p>
         <p class="q">“German industry does not win on price. It wins when its machines run when they have to.”</p>
-        <p class="t">We are at market launch and are taking on our first manufacturing customers. In the introductory call you speak to the founder, not a call centre.</p>
+        <p class="t">We are launching on the market and taking on our first manufacturing customers. In the introductory call you speak to the founder, not a call centre.</p>
         <p style="margin-top:22px"><a class="tel" href="about.html">More about us →</a></p>
       </div>
     </div>
