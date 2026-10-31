@@ -16,6 +16,8 @@
     calcSubj: 'Anfrage aus dem Stillstandsrechner – Forbach & Partners (Website)',
     itMsg: 'Wir möchten das IT-Sicherheitsblatt mit unserem IT-Verantwortlichen durchgehen.',
     itSubj: 'Anfrage technisches IT-Gespräch – Forbach & Partners (Website)',
+    aiMsg: 'Wir interessieren uns für eine Vorführung von Forbach AI mit unseren eigenen Zeichnungen.',
+    aiSubj: 'Anfrage Forbach AI – Vorführung (Website)',
     good: 'Normal', warn: 'Warnung'
   };
   var money = function (v) {
@@ -68,6 +70,10 @@
         $('k-msg').value = L.calcMsg(mm, money(vl), money(vm));
         $('k-subject').value = L.calcSubj;
       }
+    }
+    if (/[?&]thema=forbach-ai\b/.test(location.search) && L.aiMsg) {
+      $('k-msg').value = L.aiMsg;
+      $('k-subject').value = L.aiSubj;
     }
     if (/[?&]thema=it\b/.test(location.search)) {
       $('k-msg').value = L.itMsg;
