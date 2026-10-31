@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zeichnungen aus PDF und STEP auslesen: Möglichkeiten und Grenzen · Forbach &amp; Partners</title>
+<meta name="description" content="Welche Angaben Software aus PDF-Zeichnungen und STEP-Modellen zuverlässig ausliest, wo Scans und Toleranzen Grenzen setzen und warum ein Prüfschritt bleibt.">
+<meta name="theme-color" content="#16181a">
+<link rel="canonical" href="https://forbachandpartners.com/blog-zeichnungen-auslesen-pdf-step.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Forbach &amp; Partners">
+<meta property="og:title" content="Zeichnungen aus PDF und STEP auslesen: Möglichkeiten und Grenzen · Forbach &amp; Partners">
+<meta property="og:description" content="Welche Angaben Software aus PDF-Zeichnungen und STEP-Modellen zuverlässig ausliest, wo Scans und Toleranzen Grenzen setzen und warum ein Prüfschritt bleibt.">
+<meta property="og:url" content="https://forbachandpartners.com/blog-zeichnungen-auslesen-pdf-step.html">
+<meta property="og:image" content="https://forbachandpartners.com/images/og-bild.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/IBMPlexSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Zeichnungen aus PDF und STEP auslesen: Was Software heute kann und was nicht", "description": "Welche Angaben Software aus PDF-Zeichnungen und STEP-Modellen zuverlässig ausliest, wo Scans und Toleranzen Grenzen setzen und warum ein Prüfschritt bleibt.", "inLanguage": "de-DE", "datePublished": "2026-10-31", "dateModified": "2026-10-31", "author": {"@type": "Person", "name": "Sascha P. Forbach", "jobTitle": "Software-Architekt und Gründer", "url": "https://forbachandpartners.com/ueber-uns.html"}, "publisher": {"@type": "Organization", "name": "Forbach and Partners Ltd", "url": "https://forbachandpartners.com/", "logo": {"@type": "ImageObject", "url": "https://forbachandpartners.com/assets/favicon.svg"}}, "image": "https://forbachandpartners.com/images/og-bild.jpg", "mainEntityOfPage": "https://forbachandpartners.com/blog-zeichnungen-auslesen-pdf-step.html", "articleSection": "Angebot und Kalkulation", "wordCount": 1134}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://forbachandpartners.com/"}, {"@type": "ListItem", "position": 2, "name": "Fachartikel", "item": "https://forbachandpartners.com/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Zeichnungen aus PDF und STEP auslesen: Was Software heute kann und was nicht", "item": "https://forbachandpartners.com/blog-zeichnungen-auslesen-pdf-step.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kann Software Zeichnungen aus einem gescannten PDF auslesen?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, mit Texterkennung (OCR). Das Ergebnis ist aber fehleranfälliger als bei einem PDF, das direkt aus dem CAD exportiert wurde. Schlechte Scans, kleine Schrift, Stempel und Handschrift erhöhen die Fehlerquote. Ausgelesene Werte aus Scans sollten Sie deshalb besonders sorgfältig prüfen."}}, {"@type": "Question", "name": "Enthält ein STEP-Modell Toleranzen und Oberflächenangaben?", "acceptedAnswer": {"@type": "Answer", "text": "In der Regel nicht. Ein STEP-Modell beschreibt die Nenngeometrie, aus der sich Rohteilmaß, Volumen und Hüllquader exakt berechnen lassen. Toleranzen können zwar als PMI mitgeliefert werden, das kommt in der Praxis aber selten vor. Maßgeblich für Toleranzen bleibt die Zeichnung."}}, {"@type": "Question", "name": "Wie schwärze ich eine Zeichnung richtig, bevor ich sie an einen Lieferanten schicke?", "acceptedAnswer": {"@type": "Answer", "text": "Der Inhalt muss aus der Datei entfernt werden, ein schwarzer Balken über dem Text reicht nicht. Nutzen Sie eine echte Schwärzungsfunktion, prüfen Sie danach, ob sich der Text noch markieren lässt, und kontrollieren Sie Metadaten und Dateinamen."}}, {"@type": "Question", "name": "Muss ich ausgelesene Zeichnungsdaten noch prüfen?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Schriftfeldangaben sind meist zuverlässig, Passungen, Form- und Lagetoleranzen, Oberflächen und Hinweise brauchen aber einen Blick vom Menschen. Forbach AI zeigt die erkannten Werte neben der Zeichnung an, sodass die Prüfung kurz bleibt und jeder Wert korrigiert werden kann."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html" aria-label="Forbach &amp; Partners, Startseite">Forbach <i>&amp;</i> Partners</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="cnc-fraeszentren.html">Leistung</a>
+      <a href="forbach-ai.html">Forbach AI</a>
+      <a href="datensicherheit.html">Datensicherheit</a>
+      <a href="ablauf.html">Ablauf</a>
+      <a href="stillstandsrechner.html">Rechner</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="blog.html" aria-current="page">Fachartikel</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="btn solid" href="kontakt.html?thema=forbach-ai">Vorführung</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menü</button>
+  </div>
+</header>
+
+<main id="inhalt">
+  <article>
+  <header class="pagehead articlehead">
+    <div class="wrap">
+      <nav class="crumbs label" aria-label="Brotkrumen"><a href="blog.html">Fachartikel</a><span>/</span><span>Angebot und Kalkulation</span></nav>
+      <h1>Zeichnungen aus PDF und STEP auslesen: Was Software heute kann und was nicht</h1>
+      <p class="lead">Zeichnungsdaten abzutippen ist einer der größten Routineblöcke in der Angebotserstellung. Software kann einen guten Teil davon übernehmen. Wie viel, hängt davon ab, in welcher Form die Zeichnung ankommt und welche Angabe Sie brauchen.</p>
+      <div class="byline">
+        <img src="images/team/sascha-avatar.jpg" alt="" width="88" height="88">
+        <div><b><a href="ueber-uns.html">Sascha P. Forbach</a></b><span>Software-Architekt und Gründer</span></div>
+        <div><span class="label">Aktualisiert</span><span><time datetime="2026-10-31">31. Oktober 2026</time></span></div>
+        <div><span class="label">Lesezeit</span><span>8 Minuten</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="wrap artgrid">
+    <aside class="toc" aria-label="Inhalt"><p class="label">Inhalt</p><ol><li><a href="#pdf-ist-nicht-gleich-pdf">PDF ist nicht gleich PDF</a></li>
+<li><a href="#schriftfeld">Das Schriftfeld: gut auslesbar</a></li>
+<li><a href="#bemassung">Bemaßung, Toleranzen und Hinweise: schwieriger</a></li>
+<li><a href="#step-modell">Was das STEP-Modell liefert</a></li>
+<li><a href="#wiederholteile">Wiederholteile und Index-Änderungen</a></li>
+<li><a href="#vertraulichkeit">Vertraulichkeit und Schwärzen</a></li>
+<li><a href="#forbach-ai">Wie Forbach AI das umsetzt</a></li>
+<li><a href="#faq">Häufige Fragen</a></li></ol></aside>
+    <div class="article prose">
+<p>Eine Kundenanfrage enthält fast immer eine Zeichnung als PDF, oft zusätzlich ein STEP-Modell. Daraus muss jemand Zeichnungsnummer, Index, Werkstoff, Abmessungen, Toleranzen und Oberflächen in die Kalkulation übertragen. Das ist Routine, kostet aber je Position spürbar Zeit, wie der Artikel <a href="blog-angebotskalkulation-lohnfertigung-zeitaufwand.html">Wo die 70 Minuten je Position hingehen</a> zeigt. Die naheliegende Frage lautet: Was davon kann Software heute verlässlich auslesen?</p>
+      <p>Die ehrliche Antwort: vieles, aber nicht alles mit derselben Sicherheit. Entscheidend sind zwei Dinge. Erstens die Art der Datei. Zweitens die Art der Angabe auf der Zeichnung.</p>
+
+      <h2 id="pdf-ist-nicht-gleich-pdf">PDF ist nicht gleich PDF</h2>
+      <p>Ein PDF, das direkt aus dem CAD-System exportiert wurde, ist in der Regel eine Vektordatei mit Textebene. Linien sind Linien, Texte sind echte Zeichen. Software kann diese Zeichen direkt lesen, ohne sie erst erkennen zu müssen. Das ist die beste Ausgangslage.</p>
+      <p>Ein gescanntes PDF ist dagegen nur ein Bild. Häufig ist es eine alte Papierzeichnung, ein Fax oder ein Ausdruck mit handschriftlichen Ergänzungen. Hier muss Texterkennung (OCR) die Zeichen erst aus den Pixeln ermitteln. Das funktioniert bei sauberen Scans ordentlich, bleibt aber fehleranfälliger. Eine 8 wird zur 3, ein Komma verschwindet, ein schief eingelegtes Blatt verschlechtert das Ergebnis. Kleine Schrift, Stempel über dem Text und Handschrift sind besonders schwierig.</p>
+      <p>Dazwischen gibt es Sonderfälle. Manche CAD-Exporte wandeln Text in Linienzüge um. Die Datei sieht dann scharf aus, enthält aber keine lesbaren Zeichen und muss wie ein Scan behandelt werden. Ob eine Zeichnung eine Textebene hat, prüfen Sie einfach: Lässt sich ein Wort im PDF-Betrachter markieren und kopieren, ist sie vorhanden.</p>
+
+      <h2 id="schriftfeld">Das Schriftfeld: gut auslesbar</h2>
+      <p>Das Schriftfeld ist der dankbarste Teil einer Zeichnung. Es steht an einer festen Stelle, ist tabellarisch aufgebaut und folgt meist einer Norm oder einer Hausvorlage. Zeichnungsnummer, Index, Benennung, Werkstoff, Maßstab und der Verweis auf Allgemeintoleranzen, etwa ISO 2768-mK, lassen sich daraus gut auslesen. Bei Kunden, deren Zeichnungen immer gleich aufgebaut sind, wird das Ergebnis mit der Zeit noch stabiler.</p>
+      <p>Grenzen gibt es auch hier. Werkstoffe stehen mal als Kurzname, mal als Werkstoffnummer, mal als Hausbezeichnung des Kunden. Software kann sie erkennen, die Zuordnung zu Ihrem Materialstamm sollte aber jemand bestätigen.</p>
+
+      <h2 id="bemassung">Bemaßung, Toleranzen und Hinweise: schwieriger</h2>
+      <p>In der Zeichnungsfläche wird es anspruchsvoller. Maße stehen in verschiedenen Ausrichtungen, Maßlinien überkreuzen sich, und der Bezug eines Maßes zur Geometrie ergibt sich nur aus der Darstellung. Ein Maß als Text zu lesen ist das eine. Zu verstehen, welche Bohrung es betrifft, ist etwas anderes.</p>
+      <p>Besonders prüfbedürftig sind Passungen wie H7 oder g6, Form- und Lagetoleranzen (GD&amp;T) mit ihren Symbolen und Bezügen, Oberflächenangaben wie Ra 0,8 sowie Freitext-Hinweise zu Härten, Beschichten oder Entgraten. Gerade diese Angaben treiben aber den Aufwand und damit den Preis. Eine einzige übersehene Lagetoleranz kann aus einer einfachen Fräsoperation einen zusätzlichen Arbeitsgang mit Messprotokoll machen.</p>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Angabe</th><th>Quelle</th><th>Zuverlässigkeit</th></tr></thead>
+          <tbody>
+            <tr><td>Zeichnungsnummer, Index, Benennung</td><td>Schriftfeld im PDF</td><td>Hoch bei Textebene, mittel bei Scan</td></tr>
+            <tr><td>Werkstoff, Maßstab, Allgemeintoleranz</td><td>Schriftfeld im PDF</td><td>Hoch bei Textebene, Zuordnung prüfen</td></tr>
+            <tr><td>Rohteilmaß, Volumen, Hüllquader</td><td>STEP-Modell</td><td>Hoch, exakt aus der Geometrie</td></tr>
+            <tr><td>Einzelmaße in der Zeichnungsfläche</td><td>PDF</td><td>Mittel, Bezug zur Geometrie prüfen</td></tr>
+            <tr><td>Passungen, Form- und Lagetoleranzen</td><td>PDF, selten STEP mit PMI</td><td>Begrenzt, immer prüfen</td></tr>
+            <tr><td>Oberflächen, Hinweise, Fremdleistungen</td><td>PDF</td><td>Begrenzt, immer prüfen</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="step-modell">Was das STEP-Modell liefert</h2>
+      <p>Ein STEP-Modell enthält die exakte Geometrie des Teils. Daraus lassen sich Hüllquader, Volumen und Oberfläche ohne Messfehler berechnen. Mit einer Bearbeitungszugabe ergibt sich das Rohteilmaß, aus dem Volumen und der Dichte das Fertiggewicht. Für Materialkosten und die Frage, ob ein Teil auf eine bestimmte Maschine passt, ist das eine solide Grundlage.</p>
+      <p>Was ein STEP-Modell normalerweise nicht enthält, sind Toleranzen, Passungen und Oberflächenangaben. Es beschreibt die Nenngeometrie. Der Standard erlaubt zwar zusätzliche Fertigungsinformationen (PMI), in der Praxis liefern Kunden diese aber selten mit. Die Zeichnung bleibt deshalb die maßgebliche Quelle für alles, was über die reine Form hinausgeht.</p>
+
+      <h2 id="wiederholteile">Wiederholteile und Index-Änderungen</h2>
+      <p>Viele Anfragen betreffen Teile, die Sie schon einmal angeboten oder gefertigt haben. Sind Zeichnungsnummer und Index sauber ausgelesen, lässt sich das automatisch prüfen. Gleiche Nummer und gleicher Index heißen: altes Angebot und echte Ist-Zeiten heranziehen. Gleiche Nummer mit neuem Index heißt: Es hat sich etwas geändert, und genau das muss jemand ansehen. Software kann auf den Unterschied hinweisen, die Bewertung der Änderung bleibt fachlich.</p>
+      <div class="callout">
+        <p class="label">Warum ein Prüfschritt bleibt</p>
+        <p>Ausgelesene Werte sind ein Vorschlag, keine Freigabe. Ein falsch gelesener Werkstoff oder eine übersehene Toleranz führt zu einem Angebot, das Sie später bereuen. Sinnvoll ist ein kurzer Blick auf jede Position, bei dem die erkannten Werte neben der Zeichnung stehen. Das dauert Sekunden statt Minuten, ersetzt aber nicht das Hinsehen.</p>
+      </div>
+
+      <h2 id="vertraulichkeit">Vertraulichkeit und Schwärzen</h2>
+      <p>Für Fremdleistungen wie Härten, Beschichten oder Schleifen geben Sie Zeichnungen an Lieferanten weiter. Kundenname, Logo, Projektbezeichnung oder Endkunde gehen den Lieferanten oft nichts an, und manche Kunden verlangen ausdrücklich, dass diese Angaben entfernt werden.</p>
+      <p>Dabei ist ein häufiger Fehler zu vermeiden. Ein schwarzer Balken, der in einem PDF-Programm über den Text gelegt wird, verdeckt ihn nur. Der Text bleibt in der Datei und lässt sich markieren, kopieren oder durch Entfernen des Balkens wieder sichtbar machen. Echtes Schwärzen entfernt den Inhalt aus der Datei. Bei Scans heißt das, die Bildpunkte selbst zu überschreiben. Prüfen Sie zusätzlich die Metadaten des PDF und den Dateinamen, denn auch dort stehen oft Kunden- oder Projektnamen.</p>
+
+      <h2 id="forbach-ai">Wie Forbach AI das umsetzt</h2>
+      <p><a href="forbach-ai.html">Forbach AI</a> liest das Schriftfeld aus PDF-Zeichnungen aus, nutzt bei Scans Texterkennung und berechnet aus dem STEP-Modell Geometriewerte wie Rohteilmaß und Volumen, mit einer Vorschau des Modells zur Kontrolle. Die vergebene Artikelnummer wird in die Zeichnung gestempelt, Wiederholteile und neue Indizes werden erkannt, und Zeichnungen für Lieferanten lassen sich vor dem Versand schwärzen. Alle erkannten Werte lassen sich jederzeit korrigieren. Wie gut das mit Ihren Zeichnungen funktioniert, zeigen wir in einer Vorführung mit 10 Ihrer eigenen Zeichnungen. Wie die Daten danach in Ihr bestehendes System kommen, beschreibt der Artikel <a href="blog-software-ueber-dem-erp.html">Software über dem ERP</a>.</p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="faq">
+        <details class="faq-item"><summary>Kann Software Zeichnungen aus einem gescannten PDF auslesen?</summary><p>Ja, mit Texterkennung (OCR). Das Ergebnis ist aber fehleranfälliger als bei einem PDF, das direkt aus dem CAD exportiert wurde. Schlechte Scans, kleine Schrift, Stempel und Handschrift erhöhen die Fehlerquote. Ausgelesene Werte aus Scans sollten Sie deshalb besonders sorgfältig prüfen.</p></details>
+        <details class="faq-item"><summary>Enthält ein STEP-Modell Toleranzen und Oberflächenangaben?</summary><p>In der Regel nicht. Ein STEP-Modell beschreibt die Nenngeometrie, aus der sich Rohteilmaß, Volumen und Hüllquader exakt berechnen lassen. Toleranzen können zwar als PMI mitgeliefert werden, das kommt in der Praxis aber selten vor. Maßgeblich für Toleranzen bleibt die Zeichnung.</p></details>
+        <details class="faq-item"><summary>Wie schwärze ich eine Zeichnung richtig, bevor ich sie an einen Lieferanten schicke?</summary><p>Der Inhalt muss aus der Datei entfernt werden, ein schwarzer Balken über dem Text reicht nicht. Nutzen Sie eine echte Schwärzungsfunktion, prüfen Sie danach, ob sich der Text noch markieren lässt, und kontrollieren Sie Metadaten und Dateinamen.</p></details>
+        <details class="faq-item"><summary>Muss ich ausgelesene Zeichnungsdaten noch prüfen?</summary><p>Ja. Schriftfeldangaben sind meist zuverlässig, Passungen, Form- und Lagetoleranzen, Oberflächen und Hinweise brauchen aber einen Blick vom Menschen. <a href="forbach-ai.html">Forbach AI</a> zeigt die erkannten Werte neben der Zeichnung an, sodass die Prüfung kurz bleibt und jeder Wert korrigiert werden kann.</p></details>
+      </div>
+
+      <div class="authorbox">
+        <img src="images/team/sascha-avatar.jpg" alt="Sascha P. Forbach" width="88" height="88" loading="lazy">
+        <div><p class="label">Über den Autor</p><p><b>Sascha P. Forbach</b> ist Gründer von Forbach &amp; Partners und Software-Architekt von Forbach AI. Seit zwölf Jahren berät er produzierende Betriebe zu Prozessqualität und Abläufen. <a href="ueber-uns.html">Mehr über uns</a></p></div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap"><p class="label">Weiterlesen</p><ul><li><span class="label">Angebot und Kalkulation</span><a href="blog-angebotskalkulation-lohnfertigung-zeitaufwand.html">Angebotskalkulation in der Lohnfertigung: Wo die 70 Minuten je Position hingehen</a></li>
+<li><span class="label">Angebot und Kalkulation</span><a href="blog-ruest-und-stueckzeiten-schaetzen.html">Rüst- und Stückzeiten schätzen: Richtwerte, Erfahrung oder echte Ist-Zeiten?</a></li>
+<li><span class="label">Angebot und Kalkulation</span><a href="blog-software-ueber-dem-erp.html">ERP behalten, Routine abgeben: Software über dem ERP statt ERP-Wechsel</a></li></ul></div>
+  </section>
+  </article>
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <p class="label">Forbach AI</p>
+        <h2 style="margin-top:18px">Schicken Sie uns 10 Zeichnungen. Wir zeigen Ihnen Ihre eigenen Angebote.</h2>
+      </div>
+      <div class="acts">
+        <a class="btn solid" href="kontakt.html?thema=forbach-ai">Vorführung vereinbaren <span class="arr">→</span></a>
+        <a class="tel" href="forbach-ai.html">Forbach AI ansehen</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Forbach and Partners Ltd · Paphos (Zypern) · Düsseldorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <button class="linkbtn" id="consent-settings" type="button">Cookie-Einstellungen</button>
+    </nav>
+  </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Einwilligung" hidden>
+  <p>Mit Ihrer Zustimmung messen wir mit dem LinkedIn Insight Tag, wie gut unsere Anzeigen wirken. Lehnen Sie ab, wird nichts geladen. <a href="datenschutz.html">Mehr dazu</a></p>
+  <div class="acts">
+    <button class="btn" id="consent-no" type="button">Ablehnen</button>
+    <button class="btn" id="consent-yes" type="button">Zustimmen</button>
+  </div>
+</div>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
