@@ -3,6 +3,7 @@
 > Zustandsüberwachung für CNC-Bearbeitungszentren: Schwingungsanalyse an Spindellagern (Außenring, Innenring, Wälzkörper, Käfig, Unwucht), nur lesender Zugriff auf Siemens SINUMERIK und HEIDENHAIN TNC per OPC UA, Daten ausschließlich in Deutschland. Forbach and Partners Ltd, Paphos (Zypern), Ansprechpartner in Düsseldorf. Gründer und Software-Architekt: Sascha P. Forbach.
 
 ## Seiten
+- [Forbach AI](https://forbachandpartners.com/forbach-ai.html): Angebots-Autopilot für Lohnfertiger. Liest Zeichnungen (PDF, STEP), schlägt Arbeitsplan und Preis vor, schreibt das Angebot mit Liefertermin aus der Maschinenbelegung. Arbeitet über dem bestehenden ERP. 990 € im Monat, Pilot 6 Monate 495 €.
 - [Ablauf und Voraussetzungen](https://forbachandpartners.com/ablauf.html): Vom Erstgespräch zum laufenden Monitoring in vier Schritten. Welche Steuerungen und Optionen Ihre Anlage mitbringen muss.
 - [Leistung](https://forbachandpartners.com/cnc-fraeszentren.html): Was das System heute überwacht, welche Schäden es erkennt und welche Steuerungen anbindbar sind. Siemens SINUMERIK und HEIDENHAIN TNC, nur lesend.
 - [Danke für Ihre Anfrage](https://forbachandpartners.com/danke.html): Ihre Anfrage ist angekommen. Sascha P. Forbach meldet sich persönlich bei Ihnen.
