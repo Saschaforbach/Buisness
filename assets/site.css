@@ -4,8 +4,8 @@
 :root{
   --ground:#16181a; --paper:#1e2124; --ink:#ecebe7; --ink-2:#a9aaa6; --ink-3:#7f817e;
   --rule:#34383b; --rule-soft:#272a2d;
-  --brass:#d9a955; --gold:#e4b15e; --on-gold:#1a1408;
-  --ok:#5cbf8e; --note:#98a8bb; --warn:#e2a640; --alarm:#e5654f;
+  --brass:#bc9e5a; --gold:#bc9e5a; --on-gold:#1a1408;
+  --ok:#5cbf8e; --note:#98a8bb; --warn:#bc9e5a; --alarm:#e5654f;
   --plot-bg:#1a1d1f; --plot-grid:#2a2e31;
   --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
   --f-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -399,7 +399,5 @@ footer a:hover{color:var(--ink)}
 .mark img{display:block;height:48px;width:auto}
 @media (max-width:1080px){.nav{top:76px}}
 @media (max-width:420px){.mark img{height:40px}}
-.hero-logo{display:block;width:380px;max-width:80%;height:auto;margin-bottom:34px}
-@media (max-width:700px){.hero-logo{width:280px;margin-bottom:24px}}
 .foot-logo{display:block;flex-basis:100%;margin-bottom:6px}
 .foot-logo img{display:block;height:40px;width:auto}
