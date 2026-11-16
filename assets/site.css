@@ -393,3 +393,13 @@ footer a:hover{color:var(--ink)}
 .langswitch{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-2);text-decoration:none;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;white-space:nowrap}
 .langswitch:hover{color:var(--ink);border-color:var(--ink-2)}
 @media (max-width:1080px){.langswitch{margin-left:auto}.top .langswitch+.btn{margin-left:0}}
+
+/* FP-Logo */
+.top .wrap{height:76px}
+.mark img{display:block;height:48px;width:auto}
+@media (max-width:1080px){.nav{top:76px}}
+@media (max-width:420px){.mark img{height:40px}}
+.hero-logo{display:block;width:380px;max-width:80%;height:auto;margin-bottom:34px}
+@media (max-width:700px){.hero-logo{width:280px;margin-bottom:24px}}
+.foot-logo{display:block;flex-basis:100%;margin-bottom:6px}
+.foot-logo img{display:block;height:40px;width:auto}
